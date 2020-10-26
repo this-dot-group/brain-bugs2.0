@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "brain-bugs2.0",
-    "slug": "brain-bugs2.0",
+    "name": "brain-bugs2",
+    "slug": "brain-bugs2",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
