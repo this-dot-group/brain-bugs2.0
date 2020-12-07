@@ -10,12 +10,12 @@ import HowToPlay from './components/HowToPlay/HowToPlay'
 export default function App() {
   return (
     <View style={styles.container}>
-      <GameEnd />
-      <GameScreen />
       <HomeScreen />
-      <HowToPlay />
-      <Text>Brain Bugs 2.0 - Coming Soon!</Text>
-      <StatusBar style="auto" />
+      {/* <GameScreen />
+      <GameEnd />
+      <HowToPlay />         
+      <Text>Brain Bugs 2.0 - Coming Soon!</Text> */}
+      {/* <StatusBar style="auto" /> */}
     </View>
   );
 }
