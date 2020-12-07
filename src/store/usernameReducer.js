@@ -16,6 +16,8 @@ export default ( state='', action ) => {
 
 export const newUsername = ( username ) => {
 
+  console.log('in usernameReducer!! username: ', username)
+
   return {
     type: 'NEW_USER',
     payload: username,

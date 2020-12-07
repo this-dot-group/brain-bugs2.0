@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Image, Input, Button } from 'react-native-elements'
+import { connect } from 'react-redux';
 
+import { newUsername } from '../../store/usernameReducer.js';
 
 
 
@@ -16,18 +18,17 @@ const styles = StyleSheet.create({
 
 });
 
-function Homescreen() {
+function Homescreen(props) {
 
   const [ username, setUsername ] = useState('')
 
 
   const handleGo = () => {
 
-    
-    console.log('Go! clicked')
-    console.log(username)
-  }
+    props.newUsername(username);
 
+    
+  }
 
 
 
@@ -53,4 +54,8 @@ function Homescreen() {
   )
 }
 
-export default Homescreen
+const mapDispatchToProps = { newUsername }
+
+// null is currently a placeholder for mapStateToProps
+
+export default connect( null, mapDispatchToProps)(Homescreen);
