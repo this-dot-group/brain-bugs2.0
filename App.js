@@ -2,9 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import HomeScreen from './src/components/HomeScreen/HomeScreen'
 import GameEnd from './src/components/GameEnd/GameEnd'
 import GameScreen from './src/components/GameScreen/GameScreen'
-import HomeScreen from './src/components/HomeScreen/HomeScreen'
 import HowToPlay from './src/components/HowToPlay/HowToPlay'
 
 export default function App() {
