@@ -2,10 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import GameEnd from './components/GameEnd/GameEnd'
-import GameScreen from './components/GameScreen/GameScreen'
-import HomeScreen from './components/HomeScreen/HomeScreen'
-import HowToPlay from './components/HowToPlay/HowToPlay'
+import GameEnd from './src/components/GameEnd/GameEnd'
+import GameScreen from './src/components/GameScreen/GameScreen'
+import HomeScreen from './src/components/HomeScreen/HomeScreen'
+import HowToPlay from './src/components/HowToPlay/HowToPlay'
 
 export default function App() {
   return (

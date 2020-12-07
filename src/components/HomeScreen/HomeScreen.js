@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Image, Input, Button } from 'react-native-elements'
 
-// import HowToPlay
+
 
 
 const styles = StyleSheet.create({
@@ -18,9 +18,14 @@ const styles = StyleSheet.create({
 
 function Homescreen() {
 
+  const [ username, setUsername ] = useState('')
+
 
   const handleGo = () => {
+
+    
     console.log('Go! clicked')
+    console.log(username)
   }
 
 
@@ -38,7 +43,8 @@ function Homescreen() {
 
       <Input
         placeholder={'username'}
-        style={styles.input} />
+        style={styles.input}
+        onChange={e => setUsername(e.target.value)} />
 
       <Button
         title='Go!'
