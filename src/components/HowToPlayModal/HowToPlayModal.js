@@ -5,7 +5,11 @@ import { View, Text } from 'react-native'
 function HowToPlayModal() {
   return (
     <View>
-      <Text>Game Screen </Text> 
+
+
+      <Text>INSIDE THE HOW TO PLAY MODAL ELEMENT</Text> 
+
+
     </View>
   )
 }

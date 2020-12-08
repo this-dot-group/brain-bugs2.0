@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Modal, TouchableHighlight } from 'react-native'
 import { Image, Input, Button } from 'react-native-elements'
 import { connect } from 'react-redux';
 
 import { newUsername } from '../../store/usernameReducer.js';
+
+import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 
 
 
@@ -11,6 +13,27 @@ const styles = StyleSheet.create({
   image: {
     width: 150,
     height: 150
+  },
+  openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
   },
   input: {
 
@@ -20,7 +43,9 @@ const styles = StyleSheet.create({
 
 function Homescreen(props) {
 
-  const [ username, setUsername ] = useState('')
+  const [ username, setUsername ] = useState('');
+
+  const [ modalVisible, setModalVisible ] = useState(false)
 
 
   const handleGo = () => {
@@ -50,6 +75,45 @@ function Homescreen(props) {
       <Button
         title='Go!'
         onPress={handleGo}/>
+
+      
+
+      {/* how to play component wrapped in Modal here, can think about moving some of this to HowToPlayModal.js component */}
+      
+      <Modal
+        transparent={true}
+        visible={modalVisible}>
+
+        <View
+          style={styles.modalView}>
+
+          <HowToPlayModal />
+
+          <TouchableHighlight
+            style={styles.openButton}
+            onPress={() => {
+              setModalVisible(!modalVisible)
+            }}>
+            <Text>Hide</Text>
+
+          </TouchableHighlight>
+
+        </View>
+
+      </Modal>
+
+
+      <TouchableHighlight
+        style={styles.openButton}
+        onPress={() => {
+          setModalVisible(true);
+        }}>
+        <Text>How To Play</Text>
+      </TouchableHighlight>
+
+
+
+
     </View>
   )
 }
