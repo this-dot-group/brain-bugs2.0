@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet, Modal, TouchableHighlight } from 'react-native'
 import { Image, Input, Button } from 'react-native-elements'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-native'
 
 import { newUsername } from '../../store/usernameReducer.js';
 
@@ -43,16 +44,16 @@ const styles = StyleSheet.create({
 
 function Homescreen(props) {
 
-  const [ username, setUsername ] = useState('');
+  const [username, setUsername] = useState('');
 
-  const [ modalVisible, setModalVisible ] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false)
 
 
   const handleGo = () => {
 
     props.newUsername(username);
 
-    
+
   }
 
 
@@ -61,25 +62,27 @@ function Homescreen(props) {
     <View>
       <Text>Welcome to This Game</Text>
 
-      <Image 
-        source={{uri:'https://via.placeholder.com/150'}}
-        style={styles.image}/>
+      <Image
+        source={{ uri: 'https://via.placeholder.com/150' }}
+        style={styles.image} />
 
-      <Text>Please enter your username:</Text> 
+      <Text>Please enter your username:</Text>
 
       <Input
         placeholder={'username'}
         style={styles.input}
         onChange={e => setUsername(e.target.value)} />
+      <Link to='/lobby'>
+        <Text>Go!</Text>
+        {/* <Button
+          title='Go!'
+          onPress={handleGo} /> */}
+      </Link>
 
-      <Button
-        title='Go!'
-        onPress={handleGo}/>
 
-      
 
       {/* how to play component wrapped in Modal here, can think about moving some of this to HowToPlayModal.js component */}
-      
+
       <Modal
         transparent={true}
         visible={modalVisible}>
@@ -122,4 +125,4 @@ const mapDispatchToProps = { newUsername }
 
 // null is currently a placeholder for mapStateToProps
 
-export default connect( null, mapDispatchToProps)(Homescreen);
+export default connect(null, mapDispatchToProps)(Homescreen);
