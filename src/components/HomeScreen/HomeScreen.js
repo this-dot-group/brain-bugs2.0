@@ -43,11 +43,7 @@ const styles = StyleSheet.create({
 });
 
 function Homescreen(props) {
-
-  // const [username, setUsername] = useState('');
-
   const [modalVisible, setModalVisible] = useState(false)
-
 
   const handleGo = (username) => {
     console.log('username from input', username)
@@ -68,15 +64,11 @@ function Homescreen(props) {
       <Input
         placeholder={'username'}
         style={styles.input}
-        // onChange={e => setUsername(e.target.value)}
         onChangeText={value =>  handleGo(value)}
-        // onChange={e => console.log(e.target.value)}
         />
       <Link to='/lobby'>
         <Text>Go!</Text>
-        {/* <Button
-          title='Go!'
-          onPress={handleGo} /> */}
+      
       </Link>
 
 
@@ -89,20 +81,15 @@ function Homescreen(props) {
 
         <View
           style={styles.modalView}>
-
           <HowToPlayModal />
-
           <TouchableHighlight
             style={styles.openButton}
             onPress={() => {
               setModalVisible(!modalVisible)
             }}>
             <Text>Hide</Text>
-
           </TouchableHighlight>
-
         </View>
-
       </Modal>
 
 

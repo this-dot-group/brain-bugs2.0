@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-native'
 
 function StartScreen (props) {
-  // console.log('props', props)
+
   return (
     <View>
       <Text> Welcome {props.userName}! </Text> 
