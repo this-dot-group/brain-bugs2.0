@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Modal, TouchableHighlight } from 'react-native'
+import { View, Text, StyleSheet, Modal, Pressable } from 'react-native'
 import { Image, Input, Button } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-native'
@@ -82,24 +82,26 @@ function Homescreen(props) {
         <View
           style={styles.modalView}>
           <HowToPlayModal />
-          <TouchableHighlight
+          <Pressable
             style={styles.openButton}
             onPress={() => {
               setModalVisible(!modalVisible)
-            }}>
+            }}
+            >
             <Text>Hide</Text>
-          </TouchableHighlight>
+          </Pressable>
         </View>
       </Modal>
 
 
-      <TouchableHighlight
+      <Pressable
         style={styles.openButton}
         onPress={() => {
           setModalVisible(true);
-        }}>
+        }}
+        >
         <Text>How To Play</Text>
-      </TouchableHighlight>
+      </Pressable>
 
 
 
