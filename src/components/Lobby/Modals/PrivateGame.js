@@ -1,11 +1,25 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Modal, Pressable } from 'react-native'
+import styles from '../../../styles/styles'
 
-function PrivateGame() {
+function PrivateGame(props) {
   return (
-    <View>
-      <Text>Game Screen </Text>
-    </View>
+    <Modal
+        transparent={true}
+        visible={props.modalVisible === 'private'}
+        >
+          <View
+            style={styles.modalView}
+          >
+            <Text>JOIN a private game here!!</Text>
+            <Pressable
+            style={styles.openButton}
+            onPress={() => props.setModalVisible(null)}
+            >
+              <Text>X</Text>
+            </Pressable>
+          </View>
+      </Modal>
   )
 }
 

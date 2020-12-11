@@ -2,33 +2,10 @@ import React, { useState } from 'react';
 import { View, Text, Pressable, StyleSheet, Modal } from 'react-native';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-native';
-import JoinGame from './Modals/JoinGame';
-import PrivateGame from './Modals/PrivateGame';
-import StartGame from './Modals/StartGame';
-
-const styles = StyleSheet.create({
-  openButton: {
-    backgroundColor: "#F194FF",
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5
-  },
-})
+import JoinGameModal from './Modals/JoinGame';
+import PrivateGameModal from './Modals/PrivateGame';
+import StartGameModal from './Modals/StartGame';
+import styles from '../../styles/styles'
 
 function StartScreen(props) {
   const [modalVisible, setModalVisible] = useState(null);
@@ -43,22 +20,10 @@ function StartScreen(props) {
       >
         <Text> Start a Game </Text>
       </Pressable>
-      <Modal
-        transparent={true}
-        visible={modalVisible === 'start'}
-        >
-          <View
-            style={styles.modalView}
-          >
-            <Text>Start a game here!!</Text>
-            <Pressable
-            style={styles.openButton}
-            onPress={() => setModalVisible(null)}
-            >
-
-            </Pressable>
-          </View>
-      </Modal>
+      <StartGameModal
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible}
+      />
 
       <Pressable
         style={styles.openButton}
@@ -66,22 +31,10 @@ function StartScreen(props) {
       >
         <Text> Join a Game </Text>
       </Pressable>
-      <Modal
-        transparent={true}
-        visible={modalVisible === 'join'}
-        >
-          <View
-            style={styles.modalView}
-          >
-            <Text>Join a game here!!</Text>
-            <Pressable
-            style={styles.openButton}
-            onPress={() => setModalVisible(null)}
-            >
-
-            </Pressable>
-          </View>
-      </Modal>
+      <JoinGameModal 
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible}
+      />
 
       <Pressable
         style={styles.openButton}
@@ -89,22 +42,10 @@ function StartScreen(props) {
       >
         <Text> Join Private Game </Text>
       </Pressable>
-      <Modal
-        transparent={true}
-        visible={modalVisible === 'private'}
-        >
-          <View
-            style={styles.modalView}
-          >
-            <Text>Join a private game here!!</Text>
-            <Pressable
-            style={styles.openButton}
-            onPress={() => setModalVisible(null)}
-            >
-
-            </Pressable>
-          </View>
-      </Modal>
+      <PrivateGameModal 
+      setModalVisible={setModalVisible}
+      modalVisible={modalVisible}
+    />
     </View>
   )
 }
