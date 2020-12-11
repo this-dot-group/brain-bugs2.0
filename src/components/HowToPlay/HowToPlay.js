@@ -8,7 +8,7 @@ import { View, Text } from 'react-native'
 function HowToPlay() {
   return (
     <View>
-      <Text>Game Screen </Text> 
+      <Text> Game Screen </Text> 
     </View>
   )
 }
