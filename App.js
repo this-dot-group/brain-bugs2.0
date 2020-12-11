@@ -11,6 +11,7 @@ import GameEnd from './src/components/GameEnd/GameEnd'
 import GameScreen from './src/components/GameScreen/GameScreen'
 import HowToPlay from './src/components/HowToPlay/HowToPlay'
 import Lobby from './src/components/Lobby/LobbyScreen'
+import WaitingRoom from './src/components/WaitingRoom/WaitingRoom.js';
 
 const styles = StyleSheet.create({
   container: {
@@ -34,6 +35,10 @@ export default function App() {
           <Route
             exact path='/lobby'
             component={Lobby} />
+          <Route
+            exact path='/waitingroom'
+            component={WaitingRoom}
+          />
         </View>
       </NativeRouter>
     </Provider>

@@ -1,29 +1,56 @@
-import React from 'react';
-import { View, Text, Pressable, TouchableHighlight } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Pressable, StyleSheet, Modal } from 'react-native';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-native';
-import JoinGame from './Modals/JoinGame';
-import PrivateGame from './Modals/PrivateGame';
-import StartGame from './Modals/StartGame';
+import JoinGameModal from './Modals/JoinGame';
+import PrivateGameModal from './Modals/PrivateGame';
+import StartGameModal from './Modals/StartGame';
+import styles from '../../styles/styles'
 
 function StartScreen(props) {
+  const [modalVisible, setModalVisible] = useState(null);
 
   return (
     <View>
       <Text> Welcome {props.userName}! </Text>
       <Text> Short explanation of options below </Text>
-      <TouchableHighlight>
+      <Pressable
+        style={styles.openButton}
+        onPress={() => setModalVisible('start')}
+      >
         <Text> Start a Game </Text>
-      </TouchableHighlight>
-      <TouchableHighlight>
+      </Pressable>
+      <StartGameModal
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible}
+      />
+
+      <Pressable
+        style={styles.openButton}
+        onPress={() => setModalVisible('join')}
+      >
         <Text> Join a Game </Text>
-      </TouchableHighlight>
-      <TouchableHighlight>
+      </Pressable>
+      <JoinGameModal 
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible}
+      />
+
+      <Pressable
+        style={styles.openButton}
+        onPress={() => setModalVisible('private')}
+      >
         <Text> Join Private Game </Text>
-      </TouchableHighlight>
+      </Pressable>
+      <PrivateGameModal 
+      setModalVisible={setModalVisible}
+      modalVisible={modalVisible}
+    />
     </View>
   )
 }
+
+
 
 const mapStateToProps = (state) => {
   // console.log('state', state)

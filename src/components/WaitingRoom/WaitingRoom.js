@@ -6,7 +6,7 @@ import { View, Text } from 'react-native'
 function WaitingRoom() {
   return (
     <View>
-      <Text>Game Screen </Text>
+      <Text>Waiting Room Screen </Text>
     </View>
   )
 }

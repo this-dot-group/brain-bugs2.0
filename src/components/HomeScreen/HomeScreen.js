@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Modal, TouchableHighlight } from 'react-native'
+import { View, Text, StyleSheet, Modal, Pressable } from 'react-native'
 import { Image, Input, Button } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-native'
@@ -8,39 +8,7 @@ import { newUsername } from '../../store/usernameReducer.js';
 
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 
-
-
-const styles = StyleSheet.create({
-  image: {
-    width: 150,
-    height: 150
-  },
-  openButton: {
-    backgroundColor: "#F194FF",
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5
-  },
-  input: {
-
-  }
-
-});
+import styles from '../../styles/styles'
 
 function Homescreen(props) {
   const [modalVisible, setModalVisible] = useState(false)
@@ -72,7 +40,6 @@ function Homescreen(props) {
       </Link>
 
 
-
       {/* how to play component wrapped in Modal here, can think about moving some of this to HowToPlayModal.js component */}
 
       <Modal
@@ -82,24 +49,26 @@ function Homescreen(props) {
         <View
           style={styles.modalView}>
           <HowToPlayModal />
-          <TouchableHighlight
+          <Pressable
             style={styles.openButton}
             onPress={() => {
               setModalVisible(!modalVisible)
-            }}>
+            }}
+            >
             <Text>Hide</Text>
-          </TouchableHighlight>
+          </Pressable>
         </View>
       </Modal>
 
 
-      <TouchableHighlight
+      <Pressable
         style={styles.openButton}
         onPress={() => {
           setModalVisible(true);
-        }}>
+        }}
+        >
         <Text>How To Play</Text>
-      </TouchableHighlight>
+      </Pressable>
 
 
 
