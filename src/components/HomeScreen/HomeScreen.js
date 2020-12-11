@@ -44,19 +44,16 @@ const styles = StyleSheet.create({
 
 function Homescreen(props) {
 
-  const [username, setUsername] = useState('');
+  // const [username, setUsername] = useState('');
 
   const [modalVisible, setModalVisible] = useState(false)
 
 
-  const handleGo = () => {
-
-    props.newUsername(username);
-
-
+  const handleGo = (username) => {
+    console.log('username from input', username)
+    if (username) {
+      props.newUsername(username)}
   }
-
-
 
   return (
     <View>
@@ -71,7 +68,10 @@ function Homescreen(props) {
       <Input
         placeholder={'username'}
         style={styles.input}
-        onChange={e => setUsername(e.target.value)} />
+        // onChange={e => setUsername(e.target.value)}
+        onChangeText={value =>  handleGo(value)}
+        // onChange={e => console.log(e.target.value)}
+        />
       <Link to='/lobby'>
         <Text>Go!</Text>
         {/* <Button

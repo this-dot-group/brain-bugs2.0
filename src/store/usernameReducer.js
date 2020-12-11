@@ -1,12 +1,14 @@
-export default ( state='', action ) => {
+export default (state = '', action) => {
 
   const { type, payload } = action;
-
-  switch(type) {
+//  console.log('payload', payload);
+//  console.log('action', action)
+//  console.log('type', type)
+  switch (type) {
 
     case 'NEW_USER':
       return payload;
-
+   
     default:
       return state;
 
@@ -14,7 +16,7 @@ export default ( state='', action ) => {
 
 }
 
-export const newUsername = ( username ) => {
+export const newUsername = (username) => {
 
   console.log('in usernameReducer!! username: ', username)
 
