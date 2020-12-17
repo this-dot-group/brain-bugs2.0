@@ -13,6 +13,7 @@ import HowToPlay from './src/components/HowToPlay/HowToPlay'
 import Lobby from './src/components/Lobby/LobbyScreen'
 import WaitingRoom from './src/components/WaitingRoom/WaitingRoom.js';
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -38,6 +39,10 @@ export default function App() {
           <Route
             exact path='/waitingroom'
             component={WaitingRoom}
+          />
+          <Route
+            exact path='/howtoplay'
+            component={HowToPlay}
           />
         </View>
       </NativeRouter>
