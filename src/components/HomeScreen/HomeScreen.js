@@ -14,7 +14,7 @@ function Homescreen(props) {
   const [modalVisible, setModalVisible] = useState(false)
 
   const handleGo = (username) => {
-    console.log('username from input', username)
+    // console.log('username from input', username)
     if (username) {
       props.newUsername(username)}
   }

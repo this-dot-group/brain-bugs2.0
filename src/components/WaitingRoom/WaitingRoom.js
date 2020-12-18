@@ -13,7 +13,7 @@ import styles from '../../styles/styles'
 
 const WaitingRoom = () => {
 
-  console.log('IN THE WAITING ROOM')
+  // console.log('IN THE WAITING ROOM')
 
   const [modalVisible, setModalVisible] = useState(false)
   const [gameCode, setGameCode] = useState('')
@@ -27,7 +27,7 @@ const WaitingRoom = () => {
       codeNum = faker.random.number()
       code = codeNum.toString();
     }
-    console.log('code', code)
+    // console.log('code', code)
 
     setGameCode(code);
 
