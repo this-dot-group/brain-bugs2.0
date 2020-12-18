@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Modal, Pressable } from 'react-native';
+import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import { View, Text, Modal, Pressable } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker'
-import styles from '../../../styles/styles';
-import { Link } from 'react-router-native';
+import styles from '../../../styles/styles'
+import { Link } from 'react-router-native'
+import { newGame } from '../../../store/gameInfoReducer'
 const axios = require('axios');
+
+/// Need to make functions that sets the state for the category, number of questions, and number of players.  
 
 
 function StartGame(props) {
 
-  const [categoryList, setCategoryList] = useState([])
+ 
+  const [categoryList, setCategoryList] = useState([]);
   const [category, setCategory] = useState('');
   const [numQuestions, setNumQuestions] = useState('');
   const [numPlayers, setNumPlayers] = useState('');
@@ -16,14 +21,12 @@ function StartGame(props) {
   useEffect(() => {
     (async() => {
       const categories = await axios.get('http://10.0.0.199:3000/categories')
-      // console.log('categories', categories.data)
       let categoryListArray = categories.data.map(category => {
         return {
           label: category.name,
           value: category.id
         }
       })
-      // console.log('categor array', categoryListArray);
       setCategoryList(categoryListArray);
     })()
     
@@ -102,10 +105,10 @@ function StartGame(props) {
         <Link to='/waitingroom'>
           <Text>Go!</Text>
         </Link>
-
       </View>
     </Modal>
   )
 }
 
-export default StartGame
+const mapDispatchToProps = { newGame }
+export default connect(null, mapDispatchToProps)(StartGame)

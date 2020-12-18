@@ -20,15 +20,12 @@ const WaitingRoom = () => {
   const [copied, setCopied] = useState(false);
 
   const createPrivateGame = () => {
-    // let code = faker.random.number();
     let codeNum = faker.random.number();
     let code = codeNum.toString();
     while (code.length !== 5) {
       codeNum = faker.random.number()
       code = codeNum.toString();
     }
-    // console.log('code', code)
-
     setGameCode(code);
 
   }
