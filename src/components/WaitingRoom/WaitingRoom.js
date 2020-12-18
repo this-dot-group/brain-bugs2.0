@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, ActivityIndicator, Pressable } from 'react-native'
 import { Link } from 'react-router-native';
 import Clipboard from 'expo-clipboard';
+import faker from 'faker'
 
 import styles from '../../styles/styles'
 
@@ -13,45 +14,63 @@ const WaitingRoom = () => {
 
   console.log('IN THE WAITING ROOM')
 
-  const [ gameCode, setGameCode ] = useState('')
-
+  const [gameCode, setGameCode] = useState(false)
+  const [copied, setCopied] = useState(false);
 
   const createPrivateGame = () => {
-    setGameCode('12345')
-  }
-  
-  const handleCodeCopy = () => {
-    Clipboard.setString(gameCode);
+    let code = faker.random.number();
+    while (code.toString().length !== 5) {
+      code = faker.random.number()
+    }
+    console.log('code', code)
+
+    setGameCode(code);
+
   }
 
-  // when clicked, gamecode saves to clipboard. want to make sure second pressable doesnt show until there is a gamecode, also there should be an alert to the user that the code was copied
+  const handleCodeCopy = () => {
+    Clipboard.setString(gameCode);
+    setCopied(true)
+    setTimeout(() => {
+      setCopied(false)
+    }, 1500)
+  }
+  
+
+
 
 
   return (
     <View>
       <Text>Waiting for 1 more player...</Text>
 
-      <ActivityIndicator 
+      <ActivityIndicator
         color='red'
         size='large'
-        animating={true}/>
+        animating={true} />
 
-      <Pressable
+      {/* <Pressable
         style={styles.openButton}
         onPress={createPrivateGame}>
         <Text>Create Private Game</Text>
-      </Pressable>
-
-      <Pressable
-        style={styles.openButton}
-        onPress={handleCodeCopy}>
-        <Text>{gameCode}</Text>
-      </Pressable>
-
+      </Pressable> */}
+      {!gameCode ?
+        <Pressable
+          style={styles.openButton}
+          onPress={createPrivateGame}>
+          <Text>Create Private Game</Text>
+        </Pressable> 
+        :
+        <Pressable
+          style={styles.openButton}
+          onPress={handleCodeCopy}>
+          <Text>{gameCode}</Text>
+        </Pressable>}
+      {copied && <Text style={{ color: 'red' }}> Copied </Text>}
 
       <Link to='/'>
-          <Text>(Go Home)</Text>
-        </Link>
+        <Text>(Go Home)</Text>
+      </Link>
     </View>
   )
 }
