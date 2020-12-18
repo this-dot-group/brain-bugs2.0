@@ -14,13 +14,16 @@ const WaitingRoom = () => {
 
   console.log('IN THE WAITING ROOM')
 
-  const [gameCode, setGameCode] = useState(false)
+  const [gameCode, setGameCode] = useState('')
   const [copied, setCopied] = useState(false);
 
   const createPrivateGame = () => {
-    let code = faker.random.number();
-    while (code.toString().length !== 5) {
-      code = faker.random.number()
+    // let code = faker.random.number();
+    let codeNum = faker.random.number();
+    let code = codeNum.toString();
+    while (code.length !== 5) {
+      codeNum = faker.random.number()
+      code = codeNum.toString();
     }
     console.log('code', code)
 
@@ -35,7 +38,7 @@ const WaitingRoom = () => {
       setCopied(false)
     }, 1500)
   }
-  
+  // when clicked, gamecode saves to clipboard. want to make sure second pressable doesnt show until there is a gamecode, also there should be an alert to the user that the code was copied
 
 
 
@@ -49,23 +52,19 @@ const WaitingRoom = () => {
         size='large'
         animating={true} />
 
-      {/* <Pressable
-        style={styles.openButton}
-        onPress={createPrivateGame}>
-        <Text>Create Private Game</Text>
-      </Pressable> */}
-      {!gameCode ?
+      {gameCode === '' ?
         <Pressable
           style={styles.openButton}
           onPress={createPrivateGame}>
           <Text>Create Private Game</Text>
-        </Pressable> 
+        </Pressable>
         :
         <Pressable
           style={styles.openButton}
           onPress={handleCodeCopy}>
           <Text>{gameCode}</Text>
-        </Pressable>}
+        </Pressable>
+      }
       {copied && <Text style={{ color: 'red' }}> Copied </Text>}
 
       <Link to='/'>
