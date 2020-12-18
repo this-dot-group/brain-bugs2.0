@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { View, Text, ActivityIndicator, Pressable } from 'react-native'
+import { View, Text, ActivityIndicator, Pressable, Modal } from 'react-native'
 import { Link } from 'react-router-native';
 import Clipboard from 'expo-clipboard';
 import faker from 'faker'
+import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 
 import styles from '../../styles/styles'
 
@@ -14,6 +15,7 @@ const WaitingRoom = () => {
 
   console.log('IN THE WAITING ROOM')
 
+  const [modalVisible, setModalVisible] = useState(false)
   const [gameCode, setGameCode] = useState('')
   const [copied, setCopied] = useState(false);
 
@@ -44,7 +46,33 @@ const WaitingRoom = () => {
 
 
   return (
+
     <View>
+      <Modal
+        transparent={true}
+        visible={modalVisible}>
+
+        <View
+          style={styles.modalView}>
+          <HowToPlayModal />
+          <Pressable
+            style={styles.openButton}
+            onPress={() => {
+              setModalVisible(!modalVisible)
+            }}
+          >
+            <Text>Hide</Text>
+          </Pressable>
+        </View>
+      </Modal>
+      <Pressable
+        style={styles.openButton}
+        onPress={() => {
+          setModalVisible(true);
+        }}
+        >
+        <Text>How To Play</Text>
+      </Pressable>
       <Text>Waiting for 1 more player...</Text>
 
       <ActivityIndicator
