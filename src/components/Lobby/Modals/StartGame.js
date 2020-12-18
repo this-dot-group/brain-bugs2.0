@@ -23,7 +23,7 @@ function StartGame(props) {
           value: category.id
         }
       })
-      console.log('categor array', categoryListArray);
+      // console.log('categor array', categoryListArray);
       setCategoryList(categoryListArray);
     })()
     

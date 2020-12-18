@@ -53,8 +53,9 @@ function StartScreen(props) {
 
 
 const mapStateToProps = (state) => {
-  // console.log('state', state)
-  return { userName: state.usernameReducer }
+  return { userName: state.usernameReducer,
+           socket: state.socket
+          }
 }
 
 export default connect(mapStateToProps)(StartScreen)
