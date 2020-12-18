@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Pressable } from 'react-native'
+import { Link } from 'react-router-native';
 
 
 //Import Timer from Server
@@ -8,7 +9,14 @@ import { View, Text } from 'react-native'
 function HowToPlay() {
   return (
     <View>
-      <Text> Game Screen </Text> 
+      <Text> HOW TO PLAY screen with countdown </Text> 
+
+    <Pressable>
+
+      <Link to='/'>
+        <Text>Go Home</Text>
+      </Link>
+    </Pressable>
     </View>
   )
 }
