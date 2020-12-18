@@ -6,7 +6,9 @@ import styles from '../../../styles/styles';
 
 function PrivateGame(props) {
 
-  const [ gameCode, setGameCode ]= useState('')
+  const [ gameCode, setGameCode ] = useState('');
+
+  const [ error, setError ] = useState(false);
 
 
 
@@ -30,6 +32,8 @@ function PrivateGame(props) {
               style={styles.input}
               onChangeText={value =>  setGameCode(value)}
             />
+
+            { error && <Text style={{color: 'red'}}>Invalid code</Text>}
 
             <Link to='/howtoplay'>
               <Text>Go!</Text>
