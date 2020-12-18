@@ -4,7 +4,7 @@ export default (state = '', action) => {
  
   switch (type) {
 
-    case 'NEW_USER':
+    case 'NEW_CONNECTION':
       return payload;
 
     default:
@@ -14,11 +14,10 @@ export default (state = '', action) => {
 
 }
 
-export const newUsername = (username) => {
+export const newSocket = (socket) => {
 
   return {
-    type: 'NEW_USER',
-    payload: username,
+    type: 'NEW_CONNECTION',
+    payload: socket,
   }
 }
-

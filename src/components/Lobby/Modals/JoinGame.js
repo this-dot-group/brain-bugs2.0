@@ -45,7 +45,7 @@ function JoinGame(props) {
 
         )}
 
-        {console.log('refreshed!!!!!')}
+        {/* {console.log('refreshed!!!!!')} */}
 
 
 
