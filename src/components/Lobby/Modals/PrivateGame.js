@@ -7,7 +7,6 @@ import styles from '../../../styles/styles';
 function PrivateGame(props) {
 
   const [ gameCode, setGameCode ] = useState('');
-
   const [ error, setError ] = useState(false);
 
   return (

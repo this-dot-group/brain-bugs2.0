@@ -17,10 +17,7 @@ import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 
 import styles from '../../styles/styles'
 
-console.log('process.env', EXPO_LOCAL_URL)
-
 const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
-// newSocket(socket);
 
 function Homescreen(props) {
   const [modalVisible, setModalVisible] = useState(false)
