@@ -7,13 +7,7 @@ import styles from '../../../styles/styles';
 function PrivateGame(props) {
 
   const [ gameCode, setGameCode ] = useState('');
-
   const [ error, setError ] = useState(false);
-
-
-
-
-
 
   return (
     <Modal
@@ -39,7 +33,7 @@ function PrivateGame(props) {
               <Text>Go!</Text>
             </Link>
 
-            {  console.log('GAME CODE: ', gameCode)}
+            {/* {  console.log('GAME CODE: ', gameCode)} */}
             
 
 

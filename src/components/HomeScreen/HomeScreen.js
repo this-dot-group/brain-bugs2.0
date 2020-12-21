@@ -2,24 +2,35 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Modal, Pressable } from 'react-native'
 import { Image, Input, Button } from 'react-native-elements'
 import { connect } from 'react-redux';
-import { Link } from 'react-router-native'
-import socketIO from 'socket.io-client'
-import { newSocket } from '../../store/socketReducer.js'
+import { Link } from 'react-router-native';
+import socketIO from 'socket.io-client';
+import faker from 'faker';
+import { newSocket } from '../../store/socketReducer.js';
 
-import { newUsername } from '../../store/usernameReducer.js';
+const EXPO_LOCAL_URL = '10.0.0.200' // Josh
+
+
+
+import { newUsername, newGameCode } from '../../store/userReducer.js';
 
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 
 import styles from '../../styles/styles'
 
-const socket = socketIO('http://10.0.0.199:3000');
-// newSocket(socket);
+const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 
 function Homescreen(props) {
   const [modalVisible, setModalVisible] = useState(false)
 
   useEffect(() => {
     props.newSocket(socket)
+    let codeNum = faker.random.number();
+    let code = codeNum.toString();
+    while (code.length !== 5) {
+      codeNum = faker.random.number()
+      code = codeNum.toString();
+    }
+    props.newGameCode(code)
   }, [])
 
   const handleGo = (username) => {
@@ -86,7 +97,7 @@ function Homescreen(props) {
   )
 }
 
-const mapDispatchToProps = { newUsername, newSocket }
+const mapDispatchToProps = { newUsername, newSocket, newGameCode }
 
 
 // null is currently a placeholder for mapStateToProps
