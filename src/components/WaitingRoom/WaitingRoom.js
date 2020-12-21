@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, ActivityIndicator, Pressable, Modal } from 'react-native'
 import { Link } from 'react-router-native';
 import Clipboard from 'expo-clipboard';
-import faker from 'faker'
+// import faker from 'faker';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
+import { connect } from 'react-redux';
 
 import styles from '../../styles/styles'
 
@@ -11,7 +12,7 @@ import styles from '../../styles/styles'
 
 // Build Alert to notify players
 
-const WaitingRoom = () => {
+const WaitingRoom = (props) => {
 
   // console.log('IN THE WAITING ROOM')
 
@@ -20,15 +21,15 @@ const WaitingRoom = () => {
   const [copied, setCopied] = useState(false);
 
   const createPrivateGame = () => {
-    let codeNum = faker.random.number();
-    let code = codeNum.toString();
-    while (code.length !== 5) {
-      codeNum = faker.random.number()
-      code = codeNum.toString();
-    }
-    setGameCode(code);
-
+    console.log('game code in waiting room', props.gameCode)
+    setGameCode(props.gameCode);
   }
+
+  useEffect(() => {
+
+  },[])
+
+
 
   const handleCodeCopy = () => {
     Clipboard.setString(gameCode);
@@ -99,4 +100,11 @@ const WaitingRoom = () => {
   )
 }
 
-export default WaitingRoom
+const mapStateToProps = (state) => {
+  return { userName: state.userReducer.username,
+           gameCode: state.userReducer.gameCode,
+           socket: state.socket
+          }
+}
+
+export default connect(mapStateToProps)(WaitingRoom);

@@ -10,11 +10,6 @@ function PrivateGame(props) {
 
   const [ error, setError ] = useState(false);
 
-
-
-
-
-
   return (
     <Modal
         transparent={true}
@@ -39,7 +34,7 @@ function PrivateGame(props) {
               <Text>Go!</Text>
             </Link>
 
-            {  console.log('GAME CODE: ', gameCode)}
+            {/* {  console.log('GAME CODE: ', gameCode)} */}
             
 
 

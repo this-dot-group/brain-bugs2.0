@@ -29,7 +29,7 @@ function StartScreen(props) {
         style={styles.openButton}
         onPress={() => setModalVisible('join')}
       >
-        <Text> Join a Game </Text>
+        <Text> Join a Game </Text>  
       </Pressable>
       <JoinGameModal 
         setModalVisible={setModalVisible}
@@ -53,7 +53,7 @@ function StartScreen(props) {
 
 
 const mapStateToProps = (state) => {
-  return { userName: state.usernameReducer,
+  return { userName: state.userReducer.username,
            socket: state.socket
           }
 }
