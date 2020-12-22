@@ -7,7 +7,9 @@ import socketIO from 'socket.io-client';
 import faker from 'faker';
 import { newSocket } from '../../store/socketReducer.js';
 
-const EXPO_LOCAL_URL = '10.0.0.200' // Josh
+// const EXPO_LOCAL_URL = '10.0.0.200' // Josh
+const EXPO_LOCAL_URL = '192.168.0.55' // Tia
+
 
 
 
@@ -15,7 +17,7 @@ import { newUsername, newGameCode } from '../../store/userReducer.js';
 
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 
-import styles from '../../styles/styles'
+import styles from '../../styles/styles.js'
 
 const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 

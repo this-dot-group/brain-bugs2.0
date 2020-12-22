@@ -4,11 +4,11 @@ export default (state = '', action) => {
  
   switch (type) {
 
-    case 'NEW_CONNECTION':
-      return payload;
+  case 'NEW_CONNECTION':
+    return payload;
 
-    default:
-      return state;
+  default:
+    return state;
 
   }
 

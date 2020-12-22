@@ -1,25 +1,37 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, Modal, Pressable } from 'react-native'
 import { Link } from 'react-router-native'
 import styles from '../../../styles/styles'
+import { connect } from 'react-redux';
 
 function JoinGame(props) {
 
+  const [ gamesWaiting, setGamesWaiting ] = useState([])
 
-  let gamesWaiting = [
-    {
-      category: 'anime',
-      player: 'Josh',
-    },
-    {
-      category: 'French film',
-      player: 'Tia',
-    },
-    {
-      category: 'Bikes',
-      player: 'Chris',
-    }
-  ];
+  useEffect(() => {
+
+    props.socket.emit('inJoinGame', null)
+    props.socket.on('sendAvailGameInfo', allGames => {
+
+      let filteredGames = [];
+
+      for(let game in allGames){
+
+        let currentGame = allGames[game];
+
+        if(currentGame.publicOrPrivate === 'public' && currentGame.numPlayers === 2){
+
+          let relevantInfo = {
+            category: currentGame.category.name,
+            player: currentGame.userName,
+          }
+          filteredGames.push(relevantInfo)
+        }
+      }
+      setGamesWaiting(filteredGames)
+    })
+
+  }, [])
 
 
 
@@ -45,12 +57,7 @@ function JoinGame(props) {
 
         )}
 
-        {/* {console.log('refreshed!!!!!')} */}
-
-
-
-
-
+      
 
         <Pressable
         style={styles.openButton}
@@ -63,4 +70,11 @@ function JoinGame(props) {
   )
 }
 
-export default JoinGame
+const mapStateToProps = (state) => {
+  return { 
+    socket: state.socketReducer
+          }
+}
+
+export default connect(mapStateToProps)(JoinGame);
+

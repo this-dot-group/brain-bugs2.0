@@ -1,13 +1,55 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, Modal, Pressable, TextInput } from 'react-native'
 import { Input } from 'react-native-elements';
 import { Link } from 'react-router-native';
+import { connect } from 'react-redux'
+
 import styles from '../../../styles/styles';
 
 function PrivateGame(props) {
 
   const [ gameCode, setGameCode ] = useState('');
   const [ error, setError ] = useState(false);
+  const [ validGamecodes, setValidGamecodes ] = useState([]);
+
+  useEffect(() => {
+
+    props.socket.emit('inJoinGame', null)
+    props.socket.on('sendAvailGameInfo', allGames => {
+
+      let filteredGames = [];
+
+      for(let game in allGames){
+
+        let currentGame = allGames[game];
+
+        if(currentGame.publicOrPrivate === 'private'){
+          filteredGames.push(currentGame.gameCode)
+        }
+      }
+      setValidGamecodes(filteredGames)
+      console.log('filteredGames in PRIVATE GAME screen:  ', filteredGames)
+    })
+
+  }, [])
+
+  const handleChange = (value) => {
+
+    // value is the user-entered game code 
+    setGameCode(value);
+
+    console.log('validGameCodes in PRIVATE SCREEN:  ', validGamecodes)
+
+    if(value.length === 5){
+
+      if(!validGamecodes.includes(value)) {
+        setError(true);
+      }
+
+    }
+  }
+
+
 
   return (
     <Modal
@@ -24,7 +66,7 @@ function PrivateGame(props) {
             <Input
               placeholder={'code here'}
               style={styles.input}
-              onChangeText={value =>  setGameCode(value)}
+              onChangeText={value =>  handleChange(value)}
             />
 
             { error && <Text style={{color: 'red'}}>Invalid code</Text>}
@@ -48,4 +90,10 @@ function PrivateGame(props) {
   )
 }
 
-export default PrivateGame
+const mapStateToProps = (state) => {
+  return { 
+    socket: state.socketReducer
+          }
+}
+
+export default connect(mapStateToProps)(PrivateGame);
