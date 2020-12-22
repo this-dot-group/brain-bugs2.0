@@ -17,30 +17,17 @@ const WaitingRoom = (props) => {
   // console.log('IN THE WAITING ROOM')
 
   const [modalVisible, setModalVisible] = useState(false)
-  const [gameCode, setGameCode] = useState('')
+
   const [copied, setCopied] = useState(false);
-
-  const createPrivateGame = () => {
-    console.log('game code in waiting room', props.gameCode)
-    setGameCode(props.gameCode);
-  }
-
-  useEffect(() => {
-
-  },[])
-
 
 
   const handleCodeCopy = () => {
-    Clipboard.setString(gameCode);
+    Clipboard.setString(props.gameCode);
     setCopied(true)
     setTimeout(() => {
       setCopied(false)
     }, 1500)
   }
-  // when clicked, gamecode saves to clipboard. want to make sure second pressable doesnt show until there is a gamecode, also there should be an alert to the user that the code was copied
-
-
 
 
   return (
@@ -71,6 +58,8 @@ const WaitingRoom = (props) => {
         >
         <Text>How To Play</Text>
       </Pressable>
+
+
       <Text>Waiting for 1 more player...</Text>
 
       <ActivityIndicator
@@ -78,20 +67,17 @@ const WaitingRoom = (props) => {
         size='large'
         animating={true} />
 
-      {gameCode === '' ?
+      {props.publicOrPrivate === 'private' &&
+
         <Pressable
-          style={styles.openButton}
-          onPress={createPrivateGame}>
-          <Text>Create Private Game</Text>
+        style={styles.openButton}
+        onPress={handleCodeCopy}>
+        <Text>{props.gameCode}</Text>
         </Pressable>
-        :
-        <Pressable
-          style={styles.openButton}
-          onPress={handleCodeCopy}>
-          <Text>{gameCode}</Text>
-        </Pressable>
-      }
-      {copied && <Text style={{ color: 'red' }}> Copied </Text>}
+
+        }
+
+        {copied && <Text style={{ color: 'red' }}> Copied </Text>}  
 
       <Link to='/'>
         <Text>(Go Home)</Text>
@@ -103,7 +89,8 @@ const WaitingRoom = (props) => {
 const mapStateToProps = (state) => {
   return { userName: state.userReducer.username,
            gameCode: state.userReducer.gameCode,
-           socket: state.socket
+           socket: state.socket,
+           publicOrPrivate: state.gameInfoReducer.publicOrPrivate
           }
 }
 
