@@ -11,7 +11,6 @@ const axios = require('axios');
 const EXPO_LOCAL_URL = '192.168.0.55' // Tia
 
 
-// adding this to the server
 // clean up inline styling in this file
 // send game info to server via sockets to populate the join game screen
 

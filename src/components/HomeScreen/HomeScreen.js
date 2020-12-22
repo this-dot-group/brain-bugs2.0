@@ -17,7 +17,7 @@ import { newUsername, newGameCode } from '../../store/userReducer.js';
 
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 
-import styles from '../../styles/styles'
+import styles from '../../styles/styles.js'
 
 const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 
