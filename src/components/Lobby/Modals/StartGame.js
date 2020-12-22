@@ -11,11 +11,6 @@ const axios = require('axios');
 const EXPO_LOCAL_URL = '192.168.0.55' // Tia
 
 
-// clean up inline styling in this file
-// send game info to server via sockets to populate the join game screen
-
-
-
 function StartGame(props) {
 
  
@@ -109,9 +104,7 @@ function StartGame(props) {
             placeholder='Public or Private Game'
             multiple={false}
             onChangeItem={item => {
-              props.publicOrPrivate(item.value);
-              // setNumPlayers(item.value);
-              
+              props.publicOrPrivate(item.value);              
             }}
             items={[
               { label: 'Public Game', value: 'public' },
@@ -137,4 +130,5 @@ function StartGame(props) {
 }
 
 const mapDispatchToProps = { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate }
+
 export default connect(null, mapDispatchToProps)(StartGame)

@@ -3,8 +3,6 @@ import { View, Text, Modal, Pressable } from 'react-native'
 import { Link } from 'react-router-native'
 import styles from '../../../styles/styles'
 import { connect } from 'react-redux';
-import { publicOrPrivate } from '../../../store/gameInfoReducer';
-
 
 function JoinGame(props) {
 
@@ -27,52 +25,13 @@ function JoinGame(props) {
             category: currentGame.category.name,
             player: currentGame.userName,
           }
-
           filteredGames.push(relevantInfo)
-          
         }
-        
       }
-      console.log('filteredGames in JoinGame:  ', filteredGames)
       setGamesWaiting(filteredGames)
     })
 
   }, [])
-
-  // {
-  //   '60766': {
-  //     category: { name: 'Entertainment: Books', id: 10 },
-  //     numQuestions: 20,
-  //     numPlayers: 2,
-  //     publicOrPrivate: 'public',
-  //     userName: 'Ti',
-  //     gameCode: '60766'
-  //   },
-    //   '1111': {
-  //     category: { name: 'Entertainment: TV', id: 8 },
-  //     numQuestions: 20,
-  //     numPlayers: 2,
-  //     publicOrPrivate: 'public',
-  //     userName: 'person',
-  //     gameCode: '1111'
-  //   }
-  // }
-
-
-  // let gamesWaiting = [
-  //   {
-  //     category: 'anime',
-  //     player: 'Josh',
-  //   },
-  //   {
-  //     category: 'French film',
-  //     player: 'Tia',
-  //   },
-  //   {
-  //     category: 'Bikes',
-  //     player: 'Chris',
-  //   }
-  // ];
 
 
 
@@ -112,7 +71,8 @@ function JoinGame(props) {
 }
 
 const mapStateToProps = (state) => {
-  return { socket: state.socketReducer
+  return { 
+    socket: state.socketReducer
           }
 }
 

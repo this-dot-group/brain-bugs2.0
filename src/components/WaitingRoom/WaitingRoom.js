@@ -8,8 +8,6 @@ import { connect } from 'react-redux';
 
 import styles from '../../styles/styles'
 
-
-
 // Build Alert to notify players
 
 const WaitingRoom = (props) => {
@@ -30,15 +28,9 @@ const WaitingRoom = (props) => {
   }
 
   useEffect(() => {
-    // console.log('full game stuff:   ', props.fullGameInfo)
 
     props.fullGameInfo.userName = props.userName;
     props.fullGameInfo.gameCode = props.gameCode;
-
-    // console.log('full game stuff after additions:   ', props.fullGameInfo)
-
-    // console.log('PROPS.SOCKET:  ', props.socket)
-
     props.socket.emit('newGame', props.fullGameInfo )
 
   }, [])
