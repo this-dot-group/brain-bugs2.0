@@ -29,6 +29,20 @@ const WaitingRoom = (props) => {
     }, 1500)
   }
 
+  useEffect(() => {
+    // console.log('full game stuff:   ', props.fullGameInfo)
+
+    props.fullGameInfo.userName = props.userName;
+    props.fullGameInfo.gameCode = props.gameCode;
+
+    // console.log('full game stuff after additions:   ', props.fullGameInfo)
+
+    // console.log('PROPS.SOCKET:  ', props.socket)
+
+    props.socket.emit('newGame', props.fullGameInfo )
+
+  }, [])
+
 
   return (
 
@@ -89,8 +103,10 @@ const WaitingRoom = (props) => {
 const mapStateToProps = (state) => {
   return { userName: state.userReducer.username,
            gameCode: state.userReducer.gameCode,
-           socket: state.socket,
-           publicOrPrivate: state.gameInfoReducer.publicOrPrivate
+           socket: state.socketReducer,
+           publicOrPrivate: state.gameInfoReducer.publicOrPrivate,
+           fullGameInfo: state.gameInfoReducer
+
           }
 }
 
