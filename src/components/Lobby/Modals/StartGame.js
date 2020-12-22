@@ -4,7 +4,7 @@ import { View, Text, Modal, Pressable } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker'
 import styles from '../../../styles/styles'
 import { Link } from 'react-router-native'
-import { newGame, numQuestions, numPlayers, newCategory } from '../../../store/gameInfoReducer'
+import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate } from '../../../store/gameInfoReducer'
 const axios = require('axios');
 
 // const EXPO_LOCAL_URL = '10.0.0.200' // Josh
@@ -13,7 +13,6 @@ const EXPO_LOCAL_URL = '192.168.0.55' // Tia
 
 // adding this to the server
 // clean up inline styling in this file
-// if one player, go to how to play screen, instead of the waiting room
 // send game info to server via sockets to populate the join game screen
 
 
@@ -38,9 +37,6 @@ function StartGame(props) {
     })()
   }, [])
 
-  // useEffect(() => {
-  //   console.log('numPlayers in startgame:  ', numPlayers)
-  // }, [numPlayers])
 
   return (
     <Modal
@@ -57,7 +53,7 @@ function StartGame(props) {
         >
           <Text>X</Text>
         </Pressable>
-        <View style={{ height: 200 }}>
+        <View style={{ height: 150 }}>
           <DropDownPicker
             containerStyle={{ height: 40, width: 200 }}
 
@@ -73,7 +69,7 @@ function StartGame(props) {
           />
 
         </View>
-        <View style={{ height: 200 }}>
+        <View style={{ height: 150 }}>
           <DropDownPicker
             containerStyle={{ height: 40, width: 200 }}
             placeholder='Number of Questions'
@@ -89,7 +85,7 @@ function StartGame(props) {
             ]}
           />
         </View>
-        <View style={{ height: 200 }}>
+        <View style={{ height: 150 }}>
           <DropDownPicker
             containerStyle={{ height: 40, width: 200 }}
             placeholder='Number of Players'
@@ -104,8 +100,29 @@ function StartGame(props) {
               { label: 'Two Players', value: 2 }
             ]}
           />
-
         </View>
+
+
+        {numPlayers === 2 &&
+        <View style={{ height: 150 }}>
+          <DropDownPicker
+            containerStyle={{ height: 40, width: 200 }}
+            placeholder='Public or Private Game'
+            multiple={false}
+            onChangeItem={item => {
+              props.publicOrPrivate(item.value);
+              // setNumPlayers(item.value);
+              
+            }}
+            items={[
+              { label: 'Public Game', value: 'public' },
+              { label: 'Private Game', value: 'private' }
+            ]}
+          />
+        </View>
+      }
+
+
         {numPlayers === 1 ? 
         <Link to='/howtoplay'>
           <Text>Go!</Text>
@@ -120,5 +137,5 @@ function StartGame(props) {
   )
 }
 
-const mapDispatchToProps = { newGame, numQuestions, numPlayers, newCategory }
+const mapDispatchToProps = { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate }
 export default connect(null, mapDispatchToProps)(StartGame)
