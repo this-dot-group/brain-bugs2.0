@@ -7,7 +7,9 @@ import { Link } from 'react-router-native'
 import { newGame, numQuestions, numPlayers, newCategory } from '../../../store/gameInfoReducer'
 const axios = require('axios');
 
-const EXPO_LOCAL_URL = '10.0.0.200' // Josh
+// const EXPO_LOCAL_URL = '10.0.0.200' // Josh
+const EXPO_LOCAL_URL = '192.168.0.55' // Tia
+
 
 // adding this to the server
 // clean up inline styling in this file
@@ -21,6 +23,8 @@ function StartGame(props) {
  
   const [categoryList, setCategoryList] = useState([]);
 
+  const [ numPlayers, setNumPlayers ] = useState(1)
+
   useEffect(() => {
     (async() => {
       const categories = await axios.get(`http://${EXPO_LOCAL_URL}:3000/categories`)
@@ -33,6 +37,10 @@ function StartGame(props) {
       setCategoryList(categoryListArray);
     })()
   }, [])
+
+  // useEffect(() => {
+  //   console.log('numPlayers in startgame:  ', numPlayers)
+  // }, [numPlayers])
 
   return (
     <Modal
@@ -87,18 +95,26 @@ function StartGame(props) {
             placeholder='Number of Players'
             multiple={false}
             onChangeItem={item => {
-              props.numPlayers(item.value)
+              props.numPlayers(item.value);
+              setNumPlayers(item.value);
+              
             }}
             items={[
-              { label: 'Single Player', value: 'Single Player' },
-              { label: 'Two Players', value: 'Two Players' }
+              { label: 'Single Player', value: 1 },
+              { label: 'Two Players', value: 2 }
             ]}
           />
 
         </View>
-        <Link to='/waitingroom'>
+        {numPlayers === 1 ? 
+        <Link to='/howtoplay'>
           <Text>Go!</Text>
         </Link>
+        : 
+        <Link to='/waitingroom'>
+          <Text>Go!</Text>
+        </Link> }
+        
       </View>
     </Modal>
   )
