@@ -8,7 +8,8 @@ import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate } from 
 const axios = require('axios');
 
 // const EXPO_LOCAL_URL = '10.0.0.200' // Josh
-const EXPO_LOCAL_URL = '192.168.0.55' // Tia
+// const EXPO_LOCAL_URL = '192.168.0.55' // Tia
+const EXPO_LOCAL_URL = '10.0.0.199' // Chris 
 
 
 function StartGame(props) {
@@ -47,7 +48,7 @@ function StartGame(props) {
         >
           <Text>X</Text>
         </Pressable>
-        <View style={{ height: 150 }}>
+        <View style={{ height: 100 }}>
           <DropDownPicker
             containerStyle={{ height: 40, width: 200 }}
 
@@ -63,7 +64,7 @@ function StartGame(props) {
           />
 
         </View>
-        <View style={{ height: 150 }}>
+        <View style={{ height: 100 }}>
           <DropDownPicker
             containerStyle={{ height: 40, width: 200 }}
             placeholder='Number of Questions'
@@ -79,7 +80,7 @@ function StartGame(props) {
             ]}
           />
         </View>
-        <View style={{ height: 150 }}>
+        <View style={{ height: 100 }}>
           <DropDownPicker
             containerStyle={{ height: 40, width: 200 }}
             placeholder='Number of Players'
@@ -98,7 +99,7 @@ function StartGame(props) {
 
 
         {numPlayers === 2 &&
-        <View style={{ height: 150 }}>
+        <View style={{ height: 100 }}>
           <DropDownPicker
             containerStyle={{ height: 40, width: 200 }}
             placeholder='Public or Private Game'

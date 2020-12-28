@@ -8,9 +8,11 @@ import styles from '../../../styles/styles';
 
 function PrivateGame(props) {
 
-  const [ gameCode, setGameCode ] = useState('');
-  const [ error, setError ] = useState(false);
-  const [ validGamecodes, setValidGamecodes ] = useState([]);
+  const [gameCode, setGameCode] = useState('');
+  const [error, setError] = useState(false);
+  const [validGamecodes, setValidGamecodes] = useState([]);
+  const [goButton, setGoButton] = useState(false)
+
 
   useEffect(() => {
 
@@ -19,11 +21,11 @@ function PrivateGame(props) {
 
       let filteredGames = [];
 
-      for(let game in allGames){
+      for (let game in allGames) {
 
         let currentGame = allGames[game];
 
-        if(currentGame.publicOrPrivate === 'private'){
+        if (currentGame.publicOrPrivate === 'private') {
           filteredGames.push(currentGame.gameCode)
         }
       }
@@ -40,10 +42,15 @@ function PrivateGame(props) {
 
     console.log('validGameCodes in PRIVATE SCREEN:  ', validGamecodes)
 
-    if(value.length === 5){
+    if (value.length === 5) {
 
-      if(!validGamecodes.includes(value)) {
+      if (!validGamecodes.includes(value)) {
         setError(true);
+        setTimeout(() => {
+          setError(false)
+        }, 1500)
+      } else {
+        setGoButton(true)
       }
 
     }
@@ -53,47 +60,49 @@ function PrivateGame(props) {
 
   return (
     <Modal
-        transparent={true}
-        visible={props.modalVisible === 'private'}
+      transparent={true}
+      visible={props.modalVisible === 'private'}
+    >
+      <View
+        style={styles.modalView}
+      >
+        <Text>JOIN a private game here!!</Text>
+        <Text>Enter Code</Text>
+
+
+        <Input
+          placeholder={'code here'}
+          style={styles.input}
+          onChangeText={value => handleChange(value)}
+          maxLength={5}
+        />
+
+        {error && <Text style={{ color: 'red' }}>Invalid code, please try again </Text>}
+
+        {goButton && <Link to='/howtoplay'>
+          <Text>Go!</Text>
+        </Link> 
+        }
+
+        {/* {  console.log('GAME CODE: ', gameCode)} */}
+
+
+
+        <Pressable
+          style={styles.openButton}
+          onPress={() => props.setModalVisible(null)}
         >
-          <View
-            style={styles.modalView}
-          >
-            <Text>JOIN a private game here!!</Text>
-            <Text>Enter Code</Text>
-
-
-            <Input
-              placeholder={'code here'}
-              style={styles.input}
-              onChangeText={value =>  handleChange(value)}
-            />
-
-            { error && <Text style={{color: 'red'}}>Invalid code</Text>}
-
-            <Link to='/howtoplay'>
-              <Text>Go!</Text>
-            </Link>
-
-            {/* {  console.log('GAME CODE: ', gameCode)} */}
-            
-
-
-            <Pressable
-            style={styles.openButton}
-            onPress={() => props.setModalVisible(null)}
-            >
-              <Text>X</Text>
-            </Pressable>
-          </View>
-      </Modal>
+          <Text>X</Text>
+        </Pressable>
+      </View>
+    </Modal>
   )
 }
 
 const mapStateToProps = (state) => {
-  return { 
+  return {
     socket: state.socketReducer
-          }
+  }
 }
 
 export default connect(mapStateToProps)(PrivateGame);
