@@ -54,7 +54,7 @@ function StartScreen(props) {
 
 const mapStateToProps = (state) => {
   return { userName: state.userReducer.username,
-           socket: state.socket
+           socket: state.socketReducer
           }
 }
 

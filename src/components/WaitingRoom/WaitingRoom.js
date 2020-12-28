@@ -31,8 +31,9 @@ const WaitingRoom = (props) => {
 
     props.fullGameInfo.userName = props.userName;
     props.fullGameInfo.gameCode = props.gameCode;
-    props.socket.emit('newGame', props.fullGameInfo )
-
+    props.socket.emit('newGame', props.fullGameInfo)
+    // props.socket.on('test', message => 
+    // (console.log('message', message)))
   }, [])
 
 
