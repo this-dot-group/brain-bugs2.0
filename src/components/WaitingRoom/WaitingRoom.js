@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, ActivityIndicator, Pressable, Modal } from 'react-native'
-import { Link } from 'react-router-native';
+import { Link, Redirect } from 'react-router-native';
 import Clipboard from 'expo-clipboard';
 // import faker from 'faker';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
@@ -15,6 +15,7 @@ const WaitingRoom = (props) => {
   // console.log('IN THE WAITING ROOM')
 
   const [modalVisible, setModalVisible] = useState(false)
+  const [roomJoin, setRoomJoin] = useState(false)
 
   const [copied, setCopied] = useState(false);
 
@@ -32,8 +33,9 @@ const WaitingRoom = (props) => {
     props.fullGameInfo.userName = props.userName;
     props.fullGameInfo.gameCode = props.gameCode;
     props.socket.emit('newGame', props.fullGameInfo)
-    // props.socket.on('test', message => 
-    // (console.log('message', message)))
+    props.socket.on('redirectToHowToPlay', () => {
+      setRoomJoin(true);
+    })
   }, [])
 
 
@@ -89,7 +91,11 @@ const WaitingRoom = (props) => {
       <Link to='/'>
         <Text>(Go Home)</Text>
       </Link>
+      {roomJoin &&
+        <Redirect to='/howtoplay' />
+      }
     </View>
+    
   )
 }
 
