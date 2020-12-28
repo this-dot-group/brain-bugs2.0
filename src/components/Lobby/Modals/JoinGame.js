@@ -25,6 +25,7 @@ function JoinGame(props) {
           let relevantInfo = {
             category: currentGame.category.name,
             player: currentGame.userName,
+            gameCode: currentGame.gameCode
           }
           filteredGames.push(relevantInfo)
         }
@@ -49,9 +50,9 @@ function JoinGame(props) {
         style={styles.modalView}
       >
         <Text>JOIN a game here!!</Text>
-
+        {console.log('games waiting', gamesWaiting)}
         {gamesWaiting.map((gameObj, i) =>
-
+          
           <Pressable
             style={styles.openButton}
             key={i}
