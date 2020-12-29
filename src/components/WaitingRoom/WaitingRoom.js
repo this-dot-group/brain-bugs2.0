@@ -4,6 +4,7 @@ import { Link, Redirect } from 'react-router-native';
 import Clipboard from 'expo-clipboard';
 // import faker from 'faker';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
+import { newOpponent } from '../../store/userReducer'
 import { connect } from 'react-redux';
 
 import styles from '../../styles/styles'
@@ -33,7 +34,10 @@ const WaitingRoom = (props) => {
     props.fullGameInfo.userName = props.userName;
     props.fullGameInfo.gameCode = props.gameCode;
     props.socket.emit('newGame', props.fullGameInfo)
-    props.socket.on('redirectToHowToPlay', () => {
+    props.socket.on('redirectToHowToPlay', usernames => {
+      // Opponent is gamejoiner because when you are in the waiting room, you are the one 
+      // who made the game
+      props.newOpponent(usernames.gameJoiner)
       setRoomJoin(true);
     })
   }, [])
@@ -108,5 +112,6 @@ const mapStateToProps = (state) => {
 
           }
 }
+const mapDispatchToProps = { newOpponent }
 
-export default connect(mapStateToProps)(WaitingRoom);
+export default connect(mapStateToProps, mapDispatchToProps)(WaitingRoom);
