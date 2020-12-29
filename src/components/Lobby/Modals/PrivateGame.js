@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, Modal, Pressable, TextInput } from 'react-native'
 import { Input } from 'react-native-elements';
-import { Link } from 'react-router-native';
+import { Link, Redirect } from 'react-router-native';
 import { connect } from 'react-redux'
 
 import styles from '../../../styles/styles';
@@ -11,7 +11,8 @@ function PrivateGame(props) {
   const [gameCode, setGameCode] = useState('');
   const [error, setError] = useState(false);
   const [validGamecodes, setValidGamecodes] = useState([]);
-  const [goButton, setGoButton] = useState(false)
+  const [goButton, setGoButton] = useState(false);
+  const [roomJoin, setRoomJoin] = useState(false);
 
 
   useEffect(() => {
@@ -32,6 +33,9 @@ function PrivateGame(props) {
       setValidGamecodes(filteredGames)
       console.log('filteredGames in PRIVATE GAME screen:  ', filteredGames)
     })
+    props.socket.on('redirectToHowToPlay', () => {
+      setRoomJoin(true);
+    });
 
   }, [])
 
@@ -69,20 +73,24 @@ function PrivateGame(props) {
         <Text>JOIN a private game here!!</Text>
         <Text>Enter Code</Text>
 
-
-        <Input
-          placeholder={'code here'}
-          style={styles.input}
-          onChangeText={value => handleChange(value)}
-          maxLength={5}
-        />
+        {!goButton &&
+          <Input
+            placeholder='code here'
+            style={styles.input}
+            onChangeText={value => handleChange(value)}
+            maxLength={5}
+          />}
 
         {error && <Text style={{ color: 'red' }}>Invalid code, please try again </Text>}
 
-        {goButton && <Link to='/howtoplay'>
-          <Text>Go!</Text>
-        </Link> 
-        }
+        {goButton &&
+          <Pressable
+            onPress={() => {
+              props.socket.emit('joinTwoPlayer', gameCode);
+              console.log('gameCode', gameCode)
+            }}>
+            <Text>Go!</Text>
+          </Pressable>}
 
         {/* {  console.log('GAME CODE: ', gameCode)} */}
 
@@ -94,6 +102,9 @@ function PrivateGame(props) {
         >
           <Text>X</Text>
         </Pressable>
+        {roomJoin &&
+          <Redirect to='/howtoplay' />
+        }
       </View>
     </Modal>
   )
