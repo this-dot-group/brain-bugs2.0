@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import { View, Text, Modal, Pressable } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker'
 import styles from '../../../styles/styles'
-import { Link } from 'react-router-native'
+import { Link, Redirect } from 'react-router-native'
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate } from '../../../store/gameInfoReducer'
+import socketReducer from '../../../store/socketReducer'
 const axios = require('axios');
 
 // const EXPO_LOCAL_URL = '10.0.0.200' // Josh
@@ -14,13 +15,13 @@ const EXPO_LOCAL_URL = '10.0.0.199' // Chris
 
 function StartGame(props) {
 
- 
-  const [categoryList, setCategoryList] = useState([]);
 
-  const [ numPlayers, setNumPlayers ] = useState(1)
+  const [categoryList, setCategoryList] = useState([]);
+  const [numPlayers, setNumPlayers] = useState(1)
+  const [joinOnePlayerRoom, setJoinOnePlayerRoom] = useState(false);
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       const categories = await axios.get(`http://${EXPO_LOCAL_URL}:3000/categories`)
       let categoryListArray = categories.data.map(category => {
         return {
@@ -30,6 +31,9 @@ function StartGame(props) {
       })
       setCategoryList(categoryListArray);
     })()
+    props.socket.on('redirectToHowToPlay', () => {
+      setJoinOnePlayerRoom(true);
+    });
   }, [])
 
 
@@ -58,7 +62,7 @@ function StartGame(props) {
             itemStyle={{ height: 50 }}
 
             onChangeItem={item => {
-              props.newCategory({name: item.label, id: item.value})
+              props.newCategory({ name: item.label, id: item.value })
             }}
             items={categoryList}
           />
@@ -88,7 +92,7 @@ function StartGame(props) {
             onChangeItem={item => {
               props.numPlayers(item.value);
               setNumPlayers(item.value);
-              
+
             }}
             items={[
               { label: 'Single Player', value: 1 },
@@ -99,37 +103,49 @@ function StartGame(props) {
 
 
         {numPlayers === 2 &&
-        <View style={{ height: 100 }}>
-          <DropDownPicker
-            containerStyle={{ height: 40, width: 200 }}
-            placeholder='Public or Private Game'
-            multiple={false}
-            onChangeItem={item => {
-              props.publicOrPrivate(item.value);              
-            }}
-            items={[
-              { label: 'Public Game', value: 'public' },
-              { label: 'Private Game', value: 'private' }
-            ]}
-          />
-        </View>
-      }
+          <View style={{ height: 100 }}>
+            <DropDownPicker
+              containerStyle={{ height: 40, width: 200 }}
+              placeholder='Public or Private Game'
+              multiple={false}
+              onChangeItem={item => {
+                props.publicOrPrivate(item.value);
+              }}
+              items={[
+                { label: 'Public Game', value: 'public' },
+                { label: 'Private Game', value: 'private' }
+              ]}
+            />
+          </View>
+        }
 
 
-        {numPlayers === 1 ? 
-        <Link to='/howtoplay'>
-          <Text>Go!</Text>
-        </Link>
-        : 
-        <Link to='/waitingroom'>
-          <Text>Go!</Text>
-        </Link> }
-        
+        {numPlayers === 1
+          ?
+          <Pressable
+            onPress={() => props.socket.emit('joinOnePlayer', props.gameCode)}>
+            <Text>Go!</Text>
+          </Pressable>
+          :
+          <Pressable>
+          <Link to='/waitingroom'>
+            <Text>Go!</Text>
+          </Link>
+          </Pressable>}
+        {joinOnePlayerRoom &&
+          <Redirect to='/howtoplay' />
+        }
       </View>
     </Modal>
   )
 }
+const mapStateToProps = (state) => {
+  return {
+    socket: state.socketReducer,
+    gameCode: state.userReducer.gameCode
 
+  }
+}
 const mapDispatchToProps = { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate }
 
-export default connect(null, mapDispatchToProps)(StartGame)
+export default connect(mapStateToProps, mapDispatchToProps)(StartGame)
