@@ -4,6 +4,8 @@
   * StartGame Screen
   * Home screen
 
+***************************
+
 * When someone chooses a game to join, it should remove that game from list of available ones (thats used to populate that screen)
 
 
@@ -12,8 +14,19 @@
 
 * Look into React memory leak issue
 
+* All roads leading to how to play screen
 
-### Socket connection(s)
-* one player connection to a room
-* two person game socket connection
+
+### Game Play Screen
+* Navigate from the how to play to the start of the game 
+* Populate questions 
+* Countdown Timer - rendering on both users screen 
+* Answering questions - determine how to have an input when answering
+* Revealing correct answer
+* Counting points
+
+
+
+
+
 
