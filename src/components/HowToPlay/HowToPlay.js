@@ -26,7 +26,7 @@ function HowToPlay(props) {
         setSeconds={setSeconds}
         />
       </Text>
-      <Text>{props.username} vs {props.opponent}</Text>
+      <Text>{props.username} {props.opponent && `vs ${props.opponent}`}</Text>
       <Pressable>
         <Link to='/'>
           <Text>Go Home</Text>

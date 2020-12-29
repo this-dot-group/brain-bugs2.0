@@ -10,8 +10,8 @@ import gameInfoReducer from './gameInfoReducer.js';
 let reducers = combineReducers({ userReducer, socketReducer, gameInfoReducer });
 
 const store = () => {
-  return createStore( reducers, composeWithDevTools(applyMiddleware(thunk)) )
-}
+  return createStore( reducers, composeWithDevTools(applyMiddleware(thunk)) );
+};
 
 export default store();
 

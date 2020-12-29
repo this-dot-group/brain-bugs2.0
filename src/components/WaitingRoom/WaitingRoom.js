@@ -5,6 +5,7 @@ import Clipboard from 'expo-clipboard';
 // import faker from 'faker';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import { newOpponent } from '../../store/userReducer'
+import { getQuestions } from '../../store/gameInfoReducer'
 import { connect } from 'react-redux';
 
 import styles from '../../styles/styles'
@@ -20,6 +21,7 @@ const WaitingRoom = (props) => {
 
   const [copied, setCopied] = useState(false);
 
+  // const [questions, setQuestions] = useState([]);
 
   const handleCodeCopy = () => {
     Clipboard.setString(props.gameCode);
@@ -31,16 +33,21 @@ const WaitingRoom = (props) => {
 
   useEffect(() => {
 
+    (async () => {
+      await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions)
+    })()
+    
+  }, [])
+  
+  useEffect(() => {
     props.fullGameInfo.userName = props.userName;
     props.fullGameInfo.gameCode = props.gameCode;
     props.socket.emit('newGame', props.fullGameInfo)
     props.socket.on('redirectToHowToPlay', usernames => {
-      // Opponent is gamejoiner because when you are in the waiting room, you are the one 
-      // who made the game
       props.newOpponent(usernames.gameJoiner)
       setRoomJoin(true);
     })
-  }, [])
+  },[props.fullGameInfo.liveGameQuestions])
 
 
   return (
@@ -112,6 +119,6 @@ const mapStateToProps = (state) => {
 
           }
 }
-const mapDispatchToProps = { newOpponent }
+const mapDispatchToProps = { newOpponent, getQuestions }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WaitingRoom);

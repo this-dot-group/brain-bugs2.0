@@ -12,12 +12,12 @@ export default (state = '', action) => {
 
   }
 
-}
+};
 
 export const newSocket = (socket) => {
 
   return {
     type: 'NEW_CONNECTION',
     payload: socket,
-  }
-}
+  };
+};

@@ -1,11 +1,17 @@
 /* 
 {
-  category: {name, id}
+  category: { name, id }
   numPlayers:
   numQuestions:
   publicOrPrivate: 
 }
 */
+
+import axios from 'axios';
+
+const EXPO_LOCAL_URL = '10.0.0.200'; // Josh
+// const EXPO_LOCAL_URL = '192.168.0.55'; // Tia
+// const EXPO_LOCAL_URL = '10.0.0.199'; // Chris 
 
 export default (state = {}, action) => {
 
@@ -28,12 +34,12 @@ export default (state = {}, action) => {
   case 'PUBLIC_OR_PRIVATE':
     // console.log('public OR private in reducer',payload);
     return {...state, publicOrPrivate: payload};
+  case 'GET_QUESTIONS':
+    return {...state, liveGameQuestions: payload};
   default:
     return state;
-
   }
-
-}
+};
 
 export const newGame = (gameInfo) => {
 
@@ -68,3 +74,14 @@ export const publicOrPrivate = answer => {
   };
 };
 
+export const getQuestions = (id, numQuestions) => {
+  
+  return async dispatch => {
+    const response = await axios.get(`http://${EXPO_LOCAL_URL}:3000/questions/${id}/${numQuestions}`);
+    // console.log('response from axois', response.data);
+    dispatch({
+      type: 'GET_QUESTIONS',
+      payload: response.data,
+    });
+  };
+};
