@@ -3,6 +3,7 @@ import { View, Text, Modal, Pressable, TextInput } from 'react-native'
 import { Input } from 'react-native-elements';
 import { Link, Redirect } from 'react-router-native';
 import { connect } from 'react-redux'
+import { newOpponent } from '../../../store/userReducer';
 
 import styles from '../../../styles/styles';
 
@@ -33,7 +34,8 @@ function PrivateGame(props) {
       setValidGamecodes(filteredGames)
       console.log('filteredGames in PRIVATE GAME screen:  ', filteredGames)
     })
-    props.socket.on('redirectToHowToPlay', () => {
+    props.socket.on('redirectToHowToPlay', usernames => {
+      props.newOpponent(usernames.gameMaker)
       setRoomJoin(true);
     });
 
@@ -86,7 +88,7 @@ function PrivateGame(props) {
         {goButton &&
           <Pressable
             onPress={() => {
-              props.socket.emit('joinTwoPlayer', gameCode);
+              props.socket.emit('joinTwoPlayer', [gameCode, props.username]);
               console.log('gameCode', gameCode)
             }}>
             <Text>Go!</Text>
@@ -112,8 +114,10 @@ function PrivateGame(props) {
 
 const mapStateToProps = (state) => {
   return {
-    socket: state.socketReducer
+    socket: state.socketReducer, 
+    username: state.userReducer.username,
   }
 }
+const mapDispatchToProps = { newOpponent };
 
-export default connect(mapStateToProps)(PrivateGame);
+export default connect(mapStateToProps, mapDispatchToProps)(PrivateGame);

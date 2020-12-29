@@ -6,11 +6,12 @@ import styles from '../../../styles/styles'
 import { Link, Redirect } from 'react-router-native'
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate } from '../../../store/gameInfoReducer'
 import socketReducer from '../../../store/socketReducer'
+import { newOpponent } from '../../../store/userReducer';
 const axios = require('axios');
 
-// const EXPO_LOCAL_URL = '10.0.0.200' // Josh
+const EXPO_LOCAL_URL = '10.0.0.200' // Josh
 // const EXPO_LOCAL_URL = '192.168.0.55' // Tia
-const EXPO_LOCAL_URL = '10.0.0.199' // Chris 
+// const EXPO_LOCAL_URL = '10.0.0.199' // Chris 
 
 
 function StartGame(props) {
@@ -32,6 +33,7 @@ function StartGame(props) {
       setCategoryList(categoryListArray);
     })()
     props.socket.on('redirectToHowToPlay', () => {
+      props.newOpponent(null);
       setJoinOnePlayerRoom(true);
     });
   }, [])
@@ -146,6 +148,12 @@ const mapStateToProps = (state) => {
 
   }
 }
-const mapDispatchToProps = { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate }
+const mapDispatchToProps = {
+  newGame,
+  numQuestions,
+  numPlayers,
+  newCategory,
+  publicOrPrivate,
+  newOpponent }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartGame)

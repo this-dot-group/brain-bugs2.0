@@ -14,19 +14,15 @@
 
 * Look into React memory leak issue
 
-* All roads leading to how to play screen
 
 
 ### Game Play Screen
-* Navigate from the how to play to the start of the game 
-* Populate questions 
-* Countdown Timer - rendering on both users screen 
+* Get questions into server for single player game
+* Navigate from the how to play to the start of the game
+  * After time is up, and we know that we have the questions
+* Populate questions
+* Countdown Timer - rendering on both users screen on How to play
 * Answering questions - determine how to have an input when answering
 * Revealing correct answer
 * Counting points
-
-
-
-
-
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, Modal, Pressable } from 'react-native'
 import { Link, Redirect } from 'react-router-native'
+import { newOpponent } from '../../../store/userReducer';
 import styles from '../../../styles/styles'
 import { connect } from 'react-redux';
 
@@ -33,7 +34,11 @@ function JoinGame(props) {
       setGamesWaiting(filteredGames)
     })
 
-    props.socket.on('redirectToHowToPlay', () => {
+    props.socket.on('redirectToHowToPlay', usernames => {
+      // In this gameplay route, the opponent is the game maker, because we are on the join
+      // game screen, the user is the game joiner, as opposed to gameplay route from waiting
+      // room
+      props.newOpponent(usernames.gameMaker)
       setRoomJoin(true);
     })
   }, [])
@@ -56,7 +61,7 @@ function JoinGame(props) {
           <Pressable
             style={styles.openButton}
             key={i}
-            onPress={() => props.socket.emit('joinTwoPlayer', gameObj.gameCode)}
+            onPress={() => props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username])}
           >
             {/* <Link to='/howtoplay'> */}
             <Text>
@@ -86,9 +91,12 @@ function JoinGame(props) {
 
 const mapStateToProps = (state) => {
   return {
-    socket: state.socketReducer
+    socket: state.socketReducer,
+    username: state.userReducer.username,
   }
 }
 
-export default connect(mapStateToProps)(JoinGame);
+const mapDispatchToProps = { newOpponent };
+
+export default connect(mapStateToProps, mapDispatchToProps)(JoinGame);
 
