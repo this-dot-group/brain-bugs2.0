@@ -26,7 +26,8 @@
 * Counting points
 
 
-
+### Join Game Screen
+* Games created after you are signed in may not show up on your join game screen
 
 
 

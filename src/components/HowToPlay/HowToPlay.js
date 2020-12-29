@@ -26,9 +26,8 @@ function HowToPlay(props) {
         setSeconds={setSeconds}
         />
       </Text>
-
+      <Text>{props.username} vs {props.opponent}</Text>
       <Pressable>
-
         <Link to='/'>
           <Text>Go Home</Text>
         </Link>
@@ -39,7 +38,9 @@ function HowToPlay(props) {
 
 const mapStateToProps = (state) => {
   return {
-    socket: state.socketReducer
+    socket: state.socketReducer,
+    username: state.userReducer.username,
+    opponent: state.userReducer.opponent,
   }
 }
 export default connect(mapStateToProps)(HowToPlay)

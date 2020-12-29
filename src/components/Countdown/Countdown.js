@@ -5,7 +5,6 @@ import { Text } from 'react-native'
 export default function Countdown(props) {
   // const [seconds, setSeconds] = useState(props.seconds);
 
-
   useEffect(() => {
     const myInterval = setInterval(() => {
       props.setSeconds((seconds) => seconds - 1);
