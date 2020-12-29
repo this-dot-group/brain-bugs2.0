@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, Pressable } from 'react-native'
 import { Link } from 'react-router-native';
 import { connect } from 'react-redux'
+import Countdown from '../Countdown/Countdown'
 
 
 //Import Timer from Server
@@ -9,15 +10,22 @@ import { connect } from 'react-redux'
 
 function HowToPlay(props) {
 
-  useEffect(() => {
-    // props.socket.on('test', message => 
-    // console.log(message,'message') )
+  const [seconds, setSeconds] = useState(3);
 
-  }, [])
+
+  useEffect(() => {
+    
+  }, [seconds])
 
   return (
     <View>
       <Text> HOW TO PLAY screen with countdown </Text>
+      <Text>Game starting in&nbsp;
+        <Countdown
+        seconds={seconds}
+        setSeconds={setSeconds}
+        />
+      </Text>
 
       <Pressable>
 
