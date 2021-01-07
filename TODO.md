@@ -3,6 +3,7 @@
 * Update the urls for your own ip address
   * StartGame Screen
   * Home screen
+  * gameInfo Reducer
 
 ***************************
 
