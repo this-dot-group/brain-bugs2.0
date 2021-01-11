@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, Pressable } from 'react-native'
-import { Link } from 'react-router-native';
+import { Link, Redirect } from 'react-router-native';
 import { connect } from 'react-redux'
 import Countdown from '../Countdown/Countdown'
 
@@ -27,6 +27,14 @@ function HowToPlay(props) {
         />
       </Text>
       <Text>{props.username} {props.opponent && `vs ${props.opponent}`}</Text>
+
+      {seconds === 0 &&
+        <Redirect to='/gameplay' />
+      }
+
+
+
+
       <Pressable>
         <Link to='/'>
           <Text>Go Home</Text>

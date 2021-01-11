@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
 
 export default function App() {
   return (
+
     <Provider
       store={store}>
       <NativeRouter>
@@ -44,9 +45,14 @@ export default function App() {
             exact path='/howtoplay'
             component={HowToPlay}
           />
+          <Route 
+            exact path='/gameplay'
+            component={GameScreen}
+          />
         </View>
       </NativeRouter>
     </Provider>
+
   );
 }
 
