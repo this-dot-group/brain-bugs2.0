@@ -14,24 +14,16 @@ function GameScreen(props) {
 
   const [formattedQuestionInfo, setFormattedQuestionInfo] = useState({});
 
+  // the function below adds the correct answer at a random index to the array of incorrect answers, return it to save later as the answerArr
   const insertCorrectAnswer = (questionObj) => {
 
     let answerArr = questionObj.incorrect_answers;
 
-    console.log('answerArr BEFORE splice:', answerArr)
-
     let randomSpliceIndex = Math.floor(Math.random() * answerArr.length);
-
 
     answerArr.splice(randomSpliceIndex, 0, questionObj.correct_answer);
 
-    console.log('AnswerArr AFTER splice:', answerArr)
-
-    console.log('answerArr:', answerArr)
-
     return answerArr;
-
-
   }
 
 
@@ -42,11 +34,7 @@ function GameScreen(props) {
 
       let answerArr = insertCorrectAnswer(questionObj);
 
-      console.log('answerArr in useEffect', answerArr)
-
       questionObj.answers = answerArr;
-
-      console.log('questionObj after addition of answers', questionObj)
 
       setFormattedQuestionInfo(questionObj);
 

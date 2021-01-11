@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
 
 export default function App() {
   return (
+
     <Provider
       store={store}>
       <NativeRouter>
@@ -51,6 +52,7 @@ export default function App() {
         </View>
       </NativeRouter>
     </Provider>
+
   );
 }
 
