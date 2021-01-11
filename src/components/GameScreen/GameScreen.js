@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, Pressable, Modal } from 'react-native'
+import { Text, View, Pressable, Modal, PermissionsAndroid } from 'react-native'
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 
 import { connect } from 'react-redux';
@@ -10,27 +10,56 @@ import styles from '../../styles/styles'
 
 function GameScreen(props) {
 
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const [formattedQuestionInfo, setFormattedQuestionInfo] = useState({});
+
+  const insertCorrectAnswer = (questionObj) => {
+
+    let answerArr = questionObj.incorrect_answers;
+
+    console.log('answerArr BEFORE splice:', answerArr)
+
+    let randomSpliceIndex = Math.floor(Math.random() * answerArr.length);
+
+
+    answerArr.splice(randomSpliceIndex, 0, questionObj.correct_answer);
+
+    console.log('AnswerArr AFTER splice:', answerArr)
+
+    console.log('answerArr:', answerArr)
+
+    return answerArr;
+
+
+  }
+
 
   useEffect(() => {
 
     props.socket.emit('readyForGame');
     props.socket.on('question', questionObj => {
-      console.log('questionObj in question event', questionObj);
+
+      let answerArr = insertCorrectAnswer(questionObj);
+
+      console.log('answerArr in useEffect', answerArr)
+
+      questionObj.answers = answerArr;
+
+      console.log('questionObj after addition of answers', questionObj)
+
+      setFormattedQuestionInfo(questionObj);
+
     })
 
   }, [])
 
-  const [modalVisible, setModalVisible] = useState(false)
 
 
 
   return (
     <View>
-      <Text>GAME PLAY SCREEN </Text>
-
-
-
-
+   
       <Modal
         transparent={true}
         visible={modalVisible}>
@@ -56,7 +85,46 @@ function GameScreen(props) {
         >
         <Text>How To Play</Text>
       </Pressable>
+
+      {formattedQuestionInfo.question && 
+
+      <>
+      
+      <Text>{formattedQuestionInfo.category}</Text>
+
+      <Text>{formattedQuestionInfo.question}</Text>
+
+      
+      {formattedQuestionInfo.answers.map((answer,i) => 
+
+        <Pressable
+        style={styles.openButton}
+        key={i}
+        >
+          <Text>{answer}</Text>
+        </Pressable>
+      )}
+
+      </>
+     
+      
+      }
+
+
+
+
+
+
+
+
+
+
+
     </View>
+
+
+
+
   )
 }
 

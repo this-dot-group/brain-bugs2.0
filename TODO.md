@@ -14,6 +14,7 @@
 
 * Look into React memory leak issue
 
+* deal with punctuation issues in question/answers from API (we saw one that should have been an apostrophe but it came back as literally &#039;)
 
 
 ### Game Play Screen
