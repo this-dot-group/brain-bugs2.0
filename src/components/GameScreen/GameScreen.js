@@ -1,14 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, View, Pressable, Modal } from 'react-native'
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 
-function GameScreen() {
+import { connect } from 'react-redux';
+
+
+import styles from '../../styles/styles'
+
+
+function GameScreen(props) {
+
+
+  useEffect(() => {
+
+    props.socket.emit('readyForGame');
+    props.socket.on('question', questionObj => {
+      console.log('questionObj in question event', questionObj);
+    })
+
+  }, [])
 
   const [modalVisible, setModalVisible] = useState(false)
 
+
+
   return (
     <View>
-      <Text>Game Screen </Text>
+      <Text>GAME PLAY SCREEN </Text>
+
+
+
+
       <Modal
         transparent={true}
         visible={modalVisible}>
@@ -38,4 +60,10 @@ function GameScreen() {
   )
 }
 
-export default GameScreen
+const mapStateToProps = (state) => {
+  return {
+    socket: state.socketReducer,
+  }
+}
+
+export default connect(mapStateToProps)(GameScreen);
