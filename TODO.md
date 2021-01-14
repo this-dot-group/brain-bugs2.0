@@ -16,18 +16,15 @@
 
 ### Game Play Screen
 * Get questions into server for single player game
-* Populate questions
-
-* Answering questions - determine how to have an input when answering
-* Revealing correct answer
-* Counting points
 
 * On gameplay screen, working towards some type of progress bar / visual indication to the user that theyve selected an answer and it will be submitted after a short period of time. for ex: user holds finger on answer (in a Pressable), onPressIn starts a "progress bar" that indicates time to submission. Countdown going on in the background as well. 
 
-## UPDATED Game Play notes 1/11/20
-
-* bring countdown in (sending in # of secs we want)
-* need functions to handle what happens when you submit an answer. using the props on the Pressable element
+## UPDATED Game Play notes 1/13/20
+* Make sure countdown timer is re-rendering at 10 (or set amount) after each questions. 
+* Still need to decide on making a selection using the following;
   * onPressIn, onLongPress, delayLongPress
-* score keeping can be handled on the server side (see TODO there) but we need to render scoreboard here
+* Keeping track of score on server side but we need to render scoreboard here
+* User only able to answer each question once.  Currently they have the ability to answer multiple times. 
+*  What to happen at the end of the game.  
+*  Need to render the correct answer (on a seperate screen, or view) in between each of the questions to let the user know whether or not the answer is correct. 
 
