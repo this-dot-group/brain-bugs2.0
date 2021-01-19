@@ -3,6 +3,7 @@ import { Text, View, Pressable, Modal } from 'react-native'
 import { Divider } from 'react-native-elements';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import he from 'he';
+import { Redirect } from 'react-router-native';
 
 import { connect } from 'react-redux';
 import Countdown from '../Countdown/Countdown'
@@ -15,7 +16,8 @@ function GameScreen(props) {
   const [seconds, setSeconds] = useState(10);
   const [modalVisible, setModalVisible] = useState(false);
   const [formattedQuestionInfo, setFormattedQuestionInfo] = useState({});
-  const [score, setScore] = useState({})
+  const [score, setScore] = useState({});
+  const [gameEnd, setGameEnd] = useState(false);
 
   // the function below adds the correct answer at a random index to the array of incorrect answers, return it to save later as the answerArr
   const insertCorrectAnswer = (questionObj) => {
@@ -64,6 +66,10 @@ function GameScreen(props) {
     props.socket.on('score', scoreObj => {
       console.log('score obj in client', scoreObj)
       setScore(scoreObj);
+    })
+    props.socket.on('endGame', finalScore => {
+      setScore(finalScore);
+      setGameEnd(true)
     })
 
   }, [])
@@ -156,8 +162,12 @@ function GameScreen(props) {
 
 
       }
-
-
+  { gameEnd &&
+      <Redirect
+      to={{
+        pathname:'/gameend',
+        state: {finalScore: score},
+        }} /> }
 
 
 
