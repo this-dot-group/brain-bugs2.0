@@ -1,5 +1,7 @@
 ## TO DO List
 
+* time is very high for testing gameplay screens
+
 * Update the urls for your own ip address
   * StartGame Screen
   * Home screen
@@ -12,16 +14,25 @@
 ### Game Play Screen
 * Get questions into server for single player game
 
-* On gameplay screen, working towards some type of progress bar / visual indication to the user that theyve selected an answer and it will be submitted after a short period of time. for ex: user holds finger on answer (in a Pressable), onPressIn starts a "progress bar" that indicates time to submission. Countdown going on in the background as well. 
+* On gameplay screen, working towards some type of progress bar / visual indication to the user that theyve selected an answer and it will be submitted after a short period of time. for ex: user holds finger on answer (in a Pressable), onPressIn starts a "progress bar" that indicates time to submission. Countdown going on in the background as well.
+
+
 
 ## UPDATED Game Play notes 1/13/20
 
 * Still need to decide on making a selection using the following;
   * onPressIn, onLongPress, delayLongPress
+  * Selected button changes color
+  * Long Press Submits it
+  * Working on visual indicator of long press
+  * once submitted - take other answers away
+  * Let user know that other user hasn't submitted yet
 
-* User only able to answer each question once.  Currently they have the ability to answer multiple times. 
+* User only able to answer each question once.  Currently they have the ability to answer multiple times.
+
 * IF time runs out, selected answer is submitted automatically
-*  What to happen at the end of the game.  
+* Chat functionality at end
+* Option for rematch or lobby at end 
 *  Need to render the correct answer (on a seperate screen, or view) in between each of the questions to let the user know whether or not the answer is correct. 
 
 

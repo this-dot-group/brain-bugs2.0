@@ -13,11 +13,12 @@ import styles from '../../styles/styles'
 
 function GameScreen(props) {
 
-  const [seconds, setSeconds] = useState(10);
+  const [seconds, setSeconds] = useState(1000000);
   const [modalVisible, setModalVisible] = useState(false);
   const [formattedQuestionInfo, setFormattedQuestionInfo] = useState({});
   const [score, setScore] = useState({});
   const [gameEnd, setGameEnd] = useState(false);
+  const [selected, setSelected] = useState(-1);
 
   // the function below adds the correct answer at a random index to the array of incorrect answers, return it to save later as the answerArr
   const insertCorrectAnswer = (questionObj) => {
@@ -59,7 +60,7 @@ function GameScreen(props) {
       let answerArr = insertCorrectAnswer(questionObj);
 
       questionObj.answers = answerArr;
-
+      setSelected(-1);
       setFormattedQuestionInfo(questionObj);
 
     })
@@ -87,7 +88,7 @@ function GameScreen(props) {
   }, [seconds])
 
   useEffect(() => {
-    setSeconds(10);
+    setSeconds(1000000);
   }, [formattedQuestionInfo])
 
 
@@ -104,7 +105,7 @@ function GameScreen(props) {
           <Pressable
             style={styles.openButton}
             onPress={() => {
-              setModalVisible(!modalVisible)
+              setModalVisible(!modalVisible) 
             }}
           >
             <Text>Hide</Text>
@@ -134,9 +135,16 @@ function GameScreen(props) {
             <Pressable
 
               onPress={() => {
+                setSelected(i)
+                
+              }}
+              onLongPress={() => {
                 handleSubmitAnswer(answer)
               }}
-              style={styles.openButton}
+              style={i === selected ?
+                  styles.selectedAnswer
+                 : styles.answerPressables
+                }
               key={i}
             >
               <Text>{he.decode(answer)}</Text>
