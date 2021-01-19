@@ -54,14 +54,14 @@ function StartGame(props) {
         >
           <Text>X</Text>
         </Pressable>
-        <View style={{ height: 100 }}>
+        <View style={styles.dropDownView}>
           <DropDownPicker
-            containerStyle={{ height: 40, width: 200 }}
+            containerStyle={styles.dropDownPicker}
 
 
             multiple={false}
             placeholder='Select a Category'
-            itemStyle={{ height: 50 }}
+            itemStyle={styles.dropDownItemAtt}
 
             onChangeItem={item => {
               props.newCategory({ name: item.label, id: item.value })
@@ -70,9 +70,9 @@ function StartGame(props) {
           />
 
         </View>
-        <View style={{ height: 100 }}>
+        <View style={styles.dropDownView}>
           <DropDownPicker
-            containerStyle={{ height: 40, width: 200 }}
+            containerStyle={styles.dropDownPicker}
             placeholder='Number of Questions'
             multiple={false}
             onChangeItem={item => {
@@ -86,9 +86,9 @@ function StartGame(props) {
             ]}
           />
         </View>
-        <View style={{ height: 100 }}>
+        <View style={styles.dropDownView}>
           <DropDownPicker
-            containerStyle={{ height: 40, width: 200 }}
+            containerStyle={styles.dropDownPicker}
             placeholder='Number of Players'
             multiple={false}
             onChangeItem={item => {
@@ -105,9 +105,9 @@ function StartGame(props) {
 
 
         {numPlayers === 2 &&
-          <View style={{ height: 100 }}>
+          <View style={styles.dropDownView}>
             <DropDownPicker
-              containerStyle={{ height: 40, width: 200 }}
+              containerStyle={styles.dropDownPicker}
               placeholder='Public or Private Game'
               multiple={false}
               onChangeItem={item => {

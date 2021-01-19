@@ -97,7 +97,7 @@ const WaitingRoom = (props) => {
 
         }
 
-        {copied && <Text style={{ color: 'red' }}> Copied </Text>}  
+        {copied && <Text style={styles.alertText}> Copied </Text>}  
 
       <Link to='/'>
         <Text>(Go Home)</Text>
