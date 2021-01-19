@@ -6,7 +6,6 @@ import he from 'he';
 import { connect } from 'react-redux';
 import Countdown from '../Countdown/Countdown'
 
-
 import styles from '../../styles/styles'
 
 
@@ -39,11 +38,12 @@ function GameScreen(props) {
       questionPoints = 0;
 
     // console.log('Question Points: ', questionPoints)
-    props.socket.emit('userAnsweredinGame', 
-    {
-      username: props.userName,
-      points: questionPoints}
-      )
+    props.socket.emit('userAnsweredinGame',
+      {
+        username: props.userName,
+        points: questionPoints
+      }
+    )
   }
 
 
@@ -57,22 +57,26 @@ function GameScreen(props) {
       questionObj.answers = answerArr;
 
       setFormattedQuestionInfo(questionObj);
-      
+
     })
 
   }, [])
 
   useEffect(() => {
 
-    if( seconds === 0 ){
-      props.socket.emit('userAnsweredinGame', 
-      {
-        username: props.userName,
-        points: 0
-      })
+    if (seconds === 0) {
+      props.socket.emit('userAnsweredinGame',
+        {
+          username: props.userName,
+          points: 0
+        })
     }
 
-  },[seconds])
+  }, [seconds])
+
+useEffect(() => {
+  setSeconds(10);
+}, [formattedQuestionInfo])
 
 
   return (
@@ -126,14 +130,14 @@ function GameScreen(props) {
               <Text>{he.decode(answer)}</Text>
             </Pressable>
           )}
-
           <Text>Time Left:&nbsp;
-        <Countdown
+          <Countdown
               seconds={seconds}
               setSeconds={setSeconds}
             //create a function that when the time hits zero
             />
           </Text>
+
 
           <Text> Scoreboard here </Text>
         </>
