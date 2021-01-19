@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Text, View, Pressable, Modal, PermissionsAndroid } from 'react-native'
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
+import he from 'he';
 
 import { connect } from 'react-redux';
 import Countdown from '../Countdown/Countdown'
@@ -107,9 +108,9 @@ function GameScreen(props) {
 
         <>
 
-          <Text>{formattedQuestionInfo.category}</Text>
+          <Text>{he.decode(formattedQuestionInfo.category)}</Text>
 
-          <Text>{formattedQuestionInfo.question}</Text>
+          <Text>{he.decode(formattedQuestionInfo.question)}</Text>
 
 
           {formattedQuestionInfo.answers.map((answer, i) =>
@@ -122,7 +123,7 @@ function GameScreen(props) {
               style={styles.openButton}
               key={i}
             >
-              <Text>{answer}</Text>
+              <Text>{he.decode(answer)}</Text>
             </Pressable>
           )}
 

@@ -7,11 +7,14 @@ import { Link, Redirect } from 'react-router-native'
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate } from '../../../store/gameInfoReducer'
 import socketReducer from '../../../store/socketReducer'
 import { newOpponent } from '../../../store/userReducer';
+
+import he from 'he';
+
 const axios = require('axios');
 
-// const EXPO_LOCAL_URL = '10.0.0.200' // Josh
+const EXPO_LOCAL_URL = '10.0.0.200' // Josh
 // const EXPO_LOCAL_URL = '192.168.0.55' // Tia
-const EXPO_LOCAL_URL = '10.0.0.199' // Chris 
+// const EXPO_LOCAL_URL = '10.0.0.199' // Chris 
 
 
 function StartGame(props) {
@@ -26,7 +29,7 @@ function StartGame(props) {
       const categories = await axios.get(`http://${EXPO_LOCAL_URL}:3000/categories`)
       let categoryListArray = categories.data.map(category => {
         return {
-          label: category.name,
+          label: he.decode(category.name),
           value: category.id
         }
       })

@@ -13,6 +13,7 @@
     "expo-clipboard": "^1.0.1",
     "expo-status-bar": "~1.0.2",
     "faker": "^5.1.0",
+    "he": "^1.2.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",

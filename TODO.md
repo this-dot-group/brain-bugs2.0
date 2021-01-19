@@ -8,7 +8,6 @@
 ***************************
 
 * clean up inline styling in StartGame (and prob others) file, move out to main style file
---- PrivateGame, StartGame, WaitingRoom (dropDownView, dropDownPicker, dropDownItemAtt, alertText)
 
 * Look into React memory leak issue
 
