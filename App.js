@@ -49,6 +49,10 @@ export default function App() {
             exact path='/gameplay'
             component={GameScreen}
           />
+          <Route 
+            exact path='/gameend'
+            component={GameEnd}
+          />
         </View>
       </NativeRouter>
     </Provider>
