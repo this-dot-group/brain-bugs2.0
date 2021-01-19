@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, Pressable, Modal, PermissionsAndroid } from 'react-native'
+import { Text, View, Pressable, Modal } from 'react-native'
+import { Divider } from 'react-native-elements';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import he from 'he';
 
@@ -14,6 +15,7 @@ function GameScreen(props) {
   const [seconds, setSeconds] = useState(10);
   const [modalVisible, setModalVisible] = useState(false);
   const [formattedQuestionInfo, setFormattedQuestionInfo] = useState({});
+  const [score, setScore] = useState({})
 
   // the function below adds the correct answer at a random index to the array of incorrect answers, return it to save later as the answerArr
   const insertCorrectAnswer = (questionObj) => {
@@ -59,6 +61,10 @@ function GameScreen(props) {
       setFormattedQuestionInfo(questionObj);
 
     })
+    props.socket.on('score', scoreObj => {
+      console.log('score obj in client', scoreObj)
+      setScore(scoreObj);
+    })
 
   }, [])
 
@@ -74,9 +80,9 @@ function GameScreen(props) {
 
   }, [seconds])
 
-useEffect(() => {
-  setSeconds(10);
-}, [formattedQuestionInfo])
+  useEffect(() => {
+    setSeconds(10);
+  }, [formattedQuestionInfo])
 
 
   return (
@@ -138,8 +144,14 @@ useEffect(() => {
             />
           </Text>
 
+          <Divider style={{height: 1, backgroundColor: 'blue'}} />
+          {score.playerOne &&
+            <>
+              <Text>{score.playerOne.name} {score.playerOne.score}</Text>
+              <Text>{score.playerTwo.name} {score.playerTwo.score}</Text>
+            </>
+          }
 
-          <Text> Scoreboard here </Text>
         </>
 
 
