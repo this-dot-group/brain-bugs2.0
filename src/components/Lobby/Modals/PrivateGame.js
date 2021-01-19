@@ -83,7 +83,7 @@ function PrivateGame(props) {
             maxLength={5}
           />}
 
-        {error && <Text style={{ color: 'red' }}>Invalid code, please try again </Text>}
+        {error && <Text style={styles.alertText}>Invalid code, please try again </Text>}
 
         {goButton &&
           <Pressable

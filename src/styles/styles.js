@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { Redirect } from 'react-router-native';
 
 const styles = StyleSheet.create({
   image: {
@@ -28,6 +29,19 @@ const styles = StyleSheet.create({
   },
   input: {
 
+  },
+  dropDownView: {
+    height: 100,
+  },
+  dropDownPicker: {
+    height: 40,
+    width: 200,
+  },
+  dropDownItemAtt: {
+    height: 50,
+  },
+  alertText: {
+    color: 'red',
   },
 
 });
