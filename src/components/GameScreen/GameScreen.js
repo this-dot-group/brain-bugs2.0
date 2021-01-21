@@ -19,6 +19,7 @@ function GameScreen(props) {
   const [score, setScore] = useState({});
   const [gameEnd, setGameEnd] = useState(false);
   const [selected, setSelected] = useState(-1);
+  const [submitted, setSubmitted] = useState(-1);
 
   // the function below adds the correct answer at a random index to the array of incorrect answers, return it to save later as the answerArr
   const insertCorrectAnswer = (questionObj) => {
@@ -34,9 +35,10 @@ function GameScreen(props) {
   }
 
   //needs to know if its the correct anwser 
-  const handleSubmitAnswer = (answer) => {
+  const handleSubmitAnswer = (answer, i) => {
     console.log('Formatted Question Info', formattedQuestionInfo)
     let questionPoints;
+
     answer === formattedQuestionInfo.correct_answer ?
       questionPoints = 1
       :
@@ -49,6 +51,8 @@ function GameScreen(props) {
         points: questionPoints
       }
     )
+
+    setSubmitted(i);
   }
 
 
@@ -62,6 +66,7 @@ function GameScreen(props) {
       questionObj.answers = answerArr;
       setSelected(-1);
       setFormattedQuestionInfo(questionObj);
+      setSubmitted(-1);
 
     })
     props.socket.on('score', scoreObj => {
@@ -90,6 +95,20 @@ function GameScreen(props) {
   useEffect(() => {
     setSeconds(1000000);
   }, [formattedQuestionInfo])
+
+  const chooseColor = (i) => {
+
+    let color = i === selected ? styles.selectedAnswer : styles.answerPressables;
+
+    if(i === submitted){
+      color = styles.submittedAnswer
+    }
+
+    // color.backgroundColor = submitted && 'yellow';
+
+    return color;
+
+  }
 
 
   return (
@@ -139,15 +158,15 @@ function GameScreen(props) {
                 
               }}
               onLongPress={() => {
-                handleSubmitAnswer(answer)
+                handleSubmitAnswer(answer, i)
               }}
-              style={i === selected ?
-                  styles.selectedAnswer
-                 : styles.answerPressables
-                }
+              style={chooseColor(i)}
+                
+                
               key={i}
+              disabled={submitted >= 0}
             >
-              <Text>{he.decode(answer)}</Text>
+              <Text style={styles.answerText}>{he.decode(answer)}</Text>
             </Pressable>
           )}
           <Text>Time Left:&nbsp;
