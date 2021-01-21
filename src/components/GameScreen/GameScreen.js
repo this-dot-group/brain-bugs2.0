@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, Pressable, Modal } from 'react-native'
+import { Text, View, Pressable, Modal, Animated } from 'react-native'
 import { Divider } from 'react-native-elements';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import he from 'he';
@@ -18,7 +18,9 @@ function GameScreen(props) {
   const [formattedQuestionInfo, setFormattedQuestionInfo] = useState({});
   const [score, setScore] = useState({});
   const [gameEnd, setGameEnd] = useState(false);
+  // setting the states below to -1 since there will never be a -1 index position in the answer array
   const [selected, setSelected] = useState(-1);
+  const [submitted, setSubmitted] = useState(-1);
 
   // the function below adds the correct answer at a random index to the array of incorrect answers, return it to save later as the answerArr
   const insertCorrectAnswer = (questionObj) => {
@@ -33,10 +35,39 @@ function GameScreen(props) {
     return answerArr;
   }
 
-  //needs to know if its the correct anwser 
-  const handleSubmitAnswer = (answer) => {
+    // ANIMATION
+
+    const [animation, setAnimation] = useState(new Animated.Value(0))
+
+    const interpolation =  animation.interpolate({
+      inputRange: [0, 1],
+      outputRange:["grey" , "yellow"]
+    })
+
+    const animatedStyle = {
+      backgroundColor: interpolation
+    }
+
+
+  const handleAnimation = (answer, i) => {
+
+    Animated.timing(animation, {
+      toValue: 1,
+      duration: 500
+    }).start(() => {
+
+      handleSubmitAnswer(answer, i);
+
+    })
+
+  }
+  //needs to know if its the correct answer 
+  const handleSubmitAnswer = (answer, i) => {
+
+
     console.log('Formatted Question Info', formattedQuestionInfo)
     let questionPoints;
+
     answer === formattedQuestionInfo.correct_answer ?
       questionPoints = 1
       :
@@ -49,6 +80,8 @@ function GameScreen(props) {
         points: questionPoints
       }
     )
+
+    setSubmitted(i);
   }
 
 
@@ -57,11 +90,15 @@ function GameScreen(props) {
     props.socket.emit('readyForGame');
     props.socket.on('question', questionObj => {
 
+      // resetting the Animated Value each time a new question comes down
+      setAnimation(new Animated.Value(0))
+
       let answerArr = insertCorrectAnswer(questionObj);
 
       questionObj.answers = answerArr;
       setSelected(-1);
       setFormattedQuestionInfo(questionObj);
+      setSubmitted(-1);
 
     })
     props.socket.on('score', scoreObj => {
@@ -90,6 +127,20 @@ function GameScreen(props) {
   useEffect(() => {
     setSeconds(1000000);
   }, [formattedQuestionInfo])
+
+  const chooseColor = (i) => {
+
+    let color = i === selected ? styles.selectedAnswer : styles.answerPressables;
+
+    if(i === submitted){
+      color = styles.submittedAnswer
+    }
+
+    return color;
+
+  }
+
+
 
 
   return (
@@ -130,24 +181,36 @@ function GameScreen(props) {
           <Text>{he.decode(formattedQuestionInfo.question)}</Text>
 
 
+          {/* i is the index number of the answer in the answer arr */}
+
           {formattedQuestionInfo.answers.map((answer, i) =>
 
             <Pressable
 
               onPress={() => {
                 setSelected(i)
-                
               }}
+
               onLongPress={() => {
-                handleSubmitAnswer(answer)
+                handleAnimation(answer, i)
               }}
-              style={i === selected ?
-                  styles.selectedAnswer
-                 : styles.answerPressables
-                }
+
+              // onLongPress={() => {
+              //   handleSubmitAnswer(answer, i)
+              // }}
+
+              style={chooseColor(i)}
+                
               key={i}
+              disabled={submitted >= 0}
             >
-              <Text>{he.decode(answer)}</Text>
+              <Animated.View
+              style={i === selected ? animatedStyle : null}>
+
+                <Text style={styles.answerText}>{he.decode(answer)}</Text>
+
+              </Animated.View>
+
             </Pressable>
           )}
           <Text>Time Left:&nbsp;
