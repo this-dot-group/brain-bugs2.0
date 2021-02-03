@@ -4,6 +4,7 @@ import { Divider } from 'react-native-elements';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import he from 'he';
 import { Redirect } from 'react-router-native';
+import AnimatedEllipsis from 'react-native-animated-ellipsis'
 
 import { connect } from 'react-redux';
 import Countdown from '../Countdown/Countdown'
@@ -21,6 +22,9 @@ function GameScreen(props) {
   // setting the states below to -1 since there will never be a -1 index position in the answer array
   const [selected, setSelected] = useState(-1);
   const [submitted, setSubmitted] = useState(-1);
+  const [waiting, setWaiting] = useState(false);
+  const [correctIndex, setCorrectIndex] = useState(-1);
+  const [ displayAnswer, setDisplayAnswer] = useState(false)
 
   // the function below adds the correct answer at a random index to the array of incorrect answers, return it to save later as the answerArr
   const insertCorrectAnswer = (questionObj) => {
@@ -29,24 +33,25 @@ function GameScreen(props) {
 
     let randomSpliceIndex = Math.floor(Math.random() * answerArr.length);
     // console.log('Random Splice Index', randomSpliceIndex);
+    setCorrectIndex(randomSpliceIndex);
     answerArr.splice(randomSpliceIndex, 0, questionObj.correct_answer);
 
     // console.log('Answer Array ', answerArr)
     return answerArr;
   }
 
-    // ANIMATION
+  // ANIMATION
 
-    const [animation, setAnimation] = useState(new Animated.Value(0))
+  const [animation, setAnimation] = useState(new Animated.Value(0))
 
-    const interpolation =  animation.interpolate({
-      inputRange: [0, 1],
-      outputRange:["grey" , "yellow"]
-    })
+  const interpolation = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["grey", "yellow"]
+  })
 
-    const animatedStyle = {
-      backgroundColor: interpolation
-    }
+  const animatedStyle = {
+    backgroundColor: interpolation
+  }
 
 
   const handleAnimation = (answer, i) => {
@@ -82,32 +87,41 @@ function GameScreen(props) {
     )
 
     setSubmitted(i);
+    setWaiting(true);
   }
 
 
   useEffect(() => {
 
     props.socket.emit('readyForGame');
+
+
     props.socket.on('question', questionObj => {
+      console.log('before setTimeout')
 
-      // resetting the Animated Value each time a new question comes down
-      setAnimation(new Animated.Value(0))
+      setDisplayAnswer(true)
+      setTimeout(() => {
 
-      let answerArr = insertCorrectAnswer(questionObj);
+        setDisplayAnswer(false);
+        setCorrectIndex(-1);
+        setWaiting(false);
+        // resetting the Animated Value each time a new question comes down
+        setAnimation(new Animated.Value(0))
 
-      questionObj.answers = answerArr;
-      setSelected(-1);
-      setFormattedQuestionInfo(questionObj);
-      setSubmitted(-1);
+        let answerArr = insertCorrectAnswer(questionObj);
 
+        questionObj.answers = answerArr;
+        setSelected(-1);
+        setFormattedQuestionInfo(questionObj);
+        setSubmitted(-1);
+      }, 2000)
     })
     props.socket.on('score', scoreObj => {
-      console.log('score obj in client', scoreObj)
       setScore(scoreObj);
     })
     props.socket.on('endGame', finalScore => {
       setScore(finalScore);
-      setGameEnd(true)
+      setGameEnd(true);
     })
 
   }, [])
@@ -125,15 +139,18 @@ function GameScreen(props) {
   }, [seconds])
 
   useEffect(() => {
-    setSeconds(1000000);
+    setSeconds(10);
   }, [formattedQuestionInfo])
 
   const chooseColor = (i) => {
 
     let color = i === selected ? styles.selectedAnswer : styles.answerPressables;
 
-    if(i === submitted){
+    if (i === submitted) {
       color = styles.submittedAnswer
+    } 
+    if (i === correctIndex && displayAnswer) {
+      color = styles.correctAnswer; 
     }
 
     return color;
@@ -156,7 +173,7 @@ function GameScreen(props) {
           <Pressable
             style={styles.openButton}
             onPress={() => {
-              setModalVisible(!modalVisible) 
+              setModalVisible(!modalVisible)
             }}
           >
             <Text>Hide</Text>
@@ -171,7 +188,11 @@ function GameScreen(props) {
       >
         <Text>How To Play</Text>
       </Pressable>
-
+      {waiting &&
+        <Text> Waiting for other player to answer
+          <AnimatedEllipsis />
+        </Text>
+      }
       {formattedQuestionInfo.question &&
 
         <>
@@ -200,12 +221,12 @@ function GameScreen(props) {
               // }}
 
               style={chooseColor(i)}
-                
+
               key={i}
               disabled={submitted >= 0}
             >
               <Animated.View
-              style={i === selected ? animatedStyle : null}>
+                style={i === selected ? animatedStyle : null}>
 
                 <Text style={styles.answerText}>{he.decode(answer)}</Text>
 
@@ -221,7 +242,7 @@ function GameScreen(props) {
             />
           </Text>
 
-          <Divider style={{height: 1, backgroundColor: 'blue'}} />
+          <Divider style={{ height: 1, backgroundColor: 'blue' }} />
           {score.playerOne &&
             <>
               <Text>{score.playerOne.name} {score.playerOne.score}</Text>
@@ -233,12 +254,12 @@ function GameScreen(props) {
 
 
       }
-  { gameEnd &&
-      <Redirect
-      to={{
-        pathname:'/gameend',
-        state: {finalScore: score},
-        }} /> }
+      { gameEnd &&
+        <Redirect
+          to={{
+            pathname: '/gameend',
+            state: { finalScore: score },
+          }} />}
 
 
 

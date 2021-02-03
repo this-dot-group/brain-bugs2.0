@@ -32,6 +32,15 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 2,
   },
+  correctAnswer: {
+    backgroundColor: 'green',
+    borderWidth: 4,
+    borderColor: 'black',
+    borderStyle: 'solid',
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
   submittedAnswer: {
     backgroundColor: 'yellow',
     borderWidth: 4,
