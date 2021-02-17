@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Pressable } from 'react-native'
+import { Link } from 'react-router-native'
+import styles from '../../styles/styles'
 
 function GameEnd(props) {
   const playerOneName = props.location.state.finalScore.playerOne.name
@@ -14,6 +16,11 @@ function GameEnd(props) {
       <Text> Game End </Text>
       <Text>{playerOneName} {playerOneScore}</Text>
       <Text>{playerTwoName} {playerTwoScore}</Text>
+      <Pressable style={styles.openButton}>
+        <Link to='/lobby'>
+          <Text>Back to Lobby</Text>
+        </Link>
+      </Pressable>
     </View>
   )
 }

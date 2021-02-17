@@ -5,16 +5,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-native';
 import socketIO from 'socket.io-client';
 import faker from 'faker';
+
 import { newSocket } from '../../store/socketReducer.js';
-
-// const EXPO_LOCAL_URL = '10.0.0.200' // Josh
-// const EXPO_LOCAL_URL = '192.168.0.55' // Tia
-const EXPO_LOCAL_URL = '10.0.0.199' // Chris
-
-
-
-
 import { newUsername, newGameCode } from '../../store/userReducer.js';
+
+const EXPO_LOCAL_URL = '10.0.0.200' // Josh
+// const EXPO_LOCAL_URL = '192.168.0.55' // Tia
+// const EXPO_LOCAL_URL = '10.0.0.199' // Chris
 
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 
@@ -24,6 +21,7 @@ const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 
 function Homescreen(props) {
   const [modalVisible, setModalVisible] = useState(false)
+  const [validUsername, setValidUsername] = useState(false);
 
   useEffect(() => {
     props.newSocket(socket)
@@ -36,10 +34,14 @@ function Homescreen(props) {
     props.newGameCode(code)
   }, [])
 
-  const handleGo = (username) => {
-    
+  const handleUsernameChange = (username) => {
+
     if (username) {
-      props.newUsername(username)}
+      props.newUsername(username)
+      setValidUsername(true);
+    } else {
+      setValidUsername(false);
+    }
   }
 
   return (
@@ -55,12 +57,15 @@ function Homescreen(props) {
       <Input
         placeholder={'username'}
         style={styles.input}
-        onChangeText={value =>  handleGo(value)}
-        />
+        onChangeText={value => handleUsernameChange(value)}
+      />
+
+    {validUsername && 
       <Link to='/lobby'>
         <Text>Go!</Text>
-      
       </Link>
+    }
+
 
 
       {/* how to play component wrapped in Modal here, can think about moving some of this to HowToPlayModal.js component */}
@@ -77,7 +82,7 @@ function Homescreen(props) {
             onPress={() => {
               setModalVisible(!modalVisible)
             }}
-            >
+          >
             <Text>Hide</Text>
           </Pressable>
         </View>
@@ -89,7 +94,7 @@ function Homescreen(props) {
         onPress={() => {
           setModalVisible(true);
         }}
-        >
+      >
         <Text>How To Play</Text>
       </Pressable>
 

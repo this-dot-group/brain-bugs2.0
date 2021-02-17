@@ -7,33 +7,35 @@ import { connect } from 'react-redux';
 
 function JoinGame(props) {
 
-  const [gamesWaiting, setGamesWaiting] = useState([])
+  // const [gamesWaiting, setGamesWaiting] = useState([])
   const [roomJoin, setRoomJoin] = useState(false)
 
+  // useEffect(() => {
+
+  //   props.socket.emit('inJoinGame', null)
+  //   props.socket.on('sendAvailGameInfo', allGames => {
+  //     console.log('username', props.username)
+  //     console.log('all games', allGames);
+
+  //     let filteredGames = [];
+
+  //     for (let game in allGames) {
+
+  //       let currentGame = allGames[game];
+
+  //       if (currentGame.publicOrPrivate === 'public' && currentGame.numPlayers === 2) {
+
+  //         let relevantInfo = {
+  //           category: currentGame.category.name,
+  //           player: currentGame.userName,
+  //           gameCode: currentGame.gameCode
+  //         }
+  //         filteredGames.push(relevantInfo)
+  //       }
+  //     }
+  //     setGamesWaiting(filteredGames)
+  //   })
   useEffect(() => {
-
-    props.socket.emit('inJoinGame', null)
-    props.socket.on('sendAvailGameInfo', allGames => {
-
-      let filteredGames = [];
-
-      for (let game in allGames) {
-
-        let currentGame = allGames[game];
-
-        if (currentGame.publicOrPrivate === 'public' && currentGame.numPlayers === 2) {
-
-          let relevantInfo = {
-            category: currentGame.category.name,
-            player: currentGame.userName,
-            gameCode: currentGame.gameCode
-          }
-          filteredGames.push(relevantInfo)
-        }
-      }
-      setGamesWaiting(filteredGames)
-    })
-
     props.socket.on('redirectToHowToPlay', usernames => {
       // In this gameplay route, the opponent is the game maker, because we are on the join
       // game screen, the user is the game joiner, as opposed to gameplay route from waiting
@@ -55,8 +57,8 @@ function JoinGame(props) {
         style={styles.modalView}
       >
         <Text>JOIN a game here!!</Text>
-        {console.log('games waiting', gamesWaiting)}
-        {gamesWaiting.map((gameObj, i) =>
+        {console.log('games waiting', props.gamesWaiting)}
+        {props.gamesWaiting.map((gameObj, i) =>
           
           <Pressable
             style={styles.openButton}
