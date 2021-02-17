@@ -12,9 +12,9 @@ import he from 'he';
 
 const axios = require('axios');
 
-// const EXPO_LOCAL_URL = '10.0.0.200' // Josh
+const EXPO_LOCAL_URL = '10.0.0.200' // Josh
 // const EXPO_LOCAL_URL = '192.168.0.55' // Tia
-const EXPO_LOCAL_URL = '10.0.0.199' // Chris 
+// const EXPO_LOCAL_URL = '10.0.0.199' // Chris 
 
 
 function StartGame(props) {
@@ -82,6 +82,7 @@ function StartGame(props) {
               props.numQuestions(item.value)
             }}
             items={[
+              { label: '1 - TEST', value: 1 },
               { label: '10', value: 10 },
               { label: '15', value: 15 },
               { label: '20', value: 20 },
@@ -133,13 +134,15 @@ function StartGame(props) {
           </Pressable>
           :
           <Pressable>
-          <Link to='/waitingroom'>
-            <Text>Go!</Text>
-          </Link>
+            <Link to='/waitingroom'>
+              <Text>Go!</Text>
+            </Link>
           </Pressable>}
+
         {joinOnePlayerRoom &&
           <Redirect to='/howtoplay' />
         }
+
       </View>
     </Modal>
   )
@@ -157,6 +160,7 @@ const mapDispatchToProps = {
   numPlayers,
   newCategory,
   publicOrPrivate,
-  newOpponent }
+  newOpponent
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartGame)
