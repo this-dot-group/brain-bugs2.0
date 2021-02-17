@@ -32,7 +32,7 @@ function PrivateGame(props) {
         }
       }
       setValidGamecodes(filteredGames)
-      console.log('filteredGames in PRIVATE GAME screen:  ', filteredGames)
+      // console.log('filteredGames in PRIVATE GAME screen:  ', filteredGames)
     })
     props.socket.on('redirectToHowToPlay', usernames => {
       props.newOpponent(usernames.gameMaker)
@@ -46,7 +46,7 @@ function PrivateGame(props) {
     // value is the user-entered game code 
     setGameCode(value);
 
-    console.log('validGameCodes in PRIVATE SCREEN:  ', validGamecodes)
+    // console.log('validGameCodes in PRIVATE SCREEN:  ', validGamecodes)
 
     if (value.length === 5) {
 
@@ -89,7 +89,7 @@ function PrivateGame(props) {
           <Pressable
             onPress={() => {
               props.socket.emit('joinTwoPlayer', [gameCode, props.username]);
-              console.log('gameCode', gameCode)
+              // console.log('gameCode', gameCode)
             }}>
             <Text>Go!</Text>
           </Pressable>}

@@ -57,7 +57,7 @@ function JoinGame(props) {
         style={styles.modalView}
       >
         <Text>JOIN a game here!!</Text>
-        {console.log('games waiting', props.gamesWaiting)}
+        {/* {console.log('games waiting', props.gamesWaiting)} */}
         {props.gamesWaiting.map((gameObj, i) =>
           
           <Pressable

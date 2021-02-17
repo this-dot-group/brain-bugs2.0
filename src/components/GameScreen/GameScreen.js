@@ -24,19 +24,20 @@ function GameScreen(props) {
   const [submitted, setSubmitted] = useState(-1);
   const [waiting, setWaiting] = useState(false);
   const [correctIndex, setCorrectIndex] = useState(-1);
-  const [ displayAnswer, setDisplayAnswer] = useState(false)
+  const [displayAnswer, setDisplayAnswer] = useState(false);
+  // const [isFirstQuestion, setIsFirstQuestion] = useState(true);
 
   // the function below adds the correct answer at a random index to the array of incorrect answers, return it to save later as the answerArr
   const insertCorrectAnswer = (questionObj) => {
-    // console.log('Question Obj', questionObj);
+    console.log('Question Obj', questionObj);
     let answerArr = questionObj.incorrect_answers;
 
     let randomSpliceIndex = Math.floor(Math.random() * answerArr.length);
-    // console.log('Random Splice Index', randomSpliceIndex);
+    console.log('Random Splice Index', randomSpliceIndex);
     setCorrectIndex(randomSpliceIndex);
     answerArr.splice(randomSpliceIndex, 0, questionObj.correct_answer);
 
-    // console.log('Answer Array ', answerArr)
+    console.log('Answer Array ', answerArr)
     return answerArr;
   }
 
@@ -71,7 +72,7 @@ function GameScreen(props) {
   const handleSubmitAnswer = (answer, i) => {
 
 
-    console.log('Formatted Question Info', formattedQuestionInfo)
+    // console.log('Formatted Question Info', formattedQuestionInfo)
     let questionPoints;
 
     answer === formattedQuestionInfo.correct_answer ?
@@ -98,9 +99,25 @@ function GameScreen(props) {
 
 
     props.socket.on('question', questionObj => {
-      console.log('before setTimeout')
+      // console.log('before setTimeout')
+      console.log('questionObj', questionObj)
 
       setDisplayAnswer(true)
+      // if (isFirstQuestion) {
+      //   setDisplayAnswer(false);
+      //   setCorrectIndex(-1);
+      //   setWaiting(false);
+      //   // resetting the Animated Value each time a new question comes down
+      //   setAnimation(new Animated.Value(0))
+
+      //   let answerArr = insertCorrectAnswer(questionObj);
+
+      //   questionObj.answers = answerArr;
+      //   setSelected(-1);
+      //   setFormattedQuestionInfo(questionObj);
+      //   setSubmitted(-1);
+      //   setIsFirstQuestion(false);
+      // } else {
       setTimeout(() => {
 
         setDisplayAnswer(false);
@@ -109,13 +126,15 @@ function GameScreen(props) {
         // resetting the Animated Value each time a new question comes down
         setAnimation(new Animated.Value(0))
 
-        let answerArr = insertCorrectAnswer(questionObj);
-
-        questionObj.answers = answerArr;
+        if (!questionObj.answers) {
+          let answerArr = insertCorrectAnswer(questionObj);
+          questionObj.answers = answerArr;
+        }
         setSelected(-1);
         setFormattedQuestionInfo(questionObj);
         setSubmitted(-1);
       }, 2000)
+      // }
     })
     props.socket.on('score', scoreObj => {
       setScore(scoreObj);
@@ -149,9 +168,9 @@ function GameScreen(props) {
 
     if (i === submitted) {
       color = styles.submittedAnswer
-    } 
+    }
     if (i === correctIndex && displayAnswer) {
-      color = styles.correctAnswer; 
+      color = styles.correctAnswer;
     }
 
     return color;
@@ -163,40 +182,39 @@ function GameScreen(props) {
 
   return (
     <View>
+      {formattedQuestionInfo.question &&
+        <>
+          <Modal
+            transparent={true}
+            visible={modalVisible}>
 
-      <Modal
-        transparent={true}
-        visible={modalVisible}>
-
-        <View
-          style={styles.modalView}>
-          <HowToPlayModal />
+            <View
+              style={styles.modalView}>
+              <HowToPlayModal />
+              <Pressable
+                style={styles.openButton}
+                onPress={() => {
+                  setModalVisible(!modalVisible)
+                }}
+              >
+                <Text>Hide</Text>
+              </Pressable>
+            </View>
+          </Modal>
           <Pressable
             style={styles.openButton}
             onPress={() => {
-              setModalVisible(!modalVisible)
+              setModalVisible(true);
             }}
           >
-            <Text>Hide</Text>
+            <Text>How To Play</Text>
           </Pressable>
-        </View>
-      </Modal>
-      <Pressable
-        style={styles.openButton}
-        onPress={() => {
-          setModalVisible(true);
-        }}
-      >
-        <Text>How To Play</Text>
-      </Pressable>
-      {waiting &&
-        <Text> Waiting for other player to answer
+          {waiting &&
+            <Text> Waiting for other player to answer
           <AnimatedEllipsis />
-        </Text>
-      }
-      {formattedQuestionInfo.question &&
+            </Text>
+          }
 
-        <>
 
           <Text>{he.decode(formattedQuestionInfo.category)}</Text>
 
@@ -261,20 +279,7 @@ function GameScreen(props) {
             pathname: '/gameend',
             state: { finalScore: score },
           }} />}
-
-
-
-
-
-
-
-
-
     </View>
-
-
-
-
   )
 }
 

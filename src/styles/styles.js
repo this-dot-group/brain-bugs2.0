@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   input: {
-
+    minWidth: 200,
   },
   dropDownView: {
     height: 100,

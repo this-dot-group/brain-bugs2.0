@@ -9,16 +9,23 @@
 
 ***************************
 
-* Look into React memory leak issue
+* __Look into React memory leak issue__
+ - Oddities happening in second game
+ - maybe has something to do with the way components are mounted and dismounted
+ - Green style indicator for correct answer isn't happening in second game
 
 ### Game Play Screen
 * Get questions into server for single player game
+* Sometimes double correct answer on gameplay screen
+ - every time there is a rematch, an extra corret answer is shown
+
+* How To Play modal? displaying before game starts and after countdown
 
 
 ## UPDATED Game Play notes 02/03/20
 
 * Chat functionality at end
-* Option for rematch or lobby at end 
+* Option for rematch 
 
 ## Style section (TODO)
 * React native ellipsis package has style props (see npm package site)

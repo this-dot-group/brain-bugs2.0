@@ -16,8 +16,8 @@ function StartScreen(props) {
 
     props.socket.emit('inJoinGame', null)
     props.socket.on('sendAvailGameInfo', allGames => {
-      console.log('username', props.userName)
-      console.log('all games', allGames);
+      // console.log('username', props.userName)
+      // console.log('all games', allGames);
 
       let filteredGames = [];
 
