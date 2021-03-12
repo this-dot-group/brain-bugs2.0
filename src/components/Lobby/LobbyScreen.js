@@ -15,7 +15,8 @@ function StartScreen(props) {
   useEffect(() => {
 
     props.socket.emit('inJoinGame', null)
-    props.socket.on('sendAvailGameInfo', allGames => {
+    
+    const receiveAvailableGames = allGames => {
       // console.log('username', props.userName)
       // console.log('all games', allGames);
 
@@ -36,7 +37,31 @@ function StartScreen(props) {
         }
       }
       setGamesWaiting(filteredGames)
-    })
+    }
+    props.socket.on('sendAvailGameInfo', receiveAvailableGames);
+    // props.socket.on('sendAvailGameInfo', allGames => {
+    //   // console.log('username', props.userName)
+    //   // console.log('all games', allGames);
+
+    //   let filteredGames = [];
+
+    //   for (let game in allGames) {
+
+    //     let currentGame = allGames[game];
+
+    //     if (currentGame.publicOrPrivate === 'public' && currentGame.numPlayers === 2) {
+
+    //       let relevantInfo = {
+    //         category: currentGame.category.name,
+    //         player: currentGame.userName,
+    //         gameCode: currentGame.gameCode
+    //       }
+    //       filteredGames.push(relevantInfo)
+    //     }
+    //   }
+    //   setGamesWaiting(filteredGames)
+    // })
+    return () => props.socket.off('sendAvailGameInfo', receiveAvailableGames);
   }, []);
 
   return (

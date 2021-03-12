@@ -4,7 +4,8 @@
     "node": true,
     "commonjs": true,
     "jest": true,
-    "es6": true
+    "es6": true,
+    "react":true
   },
   "globals": {
     "fail":true

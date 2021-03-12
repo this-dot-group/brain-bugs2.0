@@ -12,8 +12,8 @@ import he from 'he';
 
 const axios = require('axios');
 
-// const EXPO_LOCAL_URL = '10.0.0.200' // Josh
-const EXPO_LOCAL_URL = '192.168.0.55' // Tia
+const EXPO_LOCAL_URL = '10.0.0.200' // Josh
+// const EXPO_LOCAL_URL = '192.168.0.55' // Tia
 // const EXPO_LOCAL_URL = '10.0.0.199' // Chris 
 
 
@@ -35,10 +35,16 @@ function StartGame(props) {
       })
       setCategoryList(categoryListArray);
     })()
-    props.socket.on('redirectToHowToPlay', () => {
-      props.newOpponent(null);
-      setJoinOnePlayerRoom(true);
-    });
+
+    const redirect = () => {
+      if(props.modalVisible === 'start') {
+        props.newOpponent(null);
+        setJoinOnePlayerRoom(true);
+      }
+    }
+    props.socket.on('redirectToHowToPlay', redirect);
+
+    return () => props.socket.off('redirectToHowToPlay', redirect);
   }, [])
 
 

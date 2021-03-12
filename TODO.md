@@ -10,12 +10,15 @@
 ***************************
 # 3/10/21
 # Josh
-- Look into React memory leak issue, possibly related to following:
- - Oddities happening in second game
- - maybe has something to do with the way components are mounted and dismounted
- - Sometimes double correct answer on gameplay screen
-  - every time there is a rematch, an extra correct answer is shown
+- X fix linter on my machine
+- X every time there is a rematch, an extra correct answer is shown
+- X Look into React memory leak issue, possibly related to following:
+- NOTES:
+  - The redirect socket was rendering in both modals ('private' and 'start'), so it was causing issues, and I added a check to make sure that it only redirected if the modal matched
+  - Added a 'socket.off' in the return of every useEffect where there is a 'socket.on', and broke out the socket callbacks into functions
+
 - refactor index.js in server repo
+
 
 # Chris
 - look into/work on changing the question choose/submit process to still highlight when an asnwer is chosen, and then press submit button to submit (instead of using onLongPress)
