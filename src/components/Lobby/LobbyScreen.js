@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet, Modal } from 'react-native';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-native';
 import JoinGameModal from './Modals/JoinGame';
 import PrivateGameModal from './Modals/PrivateGame';
 import StartGameModal from './Modals/StartGame';
-import styles from '../../styles/styles'
+
+import { Buttons } from '../../styles';
+
+const styles = StyleSheet.create({
+  gameOptionButtons: {
+    ...Buttons.openButton,
+  }
+})
 
 function StartScreen(props) {
   const [modalVisible, setModalVisible] = useState(null);
@@ -44,7 +50,7 @@ function StartScreen(props) {
       <Text> Welcome {props.userName}! </Text>
       <Text> Short explanation of options below </Text>
       <Pressable
-        style={styles.openButton}
+        style={styles.gameOptionButtons}
         onPress={() => setModalVisible('start')}
       >
         <Text> Start a Game </Text>
@@ -55,7 +61,7 @@ function StartScreen(props) {
       />
 
       <Pressable
-        style={styles.openButton}
+        style={styles.gameOptionButtons}
         onPress={() => setModalVisible('join')}
       >
         <Text> Join a Game </Text>  
@@ -67,7 +73,7 @@ function StartScreen(props) {
       />
 
       <Pressable
-        style={styles.openButton}
+        style={styles.gameOptionButtons}
         onPress={() => setModalVisible('private')}
       >
         <Text> Join Private Game </Text>

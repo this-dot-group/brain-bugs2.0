@@ -1,16 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, ActivityIndicator, Pressable, Modal } from 'react-native'
+import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet } from 'react-native'
 import { Link, Redirect } from 'react-router-native';
 import Clipboard from 'expo-clipboard';
-// import faker from 'faker';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import { newOpponent } from '../../store/userReducer'
 import { getQuestions } from '../../store/gameInfoReducer'
 import { connect } from 'react-redux';
 
-import styles from '../../styles/styles'
+import { Buttons, Views, Typography } from '../../styles';
 
-// Build Alert to notify players
+const styles = StyleSheet.create({
+  modalView: {
+    ...Views.modalView,
+  },
+  HowToPlayModalButton: {
+    ...Buttons.openButton,
+  },
+  alertText: {
+    ...Typography.alertText,
+  },
+  gameCodeCopyButton: {
+    ...Buttons.openButton,
+  }
+})
 
 const WaitingRoom = (props) => {
 
@@ -61,7 +73,7 @@ const WaitingRoom = (props) => {
           style={styles.modalView}>
           <HowToPlayModal />
           <Pressable
-            style={styles.openButton}
+            style={styles.HowToPlayModalButton}
             onPress={() => {
               setModalVisible(!modalVisible)
             }}
@@ -71,7 +83,7 @@ const WaitingRoom = (props) => {
         </View>
       </Modal>
       <Pressable
-        style={styles.openButton}
+        style={styles.HowToPlayModalButton}
         onPress={() => {
           setModalVisible(true);
         }}
@@ -90,7 +102,7 @@ const WaitingRoom = (props) => {
       {props.publicOrPrivate === 'private' &&
 
         <Pressable
-        style={styles.openButton}
+        style={styles.gameCodeCopyButton}
         onPress={handleCodeCopy}>
         <Text>{props.gameCode}</Text>
         </Pressable>

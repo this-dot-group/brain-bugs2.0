@@ -80,9 +80,9 @@ const styles = StyleSheet.create({
   dropDownItemAtt: {
     height: 50,
   },
-  alertText: {
-    color: 'red',
-  },
+  // alertText: {
+  //   color: 'red',
+  // },
 
 });
 
