@@ -17,3 +17,8 @@ export const modalView = {
 export const dropDownView = {
   height: 100,
 };
+
+export const dropDownContainer = {
+  height: 40,
+  width: 200,
+};

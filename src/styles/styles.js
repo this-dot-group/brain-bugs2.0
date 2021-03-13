@@ -73,13 +73,13 @@ const styles = StyleSheet.create({
   // dropDownView: {
   //   height: 100,
   // },
-  dropDownPicker: {
-    height: 40,
-    width: 200,
-  },
-  dropDownItemAtt: {
-    height: 50,
-  },
+  // dropDownContainer: {
+  //   height: 40,
+  //   width: 200,
+  // },
+  // dropDownItemAtt: {
+  //   height: 50,
+  // },
   // alertText: {
   //   color: 'red',
   // },
