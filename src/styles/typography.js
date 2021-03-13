@@ -5,3 +5,7 @@ export const input = {
 export const alertText = {
   color: 'red',
 };
+
+export const answerText = {
+  textAlign: 'center',
+};

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, Pressable, Modal, Animated } from 'react-native'
+import { Text, View, Pressable, Modal, Animated, StyleSheet } from 'react-native'
 import { Divider } from 'react-native-elements';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import he from 'he';
@@ -9,8 +9,31 @@ import AnimatedEllipsis from 'react-native-animated-ellipsis'
 import { connect } from 'react-redux';
 import Countdown from '../Countdown/Countdown'
 
-import styles from '../../styles/styles'
-import { Buttons } from '../../styles/'
+import { Buttons, Views, Typography } from '../../styles/'
+
+const styles = StyleSheet.create({
+  modalView: {
+    ...Views.modalView,
+  },
+  selectedAnswer: {
+    ...Buttons.selectedAnswer
+  },
+  answerOptionPressables: {
+    ...Buttons.answerPressables,
+  },
+  submittedAnswer: {
+    ...Buttons.submittedAnswer,
+  },
+  correctAnswer: {
+    ...Buttons.correctAnswer,
+  },
+  howToPlayModalButton: {
+    ...Buttons.openButton
+  },
+  answerText: {
+    ...Typography.answerText,
+  }
+})
 
 
 
@@ -166,7 +189,7 @@ function GameScreen(props) {
 
   const chooseColor = (i) => {
 
-    let color = i === selected ? styles.selectedAnswer : Buttons.answerPressables;
+    let color = i === selected ? styles.selectedAnswer : styles.answerOptionPressables;
 
     if (i === submitted) {
       color = styles.submittedAnswer
@@ -194,7 +217,7 @@ function GameScreen(props) {
               style={styles.modalView}>
               <HowToPlayModal />
               <Pressable
-                style={styles.openButton}
+                style={styles.howToPlayModalButton}
                 onPress={() => {
                   setModalVisible(!modalVisible)
                 }}
@@ -204,7 +227,7 @@ function GameScreen(props) {
             </View>
           </Modal>
           <Pressable
-            style={styles.openButton}
+            style={styles.howToPlayModalButton}
             onPress={() => {
               setModalVisible(true);
             }}
