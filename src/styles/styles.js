@@ -1,28 +1,27 @@
 import { StyleSheet } from 'react-native';
-import { Redirect } from 'react-router-native';
 
 const styles = StyleSheet.create({
   image: {
     width: 150,
     height: 150,
   },
-  openButton: {
-    backgroundColor: '#F194FF',
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  answerPressables: {
-    // boxSizing: 'border-box',
-    margin: 5,
-    backgroundColor: 'grey',
-    borderWidth: .5,
-    borderColor: 'black',
-    borderStyle: 'solid',
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
+  // openButton: {
+  //   backgroundColor: '#F194FF',
+  //   borderRadius: 20,
+  //   padding: 10,
+  //   elevation: 2,
+  // },
+  // answerPressables: {
+  //   // boxSizing: 'border-box',
+  //   margin: 5,
+  //   backgroundColor: 'grey',
+  //   borderWidth: .5,
+  //   borderColor: 'black',
+  //   borderStyle: 'solid',
+  //   borderRadius: 20,
+  //   padding: 10,
+  //   elevation: 2,
+  // },
   selectedAnswer: {
     backgroundColor: 'grey',
     borderWidth: 4,

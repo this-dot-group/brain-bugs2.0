@@ -10,6 +10,8 @@ import { connect } from 'react-redux';
 import Countdown from '../Countdown/Countdown'
 
 import styles from '../../styles/styles'
+import { Buttons } from '../../styles/'
+
 
 
 function GameScreen(props) {
@@ -164,7 +166,7 @@ function GameScreen(props) {
 
   const chooseColor = (i) => {
 
-    let color = i === selected ? styles.selectedAnswer : styles.answerPressables;
+    let color = i === selected ? styles.selectedAnswer : Buttons.answerPressables;
 
     if (i === submitted) {
       color = styles.submittedAnswer
