@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  image: {
-    width: 150,
-    height: 150,
-  },
+  // image: {
+  //   width: 150,
+  //   height: 150,
+  // },
   // openButton: {
   //   backgroundColor: '#F194FF',
   //   borderRadius: 20,
@@ -52,27 +52,27 @@ const styles = StyleSheet.create({
   answerText: {
     textAlign: 'center',
   },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  input: {
-    minWidth: 200,
-  },
-  dropDownView: {
-    height: 100,
-  },
+  // modalView: {
+  //   margin: 20,
+  //   backgroundColor: 'white',
+  //   borderRadius: 20,
+  //   padding: 35,
+  //   alignItems: 'center',
+  //   shadowColor: '#000',
+  //   shadowOffset: {
+  //     width: 0,
+  //     height: 2,
+  //   },
+  //   shadowOpacity: 0.25,
+  //   shadowRadius: 3.84,
+  //   elevation: 5,
+  // },
+  // input: {
+  //   minWidth: 200,
+  // },
+  // dropDownView: {
+  //   height: 100,
+  // },
   dropDownPicker: {
     height: 40,
     width: 200,

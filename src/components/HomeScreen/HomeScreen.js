@@ -6,9 +6,11 @@ import { Link } from 'react-router-native';
 import socketIO from 'socket.io-client';
 import faker from 'faker';
 
-import { Buttons } from '../../styles/'
-// import styles from '../../styles/styles.js'
+import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
+// modular styles
+import { Buttons, Images, Views, Typography } from '../../styles/'
 
+// socket imports
 import { newSocket } from '../../store/socketReducer.js';
 import { newUsername, newGameCode } from '../../store/userReducer.js';
 
@@ -16,14 +18,23 @@ import { newUsername, newGameCode } from '../../store/userReducer.js';
 const EXPO_LOCAL_URL = '192.168.0.62' // Tia
 // const EXPO_LOCAL_URL = '10.0.0.199' // Chris
 
-import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 
 
 const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 
+// construct styles here, ability to add indv styling as needed on a per-component basis
 const styles = StyleSheet.create({
   howToPlayModalButton: {
     ...Buttons.openButton,
+  },
+  placeholderImg: {
+    ...Images.placeholderImg,
+  },
+  modalView: {
+    ...Views.modalView,
+  },
+  input: {
+    ...Typography.input,
   }
 })
 
@@ -58,7 +69,7 @@ function Homescreen(props) {
 
       <Image
         source={{ uri: 'https://via.placeholder.com/150' }}
-        style={styles.image} />
+        style={styles.placeholderImg} />
 
       <Text>Please enter your username:</Text>
 
