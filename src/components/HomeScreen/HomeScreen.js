@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Modal, Pressable } from 'react-native'
-import { Image, Input, Button } from 'react-native-elements'
+import { Image, Input } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-native';
 import socketIO from 'socket.io-client';
 import faker from 'faker';
 
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
+
 // modular styles
 import { Buttons, Images, Views, Typography } from '../../styles/'
 
