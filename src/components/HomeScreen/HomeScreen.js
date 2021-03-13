@@ -9,16 +9,16 @@ import faker from 'faker';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 
 // modular styles
-import { Buttons, Images, Views, Typography } from '../../styles/'
+import { Buttons, Images, Views, Typography, Colors } from '../../styles/'
 
 // socket imports
 import { newSocket } from '../../store/socketReducer.js';
 import { newUsername, newGameCode } from '../../store/userReducer.js';
 
+
 // const EXPO_LOCAL_URL = '10.0.0.200' // Josh
 const EXPO_LOCAL_URL = '192.168.0.62' // Tia
 // const EXPO_LOCAL_URL = '10.0.0.199' // Chris
-
 
 
 const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
@@ -27,6 +27,7 @@ const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 const styles = StyleSheet.create({
   howToPlayModalButton: {
     ...Buttons.openButton,
+    backgroundColor: Colors.red.hex,
   },
   placeholderImg: {
     ...Images.placeholderImg,
