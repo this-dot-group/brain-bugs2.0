@@ -1,9 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Modal, Pressable } from 'react-native'
+import { View, Text, Modal, Pressable, StyleSheet } from 'react-native'
 import { Link, Redirect } from 'react-router-native'
 import { newOpponent } from '../../../store/userReducer';
-import styles from '../../../styles/styles'
 import { connect } from 'react-redux';
+import { Buttons, Views } from '../../../styles';
+
+const styles = StyleSheet.create({
+  modalView: {
+    ...Views.modalView,
+  },
+  gameJoinButton: {
+    ...Buttons.openButton,
+  },
+  closeModalButton: {
+    ...Buttons.openButton,
+  }
+})
 
 function JoinGame(props) {
 
@@ -61,7 +73,7 @@ function JoinGame(props) {
         {props.gamesWaiting.map((gameObj, i) =>
           
           <Pressable
-            style={styles.openButton}
+            style={styles.gameJoinButton}
             key={i}
             onPress={() => props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username])}
           >
@@ -78,7 +90,7 @@ function JoinGame(props) {
 
 
         <Pressable
-          style={styles.openButton}
+          style={styles.closeModalButton}
           onPress={() => props.setModalVisible(null)}
         >
           <Text>X</Text>

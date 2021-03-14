@@ -1,23 +1,44 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Modal, Pressable } from 'react-native'
-import { Image, Input, Button } from 'react-native-elements'
+import { Image, Input } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-native';
 import socketIO from 'socket.io-client';
 import faker from 'faker';
 
+import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
+
+// modular styles
+import { Buttons, Images, Views, Typography, Colors } from '../../styles/'
+
+// socket imports
 import { newSocket } from '../../store/socketReducer.js';
 import { newUsername, newGameCode } from '../../store/userReducer.js';
 
+
 // const EXPO_LOCAL_URL = '10.0.0.200' // Josh
-const EXPO_LOCAL_URL = '192.168.0.55' // Tia
+const EXPO_LOCAL_URL = '192.168.0.62' // Tia
 // const EXPO_LOCAL_URL = '10.0.0.199' // Chris
 
-import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
-
-import styles from '../../styles/styles.js'
 
 const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
+
+// construct styles here, ability to add indv styling as needed on a per-component basis
+const styles = StyleSheet.create({
+  howToPlayModalButton: {
+    ...Buttons.openButton,
+    backgroundColor: Colors.red.hex,
+  },
+  placeholderImg: {
+    ...Images.placeholderImg,
+  },
+  modalView: {
+    ...Views.modalView,
+  },
+  input: {
+    ...Typography.input,
+  }
+})
 
 function Homescreen(props) {
   const [modalVisible, setModalVisible] = useState(false)
@@ -50,7 +71,7 @@ function Homescreen(props) {
 
       <Image
         source={{ uri: 'https://via.placeholder.com/150' }}
-        style={styles.image} />
+        style={styles.placeholderImg} />
 
       <Text>Please enter your username:</Text>
 
@@ -78,7 +99,7 @@ function Homescreen(props) {
           style={styles.modalView}>
           <HowToPlayModal />
           <Pressable
-            style={styles.openButton}
+            style={styles.howToPlayModalButton}
             onPress={() => {
               setModalVisible(!modalVisible)
             }}
@@ -90,7 +111,7 @@ function Homescreen(props) {
 
 
       <Pressable
-        style={styles.openButton}
+        style={styles.howToPlayModalButton}
         onPress={() => {
           setModalVisible(true);
         }}

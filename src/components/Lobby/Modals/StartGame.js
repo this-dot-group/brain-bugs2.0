@@ -1,20 +1,38 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, Modal, Pressable } from 'react-native'
+import { View, Text, Modal, Pressable, StyleSheet } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker'
-import styles from '../../../styles/styles'
 import { Link, Redirect } from 'react-router-native'
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate } from '../../../store/gameInfoReducer'
 import socketReducer from '../../../store/socketReducer'
 import { newOpponent } from '../../../store/userReducer';
 
 import he from 'he';
+import { Buttons, Views } from '../../../styles'
 
 const axios = require('axios');
 
 // const EXPO_LOCAL_URL = '10.0.0.200' // Josh
-const EXPO_LOCAL_URL = '192.168.0.55' // Tia
+const EXPO_LOCAL_URL = '192.168.0.62' // Tia
 // const EXPO_LOCAL_URL = '10.0.0.199' // Chris 
+
+const styles = StyleSheet.create({
+  modalView: {
+    ...Views.modalView,
+  },
+  closeModalButton: {
+    ...Buttons.openButton,
+  },
+  dropDownView: {
+    ...Views.dropDownView,
+  },
+  dropDownContainer: {
+    ...Views.dropDownContainer,
+  },
+  dropDownItem: {
+    height: 50,
+  }
+})
 
 
 function StartGame(props) {
@@ -52,19 +70,19 @@ function StartGame(props) {
       >
         <Text>Start a game here!!</Text>
         <Pressable
-          style={styles.openButton}
+          style={styles.closeModalButton}
           onPress={() => props.setModalVisible(null)}
         >
           <Text>X</Text>
         </Pressable>
         <View style={styles.dropDownView}>
           <DropDownPicker
-            containerStyle={styles.dropDownPicker}
+            containerStyle={styles.dropDownContainer}
 
 
             multiple={false}
             placeholder='Select a Category'
-            itemStyle={styles.dropDownItemAtt}
+            itemStyle={styles.dropDownItem}
 
             onChangeItem={item => {
               props.newCategory({ name: item.label, id: item.value })
@@ -75,7 +93,7 @@ function StartGame(props) {
         </View>
         <View style={styles.dropDownView}>
           <DropDownPicker
-            containerStyle={styles.dropDownPicker}
+            containerStyle={styles.dropDownContainer}
             placeholder='Number of Questions'
             multiple={false}
             onChangeItem={item => {
@@ -92,7 +110,7 @@ function StartGame(props) {
         </View>
         <View style={styles.dropDownView}>
           <DropDownPicker
-            containerStyle={styles.dropDownPicker}
+            containerStyle={styles.dropDownContainer}
             placeholder='Number of Players'
             multiple={false}
             onChangeItem={item => {
@@ -111,7 +129,7 @@ function StartGame(props) {
         {numPlayers === 2 &&
           <View style={styles.dropDownView}>
             <DropDownPicker
-              containerStyle={styles.dropDownPicker}
+              containerStyle={styles.dropDownContainer}
               placeholder='Public or Private Game'
               multiple={false}
               onChangeItem={item => {
