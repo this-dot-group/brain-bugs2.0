@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Modal, Pressable, TextInput } from 'react-native'
+import { View, Text, Modal, Pressable, TextInput, StyleSheet } from 'react-native'
 import { Input } from 'react-native-elements';
 import { Link, Redirect } from 'react-router-native';
 import { connect } from 'react-redux'
 import { newOpponent } from '../../../store/userReducer';
 
-import styles from '../../../styles/styles';
+import { Buttons, Typography, Views } from '../../../styles';
+
+const styles = StyleSheet.create({
+  modalView: {
+    ...Views.modalView,
+  },
+  closeModalButton: {
+    ...Buttons.openButton,
+  },
+  alertText: {
+    ...Typography.alertText,
+  },
+  gamecodeTextInput: {
+    ...Typography.input,
+  }
+})
 
 function PrivateGame(props) {
 
@@ -90,7 +105,7 @@ function PrivateGame(props) {
         {!goButton &&
           <Input
             placeholder='code here'
-            style={styles.input}
+            style={styles.gamecodeTextInput}
             onChangeText={value => handleChange(value)}
             maxLength={5}
           />}
@@ -111,7 +126,7 @@ function PrivateGame(props) {
 
 
         <Pressable
-          style={styles.openButton}
+          style={styles.closeModalButton}
           onPress={() => props.setModalVisible(null)}
         >
           <Text>X</Text>

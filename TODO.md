@@ -26,7 +26,6 @@
   - could keep same behavior re when the submitted answer turns yellow, it would just now depend on clicking Submit button instead of onLongPress
 
 # Tia
-- Green style indicator for correct answer isn't happening in second game
 - Set up scaffolding for future styling theme
 - Custom components?
 - Rematch option at end of game 
