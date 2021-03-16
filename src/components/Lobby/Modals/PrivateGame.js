@@ -34,8 +34,8 @@ function PrivateGame(props) {
   useEffect(() => {
 
     props.socket.emit('inJoinGame', null)
-    props.socket.on('sendAvailGameInfo', allGames => {
-
+    
+    const receiveAvailableGames = allGames => {
       let filteredGames = [];
 
       for (let game in allGames) {
@@ -48,11 +48,23 @@ function PrivateGame(props) {
       }
       setValidGamecodes(filteredGames)
       // console.log('filteredGames in PRIVATE GAME screen:  ', filteredGames)
-    })
-    props.socket.on('redirectToHowToPlay', usernames => {
-      props.newOpponent(usernames.gameMaker)
-      setRoomJoin(true);
-    });
+    }
+
+    const redirect = usernames => {
+      if(props.modalVisible === 'private') {
+        props.newOpponent(usernames.gameMaker)
+        setRoomJoin(true);
+      }
+    }
+
+    props.socket.on('sendAvailGameInfo', receiveAvailableGames)
+
+    props.socket.on('redirectToHowToPlay', redirect)
+
+    return () => {
+      props.socket.off('sendAvailGameInfo', receiveAvailableGames);
+      props.socket.off('redirectToHowToPlay', redirect)
+    }
 
   }, [])
 

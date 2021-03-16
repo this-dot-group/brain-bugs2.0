@@ -48,13 +48,17 @@ function JoinGame(props) {
   //     setGamesWaiting(filteredGames)
   //   })
   useEffect(() => {
-    props.socket.on('redirectToHowToPlay', usernames => {
+    const redirectToHowToPlay = usernames => {
       // In this gameplay route, the opponent is the game maker, because we are on the join
       // game screen, the user is the game joiner, as opposed to gameplay route from waiting
       // room
       props.newOpponent(usernames.gameMaker)
       setRoomJoin(true);
-    })
+    }
+
+    props.socket.on('redirectToHowToPlay', redirectToHowToPlay);
+
+    return () => props.socket.off('redirectToHowToPlay', redirectToHowToPlay);
   }, [])
 
 

@@ -122,8 +122,7 @@ function GameScreen(props) {
 
     props.socket.emit('readyForGame');
 
-
-    props.socket.on('question', questionObj => {
+    const questionHandler = questionObj => {
       // console.log('before setTimeout')
       console.log('questionObj', questionObj)
 
@@ -159,15 +158,21 @@ function GameScreen(props) {
         setFormattedQuestionInfo(questionObj);
         setSubmitted(-1);
       }, 2000)
-      // }
-    })
-    props.socket.on('score', scoreObj => {
-      setScore(scoreObj);
-    })
-    props.socket.on('endGame', finalScore => {
+    }
+    const endGame = finalScore => {
       setScore(finalScore);
       setGameEnd(true);
-    })
+    }
+
+    props.socket.on('question', questionHandler);
+    props.socket.on('score', setScore);
+    props.socket.on('endGame', endGame);
+
+    return () => {
+      props.socket.off('question', questionHandler)
+      props.socket.off('score', setScore);
+      props.socket.off('endGame', endGame);
+    }
 
   }, [])
 

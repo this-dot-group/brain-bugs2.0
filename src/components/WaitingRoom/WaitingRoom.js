@@ -55,10 +55,15 @@ const WaitingRoom = (props) => {
     props.fullGameInfo.userName = props.userName;
     props.fullGameInfo.gameCode = props.gameCode;
     props.socket.emit('newGame', props.fullGameInfo)
-    props.socket.on('redirectToHowToPlay', usernames => {
+
+    const redirectToHowToPlay = usernames => {
       props.newOpponent(usernames.gameJoiner)
       setRoomJoin(true);
-    })
+    }
+    props.socket.on('redirectToHowToPlay', redirectToHowToPlay)
+
+    return () => props.socket.off('redirectToHowToPlay', redirectToHowToPlay)
+    
   },[props.fullGameInfo.liveGameQuestions])
 
 
