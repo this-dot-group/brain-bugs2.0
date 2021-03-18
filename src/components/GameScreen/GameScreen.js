@@ -160,8 +160,11 @@ function GameScreen(props) {
       }, 2000)
     }
     const endGame = finalScore => {
-      setScore(finalScore);
-      setGameEnd(true);
+      setDisplayAnswer(true)
+      setTimeout(() => {
+        setScore(finalScore);
+        setGameEnd(true);
+      }, 2000)
     }
 
     props.socket.on('question', questionHandler);
