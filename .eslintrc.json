@@ -4,23 +4,52 @@
     "node": true,
     "commonjs": true,
     "jest": true,
-    "es6": true,
-    "react":true
+    "es6": true
   },
   "globals": {
-    "fail":true
+    "fail": true
   },
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
-    "ecmaVersion": 2018
+    "ecmaVersion": 2018,
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
   },
+  // "ecmaFeatures": {
+  //   "jsx": true
+  // },
   "rules": {
     "no-console": "off",
-    "indent": [ "error", 2 ],
-    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
-    "comma-dangle": ["error", "always-multiline"],
-    "semi": [ "error", "always" ],
-    "no-unused-vars": [1, {"vars": "local", "args": "none"}]
+    "indent": [
+      "error",
+      2
+    ],
+    "quotes": [
+      "error",
+      "single",
+      {
+        "allowTemplateLiterals": true
+      }
+    ],
+    "no-unused-vars": [
+      1,
+      {
+        "vars": "local",
+        "args": "none"
+      }
+    ],
+    // "no-undef": "error",
+    "react/prop-types": "off"
+    // [
+    //   "enabled",
+    //    { "ignore":"ignore", "customValidators": "customValidator" }
+    //  ]
   }
 }

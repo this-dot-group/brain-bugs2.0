@@ -28,7 +28,7 @@ function PrivateGame(props) {
   const [error, setError] = useState(false);
   const [validGamecodes, setValidGamecodes] = useState([]);
   const [goButton, setGoButton] = useState(false);
-  const [roomJoin, setRoomJoin] = useState(false);
+  // const [roomJoin, setRoomJoin] = useState(false);
 
 
   useEffect(() => {
@@ -50,20 +50,10 @@ function PrivateGame(props) {
       // console.log('filteredGames in PRIVATE GAME screen:  ', filteredGames)
     }
 
-    const redirect = usernames => {
-      if(props.modalVisible === 'private') {
-        props.newOpponent(usernames.gameMaker)
-        setRoomJoin(true);
-      }
-    }
-
     props.socket.on('sendAvailGameInfo', receiveAvailableGames)
-
-    props.socket.on('redirectToHowToPlay', redirect)
 
     return () => {
       props.socket.off('sendAvailGameInfo', receiveAvailableGames);
-      props.socket.off('redirectToHowToPlay', redirect)
     }
 
   }, [])
@@ -116,7 +106,6 @@ function PrivateGame(props) {
           <Pressable
             onPress={() => {
               props.socket.emit('joinTwoPlayer', [gameCode, props.username]);
-              // console.log('gameCode', gameCode)
             }}>
             <Text>Go!</Text>
           </Pressable>}
@@ -131,9 +120,6 @@ function PrivateGame(props) {
         >
           <Text>X</Text>
         </Pressable>
-        {roomJoin &&
-          <Redirect to='/howtoplay' />
-        }
       </View>
     </Modal>
   )

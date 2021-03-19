@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet, Modal } from 'react-native';
+import { Redirect } from 'react-router-native';
 import { connect } from 'react-redux';
 import JoinGameModal from './Modals/JoinGame';
 import PrivateGameModal from './Modals/PrivateGame';
 import StartGameModal from './Modals/StartGame';
+import { newOpponent } from '../../store/userReducer';
 
 import { Buttons } from '../../styles';
 
@@ -17,14 +19,13 @@ function StartScreen(props) {
   const [modalVisible, setModalVisible] = useState(null);
 
   const [gamesWaiting, setGamesWaiting] = useState([])
+  const [roomJoin, setRoomJoin] = useState(false);
 
   useEffect(() => {
 
     props.socket.emit('inJoinGame', null)
-    
+
     const receiveAvailableGames = allGames => {
-      // console.log('username', props.userName)
-      // console.log('all games', allGames);
 
       let filteredGames = [];
 
@@ -45,29 +46,20 @@ function StartScreen(props) {
       setGamesWaiting(filteredGames)
     }
     props.socket.on('sendAvailGameInfo', receiveAvailableGames);
-    // props.socket.on('sendAvailGameInfo', allGames => {
-    //   // console.log('username', props.userName)
-    //   // console.log('all games', allGames);
 
-    //   let filteredGames = [];
-
-    //   for (let game in allGames) {
-
-    //     let currentGame = allGames[game];
-
-    //     if (currentGame.publicOrPrivate === 'public' && currentGame.numPlayers === 2) {
-
-    //       let relevantInfo = {
-    //         category: currentGame.category.name,
-    //         player: currentGame.userName,
-    //         gameCode: currentGame.gameCode
-    //       }
-    //       filteredGames.push(relevantInfo)
-    //     }
-    //   }
-    //   setGamesWaiting(filteredGames)
-    // })
-    return () => props.socket.off('sendAvailGameInfo', receiveAvailableGames);
+    /** 
+     * Redirect for both the join game modal and private game modal
+     * Both modals end up emitting an event that triggers the server to send 'redirectToHowToPlay',
+     */
+    const redirect = (usernames) => {
+      props.newOpponent(usernames.gameMaker);
+      setRoomJoin(true);
+    }
+    props.socket.on('redirectToHowToPlay', redirect);
+    return () => {
+      props.socket.off('sendAvailGameInfo', receiveAvailableGames);
+      props.socket.off('redirectToHowToPlay', redirect);
+    }
   }, []);
 
   return (
@@ -89,9 +81,9 @@ function StartScreen(props) {
         style={styles.gameOptionButtons}
         onPress={() => setModalVisible('join')}
       >
-        <Text> Join a Game </Text>  
+        <Text> Join a Game </Text>
       </Pressable>
-      <JoinGameModal 
+      <JoinGameModal
         setModalVisible={setModalVisible}
         modalVisible={modalVisible}
         gamesWaiting={gamesWaiting}
@@ -103,10 +95,13 @@ function StartScreen(props) {
       >
         <Text> Join Private Game </Text>
       </Pressable>
-      <PrivateGameModal 
-      setModalVisible={setModalVisible}
-      modalVisible={modalVisible}
-    />
+      <PrivateGameModal
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible}
+      />
+      {roomJoin &&
+        <Redirect to='/howtoplay' />
+      }
     </View>
   )
 }
@@ -114,9 +109,11 @@ function StartScreen(props) {
 
 
 const mapStateToProps = (state) => {
-  return { userName: state.userReducer.username,
-           socket: state.socketReducer
-          }
+  return {
+    userName: state.userReducer.username,
+    socket: state.socketReducer
+  }
 }
+const mapDispatchToProps = { newOpponent }
 
-export default connect(mapStateToProps)(StartScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(StartScreen)

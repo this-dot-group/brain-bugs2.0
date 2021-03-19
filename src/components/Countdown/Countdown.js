@@ -14,6 +14,7 @@ export default function Countdown(props) {
     }
     return () => clearInterval(myInterval);
   });
+  
 
   return (<Text>{props.seconds}</Text>);
 
