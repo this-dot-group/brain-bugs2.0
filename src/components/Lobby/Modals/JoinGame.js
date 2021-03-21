@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 function JoinGame(props) {
 
   // const [gamesWaiting, setGamesWaiting] = useState([])
-  const [roomJoin, setRoomJoin] = useState(false)
+  // const [roomJoin, setRoomJoin] = useState(false)
 
   // useEffect(() => {
 
@@ -47,20 +47,6 @@ function JoinGame(props) {
   //     }
   //     setGamesWaiting(filteredGames)
   //   })
-  useEffect(() => {
-    const redirectToHowToPlay = usernames => {
-      // In this gameplay route, the opponent is the game maker, because we are on the join
-      // game screen, the user is the game joiner, as opposed to gameplay route from waiting
-      // room
-      props.newOpponent(usernames.gameMaker)
-      setRoomJoin(true);
-    }
-
-    props.socket.on('redirectToHowToPlay', redirectToHowToPlay);
-
-    return () => props.socket.off('redirectToHowToPlay', redirectToHowToPlay);
-  }, [])
-
 
 
   return (
@@ -73,7 +59,7 @@ function JoinGame(props) {
         style={styles.modalView}
       >
         <Text>JOIN a game here!!</Text>
-        {/* {console.log('games waiting', props.gamesWaiting)} */}
+        
         {props.gamesWaiting.map((gameObj, i) =>
           
           <Pressable
@@ -100,9 +86,6 @@ function JoinGame(props) {
           <Text>X</Text>
         </Pressable>
       </View>
-      {roomJoin &&
-        <Redirect to='/howtoplay' />
-      }
     </Modal>
   )
 }

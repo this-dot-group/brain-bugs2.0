@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Text, View, Pressable, Modal, Animated, StyleSheet } from 'react-native'
 import { Divider } from 'react-native-elements';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
@@ -51,6 +51,7 @@ function GameScreen(props) {
   const [correctIndex, setCorrectIndex] = useState(-1);
   const [displayAnswer, setDisplayAnswer] = useState(false);
   // const [isFirstQuestion, setIsFirstQuestion] = useState(true);
+  const firstQuestion = useRef(true)
 
   // the function below adds the correct answer at a random index to the array of incorrect answers, return it to save later as the answerArr
   const insertCorrectAnswer = (questionObj) => {
@@ -157,11 +158,17 @@ function GameScreen(props) {
         setSelected(-1);
         setFormattedQuestionInfo(questionObj);
         setSubmitted(-1);
-      }, 2000)
+        if (firstQuestion.current) {
+          firstQuestion.current = false
+        }
+      }, firstQuestion.current ? 0 : 2000)
     }
     const endGame = finalScore => {
-      setScore(finalScore);
-      setGameEnd(true);
+      setDisplayAnswer(true)
+      setTimeout(() => {
+        setScore(finalScore);
+        setGameEnd(true);
+      }, 2000)
     }
 
     props.socket.on('question', questionHandler);

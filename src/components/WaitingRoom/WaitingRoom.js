@@ -66,7 +66,6 @@ const WaitingRoom = (props) => {
     
   },[props.fullGameInfo.liveGameQuestions])
 
-
   return (
 
     <View>

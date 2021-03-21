@@ -16,9 +16,7 @@
 - NOTES:
   - The redirect socket was rendering in both modals ('private' and 'start'), so it was causing issues, and I added a check to make sure that it only redirected if the modal matched
   - Added a 'socket.off' in the return of every useEffect where there is a 'socket.on', and broke out the socket callbacks into functions
-
-- refactor index.js in server repo
-
+- X refactor index.js in server repo
 
 # Chris
 - look into/work on changing the question choose/submit process to still highlight when an asnwer is chosen, and then press submit button to submit (instead of using onLongPress)
