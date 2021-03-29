@@ -78,7 +78,7 @@ export const getQuestions = (id, numQuestions) => {
   
   return async dispatch => {
     const response = await axios.get(`http://${EXPO_LOCAL_URL}:3000/questions/${id}/${numQuestions}`);
-    // console.log('response from axois', response.data);
+    console.log('response from axois', response.data);
     dispatch({
       type: 'GET_QUESTIONS',
       payload: response.data,

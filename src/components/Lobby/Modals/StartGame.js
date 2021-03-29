@@ -56,7 +56,7 @@ function StartGame(props) {
     })()
 
     const redirect = () => {
-      if(props.modalVisible === 'start') {
+      if (props.modalVisible === 'start') {
         props.newOpponent(null);
         setJoinOnePlayerRoom(true);
       }
@@ -151,22 +151,23 @@ function StartGame(props) {
         }
 
 
-        {numPlayers === 1
+        {/* {numPlayers === 1
           ?
           <Pressable
             onPress={() => props.socket.emit('joinOnePlayer', props.gameCode)}>
             <Text>Go!</Text>
           </Pressable>
-          :
-          <Pressable>
-            <Link to='/waitingroom'>
-              <Text>Go!</Text>
-            </Link>
-          </Pressable>}
+          : */}
+        <Pressable>
+          <Link to='/waitingroom'>
+            <Text>Go!</Text>
+          </Link>
+        </Pressable>
+        {/* } */}
 
-        {joinOnePlayerRoom &&
+        {/* {joinOnePlayerRoom &&
           <Redirect to='/howtoplay' />
-        }
+        } */}
 
       </View>
     </Modal>
