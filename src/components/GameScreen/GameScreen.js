@@ -39,6 +39,8 @@ const styles = StyleSheet.create({
 
 function GameScreen(props) {
 
+  // console.log('PROPS IN GAMEPLAY SCREEN:     ', props.socket)
+
   const [seconds, setSeconds] = useState(1000000);
   const [modalVisible, setModalVisible] = useState(false);
   const [formattedQuestionInfo, setFormattedQuestionInfo] = useState({});
@@ -314,7 +316,7 @@ function GameScreen(props) {
         <Redirect
           to={{
             pathname: '/gameend',
-            state: { finalScore: score },
+            state: { finalScore: score, socketIdRef: props.socket.id },
           }} />}
     </View>
   )

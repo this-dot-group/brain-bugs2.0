@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 import { Link } from 'react-router-native'
 
+import { connect } from 'react-redux';
+
 import { Buttons } from '../../styles'
 
 const styles = StyleSheet.create({
@@ -17,6 +19,7 @@ function GameEnd(props) {
   const playerTwoScore = props.location.state.finalScore.playerTwo.score
   useEffect(() => {
     console.log('final score on end screen', props.location.state.finalScore);
+    // console.log(props)
   })
 
   // Right now, rematch functionality implies same category, same num questions, same opponent.
@@ -29,6 +32,25 @@ function GameEnd(props) {
 
   // If opponent chooses N, they're both dropped back into Lobby, with a modal explaining "No rematch today, you're being redirected back to lobby"
 
+  // WHAT DO I NEED AT THIS POINT, TO DO THE ABOVE?
+  // - category
+  // - num questions
+  // - player names (already have it on finalScore state being passed down)
+  // - socketIds
+
+  const socketIdRef = props.location.state.socketIdRef;
+
+  const handleRematch = () => {
+
+    console.log('socketIdRef in gameplay repo:  ', socketIdRef)
+
+    props.socket.emit('rematch', socketIdRef)
+
+    
+
+
+  };
+
   return (
     <View>
       <Text> Game End </Text>
@@ -39,7 +61,7 @@ function GameEnd(props) {
           <Text>Back to Lobby</Text>
         </Link>
       </Pressable>
-      <Pressable style={styles.backToLobbyButton}>
+      <Pressable style={styles.backToLobbyButton} onPress={handleRematch}>
         {/* <Link to='/howtoplay'> */}
           <Text>Rematch</Text>
         {/* </Link> */}
@@ -48,4 +70,11 @@ function GameEnd(props) {
   )
 }
 
-export default GameEnd
+const mapStateToProps = (state) => {
+  return {
+    socket: state.socketReducer,
+  }
+}
+
+export default connect(mapStateToProps)(GameEnd);
+
