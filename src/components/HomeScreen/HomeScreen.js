@@ -14,6 +14,8 @@ import { Buttons, Images, Views, Typography, Colors } from '../../styles/'
 // socket imports
 import { newSocket } from '../../store/socketReducer.js';
 import { newUsername, newGameCode } from '../../store/userReducer.js';
+import { Button } from 'react-native';
+import { TextBase } from 'react-native';
 
 
 // const EXPO_LOCAL_URL = '10.0.0.200' // Josh
@@ -31,7 +33,15 @@ const styles = StyleSheet.create({
   },
   howToPlayModalButton: {
     ...Buttons.openButton,
+    backgroundColor: Colors.orange.hex,
+    position: 'absolute',
+    bottom: 50
+  },
+  goButton: {
+    ...Buttons.openButton,
     backgroundColor: Colors.red.hex,
+    minWidth: '90%',
+    alignItems: 'center'
   },
   logoImg: {
     ...Images.logoImg,
@@ -77,7 +87,7 @@ function Homescreen(props) {
       <Text>Welcome to This Game</Text>
 
 
-      <Text>Please enter your username:</Text>
+      <Text>Please enter your name to display here:</Text>
 
       <Input
         placeholder={'username'}
@@ -86,9 +96,12 @@ function Homescreen(props) {
       />
 
     {validUsername && 
-      <Link to='/lobby'>
+    <Pressable style={styles.goButton}>
+      <Link to='/lobby' >
         <Text>Go!</Text>
       </Link>
+    </Pressable>
+    
     }
 
 

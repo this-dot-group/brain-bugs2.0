@@ -1,5 +1,7 @@
+import { red } from "./colors";
+
 export const input = {
-  minWidth: 200,
+  padding: '2%'
 };
 
 export const alertText = {
