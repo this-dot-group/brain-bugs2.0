@@ -13,6 +13,8 @@
 # Josh
 - Single player
 - Lil research re possible sound effects
+New:  
+- Need to make sure that player leaves room after game if they are not playing again... otherwise their phone will 'watch' the other player's next game
 
 # Chris
 - look into/work on changing the question choose/submit process to still highlight when an answer is chosen, and then press submit button to submit (instead of using onLongPress)
