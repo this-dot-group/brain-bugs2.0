@@ -26,12 +26,15 @@ const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 
 // construct styles here, ability to add indv styling as needed on a per-component basis
 const styles = StyleSheet.create({
+  container: {
+    ...Views.viewContainer,
+  },
   howToPlayModalButton: {
     ...Buttons.openButton,
     backgroundColor: Colors.red.hex,
   },
-  placeholderImg: {
-    ...Images.placeholderImg,
+  logoImg: {
+    ...Images.logoImg,
   },
   modalView: {
     ...Views.modalView,
@@ -67,12 +70,12 @@ function Homescreen(props) {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
+      <Image
+        source={require('../../images/logo_option.png')}
+        style={styles.logoImg} />
       <Text>Welcome to This Game</Text>
 
-      <Image
-        source={{ uri: 'https://via.placeholder.com/150' }}
-        style={styles.placeholderImg} />
 
       <Text>Please enter your username:</Text>
 
