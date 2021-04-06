@@ -4,7 +4,7 @@ import { View, Text, Modal, Pressable, StyleSheet } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { Link, Redirect } from 'react-router-native'
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate } from '../../../store/gameInfoReducer'
-import socketReducer from '../../../store/socketReducer'
+// import socketReducer from '../../../store/socketReducer'
 import { newOpponent } from '../../../store/userReducer';
 
 import he from 'he';
@@ -41,7 +41,7 @@ function StartGame(props) {
 
   const [categoryList, setCategoryList] = useState([]);
   const [numPlayers, setNumPlayers] = useState(1)
-  const [joinOnePlayerRoom, setJoinOnePlayerRoom] = useState(false);
+  // const [joinOnePlayerRoom, setJoinOnePlayerRoom] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -55,15 +55,15 @@ function StartGame(props) {
       setCategoryList(categoryListArray);
     })()
 
-    const redirect = () => {
-      if (props.modalVisible === 'start') {
-        props.newOpponent(null);
-        setJoinOnePlayerRoom(true);
-      }
-    }
-    props.socket.on('redirectToHowToPlay', redirect);
+    // const redirect = () => {
+    //   if (props.modalVisible === 'start') {
+    //     props.newOpponent(null);
+    //     setJoinOnePlayerRoom(true);
+    //   }
+    // }
+    // props.socket.on('redirectToHowToPlay', redirect);
 
-    return () => props.socket.off('redirectToHowToPlay', redirect);
+    // return () => props.socket.off('redirectToHowToPlay', redirect);
   }, [])
 
 
