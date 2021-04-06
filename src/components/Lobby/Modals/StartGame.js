@@ -41,7 +41,7 @@ function StartGame(props) {
 
   const [categoryList, setCategoryList] = useState([]);
   const [numPlayers, setNumPlayers] = useState(1)
-  // const [joinOnePlayerRoom, setJoinOnePlayerRoom] = useState(false);
+
 
   useEffect(() => {
     (async () => {
@@ -55,15 +55,6 @@ function StartGame(props) {
       setCategoryList(categoryListArray);
     })()
 
-    // const redirect = () => {
-    //   if (props.modalVisible === 'start') {
-    //     props.newOpponent(null);
-    //     setJoinOnePlayerRoom(true);
-    //   }
-    // }
-    // props.socket.on('redirectToHowToPlay', redirect);
-
-    // return () => props.socket.off('redirectToHowToPlay', redirect);
   }, [])
 
 
@@ -150,24 +141,11 @@ function StartGame(props) {
           </View>
         }
 
-
-        {/* {numPlayers === 1
-          ?
-          <Pressable
-            onPress={() => props.socket.emit('joinOnePlayer', props.gameCode)}>
-            <Text>Go!</Text>
-          </Pressable>
-          : */}
         <Pressable>
           <Link to='/waitingroom'>
             <Text>Go!</Text>
           </Link>
         </Pressable>
-        {/* } */}
-
-        {/* {joinOnePlayerRoom &&
-          <Redirect to='/howtoplay' />
-        } */}
 
       </View>
     </Modal>
