@@ -6,6 +6,7 @@ import JoinGameModal from './Modals/JoinGame';
 import PrivateGameModal from './Modals/PrivateGame';
 import StartGameModal from './Modals/StartGame';
 import { newOpponent } from '../../store/userReducer';
+import { newGame } from '../../store/gameInfoReducer';
 
 import { Buttons } from '../../styles';
 
@@ -22,7 +23,8 @@ function StartScreen(props) {
   const [roomJoin, setRoomJoin] = useState(false);
 
   useEffect(() => {
-
+    // reset game so no info from previous games carries over
+    props.newGame({});
     props.socket.emit('inJoinGame', null)
 
     const receiveAvailableGames = allGames => {
@@ -114,6 +116,6 @@ const mapStateToProps = (state) => {
     socket: state.socketReducer
   }
 }
-const mapDispatchToProps = { newOpponent }
+const mapDispatchToProps = { newOpponent, newGame }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartScreen)

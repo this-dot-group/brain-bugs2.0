@@ -6,6 +6,7 @@ import he from 'he';
 import { Redirect } from 'react-router-native';
 import AnimatedEllipsis from 'react-native-animated-ellipsis'
 
+
 import { connect } from 'react-redux';
 import Countdown from '../Countdown/Countdown'
 
@@ -113,15 +114,35 @@ function GameScreen(props) {
         points: questionPoints
       }
     )
+    
+    if(props.numPlayers === 1) {
+      fakeOpponentSubmit();
+    }
 
     setSubmitted(i);
     setWaiting(true);
+  }
+
+  const fakeOpponentSubmit = () => {
+    props.fakeOpponentSocket.emit('userAnsweredinGame', 
+      {
+        username: props.opponent,
+        // gets question right 50% of the time
+        points: Math.floor(Math.random() * 2),
+      }
+    )
   }
 
 
   useEffect(() => {
 
     props.socket.emit('readyForGame');
+
+    if(props.numPlayers === 1) {
+      props.fakeOpponentSocket.emit('readyForGame');
+    }
+
+
 
     const questionHandler = questionObj => {
       // console.log('before setTimeout')
@@ -165,8 +186,8 @@ function GameScreen(props) {
     }
     const endGame = finalScore => {
       setDisplayAnswer(true)
+      setScore(finalScore);
       setTimeout(() => {
-        setScore(finalScore);
         setGameEnd(true);
       }, 2000)
     }
@@ -323,7 +344,10 @@ function GameScreen(props) {
 const mapStateToProps = (state) => {
   return {
     socket: state.socketReducer,
+    fakeOpponentSocket: state.fakeOpponentSocketReducer,
     userName: state.userReducer.username,
+    numPlayers: state.gameInfoReducer.numPlayers || 2,
+    opponent: state.userReducer.opponent,
   }
 }
 
