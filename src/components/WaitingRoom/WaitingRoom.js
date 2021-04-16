@@ -5,9 +5,17 @@ import Clipboard from 'expo-clipboard';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import { newOpponent } from '../../store/userReducer'
 import { getQuestions } from '../../store/gameInfoReducer'
+import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer'
 import { connect } from 'react-redux';
 
 import { Buttons, Views, Typography } from '../../styles';
+
+const EXPO_LOCAL_URL = '10.0.0.200' // Josh
+// const EXPO_LOCAL_URL = '192.168.0.55' // Tia
+
+// const EXPO_LOCAL_URL = '10.0.0.199' // Chris
+import socketIO from 'socket.io-client';
+const fakeOpponentSocket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 
 const styles = StyleSheet.create({
   modalView: {
@@ -47,6 +55,7 @@ const WaitingRoom = (props) => {
 
     (async () => {
       await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions)
+
     })()
     
   }, [])
@@ -54,15 +63,31 @@ const WaitingRoom = (props) => {
   useEffect(() => {
     props.fullGameInfo.userName = props.userName;
     props.fullGameInfo.gameCode = props.gameCode;
-    props.socket.emit('newGame', props.fullGameInfo)
+    if(props.fullGameInfo.liveGameQuestions) {
+      props.socket.emit('newGame', props.fullGameInfo)
+    }
 
+    const addFakeOpponent = () => {
+      if(props.fullGameInfo.numPlayers === 1) {
+        console.log('in one player waiting room')
+        props.newFakeOpponent(fakeOpponentSocket)
+        fakeOpponentSocket.emit('joinTwoPlayer', [props.gameCode, 'Cricket'])
+      }
+    }
+    
     const redirectToHowToPlay = usernames => {
+      console.log(usernames.gameJoiner)
       props.newOpponent(usernames.gameJoiner)
       setRoomJoin(true);
     }
+
+    props.socket.on('sendAvailGameInfo', addFakeOpponent)
     props.socket.on('redirectToHowToPlay', redirectToHowToPlay)
 
-    return () => props.socket.off('redirectToHowToPlay', redirectToHowToPlay)
+    return () => {
+      props.socket.off('sendAvailGameInfo', addFakeOpponent);
+      props.socket.off('redirectToHowToPlay', redirectToHowToPlay);
+    }
     
   },[props.fullGameInfo.liveGameQuestions])
 
@@ -135,6 +160,6 @@ const mapStateToProps = (state) => {
 
           }
 }
-const mapDispatchToProps = { newOpponent, getQuestions }
+const mapDispatchToProps = { newOpponent, getQuestions, newFakeOpponent }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WaitingRoom);

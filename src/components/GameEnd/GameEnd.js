@@ -1,26 +1,32 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, Pressable, StyleSheet } from 'react-native'
-import { Link } from 'react-router-native'
+import { Redirect } from 'react-router-native'
+import { connect } from 'react-redux';
 
 import { connect } from 'react-redux';
 
 import { Buttons } from '../../styles'
 
 const styles = StyleSheet.create({
-backToLobbyButton: {
-  ...Buttons.openButton,
-},
+  backToLobbyButton: {
+    ...Buttons.openButton,
+  },
 })
 
 function GameEnd(props) {
+
+  const [backToLobby, setBackToLobby] = useState(false);
+
   const playerOneName = props.location.state.finalScore.playerOne.name
   const playerOneScore = props.location.state.finalScore.playerOne.score
   const playerTwoName = props.location.state.finalScore.playerTwo.name
   const playerTwoScore = props.location.state.finalScore.playerTwo.score
+
   useEffect(() => {
     console.log('final score on end screen', props.location.state.finalScore);
     // console.log(props)
   })
+
 
   // Right now, rematch functionality implies same category, same num questions, same opponent.
 
@@ -51,30 +57,45 @@ function GameEnd(props) {
 
   };
 
+  const leaveRoomAndGoToLobby = () => {
+
+    props.socket.emit('leaveRoom');
+    if(props.numPlayers === 1) {
+      props.fakeOpponentSocket.emit('leaveRoom');
+    }
+    setBackToLobby(true);
+  }
+
+
   return (
     <View>
       <Text> Game End </Text>
       <Text>{playerOneName} {playerOneScore}</Text>
       <Text>{playerTwoName} {playerTwoScore}</Text>
-      <Pressable style={styles.backToLobbyButton}>
-        <Link to='/lobby'>
-          <Text>Back to Lobby</Text>
-        </Link>
+      <Pressable
+        style={styles.backToLobbyButton}
+        onPress={leaveRoomAndGoToLobby}
+      >
+        <Text>Back to Lobby</Text>
       </Pressable>
+
       <Pressable style={styles.backToLobbyButton} onPress={handleRematch}>
         {/* <Link to='/howtoplay'> */}
           <Text>Rematch</Text>
         {/* </Link> */}
       </Pressable>
+
+      {backToLobby && <Redirect to='/lobby' />}
+
     </View>
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    socket: state.socketReducer,
-  }
-}
+const mapStateToProps = state => ({
+  numPlayers: state.gameInfoReducer.numPlayers,
+  socket: state.socketReducer,
+  fakeOpponentSocket: state.fakeOpponentSocketReducer,
+})
 
 export default connect(mapStateToProps)(GameEnd);
 
