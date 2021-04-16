@@ -14,6 +14,8 @@
 # Josh
 - X Single player
 - Lil research re possible sound effects
+- Fix button problem
+- Fix single player loading screen - skip over
 New:  
 - X Need to make sure that player leaves room after game if they are not playing again... otherwise their phone will 'watch' the other player's next game
 - When one person leaves, let other user know that they have left
