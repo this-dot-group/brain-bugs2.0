@@ -10,8 +10,8 @@ import { connect } from 'react-redux';
 
 import { Buttons, Views, Typography } from '../../styles';
 
-const EXPO_LOCAL_URL = '10.0.0.200' // Josh
-// const EXPO_LOCAL_URL = '192.168.0.55' // Tia
+// const EXPO_LOCAL_URL = '10.0.0.200' // Josh
+const EXPO_LOCAL_URL = '192.168.0.4' // Tia
 
 // const EXPO_LOCAL_URL = '10.0.0.199' // Chris
 import socketIO from 'socket.io-client';

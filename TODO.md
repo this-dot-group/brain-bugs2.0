@@ -2,6 +2,8 @@
 
 * time is very high for testing gameplay screens
 
+* look at trivia API token, needs to be attached to each socket (rather than just being stored in server)
+
 * Update the urls for your own ip address
   * StartGame Screen
   * Home screen

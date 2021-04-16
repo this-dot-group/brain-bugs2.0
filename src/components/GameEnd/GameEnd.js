@@ -3,9 +3,9 @@ import { View, Text, Pressable, StyleSheet } from 'react-native'
 import { Redirect } from 'react-router-native'
 import { connect } from 'react-redux';
 
-import { connect } from 'react-redux';
 
 import { Buttons } from '../../styles'
+
 
 const styles = StyleSheet.create({
   backToLobbyButton: {
@@ -17,45 +17,58 @@ function GameEnd(props) {
 
   const [backToLobby, setBackToLobby] = useState(false);
 
+  const [showInvitation, setShowInvitation] = useState(false);
+
   const playerOneName = props.location.state.finalScore.playerOne.name
   const playerOneScore = props.location.state.finalScore.playerOne.score
   const playerTwoName = props.location.state.finalScore.playerTwo.name
   const playerTwoScore = props.location.state.finalScore.playerTwo.score
 
   useEffect(() => {
-    console.log('final score on end screen', props.location.state.finalScore);
-    // console.log(props)
-  })
+    props.socket.on('rematchInvitation', onRematchInvitation);
+    props.socket.on('opponentRematchResponse', onRematchResponse)
+    return () => {
+      props.socket.off('rematchInvitation', onRematchInvitation)
+      props.socket.off('opponentRematchResponse', onRematchResponse)
+    }
 
 
-  // Right now, rematch functionality implies same category, same num questions, same opponent.
+  }, [])
 
-  // When one player chooses rematch, a modal will pop up on opponent's screen "Would you like a rematch?" with a Y or N button. 
+  const onRematchInvitation = () => {
+    setShowInvitation(true)
+  }
 
-  // For the person who chose rematch, they'll see a modal that says "Waiting for other player..."
+  const onRematchResponse = (response) => {
 
-  // If opponent chooses Y, dropped back into How to Play screen with countdown
+    console.log('response in onRematchResponse', response)
+    // if response false, setBackToLobby(true);
 
-  // If opponent chooses N, they're both dropped back into Lobby, with a modal explaining "No rematch today, you're being redirected back to lobby"
+    response ? console.log('FIGURE OUT HOW TO START NEW GAME WITH BOTH PLAYERS, SAME CATEGORY AND SAME NUM QUESTIONS') : setBackToLobby(true)
 
-  // WHAT DO I NEED AT THIS POINT, TO DO THE ABOVE?
-  // - category
-  // - num questions
-  // - player names (already have it on finalScore state being passed down)
-  // - socketIds
+    // if true, START A NEW GAME WITH BOTH PLAYERS. same category and # questions
 
-  const socketIdRef = props.location.state.socketIdRef;
+  }
+
+
+
+
 
   const handleRematch = () => {
+    props.socket.emit('rematch')
 
-    console.log('socketIdRef in gameplay repo:  ', socketIdRef)
-
-    props.socket.emit('rematch', socketIdRef)
-
-    
-
-
+    // indicator for requestor
   };
+
+  const handleYes = () => {
+    props.socket.emit('rematchResponse', true)
+  }
+
+  const handleNo = () => {
+    props.socket.emit('rematchResponse', false)
+    leaveRoomAndGoToLobby();
+
+  }
 
   const leaveRoomAndGoToLobby = () => {
 
@@ -87,6 +100,23 @@ function GameEnd(props) {
 
       {backToLobby && <Redirect to='/lobby' />}
 
+      {showInvitation && 
+      <>
+        <Text>{props.opponent} wants a rematch! What do you think?</Text>
+        <Pressable
+        style={styles.backToLobbyButton}
+        onPress={handleYes}
+      >
+        <Text>Yes</Text>
+      </Pressable>
+            <Pressable
+            style={styles.backToLobbyButton}
+            onPress={handleNo}
+          >
+            <Text>No</Text>
+          </Pressable>
+          </>}
+
     </View>
   )
 }
@@ -95,6 +125,7 @@ const mapStateToProps = state => ({
   numPlayers: state.gameInfoReducer.numPlayers,
   socket: state.socketReducer,
   fakeOpponentSocket: state.fakeOpponentSocketReducer,
+  opponent: state.userReducer.opponent
 })
 
 export default connect(mapStateToProps)(GameEnd);
