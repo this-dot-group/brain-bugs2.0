@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
 })
 
 
-
 function GameScreen(props) {
 
   const [seconds, setSeconds] = useState(1000000);
@@ -74,7 +73,7 @@ function GameScreen(props) {
 
   const interpolation = animation.interpolate({
     inputRange: [0, 1],
-    outputRange: ["grey", "yellow"]
+    outputRange: ['grey', 'yellow']
   })
 
   const animatedStyle = {
@@ -114,8 +113,8 @@ function GameScreen(props) {
         points: questionPoints
       }
     )
-    
-    if(props.numPlayers === 1) {
+
+    if (props.numPlayers === 1) {
       fakeOpponentSubmit();
     }
 
@@ -124,7 +123,7 @@ function GameScreen(props) {
   }
 
   const fakeOpponentSubmit = () => {
-    props.fakeOpponentSocket.emit('userAnsweredinGame', 
+    props.fakeOpponentSocket.emit('userAnsweredinGame',
       {
         username: props.opponent,
         // gets question right 50% of the time
@@ -138,32 +137,18 @@ function GameScreen(props) {
 
     props.socket.emit('readyForGame');
 
-    if(props.numPlayers === 1) {
+    if (props.numPlayers === 1) {
       props.fakeOpponentSocket.emit('readyForGame');
     }
 
 
 
     const questionHandler = questionObj => {
-      // console.log('before setTimeout')
+
       console.log('questionObj', questionObj)
 
       setDisplayAnswer(true)
-      // if (isFirstQuestion) {
-      //   setDisplayAnswer(false);
-      //   setCorrectIndex(-1);
-      //   setWaiting(false);
-      //   // resetting the Animated Value each time a new question comes down
-      //   setAnimation(new Animated.Value(0))
 
-      //   let answerArr = insertCorrectAnswer(questionObj);
-
-      //   questionObj.answers = answerArr;
-      //   setSelected(-1);
-      //   setFormattedQuestionInfo(questionObj);
-      //   setSubmitted(-1);
-      //   setIsFirstQuestion(false);
-      // } else {
       setTimeout(() => {
 
         setDisplayAnswer(false);
@@ -205,13 +190,22 @@ function GameScreen(props) {
   }, [])
 
   useEffect(() => {
-
+    console.log('seconds', seconds)
+    console.log('socnds type', typeof seconds)
     if (seconds === 0) {
+      console.log('emitted')
       props.socket.emit('userAnsweredinGame',
         {
           username: props.userName,
           points: 0
         })
+      if (props.numPlayers === 1) {
+        props.fakeOpponentSocket.emit('userAnsweredinGame',
+          {
+            username: props.opponent,
+            points: 0
+          })
+      }
     }
 
   }, [seconds])
@@ -234,8 +228,6 @@ function GameScreen(props) {
     return color;
 
   }
-
-
 
 
   return (
@@ -269,7 +261,7 @@ function GameScreen(props) {
           </Pressable>
           {waiting &&
             <Text> Waiting for other player to answer
-          <AnimatedEllipsis />
+              <AnimatedEllipsis />
             </Text>
           }
 
@@ -311,8 +303,17 @@ function GameScreen(props) {
 
             </Pressable>
           )}
+
+          <Pressable
+            onPress={() => handleSubmitAnswer(formattedQuestionInfo.answers[selected], selected)}
+          >
+            <Text>
+              Submit
+            </Text>
+          </Pressable>
+
           <Text>Time Left:&nbsp;
-          <Countdown
+            <Countdown
               seconds={seconds}
               setSeconds={setSeconds}
             //create a function that when the time hits zero
