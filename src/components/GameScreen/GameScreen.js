@@ -281,9 +281,9 @@ function GameScreen(props) {
                 setSelected(i)
               }}
 
-              onLongPress={() => {
-                handleAnimation(answer, i)
-              }}
+              // onLongPress={() => {
+              //   handleAnimation(answer, i)
+              // }}
 
               // onLongPress={() => {
               //   handleSubmitAnswer(answer, i)
@@ -305,7 +305,9 @@ function GameScreen(props) {
           )}
 
           <Pressable
-            onPress={() => handleSubmitAnswer(formattedQuestionInfo.answers[selected], selected)}
+            onPress={() => {
+              handleAnimation(formattedQuestionInfo.answers[selected], selected)
+            }}
           >
             <Text>
               Submit

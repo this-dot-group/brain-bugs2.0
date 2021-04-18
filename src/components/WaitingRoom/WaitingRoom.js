@@ -67,13 +67,13 @@ const WaitingRoom = (props) => {
       props.socket.emit('newGame', props.fullGameInfo)
     }
 
-    const addFakeOpponent = () => {
-      if (props.fullGameInfo.numPlayers === 1) {
-        console.log('in one player waiting room')
-        props.newFakeOpponent(fakeOpponentSocket)
-        fakeOpponentSocket.emit('joinTwoPlayer', [props.gameCode, 'Cricket'])
-      }
+
+    if (props.fullGameInfo.numPlayers === 1) {
+      console.log('in one player waiting room')
+      props.newFakeOpponent(fakeOpponentSocket)
+      fakeOpponentSocket.emit('joinTwoPlayer', [props.gameCode, 'Cricket'])
     }
+
 
     const redirectToHowToPlay = usernames => {
       console.log(usernames.gameJoiner)
@@ -81,17 +81,15 @@ const WaitingRoom = (props) => {
       setRoomJoin(true);
     }
 
-    props.socket.on('sendAvailGameInfo', addFakeOpponent)
     props.socket.on('redirectToHowToPlay', redirectToHowToPlay)
 
     return () => {
-      props.socket.off('sendAvailGameInfo', addFakeOpponent);
       props.socket.off('redirectToHowToPlay', redirectToHowToPlay);
     }
 
   }, [props.fullGameInfo.liveGameQuestions])
 
-  if (props.numPlayers === 2) {
+  if (props.fullGameInfo.numPlayers === 2) {
     return (
 
       <View>
@@ -150,7 +148,7 @@ const WaitingRoom = (props) => {
       </View>
     )
   }
-  return roomJoin && <Redirect to='/howtoplay' />
+  else return roomJoin && <Redirect to='/howtoplay' />
 }
 
 const mapStateToProps = (state) => {
