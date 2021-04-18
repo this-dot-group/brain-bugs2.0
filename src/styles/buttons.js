@@ -47,4 +47,13 @@ export const submittedAnswer = {
   elevation: 2,
 };
 
+export const submitButton = {
+  backgroundColor: 'white',
+  borderWidth: 4,
+  borderColor: 'black',
+  borderStyle: 'solid',
+  textAlign: 'center',
+  padding: 10,
+  elevation: 2,
+};
 

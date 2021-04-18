@@ -13,9 +13,9 @@
 
 # Josh
 - Lil research re possible sound effects
-- Fix button problem
+- X - Fix button problem
 - X - Fix single player loading screen - now goes to a short blank screen while loading
-- Countdown does not continue while changing selections
+- BUG - Countdown does not continue while changing selections
 New:  
 - X Need to make sure that player leaves room after game if they are not playing again... otherwise their phone will 'watch' the other player's next game
 - When one person leaves, let other user know that they have left

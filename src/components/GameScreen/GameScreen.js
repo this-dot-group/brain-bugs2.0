@@ -33,6 +33,9 @@ const styles = StyleSheet.create({
   },
   answerText: {
     ...Typography.answerText,
+  },
+  submitButton: {
+    ...Buttons.submitButton,
   }
 })
 
@@ -308,8 +311,10 @@ function GameScreen(props) {
             onPress={() => {
               handleAnimation(formattedQuestionInfo.answers[selected], selected)
             }}
+            style={styles.submitButton}
           >
-            <Text>
+            <Text
+              style={styles.answerText}>
               Submit
             </Text>
           </Pressable>
