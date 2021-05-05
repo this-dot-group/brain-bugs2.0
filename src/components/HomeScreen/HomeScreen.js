@@ -14,10 +14,12 @@ import { Buttons, Images, Views, Typography, Colors } from '../../styles/'
 // socket imports
 import { newSocket } from '../../store/socketReducer.js';
 import { newUsername, newGameCode } from '../../store/userReducer.js';
+import { Button } from 'react-native';
+import { TextBase } from 'react-native';
 
 
-const EXPO_LOCAL_URL = '10.0.0.200' // Josh
-// const EXPO_LOCAL_URL = '192.168.0.55' // Tia
+// const EXPO_LOCAL_URL = '10.0.0.200' // Josh
+const EXPO_LOCAL_URL = '192.168.0.3' // Tia
 
 // const EXPO_LOCAL_URL = '10.0.0.199' // Chris
 
@@ -26,12 +28,23 @@ const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 
 // construct styles here, ability to add indv styling as needed on a per-component basis
 const styles = StyleSheet.create({
+  container: {
+    ...Views.viewContainer,
+  },
   howToPlayModalButton: {
     ...Buttons.openButton,
-    backgroundColor: Colors.red.hex,
+    backgroundColor: Colors.orange.hex,
+    position: 'absolute',
+    bottom: 50
   },
-  placeholderImg: {
-    ...Images.placeholderImg,
+  goButton: {
+    ...Buttons.openButton,
+    backgroundColor: Colors.red.hex,
+    minWidth: '90%',
+    alignItems: 'center'
+  },
+  logoImg: {
+    ...Images.logoImg,
   },
   modalView: {
     ...Views.modalView,
@@ -67,14 +80,14 @@ function Homescreen(props) {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
+      <Image
+        source={require('../../images/logo_option.png')}
+        style={styles.logoImg} />
       <Text>Welcome to This Game</Text>
 
-      <Image
-        source={{ uri: 'https://via.placeholder.com/150' }}
-        style={styles.placeholderImg} />
 
-      <Text>Please enter your username:</Text>
+      <Text>Please enter your name to display here:</Text>
 
       <Input
         placeholder={'username'}
@@ -83,9 +96,12 @@ function Homescreen(props) {
       />
 
     {validUsername && 
-      <Link to='/lobby'>
+    <Pressable style={styles.goButton}>
+      <Link to='/lobby' >
         <Text>Go!</Text>
       </Link>
+    </Pressable>
+    
     }
 
 

@@ -9,8 +9,8 @@
 
 import axios from 'axios';
 
-const EXPO_LOCAL_URL = '10.0.0.200'; // Josh
-// const EXPO_LOCAL_URL = '192.168.0.55'; // Tia
+// const EXPO_LOCAL_URL = '10.0.0.200'; // Josh
+const EXPO_LOCAL_URL = '192.168.0.3'; // Tia
 // const EXPO_LOCAL_URL = '10.0.0.199'; // Chris 
 
 export default (state = {}, action) => {
@@ -78,7 +78,7 @@ export const getQuestions = (id, numQuestions) => {
   
   return async dispatch => {
     const response = await axios.get(`http://${EXPO_LOCAL_URL}:3000/questions/${id}/${numQuestions}`);
-    console.log('response from axois', response.data);
+    // console.log('response from axois', response.data);
     dispatch({
       type: 'GET_QUESTIONS',
       payload: response.data,

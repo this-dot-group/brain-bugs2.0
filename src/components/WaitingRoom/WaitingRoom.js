@@ -10,8 +10,8 @@ import { connect } from 'react-redux';
 
 import { Buttons, Views, Typography } from '../../styles';
 
-const EXPO_LOCAL_URL = '10.0.0.200' // Josh
-// const EXPO_LOCAL_URL = '192.168.0.55' // Tia
+// const EXPO_LOCAL_URL = '10.0.0.200' // Josh
+const EXPO_LOCAL_URL = '192.168.0.3' // Tia
 
 // const EXPO_LOCAL_URL = '10.0.0.199' // Chris
 import socketIO from 'socket.io-client';
@@ -63,7 +63,8 @@ const WaitingRoom = (props) => {
   useEffect(() => {
     props.fullGameInfo.userName = props.userName;
     props.fullGameInfo.gameCode = props.gameCode;
-    if (props.fullGameInfo.liveGameQuestions) {
+
+    if(props.fullGameInfo.liveGameQuestions) {
       props.socket.emit('newGame', props.fullGameInfo)
     }
 

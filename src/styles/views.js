@@ -1,3 +1,11 @@
+export const viewContainer = {
+  backgroundColor: '#F0DEB6', 
+  width: '100%', 
+  height: '100%', 
+  alignItems: 'center', 
+  justifyContent: 'center'
+};
+
 export const modalView = {
   margin: 20,
   backgroundColor: 'white',
