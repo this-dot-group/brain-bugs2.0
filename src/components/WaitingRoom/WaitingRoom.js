@@ -57,109 +57,110 @@ const WaitingRoom = (props) => {
       await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions)
 
     })()
-    
+
   }, [])
-  
+
   useEffect(() => {
     props.fullGameInfo.userName = props.userName;
     props.fullGameInfo.gameCode = props.gameCode;
-    console.log('FULL GAMEINFO IN WAITING ROOM:', props.fullGameInfo)
+
     if(props.fullGameInfo.liveGameQuestions) {
       props.socket.emit('newGame', props.fullGameInfo)
     }
 
-    const addFakeOpponent = () => {
-      if(props.fullGameInfo.numPlayers === 1) {
-        console.log('in one player waiting room')
-        props.newFakeOpponent(fakeOpponentSocket)
-        fakeOpponentSocket.emit('joinTwoPlayer', [props.gameCode, 'Cricket'])
-      }
+
+    if (props.fullGameInfo.numPlayers === 1) {
+      console.log('in one player waiting room')
+      props.newFakeOpponent(fakeOpponentSocket)
+      fakeOpponentSocket.emit('joinTwoPlayer', [props.gameCode, 'Cricket'])
     }
-    
+
+
     const redirectToHowToPlay = usernames => {
       console.log(usernames.gameJoiner)
       props.newOpponent(usernames.gameJoiner)
       setRoomJoin(true);
     }
 
-    props.socket.on('sendAvailGameInfo', addFakeOpponent)
     props.socket.on('redirectToHowToPlay', redirectToHowToPlay)
 
     return () => {
-      props.socket.off('sendAvailGameInfo', addFakeOpponent);
       props.socket.off('redirectToHowToPlay', redirectToHowToPlay);
     }
-    
-  },[props.fullGameInfo.liveGameQuestions])
 
-  return (
+  }, [props.fullGameInfo.liveGameQuestions])
 
-    <View>
-      <Modal
-        transparent={true}
-        visible={modalVisible}>
+  if (props.fullGameInfo.numPlayers === 2) {
+    return (
 
-        <View
-          style={styles.modalView}>
-          <HowToPlayModal />
-          <Pressable
-            style={styles.HowToPlayModalButton}
-            onPress={() => {
-              setModalVisible(!modalVisible)
-            }}
-          >
-            <Text>Hide</Text>
-          </Pressable>
-        </View>
-      </Modal>
-      <Pressable
-        style={styles.HowToPlayModalButton}
-        onPress={() => {
-          setModalVisible(true);
-        }}
-        >
-        <Text>How To Play</Text>
-      </Pressable>
+      <View>
+        <Modal
+          transparent={true}
+          visible={modalVisible}>
 
-
-      <Text>Waiting for 1 more player...</Text>
-
-      <ActivityIndicator
-        color='red'
-        size='large'
-        animating={true} />
-
-      {props.publicOrPrivate === 'private' &&
-
+          <View
+            style={styles.modalView}>
+            <HowToPlayModal />
+            <Pressable
+              style={styles.HowToPlayModalButton}
+              onPress={() => {
+                setModalVisible(!modalVisible)
+              }}
+            >
+              <Text>Hide</Text>
+            </Pressable>
+          </View>
+        </Modal>
         <Pressable
-        style={styles.gameCodeCopyButton}
-        onPress={handleCodeCopy}>
-        <Text>{props.gameCode}</Text>
+          style={styles.HowToPlayModalButton}
+          onPress={() => {
+            setModalVisible(true);
+          }}
+        >
+          <Text>How To Play</Text>
         </Pressable>
+
+
+        <Text>Waiting for 1 more player...</Text>
+
+        <ActivityIndicator
+          color='red'
+          size='large'
+          animating={true} />
+
+        {props.publicOrPrivate === 'private' &&
+
+          <Pressable
+            style={styles.gameCodeCopyButton}
+            onPress={handleCodeCopy}>
+            <Text>{props.gameCode}</Text>
+          </Pressable>
 
         }
 
-        {copied && <Text style={styles.alertText}> Copied </Text>}  
+        {copied && <Text style={styles.alertText}> Copied </Text>}
 
-      <Link to='/'>
-        <Text>(Go Home)</Text>
-      </Link>
-      {roomJoin &&
-        <Redirect to='/howtoplay' />
-      }
-    </View>
-    
-  )
+        <Link to='/'>
+          <Text>(Go Home)</Text>
+        </Link>
+        {roomJoin &&
+          <Redirect to='/howtoplay' />
+        }
+      </View>
+    )
+  }
+  else return roomJoin && <Redirect to='/howtoplay' />
 }
 
 const mapStateToProps = (state) => {
-  return { userName: state.userReducer.username,
-           gameCode: state.userReducer.gameCode,
-           socket: state.socketReducer,
-           publicOrPrivate: state.gameInfoReducer.publicOrPrivate,
-           fullGameInfo: state.gameInfoReducer
+  return {
+    userName: state.userReducer.username,
+    gameCode: state.userReducer.gameCode,
+    socket: state.socketReducer,
+    publicOrPrivate: state.gameInfoReducer.publicOrPrivate,
+    fullGameInfo: state.gameInfoReducer
 
-          }
+  }
 }
 const mapDispatchToProps = { newOpponent, getQuestions, newFakeOpponent }
 
