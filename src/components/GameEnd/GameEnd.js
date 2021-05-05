@@ -36,6 +36,8 @@ function GameEnd(props) {
       props.socket.off('rematchInvitation', onRematchInvitation)
       props.socket.off('opponentRematchResponse', onRematchResponse)
       props.socket.off('gameCodeForRematch', joinRematch)
+      props.socket.off('redirectToHowToPlay', redirect);
+
 
     }
 
@@ -52,6 +54,8 @@ function GameEnd(props) {
 
 
   const redirect = (usernames) => {
+
+    // this stuff is happening to the opponent (person who said yes to rematch)
     console.log('USERNAMES in redirect func in GameEnd:', usernames);
     props.newOpponent(usernames.gameMaker);
     setRoomJoin(true);
@@ -74,6 +78,7 @@ function GameEnd(props) {
       props.numQuestions(rematchGameInfo.numQuestions);
       props.publicOrPrivate('private');
 
+      // the purpose of the event below is to get oppoent into gameplay (how to play, waiting room, whatever) also
       props.socket.emit('sendRematchOpponentToPrivateGameJoin', props.gameCode);
 
       setRematchReady(true);
@@ -86,18 +91,13 @@ function GameEnd(props) {
 
   const joinRematch = (gameCode) => {
 
-    // this stuff is happening to the person who said YES to the rematch
+    // this stuff is happening to the person who said YES to the rematch, the opponent
 
     console.log('in joinRematch', gameCode);
     console.log('in joinRematch, props.username', props.username);
 
-    // *******************************
-    // WE HAVE USERNAME NOW, NOW WE NEED TO SEND THEM SOMEWHERE AFTER THE JOIN TWO PLAYER?
-    // *******************************
-
-
     props.socket.emit('joinTwoPlayer', [gameCode, props.username]);
-    setRematchReady(true);
+    // setRematchReady(true);
   }
 
 
