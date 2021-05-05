@@ -19,36 +19,6 @@ const styles = StyleSheet.create({
 
 function JoinGame(props) {
 
-  // const [gamesWaiting, setGamesWaiting] = useState([])
-  // const [roomJoin, setRoomJoin] = useState(false)
-
-  // useEffect(() => {
-
-  //   props.socket.emit('inJoinGame', null)
-  //   props.socket.on('sendAvailGameInfo', allGames => {
-  //     console.log('username', props.username)
-  //     console.log('all games', allGames);
-
-  //     let filteredGames = [];
-
-  //     for (let game in allGames) {
-
-  //       let currentGame = allGames[game];
-
-  //       if (currentGame.publicOrPrivate === 'public' && currentGame.numPlayers === 2) {
-
-  //         let relevantInfo = {
-  //           category: currentGame.category.name,
-  //           player: currentGame.userName,
-  //           gameCode: currentGame.gameCode
-  //         }
-  //         filteredGames.push(relevantInfo)
-  //       }
-  //     }
-  //     setGamesWaiting(filteredGames)
-  //   })
-
-
   return (
     <Modal
       transparent={true}
