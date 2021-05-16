@@ -7,12 +7,18 @@
   * NEW!! 4/6 WaitingRoom Screen
 
 ***************************
-# 5/11/21
+# 5/16/21
+
+Josh:
+- BUG - Countdown does not continue while changing selections
+- Lil research re possible sound effects
+
+Tia:
+- Let rematch requester know if the other person says no
+- Alert to user who makes a public, 2P game and is waiting. There should be some sort of alert to let them know when someone joined their game
+- Take a look at how to play screen in Canva
 
 ## Code
-- Lil research re possible sound effects
-- BUG - Countdown does not continue while changing selections
-- Let rematch requester know if the other person says no
 - When one person leaves, let other user know that they have left
 - transition from question to question, "waiting for 1 player to answer..." lingers after other player has answered, and while the correct answer is showing
 - if you dont answer a question, when the correct answer moment occurs it looks like you answered correctly (because no other option is selected)
@@ -20,7 +26,6 @@
 ## New Features
 * Chat functionality at end
 * Emojis
-* Alert to user who makes a public, 2P game and is waiting. There should be some sort of alert to let them know when someone joined their game
 
 
 ## Styling/Content
