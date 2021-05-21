@@ -195,8 +195,6 @@ function GameScreen(props) {
   }, [])
 
   useEffect(() => {
-    console.log('seconds', seconds)
-    console.log('socnds type', typeof seconds)
     if (seconds === 0) {
       console.log('emitted')
       props.socket.emit('userAnsweredinGame',
@@ -286,14 +284,6 @@ function GameScreen(props) {
                 setSelected(i)
               }}
 
-              // onLongPress={() => {
-              //   handleAnimation(answer, i)
-              // }}
-
-              // onLongPress={() => {
-              //   handleSubmitAnswer(answer, i)
-              // }}
-
               style={chooseColor(i)}
 
               key={i}
@@ -362,3 +352,4 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(GameScreen);
+

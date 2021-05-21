@@ -22,8 +22,8 @@ function HowToPlay(props) {
       <Text> HOW TO PLAY screen with countdown </Text>
       <Text>Game starting in&nbsp;
         <Countdown
-        seconds={seconds}
-        setSeconds={setSeconds}
+          seconds={seconds}
+          setSeconds={setSeconds}
         />
       </Text>
       <Text>{props.username} {props.opponent && `vs ${props.opponent}`}</Text>

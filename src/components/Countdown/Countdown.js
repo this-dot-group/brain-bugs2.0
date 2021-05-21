@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { Text } from 'react-native'
 
 
-export default function Countdown(props) {
+function Countdown(props) {
   // const [seconds, setSeconds] = useState(props.seconds);
 
   useEffect(() => {
@@ -19,3 +19,5 @@ export default function Countdown(props) {
   return (<Text>{props.seconds}</Text>);
 
 }
+
+export default memo(Countdown)
