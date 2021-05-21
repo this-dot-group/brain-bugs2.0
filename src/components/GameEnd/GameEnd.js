@@ -144,7 +144,7 @@ function GameEnd(props) {
 
       <Pressable style={styles.backToLobbyButton} onPress={handleRematch}>
         {/* <Link to='/howtoplay'> */}
-          <Text>Rematch</Text>
+        <Text>Rematch</Text>
         {/* </Link> */}
       </Pressable>
 
