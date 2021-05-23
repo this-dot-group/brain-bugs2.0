@@ -81,6 +81,16 @@ function Homescreen(props) {
 
   return (
     <View style={styles.container}>
+
+      <Pressable
+        style={styles.howToPlayModalButton}
+        onPress={() => {
+          setModalVisible(true);
+        }}
+      >
+        <Text>How To Play</Text>
+      </Pressable>
+      
       <Image
         source={require('../../images/logo_option.png')}
         style={styles.logoImg} />
@@ -127,14 +137,7 @@ function Homescreen(props) {
       </Modal>
 
 
-      <Pressable
-        style={styles.howToPlayModalButton}
-        onPress={() => {
-          setModalVisible(true);
-        }}
-      >
-        <Text>How To Play</Text>
-      </Pressable>
+
 
 
 
