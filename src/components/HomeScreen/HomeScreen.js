@@ -6,6 +6,7 @@ import { Link, Redirect } from 'react-router-native';
 import socketIO from 'socket.io-client';
 import faker from 'faker';
 
+import { Audio } from 'expo-av'
 import usePlaySound from '../../sounds/usePlaySound'
 
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
@@ -61,7 +62,7 @@ function Homescreen(props) {
   const [validUsername, setValidUsername] = useState(false);
   const [toLobby, setToLobby] = useState(false);
 
-  const { playSound, soundCleanUp }  = usePlaySound();
+  const { playSound } = usePlaySound(['flute', 'click']);
 
   useEffect(() => {
     props.newSocket(socket)
@@ -71,7 +72,8 @@ function Homescreen(props) {
       codeNum = faker.random.number()
       code = codeNum.toString();
     }
-    props.newGameCode(code)
+    props.newGameCode(code);
+
   }, [])
 
   const handleUsernameChange = (username) => {
@@ -84,10 +86,13 @@ function Homescreen(props) {
     }
   }
 
-  const handleGo = () => {
-    playSound('flute');
+  const handleGo = async () => {
+    // Sound does not play here, it goes to lobby too quickly
+    await playSound('flute');
     setToLobby(true)
   }
+
+
 
   return (
     <View style={styles.container}>
