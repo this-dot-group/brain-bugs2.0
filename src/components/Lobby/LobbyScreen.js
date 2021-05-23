@@ -9,6 +9,7 @@ import { newOpponent } from '../../store/userReducer';
 import { newGame } from '../../store/gameInfoReducer';
 
 import { Buttons } from '../../styles';
+import usePlaySound from '../../sounds/usePlaySound'
 
 const styles = StyleSheet.create({
   gameOptionButtons: {
@@ -21,6 +22,8 @@ function StartScreen(props) {
 
   const [gamesWaiting, setGamesWaiting] = useState([])
   const [roomJoin, setRoomJoin] = useState(false);
+
+  const { playSound } = usePlaySound(['flute', 'click'])
 
   useEffect(() => {
     // reset game so no info from previous games carries over
@@ -58,11 +61,17 @@ function StartScreen(props) {
       setRoomJoin(true);
     }
     props.socket.on('redirectToHowToPlay', redirect);
+
     return () => {
       props.socket.off('sendAvailGameInfo', receiveAvailableGames);
       props.socket.off('redirectToHowToPlay', redirect);
     }
   }, []);
+
+  const handleModalChange = (modalVisible) => {
+    playSound('click')
+    setModalVisible(modalVisible)
+  }
 
   return (
     <View>
@@ -70,35 +79,35 @@ function StartScreen(props) {
       <Text> Short explanation of options below </Text>
       <Pressable
         style={styles.gameOptionButtons}
-        onPress={() => setModalVisible('start')}
+        onPress={() => handleModalChange('start')}
       >
         <Text> Start a Game </Text>
       </Pressable>
       <StartGameModal
-        setModalVisible={setModalVisible}
+        setModalVisible={handleModalChange}
         modalVisible={modalVisible}
       />
 
       <Pressable
         style={styles.gameOptionButtons}
-        onPress={() => setModalVisible('join')}
+        onPress={() => handleModalChange('join')}
       >
         <Text> Join a Game </Text>
       </Pressable>
       <JoinGameModal
-        setModalVisible={setModalVisible}
+        setModalVisible={handleModalChange}
         modalVisible={modalVisible}
         gamesWaiting={gamesWaiting}
       />
 
       <Pressable
         style={styles.gameOptionButtons}
-        onPress={() => setModalVisible('private')}
+        onPress={() => handleModalChange('private')}
       >
         <Text> Join Private Game </Text>
       </Pressable>
       <PrivateGameModal
-        setModalVisible={setModalVisible}
+        setModalVisible={handleModalChange}
         modalVisible={modalVisible}
       />
       {roomJoin &&

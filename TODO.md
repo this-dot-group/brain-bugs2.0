@@ -1,17 +1,21 @@
 ## TO DO List
 
 * Update the urls for your own ip address
+  * NEW! 5/21 Only need to change in env.js
   * StartGame Screen
   * Home screen
   * gameInfo Reducer
-  * NEW!! 4/6 WaitingRoom Screen
+  * WaitingRoom Screen
 
 ***************************
 # 5/16/21
 
 Josh:
-- BUG - Countdown does not continue while changing selections
+- X - BUG - Countdown does not continue while changing selections
 - Lil research re possible sound effects
+  - Sound working, but warning:  "Can't perform a React state update on an unmounted component."
+  - Need to do `npm i` to get expo audio package installed
+- NEW - Single player does not work unless it is the first game, maybe same with multiplayer
 
 Tia:
 - Let rematch requester know if the other person says no

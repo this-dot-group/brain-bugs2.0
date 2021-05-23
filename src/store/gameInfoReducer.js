@@ -8,9 +8,10 @@
 */
 
 import axios from 'axios';
+import { EXPO_LOCAL_URL } from '../../env'
 
 // const EXPO_LOCAL_URL = '10.0.0.200'; // Josh
-const EXPO_LOCAL_URL = '192.168.0.3'; // Tia
+// const EXPO_LOCAL_URL = '192.168.0.3'; // Tia
 // const EXPO_LOCAL_URL = '10.0.0.199'; // Chris 
 
 export default (state = {}, action) => {

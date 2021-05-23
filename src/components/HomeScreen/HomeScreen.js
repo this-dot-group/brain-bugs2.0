@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Modal, Pressable } from 'react-native'
 import { Image, Input } from 'react-native-elements'
 import { connect } from 'react-redux';
-import { Link } from 'react-router-native';
+import { Link, Redirect } from 'react-router-native';
 import socketIO from 'socket.io-client';
 import faker from 'faker';
+
+import { Audio } from 'expo-av'
+import usePlaySound from '../../sounds/usePlaySound'
 
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 
@@ -16,11 +19,11 @@ import { newSocket } from '../../store/socketReducer.js';
 import { newUsername, newGameCode } from '../../store/userReducer.js';
 import { Button } from 'react-native';
 import { TextBase } from 'react-native';
+import { EXPO_LOCAL_URL } from '../../../env'
 
 
 // const EXPO_LOCAL_URL = '10.0.0.200' // Josh
-const EXPO_LOCAL_URL = '192.168.0.3' // Tia
-
+// const EXPO_LOCAL_URL = '192.168.0.3' // Tia
 // const EXPO_LOCAL_URL = '10.0.0.199' // Chris
 
 
@@ -57,6 +60,9 @@ const styles = StyleSheet.create({
 function Homescreen(props) {
   const [modalVisible, setModalVisible] = useState(false)
   const [validUsername, setValidUsername] = useState(false);
+  const [toLobby, setToLobby] = useState(false);
+
+  const { playSound } = usePlaySound(['flute', 'click']);
 
   useEffect(() => {
     props.newSocket(socket)
@@ -66,7 +72,8 @@ function Homescreen(props) {
       codeNum = faker.random.number()
       code = codeNum.toString();
     }
-    props.newGameCode(code)
+    props.newGameCode(code);
+
   }, [])
 
   const handleUsernameChange = (username) => {
@@ -79,12 +86,21 @@ function Homescreen(props) {
     }
   }
 
+  const handleGo = async () => {
+    // Sound does not play here, it goes to lobby too quickly
+    await playSound('flute');
+    setToLobby(true)
+  }
+
+
+
   return (
     <View style={styles.container}>
 
       <Pressable
         style={styles.howToPlayModalButton}
         onPress={() => {
+          playSound('click')
           setModalVisible(true);
         }}
       >
@@ -105,14 +121,14 @@ function Homescreen(props) {
         onChangeText={value => handleUsernameChange(value)}
       />
 
-    {validUsername && 
-    <Pressable style={styles.goButton}>
-      <Link to='/lobby' >
-        <Text>Go!</Text>
-      </Link>
-    </Pressable>
-    
-    }
+      {validUsername &&
+        <Pressable style={styles.goButton} onPress={handleGo}>
+          <Text>Go!</Text>
+        </Pressable>
+
+      }
+
+      {toLobby && <Redirect to='/lobby' />}
 
 
 
@@ -128,6 +144,7 @@ function Homescreen(props) {
           <Pressable
             style={styles.howToPlayModalButton}
             onPress={() => {
+              playSound('click')
               setModalVisible(!modalVisible)
             }}
           >
@@ -135,8 +152,6 @@ function Homescreen(props) {
           </Pressable>
         </View>
       </Modal>
-
-
 
 
 
