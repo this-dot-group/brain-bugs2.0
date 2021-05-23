@@ -96,6 +96,17 @@ function Homescreen(props) {
 
   return (
     <View style={styles.container}>
+
+      <Pressable
+        style={styles.howToPlayModalButton}
+        onPress={() => {
+          playSound('click')
+          setModalVisible(true);
+        }}
+      >
+        <Text>How To Play</Text>
+      </Pressable>
+      
       <Image
         source={require('../../images/logo_option.png')}
         style={styles.logoImg} />
@@ -142,16 +153,6 @@ function Homescreen(props) {
         </View>
       </Modal>
 
-
-      <Pressable
-        style={styles.howToPlayModalButton}
-        onPress={() => {
-          playSound('click')
-          setModalVisible(true);
-        }}
-      >
-        <Text>How To Play</Text>
-      </Pressable>
 
 
 
