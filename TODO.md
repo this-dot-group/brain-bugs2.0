@@ -15,6 +15,7 @@ Josh:
 - Lil research re possible sound effects
   - Sound working, but warning:  "Can't perform a React state update on an unmounted component."
   - Need to do `npm i` to get expo audio package installed
+- NEW - Single player does not work unless it is the first game, maybe same with multiplayer
 
 Tia:
 - Let rematch requester know if the other person says no
