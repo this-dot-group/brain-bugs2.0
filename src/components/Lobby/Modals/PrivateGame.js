@@ -85,6 +85,7 @@ function PrivateGame(props) {
     <Modal
       transparent={true}
       visible={props.modalVisible === 'private'}
+      animationType="slide"
     >
       <View
         style={styles.modalView}

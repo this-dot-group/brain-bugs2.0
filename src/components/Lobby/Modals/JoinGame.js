@@ -23,6 +23,7 @@ function JoinGame(props) {
     <Modal
       transparent={true}
       visible={props.modalVisible === 'join'}
+      animationType="slide"
     >
 
       <View

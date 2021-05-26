@@ -63,6 +63,7 @@ function StartGame(props) {
     <Modal
       transparent={true}
       visible={props.modalVisible === 'start'}
+      animationType="slide"
     >
       <View
         style={styles.modalView}
