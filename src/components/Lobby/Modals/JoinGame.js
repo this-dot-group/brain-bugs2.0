@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Modal, Pressable, StyleSheet } from 'react-native'
+import { View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import { Link, Redirect } from 'react-router-native'
 import { newOpponent } from '../../../store/userReducer';
 import { connect } from 'react-redux';
@@ -25,7 +25,12 @@ function JoinGame(props) {
       visible={props.modalVisible === 'join'}
       animationType="slide"
       supportedOrientations={['landscape']}
+      propogateSwipe
     >
+
+<SafeAreaView style={{flex: 1}}>
+
+<ScrollView>
 
       <View
         style={styles.modalView}
@@ -58,6 +63,8 @@ function JoinGame(props) {
           <Text>X</Text>
         </Pressable>
       </View>
+      </ScrollView>
+        </SafeAreaView>
     </Modal>
   )
 }

@@ -65,7 +65,12 @@ function StartGame(props) {
       visible={props.modalVisible === 'start'}
       animationType="slide"
       supportedOrientations={['landscape']}
+      propogateSwipe
       >
+        <SafeAreaView style={{flex: 1}}>
+
+        <ScrollView>
+          
       <View
         style={styles.modalView}
         >
@@ -151,6 +156,8 @@ function StartGame(props) {
         </Pressable>
 
       </View>
+</ScrollView>
+        </SafeAreaView>
     </Modal>
   )
 }
