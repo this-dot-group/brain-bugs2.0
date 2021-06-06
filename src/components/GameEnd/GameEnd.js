@@ -67,8 +67,8 @@ function GameEnd(props) {
 
   const createOpponentSaidNoAlert= (opponent) => {
     Alert.alert(
-      `${opponent} Said No`,
-      "Sorryyyyyy",
+      "Find another challenger!",
+      `Your opponent ${opponent} declined your rematch request.`,
       [
         {
           text: "Back to Lobby",
@@ -83,8 +83,6 @@ function GameEnd(props) {
 
     const { response, rematchGameInfo } = payload;
     // all the stuff in this function is happening to the person who ASKED for the rematch
-    console.log('GAME INFO ', rematchGameInfo);
-    console.log('response in onRematchResponse', response)
 
     if(response){
       
@@ -99,11 +97,7 @@ function GameEnd(props) {
     
     }
 
-    // setOpponentSaidNo(true)
-
     createOpponentSaidNoAlert(props.opponent);
-    
-    // setBackToLobby(true)
     
   }
 
@@ -111,11 +105,7 @@ function GameEnd(props) {
 
     // this stuff is happening to the person who said YES to the rematch, the opponent
 
-    console.log('in joinRematch', gameCode);
-    console.log('in joinRematch, props.username', props.username);
-
     props.socket.emit('joinTwoPlayer', [gameCode, props.username]);
-    // setRematchReady(true);
   }
 
 
@@ -124,8 +114,6 @@ function GameEnd(props) {
 
   const handleRematch = () => {
     props.socket.emit('rematch')
-
-    // indicator for requestor
   };
 
   const handleYes = () => {
@@ -161,17 +149,13 @@ function GameEnd(props) {
       </Pressable>
 
       <Pressable style={styles.backToLobbyButton} onPress={handleRematch}>
-        {/* <Link to='/howtoplay'> */}
         <Text>Rematch</Text>
-        {/* </Link> */}
       </Pressable>
 
       {backToLobby && <Redirect to='/lobby' />}
 
       {rematchReady && <Redirect to='/waitingroom' />}
-      {roomJoin &&
-        <Redirect to='/howtoplay' />
-      }
+      {roomJoin && <Redirect to='/howtoplay' />}
 
       {showInvitation && 
       <>
@@ -179,16 +163,17 @@ function GameEnd(props) {
         <Pressable
         style={styles.backToLobbyButton}
         onPress={handleYes}
-      >
-        <Text>Yes</Text>
-      </Pressable>
-            <Pressable
-            style={styles.backToLobbyButton}
-            onPress={handleNo}
-          >
-            <Text>No</Text>
-          </Pressable>
-          </>}
+        >
+          <Text>Yes</Text>
+        </Pressable>
+
+        <Pressable
+        style={styles.backToLobbyButton}
+        onPress={handleNo}
+        >
+          <Text>No</Text>
+        </Pressable>
+        </>}
 
     </View>
   )
