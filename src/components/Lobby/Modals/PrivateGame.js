@@ -86,6 +86,7 @@ function PrivateGame(props) {
       transparent={true}
       visible={props.modalVisible === 'private'}
       animationType="slide"
+      supportedOrientations={['landscape']}
     >
       <View
         style={styles.modalView}

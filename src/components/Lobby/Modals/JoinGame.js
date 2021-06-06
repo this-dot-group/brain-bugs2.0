@@ -24,6 +24,7 @@ function JoinGame(props) {
       transparent={true}
       visible={props.modalVisible === 'join'}
       animationType="slide"
+      supportedOrientations={['landscape']}
     >
 
       <View

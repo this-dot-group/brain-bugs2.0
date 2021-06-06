@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, Modal, Pressable, StyleSheet } from 'react-native'
+import { View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { Link, Redirect } from 'react-router-native'
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate } from '../../../store/gameInfoReducer'
@@ -64,31 +64,32 @@ function StartGame(props) {
       transparent={true}
       visible={props.modalVisible === 'start'}
       animationType="slide"
-    >
+      supportedOrientations={['landscape']}
+      >
       <View
         style={styles.modalView}
-      >
+        >
         <Text>Start a game here!!</Text>
         <Pressable
           style={styles.closeModalButton}
           onPress={() => props.setModalVisible(null)}
-        >
+          >
           <Text>X</Text>
         </Pressable>
         <View style={styles.dropDownView}>
           <DropDownPicker
             containerStyle={styles.dropDownContainer}
-
-
+            
+            
             multiple={false}
             placeholder='Select a Category'
             itemStyle={styles.dropDownItem}
-
+            
             onChangeItem={item => {
               props.newCategory({ name: item.label, id: item.value })
             }}
             items={categoryList}
-          />
+            />
 
         </View>
         <View style={styles.dropDownView}>
@@ -106,7 +107,7 @@ function StartGame(props) {
               { label: '20', value: 20 },
               { label: '25', value: 25 },
             ]}
-          />
+            />
         </View>
         <View style={styles.dropDownView}>
           <DropDownPicker
@@ -116,13 +117,13 @@ function StartGame(props) {
             onChangeItem={item => {
               props.numPlayers(item.value);
               setNumPlayers(item.value);
-
+              
             }}
             items={[
               { label: 'Single Player', value: 1 },
               { label: 'Two Players', value: 2 }
             ]}
-          />
+            />
         </View>
 
 
@@ -139,7 +140,7 @@ function StartGame(props) {
                 { label: 'Public Game', value: 'public' },
                 { label: 'Private Game', value: 'private' }
               ]}
-            />
+              />
           </View>
         }
 
@@ -157,7 +158,7 @@ const mapStateToProps = (state) => {
   return {
     socket: state.socketReducer,
     gameCode: state.userReducer.gameCode
-
+    
   }
 }
 const mapDispatchToProps = {
