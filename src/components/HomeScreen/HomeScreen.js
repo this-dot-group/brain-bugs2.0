@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, Modal, Pressable } from 'react-native'
+import { Platform, View, Text, StyleSheet, Modal, Pressable } from 'react-native'
 import { Image, Input } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-native';
@@ -61,8 +61,47 @@ function Homescreen(props) {
   const [modalVisible, setModalVisible] = useState(false)
   const [validUsername, setValidUsername] = useState(false);
   const [toLobby, setToLobby] = useState(false);
-
+  // const [token, setToken] = useState('');
+  
   const { playSound } = usePlaySound(['flute', 'click']);
+
+
+  // const registerForPushNotifications = async () => {
+  //   if (Constants.isDevice) {
+  //     // Get the notifications permission
+  //     const { status: existingStatus } = await Permissions.getAsync(
+  //       Permissions.NOTIFICATIONS
+  //     );
+  
+  //     let finalStatus = existingStatus;
+  //     console.log('final status:', finalStatus);
+  
+  //     if (existingStatus !== "granted") {
+  //       const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+  //       finalStatus = status;
+  //     }
+  
+  //     if (finalStatus !== "granted") {
+  //       return;
+  //     }
+  
+  //     // If the permission was granted, then get the token
+  //     const token = await ExpoNotifications.getExpoPushTokenAsync();
+  
+  //     // Android specific configuration, needs the channel
+  //     if (Platform.OS === "android") {
+  //       ExpoNotifications.createChannelAndroidAsync("default", {
+  //         name: "default",
+  //         sound: true,
+  //         priority: "max",
+  //         vibrate: [0, 250, 250, 250],
+  //       });
+  //     }
+  //     console.log('TOKEN', token);
+  
+  //     return token;
+  //   }
+  // };
 
   useEffect(() => {
     props.newSocket(socket)
@@ -73,6 +112,9 @@ function Homescreen(props) {
       code = codeNum.toString();
     }
     props.newGameCode(code);
+
+    // GET PUSH NOTIFICATION TOKEN
+    
 
   }, [])
 

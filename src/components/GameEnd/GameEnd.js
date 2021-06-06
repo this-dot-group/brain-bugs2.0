@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Pressable, StyleSheet } from 'react-native'
+import { View, Text, Pressable, StyleSheet, Alert } from 'react-native'
 import { Redirect } from 'react-router-native'
 import { connect } from 'react-redux';
 import { numQuestions, newCategory, publicOrPrivate, getQuestions } from '../../store/gameInfoReducer';
@@ -65,12 +65,24 @@ function GameEnd(props) {
     setShowInvitation(true)
   }
 
+  const createOpponentSaidNoAlert= (opponent) => {
+    Alert.alert(
+      "Find another challenger!",
+      `Your opponent ${opponent} declined your rematch request.`,
+      [
+        {
+          text: "Back to Lobby",
+          onPress: () => setBackToLobby(true),
+        },
+      ],
+      { cancelable: false }
+    );
+    }
+
   const onRematchResponse = (payload) => {
 
     const { response, rematchGameInfo } = payload;
     // all the stuff in this function is happening to the person who ASKED for the rematch
-    console.log('GAME INFO ', rematchGameInfo);
-    console.log('response in onRematchResponse', response)
 
     if(response){
       
@@ -84,8 +96,8 @@ function GameEnd(props) {
       setRematchReady(true);
     
     }
-    
-    setBackToLobby(true)
+
+    createOpponentSaidNoAlert(props.opponent);
     
   }
 
@@ -93,11 +105,7 @@ function GameEnd(props) {
 
     // this stuff is happening to the person who said YES to the rematch, the opponent
 
-    console.log('in joinRematch', gameCode);
-    console.log('in joinRematch, props.username', props.username);
-
     props.socket.emit('joinTwoPlayer', [gameCode, props.username]);
-    // setRematchReady(true);
   }
 
 
@@ -106,8 +114,6 @@ function GameEnd(props) {
 
   const handleRematch = () => {
     props.socket.emit('rematch')
-
-    // indicator for requestor
   };
 
   const handleYes = () => {
@@ -143,17 +149,13 @@ function GameEnd(props) {
       </Pressable>
 
       <Pressable style={styles.backToLobbyButton} onPress={handleRematch}>
-        {/* <Link to='/howtoplay'> */}
         <Text>Rematch</Text>
-        {/* </Link> */}
       </Pressable>
 
       {backToLobby && <Redirect to='/lobby' />}
 
       {rematchReady && <Redirect to='/waitingroom' />}
-      {roomJoin &&
-        <Redirect to='/howtoplay' />
-      }
+      {roomJoin && <Redirect to='/howtoplay' />}
 
       {showInvitation && 
       <>
@@ -161,16 +163,17 @@ function GameEnd(props) {
         <Pressable
         style={styles.backToLobbyButton}
         onPress={handleYes}
-      >
-        <Text>Yes</Text>
-      </Pressable>
-            <Pressable
-            style={styles.backToLobbyButton}
-            onPress={handleNo}
-          >
-            <Text>No</Text>
-          </Pressable>
-          </>}
+        >
+          <Text>Yes</Text>
+        </Pressable>
+
+        <Pressable
+        style={styles.backToLobbyButton}
+        onPress={handleNo}
+        >
+          <Text>No</Text>
+        </Pressable>
+        </>}
 
     </View>
   )
