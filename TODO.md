@@ -8,19 +8,17 @@
   * WaitingRoom Screen
 
 ***************************
-# 5/16/21
+# 6/6/21
 
 Josh:
-- X - BUG - Countdown does not continue while changing selections
-- Lil research re possible sound effects
-  - Sound working, but warning:  "Can't perform a React state update on an unmounted component."
-  - Need to do `npm i` to get expo audio package installed
-- NEW - Single player does not work unless it is the first game, maybe same with multiplayer
+- Sound - fill out for more actions, look into changing moving sounds to root level so we can use sounds on screen changes
+- Look into single player issue - is it also a multiplayer issue? What is causing it?
+- Update scoring, so you get as many points as seconds left
 
 Tia:
-- Let rematch requester know if the other person says no
-- Alert to user who makes a public, 2P game and is waiting. There should be some sort of alert to let them know when someone joined their game
-- Take a look at how to play screen in Canva
+- Push notification research
+- Lady Bug Brain Bug
+- Layout of Gameplay Screen
 
 ## Code
 - When one person leaves, let other user know that they have left
@@ -29,8 +27,7 @@ Tia:
 
 ## New Features
 * Chat functionality at end
-* Emojis
-
+* Emoji decorations
 
 ## Styling/Content
 - Content for all pages, such as how to play instructions 
@@ -42,7 +39,16 @@ Tia:
 * Single player fake opponent scoring
 - Change one player game title to 'practice round'?
 * Give higher score for a faster response
-  
+
+## Check in Future
+- Single player does not work unless it is the first game, maybe same with multiplayer
+
+## Manuel Testing
+- Single Player Works
+- Muliti Player
+- Each one First
+- Each One Second
+- Works with both Game Maker and Game Joiner 
 
 
 

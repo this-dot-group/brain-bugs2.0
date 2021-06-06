@@ -46,6 +46,7 @@ function StartGame(props) {
   const [categoryList, setCategoryList] = useState([]);
   const [numPlayers, setNumPlayers] = useState(1);
 
+  // Push notification notes - DO NOT DELETE BEFORE -
   // const registerForPushNotifications = async () => {
   //   if (Constants.isDevice) {
   //     // Get the notifications permission
