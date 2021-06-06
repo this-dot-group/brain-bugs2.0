@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
+import { Platform, View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
+import Constants from 'expo-constants';
+import { Notifications as ExpoNotifications } from "expo";
+import * as Permissions from 'expo-permissions';
 import DropDownPicker from 'react-native-dropdown-picker'
 import { Link, Redirect } from 'react-router-native'
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate } from '../../../store/gameInfoReducer'
@@ -41,7 +44,44 @@ function StartGame(props) {
 
 
   const [categoryList, setCategoryList] = useState([]);
-  const [numPlayers, setNumPlayers] = useState(1)
+  const [numPlayers, setNumPlayers] = useState(1);
+
+  // const registerForPushNotifications = async () => {
+  //   if (Constants.isDevice) {
+  //     // Get the notifications permission
+  //     const { status: existingStatus } = await Permissions.getAsync(
+  //       Permissions.NOTIFICATIONS
+  //     );
+  
+  //     let finalStatus = existingStatus;
+  //     console.log('final status:', finalStatus);
+  
+  //     if (existingStatus !== "granted") {
+  //       const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+  //       finalStatus = status;
+  //     }
+  
+  //     if (finalStatus !== "granted") {
+  //       return;
+  //     }
+  
+  //     // If the permission was granted, then get the token
+  //     const token = await ExpoNotifications.getExpoPushTokenAsync();
+  
+  //     // Android specific configuration, needs the channel
+  //     if (Platform.OS === "android") {
+  //       ExpoNotifications.createChannelAndroidAsync("default", {
+  //         name: "default",
+  //         sound: true,
+  //         priority: "max",
+  //         vibrate: [0, 250, 250, 250],
+  //       });
+  //     }
+  //     console.log('TOKEN', token);
+  
+  //     return token;
+  //   }
+  // };
 
 
   useEffect(() => {
@@ -148,6 +188,7 @@ function StartGame(props) {
               />
           </View>
         }
+        {/* <Pressable onPressIn={registerForPushNotifications()}> */}
 
         <Pressable>
           <Link to='/waitingroom'>

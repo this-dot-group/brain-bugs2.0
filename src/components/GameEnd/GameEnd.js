@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Pressable, StyleSheet } from 'react-native'
+import { View, Text, Pressable, StyleSheet, Alert } from 'react-native'
 import { Redirect } from 'react-router-native'
 import { connect } from 'react-redux';
 import { numQuestions, newCategory, publicOrPrivate, getQuestions } from '../../store/gameInfoReducer';
@@ -65,6 +65,20 @@ function GameEnd(props) {
     setShowInvitation(true)
   }
 
+  const createOpponentSaidNoAlert= (opponent) => {
+    Alert.alert(
+      `${opponent} Said No`,
+      "Sorryyyyyy",
+      [
+        {
+          text: "Back to Lobby",
+          onPress: () => setBackToLobby(true),
+        },
+      ],
+      { cancelable: false }
+    );
+    }
+
   const onRematchResponse = (payload) => {
 
     const { response, rematchGameInfo } = payload;
@@ -84,8 +98,12 @@ function GameEnd(props) {
       setRematchReady(true);
     
     }
+
+    // setOpponentSaidNo(true)
+
+    createOpponentSaidNoAlert(props.opponent);
     
-    setBackToLobby(true)
+    // setBackToLobby(true)
     
   }
 
