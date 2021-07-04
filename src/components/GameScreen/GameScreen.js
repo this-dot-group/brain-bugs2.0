@@ -12,6 +12,8 @@ import Countdown from '../Countdown/Countdown'
 
 import { Buttons, Views, Typography } from '../../styles/'
 
+const QUESTION_TIME = 10;
+
 const styles = StyleSheet.create({
   modalView: {
     ...Views.modalView,
@@ -44,7 +46,7 @@ function GameScreen(props) {
 
   // console.log('PROPS IN GAMEPLAY SCREEN:     ', props.socket)
 
-  const [seconds, setSeconds] = useState(1000000);
+  const [seconds, setSeconds] = useState(QUESTION_TIME);
   const [modalVisible, setModalVisible] = useState(false);
   const [formattedQuestionInfo, setFormattedQuestionInfo] = useState({});
   const [score, setScore] = useState({});
@@ -107,7 +109,7 @@ function GameScreen(props) {
     let questionPoints;
 
     answer === formattedQuestionInfo.correct_answer ?
-      questionPoints = 1
+      questionPoints = seconds
       :
       questionPoints = 0;
 
@@ -131,8 +133,8 @@ function GameScreen(props) {
     props.fakeOpponentSocket.emit('userAnsweredinGame',
       {
         username: props.opponent,
-        // gets question right 50% of the time
-        points: Math.floor(Math.random() * 2),
+        // gets question right 50% of the time and scores a random amount
+        points: Math.floor(Math.random() * 2) * (Math.floor(Math.random() * QUESTION_TIME) + 1),
       }
     )
   }
@@ -214,7 +216,7 @@ function GameScreen(props) {
   }, [seconds])
 
   useEffect(() => {
-    setSeconds(10);
+    setSeconds(QUESTION_TIME);
   }, [formattedQuestionInfo])
 
   const chooseColor = (i) => {

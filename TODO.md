@@ -13,7 +13,9 @@
 Josh:
 - Sound - fill out for more actions, look into changing moving sounds to root level so we can use sounds on screen changes
 - Look into single player issue - is it also a multiplayer issue? What is causing it?
-- Update scoring, so you get as many points as seconds left
+- X - Update scoring, so you get as many points as seconds left
+- Don't allow submit unless an answer is selected
+- Fix rematch for single player or remove
 
 Tia:
 - Push notification research
