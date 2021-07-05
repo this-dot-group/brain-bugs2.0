@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet, Modal } from 'react-native';
 import { Redirect } from 'react-router-native';
 import { connect } from 'react-redux';
+import faker from 'faker';
 import JoinGameModal from './Modals/JoinGame';
 import PrivateGameModal from './Modals/PrivateGame';
 import StartGameModal from './Modals/StartGame';
-import { newOpponent } from '../../store/userReducer';
+import { newOpponent, newGameCode } from '../../store/userReducer';
 import { newGame } from '../../store/gameInfoReducer';
 
 import { Buttons } from '../../styles';
@@ -28,6 +29,16 @@ function StartScreen(props) {
   useEffect(() => {
     // reset game so no info from previous games carries over
     props.newGame({});
+
+    // maybe make a new game code each time coming here
+    let codeNum = faker.random.number();
+    let code = codeNum.toString();
+    while (code.length !== 5) {
+      codeNum = faker.random.number()
+      code = codeNum.toString();
+    }
+    props.newGameCode(code);
+
     props.socket.emit('inJoinGame', null)
 
     const receiveAvailableGames = allGames => {
@@ -125,6 +136,6 @@ const mapStateToProps = (state) => {
     socket: state.socketReducer
   }
 }
-const mapDispatchToProps = { newOpponent, newGame }
+const mapDispatchToProps = { newOpponent, newGame, newGameCode }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartScreen)

@@ -16,6 +16,8 @@ import { Buttons, Images, Views, Typography, Colors } from '../../styles/'
 
 // socket imports
 import { newSocket } from '../../store/socketReducer.js';
+import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer';
+
 import { newUsername, newGameCode } from '../../store/userReducer.js';
 import { Button } from 'react-native';
 import { TextBase } from 'react-native';
@@ -28,6 +30,7 @@ import { EXPO_LOCAL_URL } from '../../../env'
 
 
 const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
+const fakeOpponentSocket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 
 // construct styles here, ability to add indv styling as needed on a per-component basis
 const styles = StyleSheet.create({
@@ -105,13 +108,15 @@ function Homescreen(props) {
 
   useEffect(() => {
     props.newSocket(socket)
-    let codeNum = faker.random.number();
-    let code = codeNum.toString();
-    while (code.length !== 5) {
-      codeNum = faker.random.number()
-      code = codeNum.toString();
-    }
-    props.newGameCode(code);
+    props.newFakeOpponent(fakeOpponentSocket);
+
+    // let codeNum = faker.random.number();
+    // let code = codeNum.toString();
+    // while (code.length !== 5) {
+    //   codeNum = faker.random.number()
+    //   code = codeNum.toString();
+    // }
+    // props.newGameCode(code);
 
     // GET PUSH NOTIFICATION TOKEN
     
@@ -203,7 +208,7 @@ function Homescreen(props) {
   )
 }
 
-const mapDispatchToProps = { newUsername, newSocket, newGameCode }
+const mapDispatchToProps = { newUsername, newSocket, newGameCode, newFakeOpponent }
 
 
 // null is currently a placeholder for mapStateToProps
