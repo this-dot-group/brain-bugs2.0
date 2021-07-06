@@ -217,129 +217,138 @@ function GameScreen(props) {
     setSeconds(10);
   }, [formattedQuestionInfo])
 
-  const chooseColor = (i) => {
+  // const chooseColor = (i) => {
 
-    let color = i === selected ? styles.selectedAnswer : styles.answerOptionPressables;
+  //   let color = i === selected ? styles.selectedAnswer : styles.answerOptionPressables;
 
-    if (i === submitted) {
-      color = styles.submittedAnswer
-    }
-    if (i === correctIndex && displayAnswer) {
-      color = styles.correctAnswer;
-    }
+  //   if (i === submitted) {
+  //     color = styles.submittedAnswer
+  //   }
+  //   if (i === correctIndex && displayAnswer) {
+  //     color = styles.correctAnswer;
+  //   }
 
-    return color;
+  //   return color;
 
-  }
+  // }
+
+  let ansArrInViews = formattedQuestionInfo.answers.map((answer, i) => 
+      <View style={{ display: "flex", flexDirection: "row", flex: 0.41}}>
+        <Pressable 
+          style={{ flex: 0.15 }}
+          onPress={() => {
+            setSelected(i)
+          }}
+          key={i}
+          disabled={submitted >= 0}
+        />
+        <Text style={{ flex: 0.26  }}>{he.decode(answer)}</Text>
+      </View>
+      )
 
 
   return (
-    <View>
-      {formattedQuestionInfo.question &&
-        <>
-          <Modal
-            transparent={true}
-            visible={modalVisible}>
+    <View
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      width: "100%",
+      height: "100%"
+    }}
+    >
 
-            <View
-              style={styles.modalView}>
-              <HowToPlayModal />
-              <Pressable
-                style={styles.howToPlayModalButton}
-                onPress={() => {
-                  setModalVisible(!modalVisible)
-                }}
-              >
-                <Text>Hide</Text>
-              </Pressable>
-            </View>
-          </Modal>
-          <Pressable
-            style={styles.howToPlayModalButton}
-            onPress={() => {
-              setModalVisible(true);
-            }}
-          >
-            <Text>How To Play</Text>
-          </Pressable>
-          {waiting &&
-            <Text> Waiting for other player to answer
-              <AnimatedEllipsis />
-            </Text>
-          }
+    {formattedQuestionInfo.question &&
+
+    <>
 
 
-          <Text>{he.decode(formattedQuestionInfo.category)}</Text>
+    <View style={{ display: "flex", flexDirection: "row", flex: 0.25 }}>
 
-          <Text>{he.decode(formattedQuestionInfo.question)}</Text>
+      {ansArrInViews[0]}
 
+      {/* <View style={{ flex: 0.15, backgroundColor: "red" }} />
+      <View style={{ flex: 0.26, backgroundColor: "purple" }} /> */}
 
-          {/* i is the index number of the answer in the answer arr */}
+      <View style={{ flex: 0.18, backgroundColor: "green" }}>
+        {score.playerOne &&
+                <>
+                  <Text>{score.playerOne.name} {score.playerOne.score}</Text>
+                </>
+              }
+      </View>
 
-          {formattedQuestionInfo.answers.map((answer, i) =>
+      {/* <View style={{ flex: 0.26, backgroundColor: "purple" }} />
+      <View style={{ flex: 0.15, backgroundColor: "red" }} /> */}
 
-            <Pressable
-
-              onPress={() => {
-                setSelected(i)
-              }}
-
-              style={chooseColor(i)}
-
-              key={i}
-              disabled={submitted >= 0}
-            >
-              <Animated.View
-                style={i === selected ? animatedStyle : null}>
-
-                <Text style={styles.answerText}>{he.decode(answer)}</Text>
-
-              </Animated.View>
-
-            </Pressable>
-          )}
-
-          <Pressable
-            onPress={() => {
-              handleAnimation(formattedQuestionInfo.answers[selected], selected)
-            }}
-            style={styles.submitButton}
-          >
-            <Text
-              style={styles.answerText}>
-              Submit
-            </Text>
-          </Pressable>
-
-          <Text>Time Left:&nbsp;
-            <Countdown
-              seconds={seconds}
-              setSeconds={setSeconds}
-            //create a function that when the time hits zero
-            />
-          </Text>
-
-          <Divider style={{ height: 1, backgroundColor: 'blue' }} />
-          {score.playerOne &&
-            <>
-              <Text>{score.playerOne.name} {score.playerOne.score}</Text>
-              <Text>{score.playerTwo.name} {score.playerTwo.score}</Text>
-            </>
-          }
-
-        </>
-
-
-      }
-      { gameEnd &&
-        <Redirect
-          to={{
-            pathname: '/gameend',
-            state: { finalScore: score, socketIdRef: props.socket.id },
-          }} />}
+      {ansArrInViews[1]}
     </View>
-  )
+
+
+
+    <View style={{ display: "flex", flexDirection: "row", flex: 0.75 }}>
+      <View style={{ flex: 0.15, backgroundColor: "blue" }}>
+        <Pressable
+          onPress={() => {
+            handleAnimation(formattedQuestionInfo.answers[selected], selected)
+          }}
+          style={styles.submitButton}
+        >
+          <Text
+            style={styles.answerText}>
+            Submit
+          </Text>
+        </Pressable>
+      </View>
+
+      <View style={{ flex: 0.7 }}>
+        <Text>{he.decode(formattedQuestionInfo.question)}</Text>
+      </View>
+
+      <View style={{ flex: 0.15, backgroundColor: "blue" }}>
+        <Text>Time Left:&nbsp;
+                  <Countdown
+                    seconds={seconds}
+                    setSeconds={setSeconds}
+                  //create a function that when the time hits zero
+                  />
+        </Text>
+      </View>
+    </View>
+
+
+
+    <View style={{ display: "flex", flexDirection: "row", flex: 0.25 }}>
+      {ansArrInViews[2]}
+      <View style={{ flex: 0.18, backgroundColor: "green" }}>
+      {score.playerOne &&
+                <>
+                  <Text>{score.playerTwo.name} {score.playerTwo.score}</Text>
+                </>
+              }
+      </View>
+      {ansArrInViews[3]}
+    </View>
+
+    </>
+    }
+
+    { gameEnd &&
+      <Redirect
+        to={{
+          pathname: '/gameend',
+          state: { finalScore: score, socketIdRef: props.socket.id },
+        }} />}
+
+
+    </View>
+
+)
+
+
 }
+
+
+    
 
 const mapStateToProps = (state) => {
   return {
