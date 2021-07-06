@@ -17,6 +17,7 @@ import { Buttons, Images, Views, Typography, Colors } from '../../styles/'
 // socket imports
 import { newSocket } from '../../store/socketReducer.js';
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer';
+import { playSound } from '../../store/soundsReducer';
 
 import { newUsername, newGameCode } from '../../store/userReducer.js';
 import { Button } from 'react-native';
@@ -66,7 +67,7 @@ function Homescreen(props) {
   const [toLobby, setToLobby] = useState(false);
   // const [token, setToken] = useState('');
   
-  const { playSound } = usePlaySound(['flute', 'click']);
+  // const { playSound } = usePlaySound(['flute', 'click']);
 
 
   // const registerForPushNotifications = async () => {
@@ -135,7 +136,7 @@ function Homescreen(props) {
 
   const handleGo = async () => {
     // Sound does not play here, it goes to lobby too quickly
-    await playSound('flute');
+    await props.playSound('flute');
     setToLobby(true)
   }
 
@@ -147,7 +148,7 @@ function Homescreen(props) {
       <Pressable
         style={styles.howToPlayModalButton}
         onPress={() => {
-          playSound('click')
+          props.playSound('click')
           setModalVisible(true);
         }}
       >
@@ -191,7 +192,7 @@ function Homescreen(props) {
           <Pressable
             style={styles.howToPlayModalButton}
             onPress={() => {
-              playSound('click')
+              props.playSound('click')
               setModalVisible(!modalVisible)
             }}
           >
@@ -208,7 +209,7 @@ function Homescreen(props) {
   )
 }
 
-const mapDispatchToProps = { newUsername, newSocket, newGameCode, newFakeOpponent }
+const mapDispatchToProps = { newUsername, newSocket, newGameCode, newFakeOpponent, playSound }
 
 
 // null is currently a placeholder for mapStateToProps

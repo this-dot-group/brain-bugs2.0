@@ -8,6 +8,7 @@ import AnimatedEllipsis from 'react-native-animated-ellipsis'
 
 
 import { connect } from 'react-redux';
+import { playSound } from '../../store/soundsReducer'
 import Countdown from '../Countdown/Countdown'
 
 import { Buttons, Views, Typography } from '../../styles/'
@@ -59,6 +60,7 @@ function GameScreen(props) {
   const [displayAnswer, setDisplayAnswer] = useState(false);
   // const [isFirstQuestion, setIsFirstQuestion] = useState(true);
   const firstQuestion = useRef(true)
+  const lastCorrect = useRef(null)
 
   // the function below adds the correct answer at a random index to the array of incorrect answers, return it to save later as the answerArr
   const insertCorrectAnswer = (questionObj) => {
@@ -112,6 +114,8 @@ function GameScreen(props) {
       questionPoints = seconds
       :
       questionPoints = 0;
+    
+    lastCorrect.current = questionPoints;
 
     // console.log('Question Points: ', questionPoints)
     props.socket.emit('userAnsweredinGame',
@@ -176,40 +180,47 @@ function GameScreen(props) {
         }
       }, firstQuestion.current ? 0 : 2000)
     }
+
     const endGame = finalScore => {
       setDisplayAnswer(true)
-      setScore(finalScore);
+      handleScore(finalScore);
       setTimeout(() => {
         setGameEnd(true);
       }, 2000)
     }
 
     props.socket.on('question', questionHandler);
-    props.socket.on('score', setScore);
+    props.socket.on('score', handleScore);
     props.socket.on('endGame', endGame);
 
     return () => {
       props.socket.off('question', questionHandler)
-      props.socket.off('score', setScore);
+      props.socket.off('score', handleScore);
       props.socket.off('endGame', endGame);
     }
 
   }, [])
 
+  const handleScore = newScore => {
+    if (lastCorrect.current > 0) {
+      props.playSound('positiveTone')
+    } else if (lastCorrect.current === 0) {
+      props.playSound('negativeTone');
+    }
+    setScore(newScore);
+    lastCorrect.current = -1;
+  }
+
   useEffect(() => {
     if (seconds === 0) {
-      console.log('emitted')
+      lastCorrect.current = 0;
       props.socket.emit('userAnsweredinGame',
         {
           username: props.userName,
           points: 0
         })
       if (props.numPlayers === 1) {
-        props.fakeOpponentSocket.emit('userAnsweredinGame',
-          {
-            username: props.opponent,
-            points: 0
-          })
+        fakeOpponentSubmit()
       }
     }
 
@@ -353,5 +364,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(GameScreen);
+const mapDispatchToProps = { playSound }
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameScreen);
 
