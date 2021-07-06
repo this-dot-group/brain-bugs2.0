@@ -35,6 +35,9 @@ export default (state = {}, action) => {
   case 'PUBLIC_OR_PRIVATE':
     // console.log('public OR private in reducer',payload);
     return {...state, publicOrPrivate: payload};
+  case 'GAME_MAKER_PUSH_TOKEN':
+    console.log('gameMakerPushToken in reducer',payload);
+    return {...state, gameMakerPushToken: payload};
   case 'GET_QUESTIONS':
     return {...state, liveGameQuestions: payload};
   default:
@@ -74,6 +77,13 @@ export const publicOrPrivate = answer => {
     payload: answer,
   };
 };
+
+export const gameMakerPushToken = token => {
+  return {
+    type: 'GAME_MAKER_PUSH_TOKEN',
+    payload: token
+  }
+}
 
 export const getQuestions = (id, numQuestions) => {
   

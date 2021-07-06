@@ -6,7 +6,7 @@ import { Notifications as ExpoNotifications } from "expo";
 import * as Permissions from 'expo-permissions';
 import DropDownPicker from 'react-native-dropdown-picker'
 import { Link, Redirect } from 'react-router-native'
-import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate } from '../../../store/gameInfoReducer'
+import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate, gameMakerPushToken } from '../../../store/gameInfoReducer'
 // import socketReducer from '../../../store/socketReducer'
 import { newOpponent } from '../../../store/userReducer';
 
@@ -46,43 +46,47 @@ function StartGame(props) {
   const [categoryList, setCategoryList] = useState([]);
   const [numPlayers, setNumPlayers] = useState(1);
 
-  // Push notification notes - DO NOT DELETE BEFORE -
-  // const registerForPushNotifications = async () => {
-  //   if (Constants.isDevice) {
-  //     // Get the notifications permission
-  //     const { status: existingStatus } = await Permissions.getAsync(
-  //       Permissions.NOTIFICATIONS
-  //     );
+  const registerForPushNotifications = async () => {
+
+    // TODO: should wrap all of the below code in if(Constants.isDevice) but leaving it off for now because if you do that it wont work with the simulator
+
+      // Get the notifications permission
+      const { status: existingStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS
+      );
   
-  //     let finalStatus = existingStatus;
-  //     console.log('final status:', finalStatus);
+      let finalStatus = existingStatus;
   
-  //     if (existingStatus !== "granted") {
-  //       const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-  //       finalStatus = status;
-  //     }
+      if (existingStatus !== "granted") {
+        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        finalStatus = status;
+      }
   
-  //     if (finalStatus !== "granted") {
-  //       return;
-  //     }
+      if (finalStatus !== "granted") {
+        console.log('finalStatus not granted: ', finalStatus);
+        props.gameMakerPushToken('notGranted');
+        return;
+      }
   
-  //     // If the permission was granted, then get the token
-  //     const token = await ExpoNotifications.getExpoPushTokenAsync();
+      // If the permission was granted, then get the token
+      const token = await ExpoNotifications.getExpoPushTokenAsync();
   
-  //     // Android specific configuration, needs the channel
-  //     if (Platform.OS === "android") {
-  //       ExpoNotifications.createChannelAndroidAsync("default", {
-  //         name: "default",
-  //         sound: true,
-  //         priority: "max",
-  //         vibrate: [0, 250, 250, 250],
-  //       });
-  //     }
-  //     console.log('TOKEN', token);
+      // Android specific configuration, needs the channel
+      if (Platform.OS === "android") {
+        ExpoNotifications.createChannelAndroidAsync("default", {
+          name: "default",
+          sound: true,
+          priority: "max",
+          vibrate: [0, 250, 250, 250],
+        });
+      }
+      console.log('TOKEN', token);
+
+      props.gameMakerPushToken(token);
   
-  //     return token;
-  //   }
-  // };
+      return token;
+    
+  };
 
 
   useEffect(() => {
@@ -181,6 +185,7 @@ function StartGame(props) {
               multiple={false}
               onChangeItem={item => {
                 props.publicOrPrivate(item.value);
+                if(item.value === 'public') {registerForPushNotifications()}
               }}
               items={[
                 { label: 'Public Game', value: 'public' },
@@ -189,7 +194,6 @@ function StartGame(props) {
               />
           </View>
         }
-        {/* <Pressable onPressIn={registerForPushNotifications()}> */}
 
         <Pressable>
           <Link to='/waitingroom'>
@@ -216,6 +220,7 @@ const mapDispatchToProps = {
   numPlayers,
   newCategory,
   publicOrPrivate,
+  gameMakerPushToken,
   newOpponent
 }
 
