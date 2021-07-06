@@ -232,6 +232,8 @@ function GameScreen(props) {
 
   // }
 
+  // THE BELOW DOES NOT WORK. HOW TO MAP OVER THIS AND RETURN THE SAME THINGS, BUT SEND IT TO OPPOSITE CORNERS OF THE SCREEN??
+
   let ansArrInViews = formattedQuestionInfo.answers.map((answer, i) => 
       <View style={{ display: "flex", flexDirection: "row", flex: 0.41}}>
         <Pressable 
