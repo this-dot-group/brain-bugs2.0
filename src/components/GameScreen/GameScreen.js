@@ -234,6 +234,13 @@ function GameScreen(props) {
 
   // THE BELOW DOES NOT WORK. HOW TO MAP OVER THIS AND RETURN THE SAME THINGS, BUT SEND IT TO OPPOSITE CORNERS OF THE SCREEN??
 
+  // what happens with true/false answers
+  // countdown under question
+
+  // store resulting arr in state? 
+  // use Grid instead to place items precisely?
+  // use absolute positioning instead of flex?
+
   let ansArrInViews = formattedQuestionInfo.answers.map((answer, i) => 
       <View style={{ display: "flex", flexDirection: "row", flex: 0.41}}>
         <Pressable 
