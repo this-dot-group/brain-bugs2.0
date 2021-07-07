@@ -8,6 +8,10 @@ import { getQuestions } from '../../store/gameInfoReducer'
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer'
 import { connect } from 'react-redux';
 
+// FOR PUSH NOTIFICATIONS, i think the second one doesnt work?
+// import { Notifications } from 'expo';
+// import * as Notifications from 'expo-notifications';
+
 import { Buttons, Views, Typography } from '../../styles';
 
 import { EXPO_LOCAL_URL } from '../../../env'
@@ -54,6 +58,15 @@ const WaitingRoom = (props) => {
   }
 
   useEffect(() => {
+
+    // TODO: EVENT LISTENER FOR PUSH NOTIFICATIONS
+
+    // Notifications.setNotificationHandler({
+    //   handleNotification: async () => ({
+    //     shouldShowAlert: true,
+    //     // can do other stuff here too
+    //   }),
+    // });
 
     (async () => {
       await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions)

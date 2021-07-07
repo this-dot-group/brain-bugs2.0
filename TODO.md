@@ -20,6 +20,20 @@ Tia:
 - Lady Bug Brain Bug
 - Layout of Gameplay Screen
 
+PUSH NOTIFICATIONS
+- add the following to app.json to customize notifications
+    // "plugins": [
+    //   [
+    //     "expo-notifications",
+    //     {
+    //       "icon": "./local/path/to/myNotificationIcon.png",
+    //       "color": "#ffffff",
+    //       "sounds": ["./local/path/to/mySound.wav", "./local/path/to/myOtherSound.wav"],
+    //       "mode": "production"
+    //     }
+    //   ]
+    // ],
+
 ## Code
 - When one person leaves, let other user know that they have left
 - transition from question to question, "waiting for 1 player to answer..." lingers after other player has answered, and while the correct answer is showing
