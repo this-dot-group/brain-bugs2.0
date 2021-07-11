@@ -16,8 +16,8 @@ import { EXPO_LOCAL_URL } from '../../../env'
 // const EXPO_LOCAL_URL = '192.168.0.3' // Tia
 
 // const EXPO_LOCAL_URL = '10.0.0.199' // Chris
-import socketIO from 'socket.io-client';
-const fakeOpponentSocket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
+// import socketIO from 'socket.io-client';
+// const fakeOpponentSocket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 
 const styles = StyleSheet.create({
   modalView: {
@@ -66,17 +66,19 @@ const WaitingRoom = (props) => {
     props.fullGameInfo.userName = props.userName;
     props.fullGameInfo.gameCode = props.gameCode;
 
+    console.log(props.fullGameInfo);
+
     if(props.fullGameInfo.liveGameQuestions) {
+      console.log('This needs to be beore "in one player waiting room log"');
       props.socket.emit('newGame', props.fullGameInfo)
     }
 
 
-    if (props.fullGameInfo.numPlayers === 1) {
-      console.log('in one player waiting room')
-      props.newFakeOpponent(fakeOpponentSocket)
-      fakeOpponentSocket.emit('joinTwoPlayer', [props.gameCode, 'Cricket'])
-    }
-
+    // if (props.fullGameInfo.numPlayers === 1) {
+    //   console.log('in one player waiting room')
+    //   // props.newFakeOpponent(fakeOpponentSocket)
+    //   props.fakeOpponentSocket.emit('joinTwoPlayer', [props.gameCode, 'Cricket']);
+    // }
 
     const redirectToHowToPlay = usernames => {
       console.log(usernames.gameJoiner)
@@ -84,10 +86,20 @@ const WaitingRoom = (props) => {
       setRoomJoin(true);
     }
 
+    const startOnePlayer = (gameCode) => {
+      if (props.fullGameInfo.numPlayers === 1) {
+        console.log('in one player waiting room')
+        // props.newFakeOpponent(fakeOpponentSocket)
+        props.fakeOpponentSocket.emit('joinTwoPlayer', [gameCode, 'Cricket']);
+      }
+    }
+
     props.socket.on('redirectToHowToPlay', redirectToHowToPlay)
+    props.socket.on('startOnePlayer', startOnePlayer)
 
     return () => {
       props.socket.off('redirectToHowToPlay', redirectToHowToPlay);
+      props.socket.off('startOnePlayer', startOnePlayer);
     }
 
   }, [props.fullGameInfo.liveGameQuestions])
@@ -159,6 +171,7 @@ const mapStateToProps = (state) => {
     userName: state.userReducer.username,
     gameCode: state.userReducer.gameCode,
     socket: state.socketReducer,
+    fakeOpponentSocket: state.fakeOpponentSocketReducer,
     publicOrPrivate: state.gameInfoReducer.publicOrPrivate,
     fullGameInfo: state.gameInfoReducer
 

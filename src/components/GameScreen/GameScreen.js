@@ -8,9 +8,12 @@ import AnimatedEllipsis from 'react-native-animated-ellipsis'
 
 
 import { connect } from 'react-redux';
+import { playSound } from '../../store/soundsReducer'
 import Countdown from '../Countdown/Countdown'
 
 import { Buttons, Views, Typography } from '../../styles/'
+
+const QUESTION_TIME = 10;
 
 const styles = StyleSheet.create({
   modalView: {
@@ -44,7 +47,7 @@ function GameScreen(props) {
 
   // console.log('PROPS IN GAMEPLAY SCREEN:     ', props.socket)
 
-  const [seconds, setSeconds] = useState(1000000);
+  const [seconds, setSeconds] = useState(QUESTION_TIME);
   const [modalVisible, setModalVisible] = useState(false);
   const [formattedQuestionInfo, setFormattedQuestionInfo] = useState({});
   const [score, setScore] = useState({});
@@ -57,6 +60,7 @@ function GameScreen(props) {
   const [displayAnswer, setDisplayAnswer] = useState(false);
   // const [isFirstQuestion, setIsFirstQuestion] = useState(true);
   const firstQuestion = useRef(true)
+  const lastCorrect = useRef(null)
 
   // the function below adds the correct answer at a random index to the array of incorrect answers, return it to save later as the answerArr
   const insertCorrectAnswer = (questionObj) => {
@@ -107,9 +111,11 @@ function GameScreen(props) {
     let questionPoints;
 
     answer === formattedQuestionInfo.correct_answer ?
-      questionPoints = 1
+      questionPoints = seconds
       :
       questionPoints = 0;
+    
+    lastCorrect.current = questionPoints;
 
     // console.log('Question Points: ', questionPoints)
     props.socket.emit('userAnsweredinGame',
@@ -131,8 +137,8 @@ function GameScreen(props) {
     props.fakeOpponentSocket.emit('userAnsweredinGame',
       {
         username: props.opponent,
-        // gets question right 50% of the time
-        points: Math.floor(Math.random() * 2),
+        // gets question right 50% of the time and scores a random amount
+        points: Math.floor(Math.random() * 2) * (Math.floor(Math.random() * QUESTION_TIME) + 1),
       }
     )
   }
@@ -174,47 +180,54 @@ function GameScreen(props) {
         }
       }, firstQuestion.current ? 0 : 2000)
     }
+
     const endGame = finalScore => {
       setDisplayAnswer(true)
-      setScore(finalScore);
+      handleScore(finalScore);
       setTimeout(() => {
         setGameEnd(true);
       }, 2000)
     }
 
     props.socket.on('question', questionHandler);
-    props.socket.on('score', setScore);
+    props.socket.on('score', handleScore);
     props.socket.on('endGame', endGame);
 
     return () => {
       props.socket.off('question', questionHandler)
-      props.socket.off('score', setScore);
+      props.socket.off('score', handleScore);
       props.socket.off('endGame', endGame);
     }
 
   }, [])
 
+  const handleScore = newScore => {
+    if (lastCorrect.current > 0) {
+      props.playSound('positiveTone')
+    } else if (lastCorrect.current === 0) {
+      props.playSound('negativeTone');
+    }
+    setScore(newScore);
+    lastCorrect.current = -1;
+  }
+
   useEffect(() => {
     if (seconds === 0) {
-      console.log('emitted')
+      lastCorrect.current = 0;
       props.socket.emit('userAnsweredinGame',
         {
           username: props.userName,
           points: 0
         })
       if (props.numPlayers === 1) {
-        props.fakeOpponentSocket.emit('userAnsweredinGame',
-          {
-            username: props.opponent,
-            points: 0
-          })
+        fakeOpponentSubmit()
       }
     }
 
   }, [seconds])
 
   useEffect(() => {
-    setSeconds(10);
+    setSeconds(QUESTION_TIME);
   }, [formattedQuestionInfo])
 
   const chooseColor = (i) => {
@@ -351,5 +364,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(GameScreen);
+const mapDispatchToProps = { playSound }
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameScreen);
 

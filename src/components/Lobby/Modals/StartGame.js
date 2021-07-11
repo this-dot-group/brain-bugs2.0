@@ -14,7 +14,8 @@ import he from 'he';
 import { Buttons, Views } from '../../../styles'
 import { EXPO_LOCAL_URL } from '../../../../env'
 
-const axios = require('axios');
+import axios from 'axios';
+
 
 
 // const EXPO_LOCAL_URL = '10.0.0.200' // Josh
@@ -87,14 +88,18 @@ function StartGame(props) {
 
   useEffect(() => {
     (async () => {
-      const categories = await axios.get(`http://${EXPO_LOCAL_URL}:3000/categories`)
-      let categoryListArray = categories.data.map(category => {
-        return {
-          label: he.decode(category.name),
-          value: category.id
-        }
-      })
-      setCategoryList(categoryListArray);
+      try {
+        const categories = await axios.get(`http://${EXPO_LOCAL_URL}:3000/categories`);
+        let categoryListArray = categories.data.map(category => {
+          return {
+            label: he.decode(category.name),
+            value: category.id
+          }
+        })
+        setCategoryList(categoryListArray);
+      } catch (e) {
+        console.log(e);
+      }
     })()
 
   }, [])
@@ -107,8 +112,8 @@ function StartGame(props) {
       animationType="slide"
       supportedOrientations={['landscape']}
       propogateSwipe
-      >
-        <SafeAreaView style={{flex: 1}}>
+    >
+      <SafeAreaView style={{flex: 1}}>
 
         <ScrollView>
           
