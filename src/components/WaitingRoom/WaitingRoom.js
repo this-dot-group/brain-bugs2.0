@@ -7,19 +7,12 @@ import { newOpponent } from '../../store/userReducer'
 import { getQuestions } from '../../store/gameInfoReducer'
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer'
 import { connect } from 'react-redux';
-
-// FOR PUSH NOTIFICATIONS, i think the second one doesnt work?
-// import { Notifications } from 'expo';
-// import * as Notifications from 'expo-notifications';
+import * as Notifications from 'expo-notifications';
 
 import { Buttons, Views, Typography } from '../../styles';
 
 import { EXPO_LOCAL_URL } from '../../../env'
 
-// const EXPO_LOCAL_URL = '10.0.0.200' // Josh
-// const EXPO_LOCAL_URL = '192.168.0.3' // Tia
-
-// const EXPO_LOCAL_URL = '10.0.0.199' // Chris
 import socketIO from 'socket.io-client';
 const fakeOpponentSocket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 
@@ -56,21 +49,12 @@ const WaitingRoom = (props) => {
       setCopied(false)
     }, 1500)
   }
-
+  
   useEffect(() => {
-
-    // TODO: EVENT LISTENER FOR PUSH NOTIFICATIONS
-
-    // Notifications.setNotificationHandler({
-    //   handleNotification: async () => ({
-    //     shouldShowAlert: true,
-    //     // can do other stuff here too
-    //   }),
-    // });
-
+      
     (async () => {
       await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions)
-
+      
     })()
 
   }, [])
@@ -85,14 +69,14 @@ const WaitingRoom = (props) => {
 
 
     if (props.fullGameInfo.numPlayers === 1) {
-      console.log('in one player waiting room')
+      // console.log('in one player waiting room')
       props.newFakeOpponent(fakeOpponentSocket)
       fakeOpponentSocket.emit('joinTwoPlayer', [props.gameCode, 'Cricket'])
     }
 
 
     const redirectToHowToPlay = usernames => {
-      console.log(usernames.gameJoiner)
+      // console.log(usernames.gameJoiner)
       props.newOpponent(usernames.gameJoiner)
       setRoomJoin(true);
     }

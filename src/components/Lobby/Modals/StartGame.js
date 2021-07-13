@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Platform, View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import Constants from 'expo-constants';
-import { Notifications as ExpoNotifications } from "expo";
+// import { Notifications as ExpoNotifications } from "expo";
+import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 import DropDownPicker from 'react-native-dropdown-picker'
 import { Link, Redirect } from 'react-router-native'
@@ -69,22 +70,26 @@ function StartGame(props) {
       }
   
       // If the permission was granted, then get the token
-      const token = await ExpoNotifications.getExpoPushTokenAsync();
+      const tokenObj = await Notifications.getExpoPushTokenAsync();
   
       // Android specific configuration, needs the channel
-      if (Platform.OS === "android") {
-        ExpoNotifications.createChannelAndroidAsync("default", {
-          name: "default",
-          sound: true,
-          priority: "max",
-          vibrate: [0, 250, 250, 250],
+      if (Platform.OS === 'android') {
+        Notifications.setNotificationChannelAsync('default', {
+          name: 'default',
+          importance: Notifications.AndroidImportance.MAX,
+          vibrationPattern: [0, 250, 250, 250],
+          lightColor: '#FF231F7C',
         });
       }
-      console.log('TOKEN', token);
+      console.log('TOKEN', tokenObj);
+      // Object {
+      //   "data": "ExponentPushToken[B-GfYOD7QCg5PT8bw3u9_z]",
+      //   "type": "expo",
+      // }
 
-      props.gameMakerPushToken(token);
+      props.gameMakerPushToken(tokenObj.data);
   
-      return token;
+      return tokenObj;
     
   };
 

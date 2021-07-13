@@ -60,15 +60,15 @@ function GameScreen(props) {
 
   // the function below adds the correct answer at a random index to the array of incorrect answers, return it to save later as the answerArr
   const insertCorrectAnswer = (questionObj) => {
-    console.log('Question Obj', questionObj);
+    // console.log('Question Obj', questionObj);
     let answerArr = questionObj.incorrect_answers;
 
     let randomSpliceIndex = Math.floor(Math.random() * answerArr.length);
-    console.log('Random Splice Index', randomSpliceIndex);
+    // console.log('Random Splice Index', randomSpliceIndex);
     setCorrectIndex(randomSpliceIndex);
     answerArr.splice(randomSpliceIndex, 0, questionObj.correct_answer);
 
-    console.log('Answer Array ', answerArr)
+    // console.log('Answer Array ', answerArr)
     return answerArr;
   }
 
@@ -150,7 +150,7 @@ function GameScreen(props) {
 
     const questionHandler = questionObj => {
 
-      console.log('questionObj', questionObj)
+      ('questionObj', questionObj)
 
       setDisplayAnswer(true)
 
@@ -196,7 +196,7 @@ function GameScreen(props) {
 
   useEffect(() => {
     if (seconds === 0) {
-      console.log('emitted')
+      // console.log('emitted')
       props.socket.emit('userAnsweredinGame',
         {
           username: props.userName,
