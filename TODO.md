@@ -11,7 +11,8 @@
 # 6/6/21
 
 Josh:
-- Sound - fill out for more actions, look into changing moving sounds to root level so we can use sounds on screen changes
+- Sound - Add 'mute' capability
+- Not a great way to see which player is which on final screen
 - Look into single player issue - is it also a multiplayer issue? What is causing it?
 - X - Update scoring, so you get as many points as seconds left
 - Don't allow submit unless an answer is selected
