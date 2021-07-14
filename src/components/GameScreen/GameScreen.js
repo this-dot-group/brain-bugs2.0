@@ -4,7 +4,7 @@ import { Divider } from 'react-native-elements';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import he from 'he';
 import { Redirect } from 'react-router-native';
-import AnimatedEllipsis from 'react-native-animated-ellipsis'
+// import AnimatedEllipsis from 'react-native-animated-ellipsis'
 
 
 import { connect } from 'react-redux';
@@ -55,7 +55,19 @@ function GameScreen(props) {
   // setting the states below to -1 since there will never be a -1 index position in the answer array
   const [selected, setSelected] = useState(-1);
   const [submitted, setSubmitted] = useState(-1);
-  const [waiting, setWaiting] = useState(false);
+
+  // ---------------------------------------------------------
+  // ----------- WAITING STUFF -------------------------------
+  // ---------------------------------------------------------
+
+  // const [waiting, setWaiting] = useState(false);
+  // {waiting &&
+  //   <Text>WE WILL USE THIS FOR ICON NEXT TO PLAYER NAME</Text>
+  // }
+
+  // ---------------------------------------------------------
+  // ---------------------------------------------------------
+
   const [correctIndex, setCorrectIndex] = useState(-1);
   const [displayAnswer, setDisplayAnswer] = useState(false);
   // const [isFirstQuestion, setIsFirstQuestion] = useState(true);
@@ -76,38 +88,20 @@ function GameScreen(props) {
     return answerArr;
   }
 
-  // ANIMATION
+ 
+  const handleAnsPress = (answer, i) => {
 
-  const [animation, setAnimation] = useState(new Animated.Value(0))
-
-  const interpolation = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['grey', 'yellow']
-  })
-
-  const animatedStyle = {
-    backgroundColor: interpolation
-  }
-
-
-  const handleAnimation = (answer, i) => {
-
-    Animated.timing(animation, {
-      toValue: 1,
-      duration: 500,
-      useNativeDriver: false,
-    }).start(() => {
-
+    setTimeout(() => {
       handleSubmitAnswer(answer, i);
+    }, 500)
 
-    })
+
+
 
   }
   //needs to know if its the correct answer 
   const handleSubmitAnswer = (answer, i) => {
 
-
-    // console.log('Formatted Question Info', formattedQuestionInfo)
     let questionPoints;
 
     answer === formattedQuestionInfo.correct_answer ?
@@ -117,7 +111,6 @@ function GameScreen(props) {
     
     lastCorrect.current = questionPoints;
 
-    // console.log('Question Points: ', questionPoints)
     props.socket.emit('userAnsweredinGame',
       {
         username: props.userName,
@@ -130,7 +123,7 @@ function GameScreen(props) {
     }
 
     setSubmitted(i);
-    setWaiting(true);
+    // setWaiting(true);
   }
 
   const fakeOpponentSubmit = () => {
@@ -164,20 +157,21 @@ function GameScreen(props) {
 
         setDisplayAnswer(false);
         setCorrectIndex(-1);
-        setWaiting(false);
-        // resetting the Animated Value each time a new question comes down
-        setAnimation(new Animated.Value(0))
+        // setWaiting(false);
 
         if (!questionObj.answers) {
           let answerArr = insertCorrectAnswer(questionObj);
           questionObj.answers = answerArr;
         }
+
         setSelected(-1);
         setFormattedQuestionInfo(questionObj);
         setSubmitted(-1);
+
         if (firstQuestion.current) {
           firstQuestion.current = false
         }
+
       }, firstQuestion.current ? 0 : 2000)
     }
 
@@ -245,44 +239,16 @@ function GameScreen(props) {
 
   }
 
+  // DO WE STILL WANT TO INCLUDE THE CATEGORY SOMEWHERE? ABOVE QUESTION?
+  // <Text>{he.decode(formattedQuestionInfo.category)}</Text>
 
   return (
     <View>
+
+
       {formattedQuestionInfo.question &&
         <>
-          <Modal
-            transparent={true}
-            visible={modalVisible}>
 
-            <View
-              style={styles.modalView}>
-              <HowToPlayModal />
-              <Pressable
-                style={styles.howToPlayModalButton}
-                onPress={() => {
-                  setModalVisible(!modalVisible)
-                }}
-              >
-                <Text>Hide</Text>
-              </Pressable>
-            </View>
-          </Modal>
-          <Pressable
-            style={styles.howToPlayModalButton}
-            onPress={() => {
-              setModalVisible(true);
-            }}
-          >
-            <Text>How To Play</Text>
-          </Pressable>
-          {waiting &&
-            <Text> Waiting for other player to answer
-              <AnimatedEllipsis />
-            </Text>
-          }
-
-
-          <Text>{he.decode(formattedQuestionInfo.category)}</Text>
 
           <Text>{he.decode(formattedQuestionInfo.question)}</Text>
 
@@ -290,53 +256,58 @@ function GameScreen(props) {
           {/* i is the index number of the answer in the answer arr */}
 
           {formattedQuestionInfo.answers.map((answer, i) =>
+          <>
+            <View>
+              <Pressable
 
-            <Pressable
+                onPress={() => {
+                  setSelected(i)
+                }}
 
-              onPress={() => {
-                setSelected(i)
-              }}
+                style={chooseColor(i)}
 
-              style={chooseColor(i)}
+                key={i}
+                disabled={submitted >= 0}
+              />
+            </View>
 
-              key={i}
-              disabled={submitted >= 0}
-            >
-              <Animated.View
-                style={i === selected ? animatedStyle : null}>
+            <View>
+              <Text style={styles.answerText}>{he.decode(answer)}</Text>
+            </View>
+          </>  
 
-                <Text style={styles.answerText}>{he.decode(answer)}</Text>
-
-              </Animated.View>
-
-            </Pressable>
           )}
 
-          <Pressable
-            onPress={() => {
-              handleAnimation(formattedQuestionInfo.answers[selected], selected)
-            }}
-            style={styles.submitButton}
-          >
-            <Text
-              style={styles.answerText}>
-              Submit
-            </Text>
-          </Pressable>
+          <View>
+            <Pressable
+              onPress={() => {
+                handleAnsPress(formattedQuestionInfo.answers[selected], selected)
+              }}
+              style={styles.submitButton}
+              >
+              <Text
+                style={styles.answerText}>
+                Submit
+              </Text>
+            </Pressable>
+          </View>
 
-          <Text>Time Left:&nbsp;
+          <View>
             <Countdown
               seconds={seconds}
               setSeconds={setSeconds}
-            //create a function that when the time hits zero
             />
-          </Text>
+          </View>
 
-          <Divider style={{ height: 1, backgroundColor: 'blue' }} />
           {score.playerOne &&
             <>
-              <Text>{score.playerOne.name} {score.playerOne.score}</Text>
-              <Text>{score.playerTwo.name} {score.playerTwo.score}</Text>
+              <View>
+                <Text>{score.playerOne.name} {score.playerOne.score}</Text>
+              </View>
+
+              <View>
+                <Text>{score.playerTwo.name} {score.playerTwo.score}</Text>
+              </View>
             </>
           }
 
