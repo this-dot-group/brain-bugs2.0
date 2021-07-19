@@ -6,6 +6,7 @@ import faker from 'faker';
 import JoinGameModal from './Modals/JoinGame';
 import PrivateGameModal from './Modals/PrivateGame';
 import StartGameModal from './Modals/StartGame';
+import MuteButton from '../MuteButton/MuteButton';
 import { newOpponent, newGameCode } from '../../store/userReducer';
 import { newGame } from '../../store/gameInfoReducer';
 import { playSound } from '../../store/soundsReducer'
@@ -89,6 +90,7 @@ function StartScreen(props) {
     <View>
       <Text> Welcome {props.userName}! </Text>
       <Text> Short explanation of options below </Text>
+      <MuteButton />
       <Pressable
         style={styles.gameOptionButtons}
         onPress={() => handleModalChange('start')}

@@ -1,4 +1,4 @@
-import { Audio } from 'expo-av'
+import { Audio } from 'expo-av';
 
 export default function soundsReducer(state = {}, action) {
 
@@ -15,6 +15,8 @@ export default function soundsReducer(state = {}, action) {
 
 }
 
+export const isMuted = (state = false, { type }) => type === 'TOGGLE_MUTE' ? !state : state;
+
 export const newSound = (sound, name) => {
   return async dispatch => {
     let newSound = new Audio.Sound();
@@ -30,9 +32,22 @@ export const playSound =  soundName => {
   return async (_, getState) => {
     const { soundsReducer } = getState();
     try {
-      // const obj = await soundsReducer[soundName].replayAsync();
       await soundsReducer[soundName].replayAsync();
     } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+export const toggleMute = () => {
+  return async (dispatch, getState) => {
+    const { soundsReducer, isMuted } = getState();
+    try {
+      for (let sound in soundsReducer) {
+        soundsReducer[sound].setIsMutedAsync(!isMuted);
+      }
+      dispatch({type: 'TOGGLE_MUTE'})
+    } catch(e) {
       console.log(e)
     }
   }

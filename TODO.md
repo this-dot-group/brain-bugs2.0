@@ -11,8 +11,9 @@
 # 6/6/21
 
 Josh:
-- Sound - Add 'mute' capability
-- Not a great way to see which player is which on final screen
+- X - Sound - Add 'mute' capability
+  - use local storage to remember mute status
+- Not a great way to see which player is which on final screen - in the code
 - Look into single player issue - is it also a multiplayer issue? What is causing it?
 - X - Update scoring, so you get as many points as seconds left
 - Don't allow submit unless an answer is selected

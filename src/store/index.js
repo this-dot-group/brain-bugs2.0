@@ -5,7 +5,7 @@ import userReducer from './userReducer.js';
 import socketReducer from './socketReducer.js';
 import gameInfoReducer from './gameInfoReducer.js';
 import fakeOpponentSocketReducer from './fakeOpponentSocketReducer'
-import soundsReducer from './soundsReducer';
+import soundsReducer, { isMuted } from './soundsReducer';
 
 
 
@@ -14,7 +14,8 @@ let reducers = combineReducers({
   socketReducer,
   gameInfoReducer,
   fakeOpponentSocketReducer,
-  soundsReducer
+  soundsReducer,
+  isMuted
 });
 
 const store = () => {
