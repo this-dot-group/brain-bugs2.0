@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     ...Buttons.submitButton,
+    height: "100%"
   }
 })
 
@@ -239,148 +240,158 @@ function GameScreen(props) {
 
   }
 
-  // DO WE STILL WANT TO INCLUDE THE CATEGORY SOMEWHERE? ABOVE QUESTION?
-  // <Text>{he.decode(formattedQuestionInfo.category)}</Text>
-
-
   return (
+
     <View
-      style={{
-        display: 'grid',
-        backgroundColor: "tan",
-        gridTemplateColumns: '15% 26% 18% 26% 15%',
-        gridTemplateRows: '15% 60% 10% 15%',
-        gridTemplateAreas: `'pressable0 answer0 player1 answer1 pressable1' 'submit1 question question question submit2' '. . countdown . . ' 'pressable2 answer2 player2 answer3 pressable3'`,
-        // justifyItems: 'stretch',
-        width: '100%',
-        height: '100%'
-      }}>
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      width: "100%",
+      height: "100%"
+    }}
+  >
 
-      <View style={{ gridColumn: "1/2", gridRow: "1/2", backgroundColor: "red" }}>
-        <Text>HIHIHI</Text>
-        <Text>HIHIHI</Text>
-        <Text>HIHIHI</Text>
-        <Text>HIHIHI</Text>
-
-      </View> 
-      <View style={{ backgroundColor: "grey" }}>
-      <Text>HIHIHI</Text>
-        <Text>HIHIHI</Text>
-        <Text>HIHIHI</Text>
-        <Text>HIHIHI</Text>
-        </View>
-      <View style={{ gridArea: "answer1", backgroundColor: "purple" }} />
-      <View style={{ gridArea: "submit2", backgroundColor: "blue" }} />
-      <View style={{ gridArea: "answer2", backgroundColor: "purple" }} />
-
-      <View style={{ gridArea: "submit1", backgroundColor: "blue" }} />
-      <View style={{ gridArea: "question", backgroundColor: "black" }} />
-      <View style={{ gridArea: "answer4", backgroundColor: "purple" }} />
-      <View style={{ gridArea: "player1", backgroundColor: "green" }} />
-
-      <View style={{ gridArea: "pressable3", backgroundColor: "red" }} />
-      <View style={{ gridArea: "answer3", backgroundColor: "purple" }} />
-      <View style={{ gridArea: "player2", backgroundColor: "green" }} />
-      <View style={{ gridArea: "pressable2", backgroundColor: "red" }} />
-      <View style={{ gridArea: "pressable4", backgroundColor: "red" }} />
-
-{/* 
-      {formattedQuestionInfo.question &&
+    {formattedQuestionInfo.question &&
         <>
 
+    {/* TOP ROW */}
+
+    <View
+      style={{ flexDirection: "row", flex: ".25"}}
+    >
+      
+      <View style={{ flex: ".41", flexDirection: "row" }}>
+        <Pressable style={{ flex: "1", backgroundColor: "red" }}>
+          <Text style={{alignSelf: "flex-end", width: "60%", height: "100%", backgroundColor: "white" }}>ANSWER 1</Text>
+        </Pressable>  
+      </View> 
 
 
+      <View style={{ flex: ".18", backgroundColor: "grey", alignItems: "center" }}>
+      {score.playerOne &&
+       <>
+        <Text>{score.playerOne.name}</Text>
+        <Text>{score.playerOne.score}</Text>
+       </>
+       } 
+      </View>  
 
-          {formattedQuestionInfo.answers.map((answer, i) =>
+      <View style={{ flex: ".41", flexDirection: "row" }}>
+        <Pressable style={{ flex: "1", backgroundColor: "red" }}>
+          <Text style={{width: "60%", height: "100%", backgroundColor: "white" }}>ANSWER 2</Text>
+        </Pressable>  
+      </View> 
 
-          <>
-            <View
-              key={i}
-              style={{ gridArea: `pressable${i}`, backgroundColor: "yellow" }}
-            >
-              <Pressable
+    </View>
 
-                onPress={() => {
-                  setSelected(i)
-                }}
+    {/* SUBMIT AND QUESTION ROW */}
 
-                style={chooseColor(i)}
-
-                
-                disabled={submitted >= 0}
-              />
-            </View>
-
-            <View
-              key={`${i}_answer`}
-              style={{ gridArea: `answer${i}` }}
-            >
-              <Text style={styles.answerText}>{he.decode(answer)}</Text>
-            </View>
-          </>  
-
-          )}
-
-
-
-          <View
-            style={{ gridArea: 'submit1' }}
+    <View
+      style={{ flexDirection: "row", flex: ".40", backgroundColor: "red" }}
+    >
+      <View style={{ flex: ".15", backgroundColor: "blue" }}>
+        <Pressable
+          onPress={() => {
+            handleAnsPress(formattedQuestionInfo.answers[selected], selected)
+          }}
+          style={styles.submitButton}
           >
-            <Pressable
-              onPress={() => {
-                handleAnsPress(formattedQuestionInfo.answers[selected], selected)
-              }}
-              style={styles.submitButton}
-              >
-              <Text
-                style={styles.answerText}>
-                Submit
-              </Text>
-            </Pressable>
-          </View>
+          <Text
+            style={styles.answerText}>
+            Submit
+          </Text>
+        </Pressable>
+      </View>  
+      <View style={{ flex: ".70", backgroundColor: "yellow", alignItems: "center" }}>
+        <Text>{he.decode(formattedQuestionInfo.category)}</Text>
+        <Text>{he.decode(formattedQuestionInfo.question)}</Text>
+      </View>
+      <View style={{ flex: ".15", backgroundColor: "blue" }} />
+    </View>
 
-          <View
-          style={{ gridArea: 'question', backgroundColor: "purple" }}>
-          <Text>{he.decode(formattedQuestionInfo.question)}</Text>
-        </View>
+    {/* COUNTDOWN ROW */}
+    <View
+      style={{ flexDirection: "row", flex: ".10" }}
+    >
+      <View style={{ flex: ".45", backgroundColor: "white" }} />
+      <View style={{ flex: ".10", backgroundColor: "pink" }}>
+        <Countdown
+          seconds={seconds}
+          setSeconds={setSeconds}
+        />
+      </View>  
+      <View style={{ flex: ".45", backgroundColor: "white" }} />
+    </View>
 
+    {/* BOTTOM ROW */}
 
-          {score.playerOne &&
-            <>
-              <View
-                key={`1`}
-                style={{ gridArea: 'player1', backgroundColor: "pink" }}>
-                <Text>{score.playerOne.name} {score.playerOne.score}</Text>
-              </View>
-
-              <View
-                key={`2`}
-                style={{ gridArea: 'player2', backgroundColor: "pink"  }}>
-                <Text>{score.playerTwo.name} {score.playerTwo.score}</Text>
-              </View>
-            </>
-          }
-          <View
-          // gridArea="countdown"
-            style={{ gridArea: 'countdown' }}
-          >
-            <Countdown
-              seconds={seconds}
-              setSeconds={setSeconds}
-            />
-          </View>
-
-        </>
+    <View
+      style={{ flexDirection: "row", flex: ".25"}}
+    >
+      
+      <View style={{ flex: ".41", flexDirection: "row" }}>
+        <Pressable style={{ flex: "1", backgroundColor: "red" }}>
+          <Text style={{alignSelf: "flex-end", width: "60%", height: "100%", backgroundColor: "white" }}>ANSWER 3</Text>
+        </Pressable>  
+      </View> 
 
 
-      }
-      { gameEnd &&
+      <View style={{ flex: ".18", backgroundColor: "grey", alignItems: "center" }}>
+      {score.playerOne &&
+       <>
+        <Text>{score.playerTwo.name}</Text>
+        <Text>{score.playerTwo.score}</Text>
+       </>
+       } 
+      </View>  
+
+      <View style={{ flex: ".41", flexDirection: "row" }}>
+        <Pressable style={{ flex: "1", backgroundColor: "red" }}>
+          <Text style={{width: "60%", height: "100%", backgroundColor: "white" }}>ANSWER 4</Text>
+        </Pressable>  
+      </View> 
+
+    </View>
+
+
+     {/* { gameEnd &&
         <Redirect
           to={{
             pathname: '/gameend',
             state: { finalScore: score, socketIdRef: props.socket.id },
           }} />} */}
-    </View>
+
+    </>
+  }
+
+  </View>
+
+
+
+
+    //       {formattedQuestionInfo.answers.map((answer, i) =>
+
+    //       <>
+            //  <Pressable
+
+            //   onPress={() => {
+            //     setSelected(i)
+            //   }}
+
+            //   style={chooseColor(i)}
+
+            //   key={i}
+            //   disabled={submitted >= 0}
+            // >
+            //     <Text style={styles.answerText}>{he.decode(answer)}</Text>
+
+            // </Pressable>
+    //       </>  
+
+    //       )}
+
+
+
   )
 }
 
