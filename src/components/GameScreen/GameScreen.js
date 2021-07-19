@@ -242,22 +242,62 @@ function GameScreen(props) {
   // DO WE STILL WANT TO INCLUDE THE CATEGORY SOMEWHERE? ABOVE QUESTION?
   // <Text>{he.decode(formattedQuestionInfo.category)}</Text>
 
+
   return (
-    <View>
+    <View
+      style={{
+        display: 'grid',
+        backgroundColor: "tan",
+        gridTemplateColumns: '15% 26% 18% 26% 15%',
+        gridTemplateRows: '15% 60% 10% 15%',
+        gridTemplateAreas: `'pressable0 answer0 player1 answer1 pressable1' 'submit1 question question question submit2' '. . countdown . . ' 'pressable2 answer2 player2 answer3 pressable3'`,
+        // justifyItems: 'stretch',
+        width: '100%',
+        height: '100%'
+      }}>
 
+      <View style={{ gridColumn: "1/2", gridRow: "1/2", backgroundColor: "red" }}>
+        <Text>HIHIHI</Text>
+        <Text>HIHIHI</Text>
+        <Text>HIHIHI</Text>
+        <Text>HIHIHI</Text>
 
+      </View> 
+      <View style={{ backgroundColor: "grey" }}>
+      <Text>HIHIHI</Text>
+        <Text>HIHIHI</Text>
+        <Text>HIHIHI</Text>
+        <Text>HIHIHI</Text>
+        </View>
+      <View style={{ gridArea: "answer1", backgroundColor: "purple" }} />
+      <View style={{ gridArea: "submit2", backgroundColor: "blue" }} />
+      <View style={{ gridArea: "answer2", backgroundColor: "purple" }} />
+
+      <View style={{ gridArea: "submit1", backgroundColor: "blue" }} />
+      <View style={{ gridArea: "question", backgroundColor: "black" }} />
+      <View style={{ gridArea: "answer4", backgroundColor: "purple" }} />
+      <View style={{ gridArea: "player1", backgroundColor: "green" }} />
+
+      <View style={{ gridArea: "pressable3", backgroundColor: "red" }} />
+      <View style={{ gridArea: "answer3", backgroundColor: "purple" }} />
+      <View style={{ gridArea: "player2", backgroundColor: "green" }} />
+      <View style={{ gridArea: "pressable2", backgroundColor: "red" }} />
+      <View style={{ gridArea: "pressable4", backgroundColor: "red" }} />
+
+{/* 
       {formattedQuestionInfo.question &&
         <>
 
 
-          <Text>{he.decode(formattedQuestionInfo.question)}</Text>
 
-
-          {/* i is the index number of the answer in the answer arr */}
 
           {formattedQuestionInfo.answers.map((answer, i) =>
+
           <>
-            <View>
+            <View
+              key={i}
+              style={{ gridArea: `pressable${i}`, backgroundColor: "yellow" }}
+            >
               <Pressable
 
                 onPress={() => {
@@ -266,19 +306,26 @@ function GameScreen(props) {
 
                 style={chooseColor(i)}
 
-                key={i}
+                
                 disabled={submitted >= 0}
               />
             </View>
 
-            <View>
+            <View
+              key={`${i}_answer`}
+              style={{ gridArea: `answer${i}` }}
+            >
               <Text style={styles.answerText}>{he.decode(answer)}</Text>
             </View>
           </>  
 
           )}
 
-          <View>
+
+
+          <View
+            style={{ gridArea: 'submit1' }}
+          >
             <Pressable
               onPress={() => {
                 handleAnsPress(formattedQuestionInfo.answers[selected], selected)
@@ -292,24 +339,36 @@ function GameScreen(props) {
             </Pressable>
           </View>
 
-          <View>
+          <View
+          style={{ gridArea: 'question', backgroundColor: "purple" }}>
+          <Text>{he.decode(formattedQuestionInfo.question)}</Text>
+        </View>
+
+
+          {score.playerOne &&
+            <>
+              <View
+                key={`1`}
+                style={{ gridArea: 'player1', backgroundColor: "pink" }}>
+                <Text>{score.playerOne.name} {score.playerOne.score}</Text>
+              </View>
+
+              <View
+                key={`2`}
+                style={{ gridArea: 'player2', backgroundColor: "pink"  }}>
+                <Text>{score.playerTwo.name} {score.playerTwo.score}</Text>
+              </View>
+            </>
+          }
+          <View
+          // gridArea="countdown"
+            style={{ gridArea: 'countdown' }}
+          >
             <Countdown
               seconds={seconds}
               setSeconds={setSeconds}
             />
           </View>
-
-          {score.playerOne &&
-            <>
-              <View>
-                <Text>{score.playerOne.name} {score.playerOne.score}</Text>
-              </View>
-
-              <View>
-                <Text>{score.playerTwo.name} {score.playerTwo.score}</Text>
-              </View>
-            </>
-          }
 
         </>
 
@@ -320,7 +379,7 @@ function GameScreen(props) {
           to={{
             pathname: '/gameend',
             state: { finalScore: score, socketIdRef: props.socket.id },
-          }} />}
+          }} />} */}
     </View>
   )
 }
