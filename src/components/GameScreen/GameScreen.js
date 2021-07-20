@@ -303,6 +303,7 @@ function GameScreen(props) {
     <View
       style={{ flexDirection: "row", flex: ".40", backgroundColor: "red" }}
     >
+     {selected === 0 || selected === 2 ? 
       <View style={{ flex: ".15", backgroundColor: "blue" }}>
         <Pressable
           onPress={() => {
@@ -315,12 +316,30 @@ function GameScreen(props) {
             Submit
           </Text>
         </Pressable>
-      </View>  
+      </View> 
+      : <View style={{ flex: ".15", backgroundColor: "blue" }} /> }
+
       <View style={{ flex: ".70", backgroundColor: "yellow", alignItems: "center" }}>
         <Text>{he.decode(formattedQuestionInfo.category)}</Text>
         <Text>{he.decode(formattedQuestionInfo.question)}</Text>
       </View>
-      <View style={{ flex: ".15", backgroundColor: "blue" }} />
+      
+      {selected === 1 || selected === 3 ? 
+      <View style={{ flex: ".15", backgroundColor: "blue" }}>
+        <Pressable
+          onPress={() => {
+            handleAnsPress(formattedQuestionInfo.answers[selected], selected)
+          }}
+          style={styles.submitButton}
+          >
+          <Text
+            style={styles.answerText}>
+            Submit
+          </Text>
+        </Pressable>
+      </View> 
+      : <View style={{ flex: ".15", backgroundColor: "blue" }} /> }
+
     </View>
 
     {/* COUNTDOWN ROW */}
@@ -394,24 +413,17 @@ function GameScreen(props) {
 
     </View>
 
-     { gameEnd &&
+     {/* { gameEnd &&
         <Redirect
           to={{
             pathname: '/gameend',
             state: { finalScore: score, socketIdRef: props.socket.id },
-          }} />}
+          }} />} */}
 
     </>
   }
 
   </View>
-
-
-
-
-
-
-
 
   )
 }
