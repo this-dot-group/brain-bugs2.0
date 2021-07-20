@@ -1,11 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Text, View, Pressable, Modal, Animated, StyleSheet } from 'react-native'
-import { Divider } from 'react-native-elements';
-import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
+import { Text, View, Pressable, StyleSheet } from 'react-native'
 import he from 'he';
 import { Redirect } from 'react-router-native';
-// import AnimatedEllipsis from 'react-native-animated-ellipsis'
-
 
 import { connect } from 'react-redux';
 import { playSound } from '../../store/soundsReducer'
@@ -20,7 +16,7 @@ const styles = StyleSheet.create({
     ...Views.modalView,
   },
   selectedAnswer: {
-    ...Buttons.selectedAnswer
+    ...Buttons.selectedAnswer,
   },
   answerOptionPressables: {
     ...Buttons.answerPressables,
@@ -46,10 +42,7 @@ const styles = StyleSheet.create({
 
 function GameScreen(props) {
 
-  // console.log('PROPS IN GAMEPLAY SCREEN:     ', props.socket)
-
   const [seconds, setSeconds] = useState(QUESTION_TIME);
-  const [modalVisible, setModalVisible] = useState(false);
   const [formattedQuestionInfo, setFormattedQuestionInfo] = useState({});
   const [score, setScore] = useState({});
   const [gameEnd, setGameEnd] = useState(false);
@@ -72,34 +65,26 @@ function GameScreen(props) {
   const [correctIndex, setCorrectIndex] = useState(-1);
   const [displayAnswer, setDisplayAnswer] = useState(false);
   // const [isFirstQuestion, setIsFirstQuestion] = useState(true);
+  const [ansObjForRendering, setAnsObjsForRendering] = useState(null);
   const firstQuestion = useRef(true)
   const lastCorrect = useRef(null)
 
   // the function below adds the correct answer at a random index to the array of incorrect answers, return it to save later as the answerArr
   const insertCorrectAnswer = (questionObj) => {
-    console.log('Question Obj', questionObj);
     let answerArr = questionObj.incorrect_answers;
-
     let randomSpliceIndex = Math.floor(Math.random() * answerArr.length);
-    console.log('Random Splice Index', randomSpliceIndex);
     setCorrectIndex(randomSpliceIndex);
     answerArr.splice(randomSpliceIndex, 0, questionObj.correct_answer);
-
-    console.log('Answer Array ', answerArr)
     return answerArr;
   }
 
  
   const handleAnsPress = (answer, i) => {
-
     setTimeout(() => {
       handleSubmitAnswer(answer, i);
     }, 500)
-
-
-
-
   }
+
   //needs to know if its the correct answer 
   const handleSubmitAnswer = (answer, i) => {
 
@@ -146,8 +131,6 @@ function GameScreen(props) {
       props.fakeOpponentSocket.emit('readyForGame');
     }
 
-
-
     const questionHandler = questionObj => {
 
       console.log('questionObj', questionObj)
@@ -163,12 +146,23 @@ function GameScreen(props) {
         if (!questionObj.answers) {
           let answerArr = insertCorrectAnswer(questionObj);
           questionObj.answers = answerArr;
+          
+          let arrOfAnsObj = questionObj.answers.map((ans, i) => {
+            let ansObj = {
+              answer: ans,
+              index: i,
+            };
+            return ansObj;
+          });
+
+          console.log('WEIRDWEIRD:  ', arrOfAnsObj)
+          setAnsObjsForRendering(arrOfAnsObj)
         }
 
         setSelected(-1);
         setFormattedQuestionInfo(questionObj);
         setSubmitted(-1);
-
+ 
         if (firstQuestion.current) {
           firstQuestion.current = false
         }
@@ -252,7 +246,7 @@ function GameScreen(props) {
   >
 
     {formattedQuestionInfo.question &&
-        <>
+    <>
 
     {/* TOP ROW */}
 
@@ -261,8 +255,18 @@ function GameScreen(props) {
     >
       
       <View style={{ flex: ".41", flexDirection: "row" }}>
-        <Pressable style={{ flex: "1", backgroundColor: "red" }}>
-          <Text style={{alignSelf: "flex-end", width: "60%", height: "100%", backgroundColor: "white" }}>ANSWER 1</Text>
+        <Pressable 
+          onPress={() => {
+            setSelected(ansObjForRendering[0].index)
+          }}
+          style={chooseColor(ansObjForRendering[0].index)}
+    
+          key={ansObjForRendering[0].index}
+          disabled={submitted >= 0}>
+          <Text 
+            style={styles.answerText}>
+              {he.decode(ansObjForRendering[0].answer)}
+          </Text>
         </Pressable>  
       </View> 
 
@@ -277,10 +281,20 @@ function GameScreen(props) {
       </View>  
 
       <View style={{ flex: ".41", flexDirection: "row" }}>
-        <Pressable style={{ flex: "1", backgroundColor: "red" }}>
-          <Text style={{width: "60%", height: "100%", backgroundColor: "white" }}>ANSWER 2</Text>
+        <Pressable 
+          onPress={() => {
+            setSelected(ansObjForRendering[1].index)
+          }}
+          style={chooseColor(ansObjForRendering[1].index)}
+    
+          key={ansObjForRendering[1].index}
+          disabled={submitted >= 0}>
+          <Text 
+            style={styles.answerText}>
+              {he.decode(ansObjForRendering[1].answer)}
+          </Text>
         </Pressable>  
-      </View> 
+      </View>
 
     </View>
 
@@ -328,13 +342,26 @@ function GameScreen(props) {
     <View
       style={{ flexDirection: "row", flex: ".25"}}
     >
-      
-      <View style={{ flex: ".41", flexDirection: "row" }}>
-        <Pressable style={{ flex: "1", backgroundColor: "red" }}>
-          <Text style={{alignSelf: "flex-end", width: "60%", height: "100%", backgroundColor: "white" }}>ANSWER 3</Text>
-        </Pressable>  
-      </View> 
 
+    {ansObjForRendering[2] &&  
+      <View style={{ flex: ".41", flexDirection: "row" }}>
+        <Pressable 
+          onPress={() => {
+            setSelected(ansObjForRendering[2].index)
+          }}
+          style={chooseColor(ansObjForRendering[2].index)}
+    
+          key={ansObjForRendering[2].index}
+          disabled={submitted >= 0}>
+          <Text 
+            style={styles.answerText}>
+              {he.decode(ansObjForRendering[2].answer)}
+          </Text>
+        </Pressable>  
+      </View>
+    }
+
+    {!ansObjForRendering[2] &&  <View style={{ flex: ".41", flexDirection: "row" }} />}
 
       <View style={{ flex: ".18", backgroundColor: "grey", alignItems: "center" }}>
       {score.playerOne &&
@@ -345,21 +372,34 @@ function GameScreen(props) {
        } 
       </View>  
 
+    {ansObjForRendering[3] &&
       <View style={{ flex: ".41", flexDirection: "row" }}>
-        <Pressable style={{ flex: "1", backgroundColor: "red" }}>
-          <Text style={{width: "60%", height: "100%", backgroundColor: "white" }}>ANSWER 4</Text>
+        <Pressable 
+          onPress={() => {
+            setSelected(ansObjForRendering[3].index)
+          }}
+          style={chooseColor(ansObjForRendering[3].index)}
+    
+          key={ansObjForRendering[3].index}
+          disabled={submitted >= 0}>
+          <Text 
+            style={styles.answerText}>
+              {he.decode(ansObjForRendering[3].answer)}
+          </Text>
         </Pressable>  
-      </View> 
+      </View>
+    } 
+
+    {!ansObjForRendering[3] &&  <View style={{ flex: ".41", flexDirection: "row" }} />}
 
     </View>
 
-
-     {/* { gameEnd &&
+     { gameEnd &&
         <Redirect
           to={{
             pathname: '/gameend',
             state: { finalScore: score, socketIdRef: props.socket.id },
-          }} />} */}
+          }} />}
 
     </>
   }
@@ -369,26 +409,7 @@ function GameScreen(props) {
 
 
 
-    //       {formattedQuestionInfo.answers.map((answer, i) =>
 
-    //       <>
-            //  <Pressable
-
-            //   onPress={() => {
-            //     setSelected(i)
-            //   }}
-
-            //   style={chooseColor(i)}
-
-            //   key={i}
-            //   disabled={submitted >= 0}
-            // >
-            //     <Text style={styles.answerText}>{he.decode(answer)}</Text>
-
-            // </Pressable>
-    //       </>  
-
-    //       )}
 
 
 
