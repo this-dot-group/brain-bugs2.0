@@ -17,15 +17,31 @@ const styles = StyleSheet.create({
   },
   selectedAnswer: {
     ...Buttons.selectedAnswer,
+    flex: 1, 
+    borderRadius: 30, 
+    margin: 10, 
+    justifyContent: "center"
   },
   answerOptionPressables: {
     ...Buttons.answerPressables,
+    flex: 1, 
+    borderRadius: 30, 
+    margin: 10, 
+    justifyContent: "center"
   },
   submittedAnswer: {
     ...Buttons.submittedAnswer,
+    flex: 1, 
+    borderRadius: 30, 
+    margin: 10, 
+    justifyContent: "center"
   },
   correctAnswer: {
     ...Buttons.correctAnswer,
+    flex: 1, 
+    borderRadius: 30, 
+    margin: 10, 
+    justifyContent: "center"
   },
   howToPlayModalButton: {
     ...Buttons.openButton
@@ -33,9 +49,15 @@ const styles = StyleSheet.create({
   answerText: {
     ...Typography.answerText,
   },
+  questionText: {
+    ...Typography.questionText,
+  },
+  categoryText: {
+    ...Typography.categoryText,
+  },
   submitButton: {
     ...Buttons.submitButton,
-    height: "100%"
+    height: "50%"
   }
 })
 
@@ -229,9 +251,7 @@ function GameScreen(props) {
     if (i === correctIndex && displayAnswer) {
       color = styles.correctAnswer;
     }
-
     return color;
-
   }
 
   return (
@@ -271,7 +291,7 @@ function GameScreen(props) {
       </View> 
 
 
-      <View style={{ flex: ".18", backgroundColor: "grey", alignItems: "center" }}>
+      <View style={{ flex: ".18", alignItems: "center", marginTop: 20 }}>
       {score.playerOne &&
        <>
         <Text>{score.playerOne.name}</Text>
@@ -301,10 +321,10 @@ function GameScreen(props) {
     {/* SUBMIT AND QUESTION ROW */}
 
     <View
-      style={{ flexDirection: "row", flex: ".40", backgroundColor: "red" }}
+      style={{ flexDirection: "row", flex: ".40" }}
     >
      {selected === 0 || selected === 2 ? 
-      <View style={{ flex: ".15", backgroundColor: "blue" }}>
+      <View style={{ flex: ".15", justifyContent: "center"}}>
         <Pressable
           onPress={() => {
             handleAnsPress(formattedQuestionInfo.answers[selected], selected)
@@ -317,15 +337,19 @@ function GameScreen(props) {
           </Text>
         </Pressable>
       </View> 
-      : <View style={{ flex: ".15", backgroundColor: "blue" }} /> }
+      : <View style={{ flex: ".15" }} /> }
 
-      <View style={{ flex: ".70", backgroundColor: "yellow", alignItems: "center" }}>
-        <Text>{he.decode(formattedQuestionInfo.category)}</Text>
-        <Text>{he.decode(formattedQuestionInfo.question)}</Text>
+      <View style={{ flex: ".70", alignItems: "center" }}>
+        <Text style={styles.categoryText}>
+          {he.decode(formattedQuestionInfo.category)}
+        </Text>
+        <Text style={styles.questionText}>
+          {he.decode(formattedQuestionInfo.question)}
+        </Text>
       </View>
       
       {selected === 1 || selected === 3 ? 
-      <View style={{ flex: ".15", backgroundColor: "blue" }}>
+      <View style={{ flex: ".15", justifyContent: "center"}}>
         <Pressable
           onPress={() => {
             handleAnsPress(formattedQuestionInfo.answers[selected], selected)
@@ -338,7 +362,7 @@ function GameScreen(props) {
           </Text>
         </Pressable>
       </View> 
-      : <View style={{ flex: ".15", backgroundColor: "blue" }} /> }
+      : <View style={{ flex: ".15" }} /> }
 
     </View>
 
@@ -346,14 +370,15 @@ function GameScreen(props) {
     <View
       style={{ flexDirection: "row", flex: ".10" }}
     >
-      <View style={{ flex: ".45", backgroundColor: "white" }} />
-      <View style={{ flex: ".10", backgroundColor: "pink" }}>
+      <View style={{ flex: ".45" }} />
+      <View style={{ flex: ".10" }}>
         <Countdown
           seconds={seconds}
           setSeconds={setSeconds}
+          style={{color: "red" }}
         />
       </View>  
-      <View style={{ flex: ".45", backgroundColor: "white" }} />
+      <View style={{ flex: ".45" }} />
     </View>
 
     {/* BOTTOM ROW */}
@@ -382,7 +407,7 @@ function GameScreen(props) {
 
     {!ansObjForRendering[2] &&  <View style={{ flex: ".41", flexDirection: "row" }} />}
 
-      <View style={{ flex: ".18", backgroundColor: "grey", alignItems: "center" }}>
+      <View style={{ flex: ".18", alignItems: "center", justifyContent: "flex-end", marginBottom: 20 }}>
       {score.playerOne &&
        <>
         <Text>{score.playerTwo.name}</Text>
