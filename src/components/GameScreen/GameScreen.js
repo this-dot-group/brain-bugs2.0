@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Text, View, Pressable, StyleSheet } from 'react-native'
+import { Text, View, Pressable, StyleSheet, Image } from 'react-native'
 import he from 'he';
 import { Redirect } from 'react-router-native';
 
 import { connect } from 'react-redux';
-import { playSound } from '../../store/soundsReducer'
-import Countdown from '../Countdown/Countdown'
+import { playSound } from '../../store/soundsReducer';
+import Countdown from '../Countdown/Countdown';
 
 import { Buttons, Views, Typography } from '../../styles/'
 
@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     ...Buttons.submitButton,
-    height: "50%"
+    height: "50%",
+    margin: 10
   }
 })
 
@@ -71,19 +72,7 @@ function GameScreen(props) {
   // setting the states below to -1 since there will never be a -1 index position in the answer array
   const [selected, setSelected] = useState(-1);
   const [submitted, setSubmitted] = useState(-1);
-
-  // ---------------------------------------------------------
-  // ----------- WAITING STUFF -------------------------------
-  // ---------------------------------------------------------
-
-  // const [waiting, setWaiting] = useState(false);
-  // {waiting &&
-  //   <Text>WE WILL USE THIS FOR ICON NEXT TO PLAYER NAME</Text>
-  // }
-
-  // ---------------------------------------------------------
-  // ---------------------------------------------------------
-
+  const [waiting, setWaiting] = useState({boolean: false, name: null});
   const [correctIndex, setCorrectIndex] = useState(-1);
   const [displayAnswer, setDisplayAnswer] = useState(false);
   // const [isFirstQuestion, setIsFirstQuestion] = useState(true);
@@ -131,7 +120,7 @@ function GameScreen(props) {
     }
 
     setSubmitted(i);
-    // setWaiting(true);
+    setWaiting({boolean: true, name: props.userName});
   }
 
   const fakeOpponentSubmit = () => {
@@ -155,15 +144,13 @@ function GameScreen(props) {
 
     const questionHandler = questionObj => {
 
-      console.log('questionObj', questionObj)
-
       setDisplayAnswer(true)
 
       setTimeout(() => {
 
         setDisplayAnswer(false);
         setCorrectIndex(-1);
-        // setWaiting(false);
+        setWaiting({boolean: false, name: null});
 
         if (!questionObj.answers) {
           let answerArr = insertCorrectAnswer(questionObj);
@@ -176,8 +163,6 @@ function GameScreen(props) {
             };
             return ansObj;
           });
-
-          console.log('WEIRDWEIRD:  ', arrOfAnsObj)
           setAnsObjsForRendering(arrOfAnsObj)
         }
 
@@ -291,9 +276,15 @@ function GameScreen(props) {
       </View> 
 
 
-      <View style={{ flex: .18, alignItems: "center", marginTop: 20 }}>
+      <View style={{ flex: .18, alignItems: "center", justifyContent: "center" }}>
       {score.playerOne &&
        <>
+
+        {waiting.boolean === true && waiting.name !== score.playerOne.name &&
+          <Image 
+            source={require('../../images/win95_hourglass.gif')} 
+            style={{ height: 30, width: 30}}/>
+        }
         <Text>{score.playerOne.name}</Text>
         <Text>{score.playerOne.score}</Text>
        </>
@@ -340,9 +331,9 @@ function GameScreen(props) {
       : <View style={{ flex: .15 }} /> }
 
       <View style={{ flex: .70, alignItems: "center" }}>
-        <Text style={styles.categoryText}>
+        {/* <Text style={styles.categoryText}>
           {he.decode(formattedQuestionInfo.category)}
-        </Text>
+        </Text> */}
         <Text style={styles.questionText}>
           {he.decode(formattedQuestionInfo.question)}
         </Text>
@@ -407,9 +398,14 @@ function GameScreen(props) {
 
     {!ansObjForRendering[2] &&  <View style={{ flex: .41, flexDirection: "row" }} />}
 
-      <View style={{ flex: .18, alignItems: "center", justifyContent: "flex-end", marginBottom: 20 }}>
+      <View style={{ flex: .18, alignItems: "center", justifyContent: "center" }}>
       {score.playerOne &&
        <>
+        {waiting.boolean === true && waiting.name !== score.playerTwo.name &&
+          <Image 
+            source={require('../../images/win95_hourglass.gif')} 
+            style={{ height: 30, width: 30}}/>
+        }
         <Text>{score.playerTwo.name}</Text>
         <Text>{score.playerTwo.score}</Text>
        </>
@@ -438,12 +434,12 @@ function GameScreen(props) {
 
     </View>
 
-     { gameEnd &&
+     {/* { gameEnd &&
         <Redirect
           to={{
             pathname: '/gameend',
             state: { finalScore: score, socketIdRef: props.socket.id },
-          }} />}
+          }} />} */}
 
     </>
   }
