@@ -12,6 +12,7 @@ import { Buttons } from '../../styles'
 const styles = StyleSheet.create({
   backToLobbyButton: {
     ...Buttons.openButton,
+    marginTop: 20
   },
 })
 
@@ -90,14 +91,15 @@ function GameEnd(props) {
       props.numQuestions(rematchGameInfo.numQuestions);
       props.publicOrPrivate('private');
 
-      // the purpose of the event below is to get oppoent into gameplay (how to play, waiting room, whatever) also
       props.socket.emit('sendRematchOpponentToPrivateGameJoin', props.gameCode);
 
       setRematchReady(true);
     
     }
 
-    createOpponentSaidNoAlert(props.opponent);
+    if(!response) {
+      createOpponentSaidNoAlert(props.opponent);
+    }
     
   }
 

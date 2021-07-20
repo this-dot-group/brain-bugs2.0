@@ -53,6 +53,9 @@ Tia:
 - Each One Second
 - Works with both Game Maker and Game Joiner 
 
+# BUGS 7/19
+- check rematch functionality, specifically the alert when opponent says no. show up at the right time? shows waiting room (with private game code) for a sec tho
+
 
 
 
