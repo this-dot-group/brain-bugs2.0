@@ -32,6 +32,7 @@ Tia:
 * Emoji decorations
 
 ## Styling/Content
+- Response font size for answer pressables, question on GameScreen
 - Content for all pages, such as how to play instructions 
 - Could have a Submit button that is greyed out/disabled until the user chooses an answer
 - React native ellipsis package has style props (see npm package site)

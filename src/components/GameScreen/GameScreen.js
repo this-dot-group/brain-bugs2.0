@@ -271,10 +271,10 @@ function GameScreen(props) {
     {/* TOP ROW */}
 
     <View
-      style={{ flexDirection: "row", flex: ".25"}}
+      style={{ flexDirection: "row", flex: .25}}
     >
       
-      <View style={{ flex: ".41", flexDirection: "row" }}>
+      <View style={{ flex: .41, flexDirection: "row" }}>
         <Pressable 
           onPress={() => {
             setSelected(ansObjForRendering[0].index)
@@ -291,7 +291,7 @@ function GameScreen(props) {
       </View> 
 
 
-      <View style={{ flex: ".18", alignItems: "center", marginTop: 20 }}>
+      <View style={{ flex: .18, alignItems: "center", marginTop: 20 }}>
       {score.playerOne &&
        <>
         <Text>{score.playerOne.name}</Text>
@@ -300,7 +300,7 @@ function GameScreen(props) {
        } 
       </View>  
 
-      <View style={{ flex: ".41", flexDirection: "row" }}>
+      <View style={{ flex: .41, flexDirection: "row" }}>
         <Pressable 
           onPress={() => {
             setSelected(ansObjForRendering[1].index)
@@ -321,10 +321,10 @@ function GameScreen(props) {
     {/* SUBMIT AND QUESTION ROW */}
 
     <View
-      style={{ flexDirection: "row", flex: ".40" }}
+      style={{ flexDirection: "row", flex: .40 }}
     >
      {selected === 0 || selected === 2 ? 
-      <View style={{ flex: ".15", justifyContent: "center"}}>
+      <View style={{ flex: .15, justifyContent: "center"}}>
         <Pressable
           onPress={() => {
             handleAnsPress(formattedQuestionInfo.answers[selected], selected)
@@ -337,9 +337,9 @@ function GameScreen(props) {
           </Text>
         </Pressable>
       </View> 
-      : <View style={{ flex: ".15" }} /> }
+      : <View style={{ flex: .15 }} /> }
 
-      <View style={{ flex: ".70", alignItems: "center" }}>
+      <View style={{ flex: .70, alignItems: "center" }}>
         <Text style={styles.categoryText}>
           {he.decode(formattedQuestionInfo.category)}
         </Text>
@@ -349,7 +349,7 @@ function GameScreen(props) {
       </View>
       
       {selected === 1 || selected === 3 ? 
-      <View style={{ flex: ".15", justifyContent: "center"}}>
+      <View style={{ flex: .15, justifyContent: "center"}}>
         <Pressable
           onPress={() => {
             handleAnsPress(formattedQuestionInfo.answers[selected], selected)
@@ -362,33 +362,33 @@ function GameScreen(props) {
           </Text>
         </Pressable>
       </View> 
-      : <View style={{ flex: ".15" }} /> }
+      : <View style={{ flex: .15 }} /> }
 
     </View>
 
     {/* COUNTDOWN ROW */}
     <View
-      style={{ flexDirection: "row", flex: ".10" }}
+      style={{ flexDirection: "row", flex: .10 }}
     >
-      <View style={{ flex: ".45" }} />
-      <View style={{ flex: ".10" }}>
+      <View style={{ flex: .45 }} />
+      <View style={{ flex: .10 }}>
         <Countdown
           seconds={seconds}
           setSeconds={setSeconds}
           style={{color: "red" }}
         />
       </View>  
-      <View style={{ flex: ".45" }} />
+      <View style={{ flex: .45 }} />
     </View>
 
     {/* BOTTOM ROW */}
 
     <View
-      style={{ flexDirection: "row", flex: ".25"}}
+      style={{ flexDirection: "row", flex: .25}}
     >
 
     {ansObjForRendering[2] &&  
-      <View style={{ flex: ".41", flexDirection: "row" }}>
+      <View style={{ flex: .41, flexDirection: "row" }}>
         <Pressable 
           onPress={() => {
             setSelected(ansObjForRendering[2].index)
@@ -405,9 +405,9 @@ function GameScreen(props) {
       </View>
     }
 
-    {!ansObjForRendering[2] &&  <View style={{ flex: ".41", flexDirection: "row" }} />}
+    {!ansObjForRendering[2] &&  <View style={{ flex: .41, flexDirection: "row" }} />}
 
-      <View style={{ flex: ".18", alignItems: "center", justifyContent: "flex-end", marginBottom: 20 }}>
+      <View style={{ flex: .18, alignItems: "center", justifyContent: "flex-end", marginBottom: 20 }}>
       {score.playerOne &&
        <>
         <Text>{score.playerTwo.name}</Text>
@@ -417,7 +417,7 @@ function GameScreen(props) {
       </View>  
 
     {ansObjForRendering[3] &&
-      <View style={{ flex: ".41", flexDirection: "row" }}>
+      <View style={{ flex: .41, flexDirection: "row" }}>
         <Pressable 
           onPress={() => {
             setSelected(ansObjForRendering[3].index)
@@ -434,7 +434,7 @@ function GameScreen(props) {
       </View>
     } 
 
-    {!ansObjForRendering[3] &&  <View style={{ flex: ".41", flexDirection: "row" }} />}
+    {!ansObjForRendering[3] &&  <View style={{ flex: .41, flexDirection: "row" }} />}
 
     </View>
 

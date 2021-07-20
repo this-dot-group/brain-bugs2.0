@@ -9,7 +9,7 @@ export const alertText = {
 };
 
 export const answerText = {
-  fontSize: 25,
+  fontSize: 20,
   textAlign: 'center',
 };
 
