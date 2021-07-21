@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet, Modal } from 'react-native';
 import { Redirect } from 'react-router-native';
 import { connect } from 'react-redux';
+import faker from 'faker';
 import JoinGameModal from './Modals/JoinGame';
 import PrivateGameModal from './Modals/PrivateGame';
 import StartGameModal from './Modals/StartGame';
-import { newOpponent } from '../../store/userReducer';
+import MuteButton from '../MuteButton/MuteButton';
+import { newOpponent, newGameCode } from '../../store/userReducer';
 import { newGame } from '../../store/gameInfoReducer';
+import { playSound } from '../../store/soundsReducer'
 
 import { Buttons } from '../../styles';
-import usePlaySound from '../../sounds/usePlaySound'
+// import usePlaySound from '../../sounds/usePlaySound'
 
 const styles = StyleSheet.create({
   gameOptionButtons: {
@@ -23,11 +26,21 @@ function StartScreen(props) {
   const [gamesWaiting, setGamesWaiting] = useState([])
   const [roomJoin, setRoomJoin] = useState(false);
 
-  const { playSound } = usePlaySound(['flute', 'click'])
+  // const { playSound } = usePlaySound(['flute', 'click'])
 
   useEffect(() => {
     // reset game so no info from previous games carries over
     props.newGame({});
+
+    // maybe make a new game code each time coming here
+    let codeNum = faker.random.number();
+    let code = codeNum.toString();
+    while (code.length !== 5) {
+      codeNum = faker.random.number()
+      code = codeNum.toString();
+    }
+    props.newGameCode(code);
+
     props.socket.emit('inJoinGame', null)
 
     const receiveAvailableGames = allGames => {
@@ -70,7 +83,7 @@ function StartScreen(props) {
   }, []);
 
   const handleModalChange = (modalVisible) => {
-    playSound('click')
+    props.playSound('click')
     setModalVisible(modalVisible)
   }
 
@@ -78,6 +91,7 @@ function StartScreen(props) {
     <View>
       <Text> Welcome {props.userName}! </Text>
       <Text> Short explanation of options below </Text>
+      <MuteButton />
       <Pressable
         style={styles.gameOptionButtons}
         onPress={() => handleModalChange('start')}
@@ -126,6 +140,6 @@ const mapStateToProps = (state) => {
     socket: state.socketReducer
   }
 }
-const mapDispatchToProps = { newOpponent, newGame }
+const mapDispatchToProps = { newOpponent, newGame, newGameCode, playSound }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartScreen)

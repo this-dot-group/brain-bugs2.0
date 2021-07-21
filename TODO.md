@@ -8,17 +8,19 @@
   * WaitingRoom Screen
 
 ***************************
-# 6/6/21
+# 7/20/21
 
 Josh:
-- Sound - fill out for more actions, look into changing moving sounds to root level so we can use sounds on screen changes
+- X - Sound - Add 'mute' capability
+  - use local storage to remember mute status
+- Not a great way to see which player is which on final screen - in the code
 - Look into single player issue - is it also a multiplayer issue? What is causing it?
-- Update scoring, so you get as many points as seconds left
+- X - Update scoring, so you get as many points as seconds left
+- Don't allow submit unless an answer is selected
+- Fix rematch for single player or remove
 
 Tia:
-- Push notification research
-- Lady Bug Brain Bug
-- Layout of Gameplay Screen
+- Push notification 
 
 PUSH NOTIFICATIONS
 - add the following to app.json to customize notifications
@@ -36,33 +38,33 @@ PUSH NOTIFICATIONS
 
 ## Code
 - When one person leaves, let other user know that they have left
-- transition from question to question, "waiting for 1 player to answer..." lingers after other player has answered, and while the correct answer is showing
 - if you dont answer a question, when the correct answer moment occurs it looks like you answered correctly (because no other option is selected)
+  - improve selected/submitted feedback (raining down smileys/sads)
+- clean up package.json unused dependencies
 
 ## New Features
 * Chat functionality at end
-* Emoji decorations
+* Emoji decorations 
 
 ## Styling/Content
+- Responsive font size for answer pressables and question on GameScreen
 - Content for all pages, such as how to play instructions 
-- Could have a Submit button that is greyed out/disabled until the user chooses an answer
-- React native ellipsis package has style props (see npm package site)
 - Logo/img/etc
 
 ## Improvement ideas
-* Single player fake opponent scoring
+* Single player fake opponent scoring (right now they get it right 50% of time, random # for points)
 - Change one player game title to 'practice round'?
-* Give higher score for a faster response
-
-## Check in Future
-- Single player does not work unless it is the first game, maybe same with multiplayer
 
 ## Manuel Testing
 - Single Player Works
-- Muliti Player
+- Multi Player
 - Each one First
 - Each One Second
 - Works with both Game Maker and Game Joiner 
+
+## Possible bugs
+- Single player does not work unless it is the first game, maybe same with multiplayer
+
 
 
 

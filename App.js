@@ -14,6 +14,15 @@ import GameScreen from './src/components/GameScreen/GameScreen'
 import HowToPlay from './src/components/HowToPlay/HowToPlay'
 import Lobby from './src/components/Lobby/LobbyScreen'
 import WaitingRoom from './src/components/WaitingRoom/WaitingRoom.js'
+import Sounds from './src/sounds/Sounds'
+
+// import flute from './flute.wav'
+// import click from './click.wav';
+
+// export const allSounds = {
+//   flute,
+//   click
+// }
 
 
 const styles = StyleSheet.create({
@@ -62,6 +71,7 @@ export default function App() {
 
     <Provider
       store={store}>
+      <Sounds />
       <NativeRouter>
         <View style={styles.container}>
           <Route

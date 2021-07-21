@@ -11,11 +11,6 @@ import * as Notifications from 'expo-notifications';
 
 import { Buttons, Views, Typography } from '../../styles';
 
-import { EXPO_LOCAL_URL } from '../../../env'
-
-import socketIO from 'socket.io-client';
-const fakeOpponentSocket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
-
 const styles = StyleSheet.create({
   modalView: {
     ...Views.modalView,
@@ -63,17 +58,12 @@ const WaitingRoom = (props) => {
     props.fullGameInfo.userName = props.userName;
     props.fullGameInfo.gameCode = props.gameCode;
 
+    // console.log(props.fullGameInfo);
+
     if(props.fullGameInfo.liveGameQuestions) {
+      // console.log('This needs to be beore "in one player waiting room log"');
       props.socket.emit('newGame', props.fullGameInfo)
     }
-
-
-    if (props.fullGameInfo.numPlayers === 1) {
-      // console.log('in one player waiting room')
-      props.newFakeOpponent(fakeOpponentSocket)
-      fakeOpponentSocket.emit('joinTwoPlayer', [props.gameCode, 'Cricket'])
-    }
-
 
     const redirectToHowToPlay = usernames => {
       // console.log(usernames.gameJoiner)
@@ -81,10 +71,20 @@ const WaitingRoom = (props) => {
       setRoomJoin(true);
     }
 
+    const startOnePlayer = (gameCode) => {
+      if (props.fullGameInfo.numPlayers === 1) {
+        // console.log('in one player waiting room')
+        // props.newFakeOpponent(fakeOpponentSocket)
+        props.fakeOpponentSocket.emit('joinTwoPlayer', [gameCode, 'Cricket']);
+      }
+    }
+
     props.socket.on('redirectToHowToPlay', redirectToHowToPlay)
+    props.socket.on('startOnePlayer', startOnePlayer)
 
     return () => {
       props.socket.off('redirectToHowToPlay', redirectToHowToPlay);
+      props.socket.off('startOnePlayer', startOnePlayer);
     }
 
   }, [props.fullGameInfo.liveGameQuestions])
@@ -156,6 +156,7 @@ const mapStateToProps = (state) => {
     userName: state.userReducer.username,
     gameCode: state.userReducer.gameCode,
     socket: state.socketReducer,
+    fakeOpponentSocket: state.fakeOpponentSocketReducer,
     publicOrPrivate: state.gameInfoReducer.publicOrPrivate,
     fullGameInfo: state.gameInfoReducer
 

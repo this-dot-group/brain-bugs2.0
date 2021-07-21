@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-native'
 import { connect } from 'react-redux';
 import { numQuestions, newCategory, publicOrPrivate, getQuestions } from '../../store/gameInfoReducer';
 import { newOpponent } from '../../store/userReducer';
+import { playSound } from '../../store/soundsReducer'
 
 
 import { Buttons } from '../../styles'
@@ -12,6 +13,7 @@ import { Buttons } from '../../styles'
 const styles = StyleSheet.create({
   backToLobbyButton: {
     ...Buttons.openButton,
+    marginTop: 20
   },
 })
 
@@ -28,6 +30,15 @@ function GameEnd(props) {
   const playerTwoScore = props.location.state.finalScore.playerTwo.score
 
   useEffect(() => {
+    // Play sound to reward winner and punish loser
+    let userObj = playerOneName === props.username ? props.location.state.finalScore.playerOne : props.location.state.finalScore.playerTwo;
+
+    if (userObj.score === Math.max(playerOneScore, playerTwoScore)) {
+      props.playSound('win');
+    } else {
+      props.playSound('lose');
+    }
+
     props.socket.on('rematchInvitation', onRematchInvitation);
     props.socket.on('opponentRematchResponse', onRematchResponse)
     props.socket.on('gameCodeForRematch', joinRematch)
@@ -90,14 +101,15 @@ function GameEnd(props) {
       props.numQuestions(rematchGameInfo.numQuestions);
       props.publicOrPrivate('private');
 
-      // the purpose of the event below is to get oppoent into gameplay (how to play, waiting room, whatever) also
       props.socket.emit('sendRematchOpponentToPrivateGameJoin', props.gameCode);
 
       setRematchReady(true);
     
     }
 
-    createOpponentSaidNoAlert(props.opponent);
+    if(!response) {
+      createOpponentSaidNoAlert(props.opponent);
+    }
     
   }
 
@@ -193,7 +205,8 @@ const mapDispatchToProps = {
   newCategory,
   publicOrPrivate,
   getQuestions,
-  newOpponent
+  newOpponent,
+  playSound
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameEnd);

@@ -10,12 +10,16 @@ import { Audio } from 'expo-av'
 import usePlaySound from '../../sounds/usePlaySound'
 
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
+import MuteButton from '../MuteButton/MuteButton';
 
 // modular styles
 import { Buttons, Images, Views, Typography, Colors } from '../../styles/'
 
 // socket imports
 import { newSocket } from '../../store/socketReducer.js';
+import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer';
+import { playSound } from '../../store/soundsReducer';
+
 import { newUsername, newGameCode } from '../../store/userReducer.js';
 import { Button } from 'react-native';
 import { TextBase } from 'react-native';
@@ -28,6 +32,7 @@ import { EXPO_LOCAL_URL } from '../../../env'
 
 
 const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
+const fakeOpponentSocket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 
 // construct styles here, ability to add indv styling as needed on a per-component basis
 const styles = StyleSheet.create({
@@ -63,7 +68,7 @@ function Homescreen(props) {
   const [toLobby, setToLobby] = useState(false);
   // const [token, setToken] = useState('');
   
-  const { playSound } = usePlaySound(['flute', 'click']);
+  // const { playSound } = usePlaySound(['flute', 'click']);
 
 
   // const registerForPushNotifications = async () => {
@@ -105,13 +110,15 @@ function Homescreen(props) {
 
   useEffect(() => {
     props.newSocket(socket)
-    let codeNum = faker.random.number();
-    let code = codeNum.toString();
-    while (code.length !== 5) {
-      codeNum = faker.random.number()
-      code = codeNum.toString();
-    }
-    props.newGameCode(code);
+    props.newFakeOpponent(fakeOpponentSocket);
+
+    // let codeNum = faker.random.number();
+    // let code = codeNum.toString();
+    // while (code.length !== 5) {
+    //   codeNum = faker.random.number()
+    //   code = codeNum.toString();
+    // }
+    // props.newGameCode(code);
 
     // GET PUSH NOTIFICATION TOKEN
     
@@ -130,7 +137,7 @@ function Homescreen(props) {
 
   const handleGo = async () => {
     // Sound does not play here, it goes to lobby too quickly
-    await playSound('flute');
+    await props.playSound('flute');
     setToLobby(true)
   }
 
@@ -142,12 +149,13 @@ function Homescreen(props) {
       <Pressable
         style={styles.howToPlayModalButton}
         onPress={() => {
-          playSound('click')
+          props.playSound('click')
           setModalVisible(true);
         }}
       >
         <Text>How To Play</Text>
       </Pressable>
+      <MuteButton />
       
       <Image
         source={require('../../images/logo_option.png')}
@@ -186,7 +194,7 @@ function Homescreen(props) {
           <Pressable
             style={styles.howToPlayModalButton}
             onPress={() => {
-              playSound('click')
+              props.playSound('click')
               setModalVisible(!modalVisible)
             }}
           >
@@ -203,7 +211,7 @@ function Homescreen(props) {
   )
 }
 
-const mapDispatchToProps = { newUsername, newSocket, newGameCode }
+const mapDispatchToProps = { newUsername, newSocket, newGameCode, newFakeOpponent, playSound }
 
 
 // null is currently a placeholder for mapStateToProps
