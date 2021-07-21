@@ -20,6 +20,11 @@ export const modalView = {
   shadowOpacity: 0.25,
   shadowRadius: 3.84,
   elevation: 5,
+  display: "flex",
+  flexDirection: "column",
+  alignSelf: "center",
+  width: "90%",
+  height: "80%"
 };
 
 export const dropDownView = {

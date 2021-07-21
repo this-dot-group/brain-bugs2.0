@@ -8,7 +8,7 @@
   * WaitingRoom Screen
 
 ***************************
-# 6/6/21
+# 7/20/21
 
 Josh:
 - X - Sound - Add 'mute' capability
@@ -20,39 +20,37 @@ Josh:
 - Fix rematch for single player or remove
 
 Tia:
-- Push notification research
-- Lady Bug Brain Bug
-- Layout of Gameplay Screen
+- Push notification 
 
 ## Code
 - When one person leaves, let other user know that they have left
-- transition from question to question, "waiting for 1 player to answer..." lingers after other player has answered, and while the correct answer is showing
 - if you dont answer a question, when the correct answer moment occurs it looks like you answered correctly (because no other option is selected)
+  - improve selected/submitted feedback (raining down smileys/sads)
+- clean up package.json unused dependencies
 
 ## New Features
 * Chat functionality at end
-* Emoji decorations
+* Emoji decorations 
 
 ## Styling/Content
+- Responsive font size for answer pressables and question on GameScreen
 - Content for all pages, such as how to play instructions 
-- Could have a Submit button that is greyed out/disabled until the user chooses an answer
-- React native ellipsis package has style props (see npm package site)
 - Logo/img/etc
 
 ## Improvement ideas
-* Single player fake opponent scoring
+* Single player fake opponent scoring (right now they get it right 50% of time, random # for points)
 - Change one player game title to 'practice round'?
-* Give higher score for a faster response
-
-## Check in Future
-- Single player does not work unless it is the first game, maybe same with multiplayer
 
 ## Manuel Testing
 - Single Player Works
-- Muliti Player
+- Multi Player
 - Each one First
 - Each One Second
 - Works with both Game Maker and Game Joiner 
+
+## Possible bugs
+- Single player does not work unless it is the first game, maybe same with multiplayer
+
 
 
 
