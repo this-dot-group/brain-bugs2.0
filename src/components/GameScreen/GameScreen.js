@@ -434,12 +434,12 @@ function GameScreen(props) {
 
     </View>
 
-     {/* { gameEnd &&
+     { gameEnd &&
         <Redirect
           to={{
             pathname: '/gameend',
             state: { finalScore: score, socketIdRef: props.socket.id },
-          }} />} */}
+          }} />}
 
     </>
   }
