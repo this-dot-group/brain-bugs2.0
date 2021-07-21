@@ -10,6 +10,7 @@ import { Audio } from 'expo-av'
 import usePlaySound from '../../sounds/usePlaySound'
 
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
+import MuteButton from '../MuteButton/MuteButton';
 
 // modular styles
 import { Buttons, Images, Views, Typography, Colors } from '../../styles/'
@@ -154,6 +155,7 @@ function Homescreen(props) {
       >
         <Text>How To Play</Text>
       </Pressable>
+      <MuteButton />
       
       <Image
         source={require('../../images/logo_option.png')}

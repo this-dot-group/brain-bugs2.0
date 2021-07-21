@@ -4,6 +4,8 @@ import flute from './flute.wav';
 import click from './click.wav';
 import negativeTone from './negative-tone.wav';
 import positiveTone from './positive.wav';
+import win from './win.wav';
+import lose from './lose.wav';
 import { connect } from 'react-redux';
 import { newSound } from '../store/soundsReducer';
 
@@ -11,7 +13,9 @@ const allSounds = {
   flute,
   click,
   negativeTone,
-  positiveTone
+  positiveTone,
+  win,
+  lose,
 }
 
 function Sounds({ newSound }) {
