@@ -66,10 +66,10 @@ const WaitingRoom = (props) => {
     props.fullGameInfo.userName = props.userName;
     props.fullGameInfo.gameCode = props.gameCode;
 
-    console.log(props.fullGameInfo);
+    // console.log(props.fullGameInfo);
 
     if(props.fullGameInfo.liveGameQuestions) {
-      console.log('This needs to be beore "in one player waiting room log"');
+      // console.log('This needs to be beore "in one player waiting room log"');
       props.socket.emit('newGame', props.fullGameInfo)
     }
 
@@ -81,14 +81,14 @@ const WaitingRoom = (props) => {
     // }
 
     const redirectToHowToPlay = usernames => {
-      console.log(usernames.gameJoiner)
+      // console.log(usernames.gameJoiner)
       props.newOpponent(usernames.gameJoiner)
       setRoomJoin(true);
     }
 
     const startOnePlayer = (gameCode) => {
       if (props.fullGameInfo.numPlayers === 1) {
-        console.log('in one player waiting room')
+        // console.log('in one player waiting room')
         // props.newFakeOpponent(fakeOpponentSocket)
         props.fakeOpponentSocket.emit('joinTwoPlayer', [gameCode, 'Cricket']);
       }

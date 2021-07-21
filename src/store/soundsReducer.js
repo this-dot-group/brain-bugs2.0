@@ -32,7 +32,7 @@ export const playSound =  (soundName, allSounds) => {
     const { soundsReducer } = getState()
     try {
       const obj = await soundsReducer[soundName].replayAsync()
-      console.log(obj)
+      // console.log(obj)
     } catch (e) {
       console.log(e)
     }

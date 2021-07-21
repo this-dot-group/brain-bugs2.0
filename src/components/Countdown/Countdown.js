@@ -1,9 +1,16 @@
 import React, { useEffect, memo } from 'react';
-import { Text } from 'react-native'
+import { StyleSheet } from 'react-native';
+import { Text } from 'react-native';
+import { Typography } from '../../styles/'
 
+
+const styles = StyleSheet.create({
+  countdownText: {
+    ...Typography.countdownText,
+  },
+})
 
 function Countdown(props) {
-  // const [seconds, setSeconds] = useState(props.seconds);
 
   useEffect(() => {
     const myInterval = setInterval(() => {
@@ -15,8 +22,7 @@ function Countdown(props) {
     return () => clearInterval(myInterval);
   });
   
-
-  return (<Text>{props.seconds}</Text>);
+  return (<Text style={styles.countdownText}>{props.seconds}</Text>);
 
 }
 

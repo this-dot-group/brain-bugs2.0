@@ -59,7 +59,7 @@ export default function usePlaySound(soundsToLoad) {
   const playSound = async soundName => {
     try {
       const obj = await sounds[soundName].replayAsync()
-      console.log(obj)
+      // console.log(obj)
     } catch (e) {
       console.log(e)
     }

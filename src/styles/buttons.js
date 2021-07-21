@@ -49,7 +49,9 @@ export const submittedAnswer = {
 
 export const submitButton = {
   backgroundColor: 'white',
-  borderWidth: 4,
+  borderWidth: 2,
+  borderRadius: 50,
+  justifyContent: "center",
   borderColor: 'black',
   borderStyle: 'solid',
   textAlign: 'center',
