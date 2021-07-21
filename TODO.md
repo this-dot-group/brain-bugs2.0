@@ -10,17 +10,33 @@
 ***************************
 # 7/20/21
 
+** REVISIT and DISCUSS MVP **
+- put things into MVP and Stretch Goals categories
+
+** PLAN OUT HOW TO APPROACH CHAT **
+
 Josh:
-- X - Sound - Add 'mute' capability
-  - use local storage to remember mute status
 - Not a great way to see which player is which on final screen - in the code
-- Look into single player issue - is it also a multiplayer issue? What is causing it?
-- X - Update scoring, so you get as many points as seconds left
-- Don't allow submit unless an answer is selected
 - Fix rematch for single player or remove
 
+
 Tia:
-- Push notification 
+- Push notification
+- Research deployment 
+
+PUSH NOTIFICATIONS
+- add the following to app.json to customize notifications
+    // "plugins": [
+    //   [
+    //     "expo-notifications",
+    //     {
+    //       "icon": "./local/path/to/myNotificationIcon.png",
+    //       "color": "#ffffff",
+    //       "sounds": ["./local/path/to/mySound.wav", "./local/path/to/myOtherSound.wav"],
+    //       "mode": "production"
+    //     }
+    //   ]
+    // ],
 
 ## Code
 - When one person leaves, let other user know that they have left
@@ -40,6 +56,7 @@ Tia:
 ## Improvement ideas
 * Single player fake opponent scoring (right now they get it right 50% of time, random # for points)
 - Change one player game title to 'practice round'?
+- use local storage to remember mute status, name, maybe high score? 
 
 ## Manuel Testing
 - Single Player Works
