@@ -17,7 +17,8 @@
 
 Josh:
 - Not a great way to see which player is which on final screen - in the code
-- Fix rematch for single player or remove
+- X Fix rematch for single player or remove
+- Ticking sound
 
 
 Tia:

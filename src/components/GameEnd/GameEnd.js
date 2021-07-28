@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, Pressable, StyleSheet, Alert } from 'react-native'
 import { Redirect } from 'react-router-native'
 import { connect } from 'react-redux';
-import { numQuestions, newCategory, publicOrPrivate, getQuestions } from '../../store/gameInfoReducer';
+import { numQuestions, newCategory, publicOrPrivate, getQuestions, resetQuestions } from '../../store/gameInfoReducer';
 import { newOpponent } from '../../store/userReducer';
 import { playSound } from '../../store/soundsReducer'
 
@@ -43,12 +43,12 @@ function GameEnd(props) {
     props.socket.on('opponentRematchResponse', onRematchResponse)
     props.socket.on('gameCodeForRematch', joinRematch)
     props.socket.on('redirectToHowToPlay', redirect);
+
     return () => {
       props.socket.off('rematchInvitation', onRematchInvitation)
       props.socket.off('opponentRematchResponse', onRematchResponse)
       props.socket.off('gameCodeForRematch', joinRematch)
       props.socket.off('redirectToHowToPlay', redirect);
-
 
     }
 
@@ -88,7 +88,7 @@ function GameEnd(props) {
       ],
       { cancelable: false }
     );
-    }
+  }
 
   const onRematchResponse = (payload) => {
 
@@ -117,15 +117,19 @@ function GameEnd(props) {
 
     // this stuff is happening to the person who said YES to the rematch, the opponent
 
+    if(props.numPlayers === 1) {
+      props.fakeOpponentSocket.emit('joinTwoPlayer', [gameCode, 'Cricket']);
+    }
     props.socket.emit('joinTwoPlayer', [gameCode, props.username]);
   }
 
 
-
-
-
   const handleRematch = () => {
     props.socket.emit('rematch')
+    if(props.numPlayers === 1) {
+      props.resetQuestions()
+      setRematchReady(true);
+    }
   };
 
   const handleYes = () => {
@@ -197,7 +201,8 @@ const mapStateToProps = state => ({
   socket: state.socketReducer,
   fakeOpponentSocket: state.fakeOpponentSocketReducer,
   opponent: state.userReducer.opponent,
-  username: state.userReducer.username
+  username: state.userReducer.username,
+  numPlayers: state.gameInfoReducer.numPlayers || 2,
 })
 
 const mapDispatchToProps = {
@@ -205,6 +210,7 @@ const mapDispatchToProps = {
   newCategory,
   publicOrPrivate,
   getQuestions,
+  resetQuestions,
   newOpponent,
   playSound
 }

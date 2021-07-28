@@ -54,22 +54,22 @@ function StartGame(props) {
   //     const { status: existingStatus } = await Permissions.getAsync(
   //       Permissions.NOTIFICATIONS
   //     );
-  
+
   //     let finalStatus = existingStatus;
   //     console.log('final status:', finalStatus);
-  
+
   //     if (existingStatus !== "granted") {
   //       const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
   //       finalStatus = status;
   //     }
-  
+
   //     if (finalStatus !== "granted") {
   //       return;
   //     }
-  
+
   //     // If the permission was granted, then get the token
   //     const token = await ExpoNotifications.getExpoPushTokenAsync();
-  
+
   //     // Android specific configuration, needs the channel
   //     if (Platform.OS === "android") {
   //       ExpoNotifications.createChannelAndroidAsync("default", {
@@ -80,7 +80,7 @@ function StartGame(props) {
   //       });
   //     }
   //     console.log('TOKEN', token);
-  
+
   //     return token;
   //   }
   // };
@@ -113,115 +113,115 @@ function StartGame(props) {
       supportedOrientations={['landscape']}
       propogateSwipe
     >
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{ flex: 1 }}>
 
-      <ScrollView>
-          
-      <View
-        style={styles.modalView}
-        >
-        <View style={{ flexDirection: "row", flex: .2}}>
+        <ScrollView>
 
-          <Text style={{ textAlign: "center"}}>Start a game here!!</Text>
+          <View
+            style={styles.modalView}
+          >
+            <View style={{ flexDirection: "row", flex: .2 }}>
 
-          <Pressable
-              style={styles.closeModalButton}
-              onPress={() => props.setModalVisible(null)}
+              <Text style={{ textAlign: "center" }}>Start a game here!!</Text>
+
+              <Pressable
+                style={styles.closeModalButton}
+                onPress={() => props.setModalVisible(null)}
               >
-              <Text>X</Text>
-          </Pressable>
+                <Text>X</Text>
+              </Pressable>
 
-        </View>
-
-        <View style={{ flexDirection: "row", flex: .35}}>
-          <View style={styles.dropDownView}>
-            <DropDownPicker
-              containerStyle={styles.dropDownContainer}
-              
-              
-              multiple={false}
-              placeholder='Select a Category'
-              itemStyle={styles.dropDownItem}
-              
-              onChangeItem={item => {
-                props.newCategory({ name: item.label, id: item.value })
-              }}
-              items={categoryList}
-              />
-          </View>
-          <View style={styles.dropDownView}>
-            <DropDownPicker
-              containerStyle={styles.dropDownContainer}
-              placeholder='Number of Questions'
-              multiple={false}
-              onChangeItem={item => {
-                props.numQuestions(item.value)
-              }}
-              items={[
-                { label: '1 - TEST', value: 1 },
-                { label: '10', value: 10 },
-                { label: '15', value: 15 },
-                { label: '20', value: 20 },
-                { label: '25', value: 25 },
-              ]}
-              />
-          </View>
-        </View>
-
-
-        <View style={{ flexDirection: "row", flex: .35}}>
-          <View style={styles.dropDownView}>
-            <DropDownPicker
-              containerStyle={styles.dropDownContainer}
-              placeholder='Number of Players'
-              multiple={false}
-              onChangeItem={item => {
-                props.numPlayers(item.value);
-                setNumPlayers(item.value);
-                
-              }}
-              items={[
-                { label: 'Single Player', value: 1 },
-                { label: 'Two Players', value: 2 }
-              ]}
-              />
-          </View>
-
-          {numPlayers === 2 &&
-            <View style={styles.dropDownView}>
-              <DropDownPicker
-                containerStyle={styles.dropDownContainer}
-                placeholder='Public or Private Game'
-                multiple={false}
-                onChangeItem={item => {
-                  props.publicOrPrivate(item.value);
-                }}
-                items={[
-                  { label: 'Public Game', value: 'public' },
-                  { label: 'Private Game', value: 'private' }
-                ]}
-                />
             </View>
-          }
 
-        </View>
+            <View style={{ flexDirection: "row", flex: .35 }}>
+              <View style={styles.dropDownView}>
+                <DropDownPicker
+                  containerStyle={styles.dropDownContainer}
 
 
-  
-        {/* <Pressable onPressIn={registerForPushNotifications()}> */}
+                  multiple={false}
+                  placeholder='Select a Category'
+                  itemStyle={styles.dropDownItem}
 
-        <View style={{ flexDirection: "row", flex: .1,alignSelf: "center"}}>
+                  onChangeItem={item => {
+                    props.newCategory({ name: item.label, id: item.value })
+                  }}
+                  items={categoryList}
+                />
+              </View>
+              <View style={styles.dropDownView}>
+                <DropDownPicker
+                  containerStyle={styles.dropDownContainer}
+                  placeholder='Number of Questions'
+                  multiple={false}
+                  onChangeItem={item => {
+                    props.numQuestions(item.value)
+                  }}
+                  items={[
+                    { label: '1 - TEST', value: 1 },
+                    { label: '10', value: 10 },
+                    { label: '15', value: 15 },
+                    { label: '20', value: 20 },
+                    { label: '25', value: 25 },
+                  ]}
+                />
+              </View>
+            </View>
 
-          <Pressable style={{}}>
-            <Link to='/waitingroom'>
-              <Text>Go!</Text>
-            </Link>
-          </Pressable>
-        </View>
 
-      </View>
-</ScrollView>
-        </SafeAreaView>
+            <View style={{ flexDirection: "row", flex: .35 }}>
+              <View style={styles.dropDownView}>
+                <DropDownPicker
+                  containerStyle={styles.dropDownContainer}
+                  placeholder='Number of Players'
+                  multiple={false}
+                  onChangeItem={item => {
+                    props.numPlayers(item.value);
+                    setNumPlayers(item.value);
+
+                  }}
+                  items={[
+                    { label: 'Single Player', value: 1 },
+                    { label: 'Two Players', value: 2 }
+                  ]}
+                />
+              </View>
+
+              {numPlayers === 2 &&
+                <View style={styles.dropDownView}>
+                  <DropDownPicker
+                    containerStyle={styles.dropDownContainer}
+                    placeholder='Public or Private Game'
+                    multiple={false}
+                    onChangeItem={item => {
+                      props.publicOrPrivate(item.value);
+                    }}
+                    items={[
+                      { label: 'Public Game', value: 'public' },
+                      { label: 'Private Game', value: 'private' }
+                    ]}
+                  />
+                </View>
+              }
+
+            </View>
+
+
+
+            {/* <Pressable onPressIn={registerForPushNotifications()}> */}
+
+            <View style={{ flexDirection: "row", flex: .1, alignSelf: "center" }}>
+
+              <Pressable style={{}}>
+                <Link to='/waitingroom'>
+                  <Text>Go!</Text>
+                </Link>
+              </Pressable>
+            </View>
+
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     </Modal>
   )
 }
@@ -229,7 +229,7 @@ const mapStateToProps = (state) => {
   return {
     socket: state.socketReducer,
     gameCode: state.userReducer.gameCode
-    
+
   }
 }
 const mapDispatchToProps = {

@@ -86,3 +86,8 @@ export const getQuestions = (id, numQuestions) => {
     });
   };
 };
+
+export const resetQuestions = () => ({
+  type: 'GET_QUESTIONS',
+  payload: null
+})
