@@ -20,7 +20,7 @@ import { newSocket } from '../../store/socketReducer.js';
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer';
 import { playSound } from '../../store/soundsReducer';
 
-import { newUsername, newGameCode } from '../../store/userReducer.js';
+import { newUsername, newGameCode, newSocketId } from '../../store/userReducer.js';
 import { Button } from 'react-native';
 import { TextBase } from 'react-native';
 import { EXPO_LOCAL_URL } from '../../../env'
@@ -111,7 +111,7 @@ function Homescreen(props) {
   useEffect(() => {
     props.newSocket(socket)
     props.newFakeOpponent(fakeOpponentSocket);
-
+    socket.on('shareId', setSocketId)
     // let codeNum = faker.random.number();
     // let code = codeNum.toString();
     // while (code.length !== 5) {
@@ -121,9 +121,14 @@ function Homescreen(props) {
     // props.newGameCode(code);
 
     // GET PUSH NOTIFICATION TOKEN
-    
+    return () => socket.off('shareId', setSocketId)
 
   }, [])
+
+  const setSocketId = id => {
+    console.log('in setSocketID', id)
+    props.newSocketId(id);
+  }
 
   const handleUsernameChange = (username) => {
 
@@ -211,7 +216,7 @@ function Homescreen(props) {
   )
 }
 
-const mapDispatchToProps = { newUsername, newSocket, newGameCode, newFakeOpponent, playSound }
+const mapDispatchToProps = { newUsername, newSocket, newGameCode, newFakeOpponent, playSound, newSocketId }
 
 
 // null is currently a placeholder for mapStateToProps

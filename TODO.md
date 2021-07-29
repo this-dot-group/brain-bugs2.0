@@ -16,7 +16,8 @@
 ** PLAN OUT HOW TO APPROACH CHAT **
 
 Josh:
-- Not a great way to see which player is which on final screen - in the code
+- X Not a great way to see which player is which on final screen - in the code
+  - Keep track of socket from start in redux, and use that to identify user at end by attaching to score object coming from server, or possibly at other places
 - X Fix rematch for single player or remove
 - Ticking sound
 

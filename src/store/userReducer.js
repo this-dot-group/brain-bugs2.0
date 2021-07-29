@@ -11,6 +11,8 @@ export default (state = {}, action) => {
     return { ...state, gameCode: payload };
   case 'NEW_OPPONENT':
     return { ...state, opponent: payload };
+  case 'NEW_SOCKET_ID':
+    return { ...state, socketId: payload };
   default:
     return state;
   }
@@ -35,6 +37,13 @@ export const newOpponent = (name) => {
   return {
     type: 'NEW_OPPONENT',
     payload: name,
+  };
+};
+
+export const newSocketId = (id) => {
+  return {
+    type: 'NEW_SOCKET_ID',
+    payload: id,
   };
 };
 

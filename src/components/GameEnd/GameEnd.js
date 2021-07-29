@@ -23,20 +23,29 @@ function GameEnd(props) {
   const [rematchReady, setRematchReady] = useState(false)
   const [roomJoin, setRoomJoin] = useState(false);
   const [showInvitation, setShowInvitation] = useState(false);
+  const [currentUserObj, setCurrentUserObj] = useState({});
+  const [userOutcome, setUserOutcome] = useState('')
 
   const playerOneName = props.location.state.finalScore.playerOne.name
   const playerOneScore = props.location.state.finalScore.playerOne.score
+  const playerOneSocket = props.location.state.finalScore.playerOne.socket;
   const playerTwoName = props.location.state.finalScore.playerTwo.name
-  const playerTwoScore = props.location.state.finalScore.playerTwo.score
+  const playerTwoScore = props.location.state.finalScore.playerTwo.score;
 
   useEffect(() => {
     // Play sound to reward winner and punish loser
-    let userObj = playerOneName === props.username ? props.location.state.finalScore.playerOne : props.location.state.finalScore.playerTwo;
+    let userObj = playerOneSocket === props.socketId ? props.location.state.finalScore.playerOne : props.location.state.finalScore.playerTwo;
 
-    if (userObj.score === Math.max(playerOneScore, playerTwoScore)) {
+    setCurrentUserObj(userObj)
+
+    if(playerTwoScore === playerOneScore) {
+      setUserOutcome('tie');
+    } else if (userObj.score === Math.max(playerOneScore, playerTwoScore)) {
       props.playSound('win');
+      setUserOutcome('win');
     } else {
       props.playSound('lose');
+      setUserOutcome('lose');
     }
 
     props.socket.on('rematchInvitation', onRematchInvitation);
@@ -199,6 +208,7 @@ const mapStateToProps = state => ({
   gameInfo: state.gameInfoReducer,
   gameCode: state.userReducer.gameCode,
   socket: state.socketReducer,
+  socketId: state.userReducer.socketId,
   fakeOpponentSocket: state.fakeOpponentSocketReducer,
   opponent: state.userReducer.opponent,
   username: state.userReducer.username,
