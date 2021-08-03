@@ -78,13 +78,18 @@ export const publicOrPrivate = answer => {
 export const getQuestions = (id, numQuestions, tokenForRematch) => {
   
   return async (dispatch, getState) => {
-    const { userReducer: { token } } = getState();
-    const response = await axios.get(`http://${EXPO_LOCAL_URL}:3000/questions/${id}/${numQuestions}/${tokenForRematch || token}`);
-    // console.log('response from axois', response.data);
-    dispatch({
-      type: 'GET_QUESTIONS',
-      payload: response.data,
-    });
+    try {
+      const { userReducer: { token } } = getState();
+      const response = await axios.get(`http://${EXPO_LOCAL_URL}:3000/questions/${id}/${numQuestions}/${tokenForRematch || token}`);
+      // console.log('response from axois', response.data);
+      dispatch({
+        type: 'GET_QUESTIONS',
+        payload: response.data,
+      });
+    } catch(e) {
+      // Do something with expended category
+      console.log(e);
+    }
   };
 };
 
