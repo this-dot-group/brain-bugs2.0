@@ -75,10 +75,11 @@ export const publicOrPrivate = answer => {
   };
 };
 
-export const getQuestions = (id, numQuestions) => {
+export const getQuestions = (id, numQuestions, tokenForRematch) => {
   
-  return async dispatch => {
-    const response = await axios.get(`http://${EXPO_LOCAL_URL}:3000/questions/${id}/${numQuestions}`);
+  return async (dispatch, getState) => {
+    const { userReducer: { token } } = getState();
+    const response = await axios.get(`http://${EXPO_LOCAL_URL}:3000/questions/${id}/${numQuestions}/${tokenForRematch || token}`);
     // console.log('response from axois', response.data);
     dispatch({
       type: 'GET_QUESTIONS',

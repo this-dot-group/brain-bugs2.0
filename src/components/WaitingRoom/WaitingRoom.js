@@ -42,6 +42,7 @@ const WaitingRoom = (props) => {
   const [roomJoin, setRoomJoin] = useState(false)
 
   const [copied, setCopied] = useState(false);
+  const [token, setToken] = useState('');
 
   // const [questions, setQuestions] = useState([]);
 
@@ -54,42 +55,34 @@ const WaitingRoom = (props) => {
   }
 
   useEffect(() => {
-
+    const tokenToUse = props.location.state?.token || props.token
+    setToken(tokenToUse);
     (async () => {
-      await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions)
-
+      await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions, tokenToUse)
+      
     })()
-
+    
   }, [])
-
+  
   useEffect(() => {
     props.fullGameInfo.userName = props.userName;
     props.fullGameInfo.gameCode = props.gameCode;
-
-    // console.log(props.fullGameInfo);
+    props.fullGameInfo.token = props.token;
 
     if(props.fullGameInfo.liveGameQuestions) {
       // console.log('This needs to be beore "in one player waiting room log"');
-      props.socket.emit('newGame', props.fullGameInfo)
+      props.socket.emit('newGame', {...props.fullGameInfo, token })
     }
 
 
-    // if (props.fullGameInfo.numPlayers === 1) {
-    //   console.log('in one player waiting room')
-    //   // props.newFakeOpponent(fakeOpponentSocket)
-    //   props.fakeOpponentSocket.emit('joinTwoPlayer', [props.gameCode, 'Cricket']);
-    // }
-
     const redirectToHowToPlay = usernames => {
-      // console.log(usernames.gameJoiner)
       props.newOpponent(usernames.gameJoiner)
       setRoomJoin(true);
     }
 
     const startOnePlayer = (gameCode) => {
       if (props.fullGameInfo.numPlayers === 1) {
-        // console.log('in one player waiting room')
-        // props.newFakeOpponent(fakeOpponentSocket)
+
         props.fakeOpponentSocket.emit('joinTwoPlayer', [gameCode, 'Cricket']);
       }
     }
@@ -170,6 +163,7 @@ const mapStateToProps = (state) => {
   return {
     userName: state.userReducer.username,
     gameCode: state.userReducer.gameCode,
+    token: state.userReducer.token,
     socket: state.socketReducer,
     fakeOpponentSocket: state.fakeOpponentSocketReducer,
     publicOrPrivate: state.gameInfoReducer.publicOrPrivate,

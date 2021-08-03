@@ -18,7 +18,9 @@
 Josh:
 - X Not a great way to see which player is which on final screen - in the code
   - Keep track of socket from start in redux, and use that to identify user at end by attaching to score object coming from server, or possibly at other places
+  - Can refactor to do more cleanly, by getting id from socket at the start
 - X Fix rematch for single player or remove
+- X Tokens - each user gets a token at the beginning of their session. If there is a rematch, the token from the person who originally created the game will always be used. Afterward, each player will continue to use their own token
 - Ticking sound
 
 
@@ -59,6 +61,8 @@ PUSH NOTIFICATIONS
 * Single player fake opponent scoring (right now they get it right 50% of time, random # for points)
 - Change one player game title to 'practice round'?
 - use local storage to remember mute status, name, maybe high score? 
+  - Track high score by category and num questions
+- Cancel a game from the waiting room, in case you change your mind or nobody joins> you can go to home now, but not just back
 
 ## Manuel Testing
 - Single Player Works
@@ -69,6 +73,7 @@ PUSH NOTIFICATIONS
 
 ## Possible bugs
 - Single player does not work unless it is the first game, maybe same with multiplayer
+- Shouldn't be able to start a game without selecting public or private, or there should be a default option. Maybe same issue with other dropdown items
 
 
 

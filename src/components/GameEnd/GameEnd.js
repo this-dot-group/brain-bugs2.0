@@ -31,6 +31,7 @@ function GameEnd(props) {
   const playerOneSocket = props.location.state.finalScore.playerOne.socket;
   const playerTwoName = props.location.state.finalScore.playerTwo.name
   const playerTwoScore = props.location.state.finalScore.playerTwo.score;
+  const token = props.location.state.finalScore.token;
 
   useEffect(() => {
     // Play sound to reward winner and punish loser
@@ -38,7 +39,7 @@ function GameEnd(props) {
 
     setCurrentUserObj(userObj)
 
-    if(playerTwoScore === playerOneScore) {
+    if (playerTwoScore === playerOneScore) {
       setUserOutcome('tie');
     } else if (userObj.score === Math.max(playerOneScore, playerTwoScore)) {
       props.playSound('win');
@@ -85,7 +86,7 @@ function GameEnd(props) {
     setShowInvitation(true)
   }
 
-  const createOpponentSaidNoAlert= (opponent) => {
+  const createOpponentSaidNoAlert = (opponent) => {
     Alert.alert(
       "Find another challenger!",
       `Your opponent ${opponent} declined your rematch request.`,
@@ -105,7 +106,7 @@ function GameEnd(props) {
     // all the stuff in this function is happening to the person who ASKED for the rematch
 
     if(response){
-      
+
       props.newCategory({ name: rematchGameInfo.categoryName, id: rematchGameInfo.categoryID })
       props.numQuestions(rematchGameInfo.numQuestions);
       props.publicOrPrivate('private');
@@ -126,7 +127,7 @@ function GameEnd(props) {
 
     // this stuff is happening to the person who said YES to the rematch, the opponent
 
-    if(props.numPlayers === 1) {
+    if (props.numPlayers === 1) {
       props.fakeOpponentSocket.emit('joinTwoPlayer', [gameCode, 'Cricket']);
     }
     props.socket.emit('joinTwoPlayer', [gameCode, props.username]);
@@ -135,7 +136,7 @@ function GameEnd(props) {
 
   const handleRematch = () => {
     props.socket.emit('rematch')
-    if(props.numPlayers === 1) {
+    if (props.numPlayers === 1) {
       props.resetQuestions()
       setRematchReady(true);
     }
@@ -154,7 +155,7 @@ function GameEnd(props) {
   const leaveRoomAndGoToLobby = () => {
 
     props.socket.emit('leaveRoom');
-    if(props.gameInfo.numPlayers === 1) {
+    if (props.gameInfo.numPlayers === 1) {
       props.fakeOpponentSocket.emit('leaveRoom');
     }
     setBackToLobby(true);
@@ -179,25 +180,28 @@ function GameEnd(props) {
 
       {backToLobby && <Redirect to='/lobby' />}
 
-      {rematchReady && <Redirect to='/waitingroom' />}
-      {roomJoin && <Redirect to='/howtoplay' />}
+      {rematchReady && <Redirect to={{
+        pathname:'/waitingroom',
+        state: { token },
+      }}/>}
+      {roomJoin && <Redirect to='/howtoplay'/>}
 
-      {showInvitation && 
-      <>
-        <Text>{props.opponent} wants a rematch! What do you think?</Text>
-        <Pressable
-        style={styles.backToLobbyButton}
-        onPress={handleYes}
-        >
-          <Text>Yes</Text>
-        </Pressable>
+      {showInvitation &&
+        <>
+          <Text>{props.opponent} wants a rematch! What do you think?</Text>
+          <Pressable
+            style={styles.backToLobbyButton}
+            onPress={handleYes}
+          >
+            <Text>Yes</Text>
+          </Pressable>
 
-        <Pressable
-        style={styles.backToLobbyButton}
-        onPress={handleNo}
-        >
-          <Text>No</Text>
-        </Pressable>
+          <Pressable
+            style={styles.backToLobbyButton}
+            onPress={handleNo}
+          >
+            <Text>No</Text>
+          </Pressable>
         </>}
 
     </View>

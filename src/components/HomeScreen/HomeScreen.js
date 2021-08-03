@@ -20,7 +20,7 @@ import { newSocket } from '../../store/socketReducer.js';
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer';
 import { playSound } from '../../store/soundsReducer';
 
-import { newUsername, newGameCode, newSocketId } from '../../store/userReducer.js';
+import { newUsername, newGameCode, newSocketId, newToken } from '../../store/userReducer.js';
 import { Button } from 'react-native';
 import { TextBase } from 'react-native';
 import { EXPO_LOCAL_URL } from '../../../env'
@@ -112,6 +112,7 @@ function Homescreen(props) {
     props.newSocket(socket)
     props.newFakeOpponent(fakeOpponentSocket);
     socket.on('shareId', setSocketId)
+    props.newToken();
     // let codeNum = faker.random.number();
     // let code = codeNum.toString();
     // while (code.length !== 5) {
@@ -216,7 +217,7 @@ function Homescreen(props) {
   )
 }
 
-const mapDispatchToProps = { newUsername, newSocket, newGameCode, newFakeOpponent, playSound, newSocketId }
+const mapDispatchToProps = { newUsername, newSocket, newGameCode, newFakeOpponent, playSound, newSocketId, newToken }
 
 
 // null is currently a placeholder for mapStateToProps
