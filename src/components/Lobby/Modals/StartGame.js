@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Platform, View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import Constants from 'expo-constants';
-import { Notifications as ExpoNotifications } from "expo";
 import * as Permissions from 'expo-permissions';
+import * as Notifications from 'expo-notifications';
 import DropDownPicker from 'react-native-dropdown-picker'
 import { Link, Redirect } from 'react-router-native'
-import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate } from '../../../store/gameInfoReducer'
+import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate, gameMakerPushToken } from '../../../store/gameInfoReducer'
 // import socketReducer from '../../../store/socketReducer'
 import { newOpponent } from '../../../store/userReducer';
 
@@ -16,11 +16,6 @@ import { EXPO_LOCAL_URL } from '../../../../env'
 
 import axios from 'axios';
 
-
-
-// const EXPO_LOCAL_URL = '10.0.0.200' // Josh
-// const EXPO_LOCAL_URL = '192.168.0.3' // Tia
-// const EXPO_LOCAL_URL = '10.0.0.199' // Chris 
 
 const styles = StyleSheet.create({
   modalView: {
@@ -47,43 +42,38 @@ function StartGame(props) {
   const [categoryList, setCategoryList] = useState([]);
   const [numPlayers, setNumPlayers] = useState(1);
 
-  // Push notification notes - DO NOT DELETE BEFORE -
-  // const registerForPushNotifications = async () => {
-  //   if (Constants.isDevice) {
-  //     // Get the notifications permission
-  //     const { status: existingStatus } = await Permissions.getAsync(
-  //       Permissions.NOTIFICATIONS
-  //     );
+  // THIS WORKS, BUT IT DOESNT ASK FOR PERMISSION (on android)
+
+  async function registerForPushNotificationsAsync() {
+    let token;
+    // if (Constants.isDevice) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
+        return;
+      }
+      token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log('TOKEN!!!!', token);
+    // } else {
+    //   alert('Must use physical device for Push Notifications');
+    // }
   
-  //     let finalStatus = existingStatus;
-  //     console.log('final status:', finalStatus);
-  
-  //     if (existingStatus !== "granted") {
-  //       const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-  //       finalStatus = status;
-  //     }
-  
-  //     if (finalStatus !== "granted") {
-  //       return;
-  //     }
-  
-  //     // If the permission was granted, then get the token
-  //     const token = await ExpoNotifications.getExpoPushTokenAsync();
-  
-  //     // Android specific configuration, needs the channel
-  //     if (Platform.OS === "android") {
-  //       ExpoNotifications.createChannelAndroidAsync("default", {
-  //         name: "default",
-  //         sound: true,
-  //         priority: "max",
-  //         vibrate: [0, 250, 250, 250],
-  //       });
-  //     }
-  //     console.log('TOKEN', token);
-  
-  //     return token;
-  //   }
-  // };
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+    }
+    props.gameMakerPushToken(token)
+    // return token;
+  }
 
 
   useEffect(() => {
@@ -195,6 +185,7 @@ function StartGame(props) {
                 multiple={false}
                 onChangeItem={item => {
                   props.publicOrPrivate(item.value);
+                  if(item.value === 'public'){registerForPushNotificationsAsync()}
                 }}
                 items={[
                   { label: 'Public Game', value: 'public' },
@@ -238,6 +229,7 @@ const mapDispatchToProps = {
   numPlayers,
   newCategory,
   publicOrPrivate,
+  gameMakerPushToken,
   newOpponent
 }
 

@@ -23,6 +23,9 @@ Josh:
 Tia:
 - Push notification
 - Research deployment 
+BUGS
+- if one player chooses Back to Lobby, other player still has option for Rematch
+
 
 PUSH NOTIFICATIONS
 - add the following to app.json to customize notifications

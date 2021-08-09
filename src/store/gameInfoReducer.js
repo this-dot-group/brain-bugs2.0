@@ -1,18 +1,6 @@
-/* 
-{
-  category: { name, id }
-  numPlayers:
-  numQuestions:
-  publicOrPrivate: 
-}
-*/
-
 import axios from 'axios';
 import { EXPO_LOCAL_URL } from '../../env'
 
-// const EXPO_LOCAL_URL = '10.0.0.200'; // Josh
-// const EXPO_LOCAL_URL = '192.168.0.3'; // Tia
-// const EXPO_LOCAL_URL = '10.0.0.199'; // Chris 
 
 export default (state = {}, action) => {
 
@@ -35,6 +23,9 @@ export default (state = {}, action) => {
   case 'PUBLIC_OR_PRIVATE':
     // console.log('public OR private in reducer',payload);
     return {...state, publicOrPrivate: payload};
+  case 'GAME_MAKER_PUSH_TOKEN':
+    console.log('gameMakerPushToken in reducer',payload);
+    return {...state, gameMakerPushToken: payload};
   case 'GET_QUESTIONS':
     return {...state, liveGameQuestions: payload};
   default:
@@ -74,6 +65,13 @@ export const publicOrPrivate = answer => {
     payload: answer,
   };
 };
+
+export const gameMakerPushToken = token => {
+  return {
+    type: 'GAME_MAKER_PUSH_TOKEN',
+    payload: token
+  }
+}
 
 export const getQuestions = (id, numQuestions) => {
   
