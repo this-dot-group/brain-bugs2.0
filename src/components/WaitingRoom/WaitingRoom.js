@@ -10,15 +10,6 @@ import { connect } from 'react-redux';
 
 import { Buttons, Views, Typography } from '../../styles';
 
-import { EXPO_LOCAL_URL } from '../../../env'
-
-// const EXPO_LOCAL_URL = '10.0.0.200' // Josh
-// const EXPO_LOCAL_URL = '192.168.0.3' // Tia
-
-// const EXPO_LOCAL_URL = '10.0.0.199' // Chris
-// import socketIO from 'socket.io-client';
-// const fakeOpponentSocket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
-
 const styles = StyleSheet.create({
   modalView: {
     ...Views.modalView,
@@ -36,15 +27,11 @@ const styles = StyleSheet.create({
 
 const WaitingRoom = (props) => {
 
-  // console.log('IN THE WAITING ROOM')
-
   const [modalVisible, setModalVisible] = useState(false)
   const [roomJoin, setRoomJoin] = useState(false)
 
   const [copied, setCopied] = useState(false);
   const [token, setToken] = useState('');
-
-  // const [questions, setQuestions] = useState([]);
 
   const handleCodeCopy = () => {
     Clipboard.setString(props.gameCode);
@@ -70,7 +57,6 @@ const WaitingRoom = (props) => {
     props.fullGameInfo.token = props.token;
 
     if(props.fullGameInfo.liveGameQuestions) {
-      // console.log('This needs to be beore "in one player waiting room log"');
       props.socket.emit('newGame', {...props.fullGameInfo, token })
     }
 
