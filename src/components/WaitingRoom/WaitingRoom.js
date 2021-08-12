@@ -8,6 +8,9 @@ import { getQuestions } from '../../store/gameInfoReducer'
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer'
 import { connect } from 'react-redux';
 
+import * as Notifications from 'expo-notifications';
+
+
 import { Buttons, Views, Typography } from '../../styles';
 
 import { EXPO_LOCAL_URL } from '../../../env'
@@ -52,6 +55,30 @@ const WaitingRoom = (props) => {
       setCopied(false)
     }, 1500)
   }
+
+  useEffect(() => {
+
+    // receive both twice if app is in foreground
+    // if app is in the background, ONLY handleNotificationResponse runs
+
+    const handleNotification = notification => {
+      console.log('GAMEMAKER HAS RECEIVED THEIR NOTIFICATION:', notification);
+    };
+  
+    const handleNotificationResponse = response => {
+      console.log('GAMEMAKER HAS INTERACTED WITH THEIR NOTIFICATION:', response);
+      // response.notification.request.content.data has the relevant info sent from two person event
+      // { gameCode, gameMaker, gameJoiner}
+      console.log('GAMEMAKER HAS INTERACTED WITH THEIR NOTIFICATION:', response.notification.request.content.data);
+
+      props.socket.emit('joinTwoPlayerViaPushNotification', response.notification.request.content.data)
+
+    };
+    
+    Notifications.addNotificationReceivedListener(handleNotification);
+    
+    Notifications.addNotificationResponseReceivedListener(handleNotificationResponse);
+  })
 
   useEffect(() => {
 

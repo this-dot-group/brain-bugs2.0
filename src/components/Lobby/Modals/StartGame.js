@@ -44,6 +44,15 @@ function StartGame(props) {
 
   // THIS WORKS, BUT IT DOESNT ASK FOR PERMISSION (on android)
 
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+    }),
+  });
+  
+
   async function registerForPushNotificationsAsync() {
     let token;
     // if (Constants.isDevice) {
