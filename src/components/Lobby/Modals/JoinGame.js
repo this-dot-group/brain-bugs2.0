@@ -44,17 +44,12 @@ function JoinGame(props) {
             style={styles.gameJoinButton}
             key={i}
             onPress={() => {
-              // console.log('gameObj in onPress in JoinGame:', gameObj)
               props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username, gameObj.gameMakerPushToken])}}
           >
-            {/* <Link to='/howtoplay'> */}
             <Text>
               {gameObj.player} is waiting to play {gameObj.category}
             </Text>
-            {/* </Link>  */}
           </Pressable>
-
-
         )}
 
 

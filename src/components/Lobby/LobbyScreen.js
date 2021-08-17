@@ -59,7 +59,6 @@ function StartScreen(props) {
             gameCode: currentGame.gameCode,
             gameMakerPushToken: currentGame.gameMakerPushToken
           }
-          // console.log('relevantInfo:', relevantInfo)
           filteredGames.push(relevantInfo)
         }
       }

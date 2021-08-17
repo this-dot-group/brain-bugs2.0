@@ -42,8 +42,7 @@ function StartGame(props) {
   const [categoryList, setCategoryList] = useState([]);
   const [numPlayers, setNumPlayers] = useState(1);
 
-  // THIS WORKS, BUT IT DOESNT ASK FOR PERMISSION (on android)
-
+  // the below setNotificationHandler is what allows the push notification to go through while the app is in foreground
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
       shouldShowAlert: true,
@@ -52,26 +51,23 @@ function StartGame(props) {
     }),
   });
   
+  // THIS WORKS, BUT IT DOESNT ASK FOR PERMISSION (on android)
 
   async function registerForPushNotificationsAsync() {
-    let token;
-    // if (Constants.isDevice) {
+    let pushToken;
       const { status: existingStatus } = await Notifications.getPermissionsAsync();
       let finalStatus = existingStatus;
       if (existingStatus !== 'granted') {
+        // DOES THE BELOW REQUEST ONE MORE TIME?
         const { status } = await Notifications.requestPermissionsAsync();
         finalStatus = status;
       }
       if (finalStatus !== 'granted') {
-        alert('Failed to get push token for push notification!');
+        alert('Failed to get token for push notification!');
         return;
       }
-      token = (await Notifications.getExpoPushTokenAsync()).data;
-      console.log('TOKEN!!!!', token);
-    // } else {
-    //   alert('Must use physical device for Push Notifications');
-    // }
-  
+      pushToken = (await Notifications.getExpoPushTokenAsync()).data;
+      
     if (Platform.OS === 'android') {
       Notifications.setNotificationChannelAsync('default', {
         name: 'default',
@@ -80,8 +76,7 @@ function StartGame(props) {
         lightColor: '#FF231F7C',
       });
     }
-    props.gameMakerPushToken(token)
-    // return token;
+    props.gameMakerPushToken(pushToken)
   }
 
 

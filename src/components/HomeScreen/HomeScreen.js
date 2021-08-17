@@ -71,43 +71,6 @@ function Homescreen(props) {
   // const { playSound } = usePlaySound(['flute', 'click']);
 
 
-  // const registerForPushNotifications = async () => {
-  //   if (Constants.isDevice) {
-  //     // Get the notifications permission
-  //     const { status: existingStatus } = await Permissions.getAsync(
-  //       Permissions.NOTIFICATIONS
-  //     );
-  
-  //     let finalStatus = existingStatus;
-  //     console.log('final status:', finalStatus);
-  
-  //     if (existingStatus !== "granted") {
-  //       const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-  //       finalStatus = status;
-  //     }
-  
-  //     if (finalStatus !== "granted") {
-  //       return;
-  //     }
-  
-  //     // If the permission was granted, then get the token
-  //     const token = await ExpoNotifications.getExpoPushTokenAsync();
-  
-  //     // Android specific configuration, needs the channel
-  //     if (Platform.OS === "android") {
-  //       ExpoNotifications.createChannelAndroidAsync("default", {
-  //         name: "default",
-  //         sound: true,
-  //         priority: "max",
-  //         vibrate: [0, 250, 250, 250],
-  //       });
-  //     }
-  //     console.log('TOKEN', token);
-  
-  //     return token;
-  //   }
-  // };
-
   useEffect(() => {
     props.newSocket(socket)
     props.newFakeOpponent(fakeOpponentSocket);
@@ -119,8 +82,6 @@ function Homescreen(props) {
     //   code = codeNum.toString();
     // }
     // props.newGameCode(code);
-
-    // GET PUSH NOTIFICATION TOKEN
     
 
   }, [])

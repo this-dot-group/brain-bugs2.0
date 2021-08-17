@@ -15,22 +15,22 @@
 
 ** PLAN OUT HOW TO APPROACH CHAT **
 
-Josh:
-- Not a great way to see which player is which on final screen - in the code
-- Fix rematch for single player or remove
-
 
 Tia:
 - Push notification
+  - RENAME TOKEN TO PUSHTOKEN
+  - doesnt work as intended if you dont click push notification while its active 
 - Research deployment 
-  - make sure the app is sick (https://docs.expo.dev/distribution/app-stores/)
-  - from expo cli, make a specifically ios or android build of the app
-  - publish from cli
-  - the most time will prob be spent on step 1, making sure everything is in order
-  - paid dev acct through google play
-  
-BUGS
-- if one player chooses Back to Lobby, other player still has option for Rematch
+  - DEPLOY to app store:
+    - make sure the app is sick (https://docs.expo.dev/distribution/app-stores/)
+    - from expo cli, make a specifically ios or android build of the app
+    - publish from cli
+    - the most time will prob be spent on step 1, making sure everything is in order
+    - paid dev acct through google play
+
+  - DEPLOY to server:
+    - heroku?
+
 
 
 PUSH NOTIFICATIONS

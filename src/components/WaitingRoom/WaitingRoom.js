@@ -7,20 +7,9 @@ import { newOpponent } from '../../store/userReducer'
 import { getQuestions } from '../../store/gameInfoReducer'
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer'
 import { connect } from 'react-redux';
-
 import * as Notifications from 'expo-notifications';
 
-
 import { Buttons, Views, Typography } from '../../styles';
-
-import { EXPO_LOCAL_URL } from '../../../env'
-
-// const EXPO_LOCAL_URL = '10.0.0.200' // Josh
-// const EXPO_LOCAL_URL = '192.168.0.3' // Tia
-
-// const EXPO_LOCAL_URL = '10.0.0.199' // Chris
-// import socketIO from 'socket.io-client';
-// const fakeOpponentSocket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 
 const styles = StyleSheet.create({
   modalView: {
@@ -39,14 +28,10 @@ const styles = StyleSheet.create({
 
 const WaitingRoom = (props) => {
 
-  // console.log('IN THE WAITING ROOM')
-
   const [modalVisible, setModalVisible] = useState(false)
   const [roomJoin, setRoomJoin] = useState(false)
 
   const [copied, setCopied] = useState(false);
-
-  // const [questions, setQuestions] = useState([]);
 
   const handleCodeCopy = () => {
     Clipboard.setString(props.gameCode);
@@ -58,15 +43,14 @@ const WaitingRoom = (props) => {
 
   useEffect(() => {
 
-    // receive both twice if app is in foreground
-    // if app is in the background, ONLY handleNotificationResponse runs
+    // RECEIVE ALL IF APP IN FOREGROUND
+    // RECEIVE ONLY INTERACTED IF APP IS IN BACKGROUND
 
     const handleNotification = notification => {
       console.log('GAMEMAKER HAS RECEIVED THEIR NOTIFICATION:', notification);
     };
   
     const handleNotificationResponse = response => {
-      console.log('GAMEMAKER HAS INTERACTED WITH THEIR NOTIFICATION:', response);
       // response.notification.request.content.data has the relevant info sent from two person event
       // { gameCode, gameMaker, gameJoiner}
       console.log('GAMEMAKER HAS INTERACTED WITH THEIR NOTIFICATION:', response.notification.request.content.data);
@@ -78,14 +62,12 @@ const WaitingRoom = (props) => {
     Notifications.addNotificationReceivedListener(handleNotification);
     
     Notifications.addNotificationResponseReceivedListener(handleNotificationResponse);
-  })
-
-  useEffect(() => {
 
     (async () => {
       await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions)
 
     })()
+    
 
   }, [])
 
@@ -93,30 +75,17 @@ const WaitingRoom = (props) => {
     props.fullGameInfo.userName = props.userName;
     props.fullGameInfo.gameCode = props.gameCode;
 
-    // console.log(props.fullGameInfo);
-
     if(props.fullGameInfo.liveGameQuestions) {
-      // console.log('This needs to be beore "in one player waiting room log"');
       props.socket.emit('newGame', props.fullGameInfo)
     }
 
-
-    // if (props.fullGameInfo.numPlayers === 1) {
-    //   console.log('in one player waiting room')
-    //   // props.newFakeOpponent(fakeOpponentSocket)
-    //   props.fakeOpponentSocket.emit('joinTwoPlayer', [props.gameCode, 'Cricket']);
-    // }
-
     const redirectToHowToPlay = usernames => {
-      // console.log(usernames.gameJoiner)
       props.newOpponent(usernames.gameJoiner)
       setRoomJoin(true);
     }
 
     const startOnePlayer = (gameCode) => {
       if (props.fullGameInfo.numPlayers === 1) {
-        // console.log('in one player waiting room')
-        // props.newFakeOpponent(fakeOpponentSocket)
         props.fakeOpponentSocket.emit('joinTwoPlayer', [gameCode, 'Cricket']);
       }
     }
