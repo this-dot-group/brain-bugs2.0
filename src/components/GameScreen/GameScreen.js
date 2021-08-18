@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
 
 function GameScreen(props) {
 
-  const [seconds, setSeconds] = useState(QUESTION_TIME);
+  const [seconds, setSeconds] = useState(QUESTION_TIME * 1000);
   const [formattedQuestionInfo, setFormattedQuestionInfo] = useState({});
   const [score, setScore] = useState({});
   const [gameEnd, setGameEnd] = useState(false);
@@ -102,7 +102,7 @@ function GameScreen(props) {
     let questionPoints;
 
     answer === formattedQuestionInfo.correct_answer ?
-      questionPoints = seconds
+      questionPoints = Math.ceil(seconds / 1000)
       :
       questionPoints = 0;
     
@@ -223,7 +223,7 @@ function GameScreen(props) {
   }, [seconds])
 
   useEffect(() => {
-    setSeconds(QUESTION_TIME);
+    setSeconds(QUESTION_TIME * 1000);
   }, [formattedQuestionInfo])
 
   const chooseColor = (i) => {
