@@ -10,15 +10,6 @@ import { connect } from 'react-redux';
 
 import { Buttons, Views, Typography } from '../../styles';
 
-import { EXPO_LOCAL_URL } from '../../../env'
-
-// const EXPO_LOCAL_URL = '10.0.0.200' // Josh
-// const EXPO_LOCAL_URL = '192.168.0.3' // Tia
-
-// const EXPO_LOCAL_URL = '10.0.0.199' // Chris
-// import socketIO from 'socket.io-client';
-// const fakeOpponentSocket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
-
 const styles = StyleSheet.create({
   modalView: {
     ...Views.modalView,
@@ -36,14 +27,11 @@ const styles = StyleSheet.create({
 
 const WaitingRoom = (props) => {
 
-  // console.log('IN THE WAITING ROOM')
-
   const [modalVisible, setModalVisible] = useState(false)
   const [roomJoin, setRoomJoin] = useState(false)
 
   const [copied, setCopied] = useState(false);
-
-  // const [questions, setQuestions] = useState([]);
+  const [token, setToken] = useState('');
 
   const handleCodeCopy = () => {
     Clipboard.setString(props.gameCode);
@@ -54,42 +42,33 @@ const WaitingRoom = (props) => {
   }
 
   useEffect(() => {
-
+    const tokenToUse = props.location.state?.token || props.token
+    setToken(tokenToUse);
     (async () => {
-      await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions)
-
+      await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions, tokenToUse)
+      
     })()
-
+    
   }, [])
-
+  
   useEffect(() => {
     props.fullGameInfo.userName = props.userName;
     props.fullGameInfo.gameCode = props.gameCode;
-
-    // console.log(props.fullGameInfo);
+    props.fullGameInfo.token = props.token;
 
     if(props.fullGameInfo.liveGameQuestions) {
-      // console.log('This needs to be beore "in one player waiting room log"');
-      props.socket.emit('newGame', props.fullGameInfo)
+      props.socket.emit('newGame', {...props.fullGameInfo, token })
     }
 
 
-    // if (props.fullGameInfo.numPlayers === 1) {
-    //   console.log('in one player waiting room')
-    //   // props.newFakeOpponent(fakeOpponentSocket)
-    //   props.fakeOpponentSocket.emit('joinTwoPlayer', [props.gameCode, 'Cricket']);
-    // }
-
     const redirectToHowToPlay = usernames => {
-      // console.log(usernames.gameJoiner)
       props.newOpponent(usernames.gameJoiner)
       setRoomJoin(true);
     }
 
     const startOnePlayer = (gameCode) => {
       if (props.fullGameInfo.numPlayers === 1) {
-        // console.log('in one player waiting room')
-        // props.newFakeOpponent(fakeOpponentSocket)
+
         props.fakeOpponentSocket.emit('joinTwoPlayer', [gameCode, 'Cricket']);
       }
     }
@@ -170,6 +149,7 @@ const mapStateToProps = (state) => {
   return {
     userName: state.userReducer.username,
     gameCode: state.userReducer.gameCode,
+    token: state.userReducer.token,
     socket: state.socketReducer,
     fakeOpponentSocket: state.fakeOpponentSocketReducer,
     publicOrPrivate: state.gameInfoReducer.publicOrPrivate,

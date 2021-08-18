@@ -75,14 +75,25 @@ export const publicOrPrivate = answer => {
   };
 };
 
-export const getQuestions = (id, numQuestions) => {
+export const getQuestions = (id, numQuestions, tokenForRematch) => {
   
-  return async dispatch => {
-    const response = await axios.get(`http://${EXPO_LOCAL_URL}:3000/questions/${id}/${numQuestions}`);
-    // console.log('response from axois', response.data);
-    dispatch({
-      type: 'GET_QUESTIONS',
-      payload: response.data,
-    });
+  return async (dispatch, getState) => {
+    try {
+      const { userReducer: { token } } = getState();
+      const response = await axios.get(`http://${EXPO_LOCAL_URL}:3000/questions/${id}/${numQuestions}/${tokenForRematch || token}`);
+      // console.log('response from axois', response.data);
+      dispatch({
+        type: 'GET_QUESTIONS',
+        payload: response.data,
+      });
+    } catch(e) {
+      // Do something with expended category
+      console.log(e);
+    }
   };
 };
+
+export const resetQuestions = () => ({
+  type: 'GET_QUESTIONS',
+  payload: null
+})

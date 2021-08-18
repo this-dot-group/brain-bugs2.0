@@ -16,8 +16,8 @@
 ** PLAN OUT HOW TO APPROACH CHAT **
 
 Josh:
-- Not a great way to see which player is which on final screen - in the code
-- Fix rematch for single player or remove
+- Ticking sound
+
 
 
 Tia:
@@ -39,9 +39,6 @@ PUSH NOTIFICATIONS
     // ],
 
 ## Code
-- When one person leaves, let other user know that they have left
-- if you dont answer a question, when the correct answer moment occurs it looks like you answered correctly (because no other option is selected)
-  - improve selected/submitted feedback (raining down smileys/sads)
 - clean up package.json unused dependencies
 
 ## New Features
@@ -52,11 +49,15 @@ PUSH NOTIFICATIONS
 - Responsive font size for answer pressables and question on GameScreen
 - Content for all pages, such as how to play instructions 
 - Logo/img/etc
+- if you dont answer a question, when the correct answer moment occurs it looks like you answered correctly (because no other option is selected)
+  - improve selected/submitted feedback (raining down smileys/sads)
 
 ## Improvement ideas
 * Single player fake opponent scoring (right now they get it right 50% of time, random # for points)
 - Change one player game title to 'practice round'?
 - use local storage to remember mute status, name, maybe high score? 
+  - Track high score by category and num questions
+- Cancel a game from the waiting room, in case you change your mind or nobody joins you can go to home now, but not just back
 
 ## Manuel Testing
 - Single Player Works
@@ -66,7 +67,12 @@ PUSH NOTIFICATIONS
 - Works with both Game Maker and Game Joiner 
 
 ## Possible bugs
-- Single player does not work unless it is the first game, maybe same with multiplayer
+- Shouldn't be able to start a game without selecting all the necessary dropdown items needed
+- You can hit submit many times in a row, at least in single player, and it will resubmit answer for next question
+- Handle error if run out of questions for a token
+- If one player chooses "back to lobby" or leaves the app, the other person should not have the option to rematch
+- When one person leaves mid-game, let other user know that they have left
+- Need to relook at timer not going down while picking answers
 
 
 
