@@ -21,14 +21,8 @@ import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer';
 import { playSound } from '../../store/soundsReducer';
 
 import { newUsername, newGameCode, newSocketId, newToken } from '../../store/userReducer.js';
-import { Button } from 'react-native';
-import { TextBase } from 'react-native';
 import { EXPO_LOCAL_URL } from '../../../env'
 
-
-// const EXPO_LOCAL_URL = '10.0.0.200' // Josh
-// const EXPO_LOCAL_URL = '192.168.0.3' // Tia
-// const EXPO_LOCAL_URL = '10.0.0.199' // Chris
 
 
 const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
@@ -71,43 +65,6 @@ function Homescreen(props) {
   // const { playSound } = usePlaySound(['flute', 'click']);
 
 
-  // const registerForPushNotifications = async () => {
-  //   if (Constants.isDevice) {
-  //     // Get the notifications permission
-  //     const { status: existingStatus } = await Permissions.getAsync(
-  //       Permissions.NOTIFICATIONS
-  //     );
-  
-  //     let finalStatus = existingStatus;
-  //     console.log('final status:', finalStatus);
-  
-  //     if (existingStatus !== "granted") {
-  //       const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-  //       finalStatus = status;
-  //     }
-  
-  //     if (finalStatus !== "granted") {
-  //       return;
-  //     }
-  
-  //     // If the permission was granted, then get the token
-  //     const token = await ExpoNotifications.getExpoPushTokenAsync();
-  
-  //     // Android specific configuration, needs the channel
-  //     if (Platform.OS === "android") {
-  //       ExpoNotifications.createChannelAndroidAsync("default", {
-  //         name: "default",
-  //         sound: true,
-  //         priority: "max",
-  //         vibrate: [0, 250, 250, 250],
-  //       });
-  //     }
-  //     console.log('TOKEN', token);
-  
-  //     return token;
-  //   }
-  // };
-
   useEffect(() => {
     props.newSocket(socket)
     props.newFakeOpponent(fakeOpponentSocket);
@@ -121,7 +78,6 @@ function Homescreen(props) {
     // }
     // props.newGameCode(code);
 
-    // GET PUSH NOTIFICATION TOKEN
     return () => socket.off('shareId', setSocketId)
 
   }, [])

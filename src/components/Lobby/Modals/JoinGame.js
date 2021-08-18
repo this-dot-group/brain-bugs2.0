@@ -38,20 +38,18 @@ function JoinGame(props) {
         <Text>JOIN a game here!!</Text>
         
         {props.gamesWaiting.map((gameObj, i) =>
+
           
           <Pressable
             style={styles.gameJoinButton}
             key={i}
-            onPress={() => props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username])}
+            onPress={() => {
+              props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username, gameObj.gameMakerPushToken])}}
           >
-            {/* <Link to='/howtoplay'> */}
             <Text>
               {gameObj.player} is waiting to play {gameObj.category}
             </Text>
-            {/* </Link>  */}
           </Pressable>
-
-
         )}
 
 

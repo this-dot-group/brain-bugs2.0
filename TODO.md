@@ -1,30 +1,24 @@
 ## TO DO List
-
-* Update the urls for your own ip address
-  * NEW! 5/21 Only need to change in env.js
-  * StartGame Screen
-  * Home screen
-  * gameInfo Reducer
-  * WaitingRoom Screen
-
 ***************************
-# 7/20/21
+# AUG
 
 ** REVISIT and DISCUSS MVP **
 - put things into MVP and Stretch Goals categories
 
 ** PLAN OUT HOW TO APPROACH CHAT **
 
+
 Josh:
 - Ticking sound
 
-
-
 Tia:
-- Push notification
-- Research deployment 
+- Push notification improvements:
+  - doesnt work as intended if you dont click push notification while its active 
+  - can repeat the notification, if it isnt interacted with in time
+  - somethig on game joiner device that indicates theyre waiting for game maker to rejoin
+  - on server side, one player check in joinTwoPlayer is crappy (re push notifications)
+  - what to do if the push notification is not a valid expo one? it just stops there  
 
-PUSH NOTIFICATIONS
 - add the following to app.json to customize notifications
     // "plugins": [
     //   [
@@ -37,6 +31,20 @@ PUSH NOTIFICATIONS
     //     }
     //   ]
     // ],
+
+- Research deployment 
+  - DEPLOY to app store:
+    - make sure the app is sick (https://docs.expo.dev/distribution/app-stores/)
+    - from expo cli, make a specifically ios or android build of the app
+    - publish from cli
+    - the most time will prob be spent on step 1, making sure everything is in order
+    - paid dev acct through google play
+    - if we deploy with android, we need to add Firebase Cloud Messaging for push notification functionality
+
+  - DEPLOY to server:
+    - heroku?
+
+
 
 ## Code
 - clean up package.json unused dependencies

@@ -7,6 +7,7 @@ import { newOpponent } from '../../store/userReducer'
 import { getQuestions } from '../../store/gameInfoReducer'
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer'
 import { connect } from 'react-redux';
+import * as Notifications from 'expo-notifications';
 
 import { Buttons, Views, Typography } from '../../styles';
 
@@ -42,8 +43,31 @@ const WaitingRoom = (props) => {
   }
 
   useEffect(() => {
+    
     const tokenToUse = props.location.state?.token || props.token
     setToken(tokenToUse);
+
+
+    // RECEIVE ALL IF APP IN FOREGROUND
+    // RECEIVE ONLY INTERACTED IF APP IS IN BACKGROUND
+    const handleNotification = notification => {
+      console.log('GAMEMAKER HAS RECEIVED THEIR NOTIFICATION:', notification);
+    };
+  
+    const handleNotificationResponse = response => {
+      // response.notification.request.content.data has the relevant info sent from two person event
+      // { gameCode, gameMaker, gameJoiner}
+      console.log('GAMEMAKER HAS INTERACTED WITH THEIR NOTIFICATION:', response.notification.request.content.data);
+
+      props.socket.emit('joinTwoPlayerViaPushNotification', response.notification.request.content.data)
+
+    };
+    
+    Notifications.addNotificationReceivedListener(handleNotification);
+    
+    Notifications.addNotificationResponseReceivedListener(handleNotificationResponse);
+
+
     (async () => {
       await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions, tokenToUse)
       
@@ -60,7 +84,6 @@ const WaitingRoom = (props) => {
       props.socket.emit('newGame', {...props.fullGameInfo, token })
     }
 
-
     const redirectToHowToPlay = usernames => {
       props.newOpponent(usernames.gameJoiner)
       setRoomJoin(true);
@@ -68,7 +91,6 @@ const WaitingRoom = (props) => {
 
     const startOnePlayer = (gameCode) => {
       if (props.fullGameInfo.numPlayers === 1) {
-
         props.fakeOpponentSocket.emit('joinTwoPlayer', [gameCode, 'Cricket']);
       }
     }
