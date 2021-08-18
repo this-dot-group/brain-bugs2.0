@@ -29,7 +29,7 @@ export const newSound = (sound, name) => {
 };
 
 export const playSound =  soundName => {
-  return async (_, getState) => {
+  return async (_dispatch, getState) => {
     const { soundsReducer } = getState();
     try {
       await soundsReducer[soundName].replayAsync();

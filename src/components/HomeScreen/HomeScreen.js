@@ -20,15 +20,9 @@ import { newSocket } from '../../store/socketReducer.js';
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer';
 import { playSound } from '../../store/soundsReducer';
 
-import { newUsername, newGameCode } from '../../store/userReducer.js';
-import { Button } from 'react-native';
-import { TextBase } from 'react-native';
+import { newUsername, newGameCode, newSocketId, newToken } from '../../store/userReducer.js';
 import { EXPO_LOCAL_URL } from '../../../env'
 
-
-// const EXPO_LOCAL_URL = '10.0.0.200' // Josh
-// const EXPO_LOCAL_URL = '192.168.0.3' // Tia
-// const EXPO_LOCAL_URL = '10.0.0.199' // Chris
 
 
 const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
@@ -74,7 +68,8 @@ function Homescreen(props) {
   useEffect(() => {
     props.newSocket(socket)
     props.newFakeOpponent(fakeOpponentSocket);
-
+    socket.on('shareId', setSocketId)
+    props.newToken();
     // let codeNum = faker.random.number();
     // let code = codeNum.toString();
     // while (code.length !== 5) {
@@ -82,9 +77,15 @@ function Homescreen(props) {
     //   code = codeNum.toString();
     // }
     // props.newGameCode(code);
-    
+
+    return () => socket.off('shareId', setSocketId)
 
   }, [])
+
+  const setSocketId = id => {
+    console.log('in setSocketID', id)
+    props.newSocketId(id);
+  }
 
   const handleUsernameChange = (username) => {
 
@@ -172,7 +173,7 @@ function Homescreen(props) {
   )
 }
 
-const mapDispatchToProps = { newUsername, newSocket, newGameCode, newFakeOpponent, playSound }
+const mapDispatchToProps = { newUsername, newSocket, newGameCode, newFakeOpponent, playSound, newSocketId, newToken }
 
 
 // null is currently a placeholder for mapStateToProps

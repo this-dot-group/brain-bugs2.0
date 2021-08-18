@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { EXPO_LOCAL_URL } from '../../env'
+
 export default (state = {}, action) => {
 
   const { type, payload } = action;
@@ -11,6 +14,10 @@ export default (state = {}, action) => {
     return { ...state, gameCode: payload };
   case 'NEW_OPPONENT':
     return { ...state, opponent: payload };
+  case 'NEW_SOCKET_ID':
+    return { ...state, socketId: payload };
+  case 'NEW_TOKEN':
+    return { ...state, token: payload };
   default:
     return state;
   }
@@ -37,4 +44,25 @@ export const newOpponent = (name) => {
     payload: name,
   };
 };
+
+export const newSocketId = (id) => {
+  return {
+    type: 'NEW_SOCKET_ID',
+    payload: id,
+  };
+};
+
+export const newToken = () => {
+  return async dispatch => {
+    try {
+      const { data: token } = await axios.get(`http://${EXPO_LOCAL_URL}:3000/token`);
+      dispatch({
+        type:'NEW_TOKEN',
+        payload: token,
+      })
+    } catch(e) {
+      console.log(e);
+    }
+  }
+}
 

@@ -32,6 +32,7 @@ const WaitingRoom = (props) => {
   const [roomJoin, setRoomJoin] = useState(false)
 
   const [copied, setCopied] = useState(false);
+  const [token, setToken] = useState('');
 
   const handleCodeCopy = () => {
     Clipboard.setString(props.gameCode);
@@ -42,10 +43,13 @@ const WaitingRoom = (props) => {
   }
 
   useEffect(() => {
+    
+    const tokenToUse = props.location.state?.token || props.token
+    setToken(tokenToUse);
+
 
     // RECEIVE ALL IF APP IN FOREGROUND
     // RECEIVE ONLY INTERACTED IF APP IS IN BACKGROUND
-
     const handleNotification = notification => {
       console.log('GAMEMAKER HAS RECEIVED THEIR NOTIFICATION:', notification);
     };
@@ -63,20 +67,21 @@ const WaitingRoom = (props) => {
     
     Notifications.addNotificationResponseReceivedListener(handleNotificationResponse);
 
-    (async () => {
-      await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions)
 
+    (async () => {
+      await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions, tokenToUse)
+      
     })()
     
-
   }, [])
-
+  
   useEffect(() => {
     props.fullGameInfo.userName = props.userName;
     props.fullGameInfo.gameCode = props.gameCode;
+    props.fullGameInfo.token = props.token;
 
     if(props.fullGameInfo.liveGameQuestions) {
-      props.socket.emit('newGame', props.fullGameInfo)
+      props.socket.emit('newGame', {...props.fullGameInfo, token })
     }
 
     const redirectToHowToPlay = usernames => {
@@ -166,6 +171,7 @@ const mapStateToProps = (state) => {
   return {
     userName: state.userReducer.username,
     gameCode: state.userReducer.gameCode,
+    token: state.userReducer.token,
     socket: state.socketReducer,
     fakeOpponentSocket: state.fakeOpponentSocketReducer,
     publicOrPrivate: state.gameInfoReducer.publicOrPrivate,

@@ -438,7 +438,7 @@ function GameScreen(props) {
         <Redirect
           to={{
             pathname: '/gameend',
-            state: { finalScore: score, socketIdRef: props.socket.id },
+            state: { finalScore: score },
           }} />}
 
     </>
