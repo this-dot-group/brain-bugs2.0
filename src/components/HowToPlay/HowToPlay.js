@@ -10,7 +10,7 @@ import Countdown from '../Countdown/Countdown'
 
 function HowToPlay(props) {
 
-  const [seconds, setSeconds] = useState(3);
+  const [seconds, setSeconds] = useState(3000);
 
 
   useEffect(() => {
