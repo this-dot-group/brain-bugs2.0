@@ -1,14 +1,6 @@
 ## TO DO List
-
-* Update the urls for your own ip address
-  * NEW! 5/21 Only need to change in env.js
-  * StartGame Screen
-  * Home screen
-  * gameInfo Reducer
-  * WaitingRoom Screen
-
 ***************************
-# 7/20/21
+# AUG
 
 ** REVISIT and DISCUSS MVP **
 - put things into MVP and Stretch Goals categories
@@ -19,13 +11,13 @@
 Josh:
 - Ticking sound
 
-
 Tia:
-- Push notifications
-
+- Push notification improvements:
   - doesnt work as intended if you dont click push notification while its active 
   - can repeat the notification, if it isnt interacted with in time
   - somethig on game joiner device that indicates theyre waiting for game maker to rejoin
+  - on server side, one player check in joinTwoPlayer is crappy (re push notifications)
+  - what to do if the push notification is not a valid expo one? it just stops there  
 
 - add the following to app.json to customize notifications
     // "plugins": [
