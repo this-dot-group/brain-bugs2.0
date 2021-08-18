@@ -17,23 +17,12 @@
 
 
 Tia:
-- Push notification
-  - RENAME TOKEN TO PUSHTOKEN
+- Push notifications
+
   - doesnt work as intended if you dont click push notification while its active 
-- Research deployment 
-  - DEPLOY to app store:
-    - make sure the app is sick (https://docs.expo.dev/distribution/app-stores/)
-    - from expo cli, make a specifically ios or android build of the app
-    - publish from cli
-    - the most time will prob be spent on step 1, making sure everything is in order
-    - paid dev acct through google play
+  - can repeat the notification, if it isnt interacted with in time
+  - somethig on game joiner device that indicates theyre waiting for game maker to rejoin
 
-  - DEPLOY to server:
-    - heroku?
-
-
-
-PUSH NOTIFICATIONS
 - add the following to app.json to customize notifications
     // "plugins": [
     //   [
@@ -46,6 +35,20 @@ PUSH NOTIFICATIONS
     //     }
     //   ]
     // ],
+
+- Research deployment 
+  - DEPLOY to app store:
+    - make sure the app is sick (https://docs.expo.dev/distribution/app-stores/)
+    - from expo cli, make a specifically ios or android build of the app
+    - publish from cli
+    - the most time will prob be spent on step 1, making sure everything is in order
+    - paid dev acct through google play
+    - if we deploy with android, we need to add Firebase Cloud Messaging for push notification functionality
+
+  - DEPLOY to server:
+    - heroku?
+
+
 
 ## Code
 - When one person leaves, let other user know that they have left
