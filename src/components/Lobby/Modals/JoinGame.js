@@ -19,6 +19,8 @@ const styles = StyleSheet.create({
 
 function JoinGame(props) {
 
+  const [ redirectToWaitingRoom2, setRedirectToWaitingRoom2 ] = useState(false)
+
   return (
     <Modal
       transparent={true}
@@ -44,7 +46,9 @@ function JoinGame(props) {
             style={styles.gameJoinButton}
             key={i}
             onPress={() => {
-              props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username, gameObj.gameMakerPushToken])}}
+              props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username, gameObj.gameMakerPushToken]);
+              setRedirectToWaitingRoom2(true);
+            }}
           >
             <Text>
               {gameObj.player} is waiting to play {gameObj.category}
@@ -60,6 +64,8 @@ function JoinGame(props) {
         >
           <Text>X</Text>
         </Pressable>
+
+        {redirectToWaitingRoom2 && <Redirect to='/waitingroom2' />}
       </View>
       </ScrollView>
         </SafeAreaView>

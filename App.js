@@ -12,6 +12,8 @@ import GameScreen from './src/components/GameScreen/GameScreen'
 import HowToPlay from './src/components/HowToPlay/HowToPlay'
 import Lobby from './src/components/Lobby/LobbyScreen'
 import WaitingRoom from './src/components/WaitingRoom/WaitingRoom.js'
+import WaitingRoom2 from './src/components/WaitingRoom/WaitingRoom2.js'
+
 import Sounds from './src/sounds/Sounds'
 
 // import flute from './flute.wav'
@@ -50,6 +52,10 @@ export default function App() {
           <Route
             exact path='/waitingroom'
             component={WaitingRoom}
+          />
+          <Route
+            exact path='/waitingroom2'
+            component={WaitingRoom2}
           />
           <Route
             exact path='/howtoplay'
