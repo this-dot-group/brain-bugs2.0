@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
+import { View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView, Alert } from 'react-native'
 import { Link, Redirect } from 'react-router-native'
 import { newOpponent } from '../../../store/userReducer';
 import { connect } from 'react-redux';
@@ -20,6 +20,32 @@ const styles = StyleSheet.create({
 function JoinGame(props) {
 
   const [ redirectToWaitingRoom2, setRedirectToWaitingRoom2 ] = useState(false)
+  // const [ backToLobby, setBackToLobby ] = useState(false)
+
+  // const invalidPushTokenRedirect = () => {
+  //   Alert.alert(
+  //     "Oh no!",
+  //     `We were unable to connect your game.`,
+  //     [
+  //       {
+  //         text: "Back to Lobby",
+  //         onPress: () => setBackToLobby(true),
+  //       },
+  //     ],
+  //     { cancelable: false }
+  //   );
+  // }
+
+  // useEffect(() => {
+
+  //   props.socket.on('invalidPushTokenRedirect', invalidPushTokenRedirect)
+
+  //   return () => {
+  //     props.socket.off('invalidPushTokenRedirect', invalidPushTokenRedirect)
+  //   }
+
+
+  // }, [])
 
   return (
     <Modal
@@ -66,6 +92,8 @@ function JoinGame(props) {
         </Pressable>
 
         {redirectToWaitingRoom2 && <Redirect to='/waitingroom2' />}
+        {/* {backToLobby && <Redirect to='/lobby' />} */}
+
       </View>
       </ScrollView>
         </SafeAreaView>

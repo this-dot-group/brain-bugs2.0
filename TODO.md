@@ -12,11 +12,16 @@ Josh:
 - Ticking sound
 
 Tia:
-- Push notification improvements:
+- Push notification cleaup:
   - doesnt work as intended if you dont click push notification while its active 
-  - can repeat the notification, if it isnt interacted with in time
-  - somethig on game joiner device that indicates theyre waiting for game maker to rejoin
+    - *** THIS SEEMS TO WORK FINE?
+
+  - something on game joiner device that indicates theyre waiting for game maker to rejoin
+    - *** NOW REDIRECTS TO WAITINGROOM2
+
   - on server side, one player check in joinTwoPlayer is crappy (re push notifications)
+    - *** CHECKING NOW FOR NUMPLAYERS=1, NOT NAME
+
   - what to do if the push notification is not a valid expo one? it just stops there  
 
 - add the following to app.json to customize notifications
@@ -43,6 +48,9 @@ Tia:
 
   - DEPLOY to server:
     - heroku?
+
+    # NEW BUG - REMATCH: YES
+    - rematch doesnt work. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
 
 
 

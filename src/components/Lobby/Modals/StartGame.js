@@ -76,7 +76,9 @@ function StartGame(props) {
         lightColor: '#FF231F7C',
       });
     }
-    props.gameMakerPushToken(pushToken)
+    props.gameMakerPushToken('meep')
+
+    // props.gameMakerPushToken(pushToken)
   }
 
   useEffect(() => {
