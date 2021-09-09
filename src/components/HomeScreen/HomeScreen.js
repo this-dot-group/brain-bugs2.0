@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Platform, View, Text, StyleSheet, Modal, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Modal, Pressable } from 'react-native'
 import { Image, Input } from 'react-native-elements'
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-native';
+import { Redirect } from 'react-router-native';
 import socketIO from 'socket.io-client';
-import faker from 'faker';
-
-import { Audio } from 'expo-av'
-import usePlaySound from '../../sounds/usePlaySound'
 
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import MuteButton from '../MuteButton/MuteButton';
@@ -60,23 +56,12 @@ function Homescreen(props) {
   const [modalVisible, setModalVisible] = useState(false)
   const [validUsername, setValidUsername] = useState(false);
   const [toLobby, setToLobby] = useState(false);
-  // const [token, setToken] = useState('');
-  
-  // const { playSound } = usePlaySound(['flute', 'click']);
-
 
   useEffect(() => {
     props.newSocket(socket)
     props.newFakeOpponent(fakeOpponentSocket);
     socket.on('shareId', setSocketId)
     props.newToken();
-    // let codeNum = faker.random.number();
-    // let code = codeNum.toString();
-    // while (code.length !== 5) {
-    //   codeNum = faker.random.number()
-    //   code = codeNum.toString();
-    // }
-    // props.newGameCode(code);
 
     return () => socket.off('shareId', setSocketId)
 
@@ -98,7 +83,6 @@ function Homescreen(props) {
   }
 
   const handleGo = async () => {
-    // Sound does not play here, it goes to lobby too quickly
     await props.playSound('flute');
     setToLobby(true)
   }
@@ -164,11 +148,7 @@ function Homescreen(props) {
           </Pressable>
         </View>
       </Modal>
-
-
-
-
-
+      
     </View>
   )
 }

@@ -17,31 +17,31 @@ const styles = StyleSheet.create({
   },
   selectedAnswer: {
     ...Buttons.selectedAnswer,
-    flex: 1, 
-    borderRadius: 30, 
-    margin: 10, 
-    justifyContent: "center"
+    flex: 1,
+    borderRadius: 30,
+    margin: 10,
+    justifyContent: 'center'
   },
   answerOptionPressables: {
     ...Buttons.answerPressables,
-    flex: 1, 
-    borderRadius: 30, 
-    margin: 10, 
-    justifyContent: "center"
+    flex: 1,
+    borderRadius: 30,
+    margin: 10,
+    justifyContent: 'center'
   },
   submittedAnswer: {
     ...Buttons.submittedAnswer,
-    flex: 1, 
-    borderRadius: 30, 
-    margin: 10, 
-    justifyContent: "center"
+    flex: 1,
+    borderRadius: 30,
+    margin: 10,
+    justifyContent: 'center'
   },
   correctAnswer: {
     ...Buttons.correctAnswer,
-    flex: 1, 
-    borderRadius: 30, 
-    margin: 10, 
-    justifyContent: "center"
+    flex: 1,
+    borderRadius: 30,
+    margin: 10,
+    justifyContent: 'center'
   },
   howToPlayModalButton: {
     ...Buttons.openButton
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     ...Buttons.submitButton,
-    height: "50%",
+    height: '50%',
     margin: 10
   }
 })
@@ -72,10 +72,10 @@ function GameScreen(props) {
   // setting the states below to -1 since there will never be a -1 index position in the answer array
   const [selected, setSelected] = useState(-1);
   const [submitted, setSubmitted] = useState(-1);
-  const [waiting, setWaiting] = useState({boolean: false, name: null});
+  const [allowSubmit, setAllowSubmit] = useState(true)
+  const [waiting, setWaiting] = useState({ boolean: false, name: null });
   const [correctIndex, setCorrectIndex] = useState(-1);
   const [displayAnswer, setDisplayAnswer] = useState(false);
-  // const [isFirstQuestion, setIsFirstQuestion] = useState(true);
   const [ansObjForRendering, setAnsObjsForRendering] = useState(null);
   const firstQuestion = useRef(true)
   const lastCorrect = useRef(null)
@@ -89,8 +89,10 @@ function GameScreen(props) {
     return answerArr;
   }
 
- 
+
   const handleAnsPress = (answer, i) => {
+    if(!allowSubmit) return;
+    setAllowSubmit(false)
     setTimeout(() => {
       handleSubmitAnswer(answer, i);
     }, 500)
@@ -105,7 +107,7 @@ function GameScreen(props) {
       questionPoints = Math.ceil(seconds / 1000)
       :
       questionPoints = 0;
-    
+
     lastCorrect.current = questionPoints;
 
     props.socket.emit('userAnsweredinGame',
@@ -120,7 +122,7 @@ function GameScreen(props) {
     }
 
     setSubmitted(i);
-    setWaiting({boolean: true, name: props.userName});
+    setWaiting({ boolean: true, name: props.userName });
   }
 
   const fakeOpponentSubmit = () => {
@@ -150,12 +152,12 @@ function GameScreen(props) {
 
         setDisplayAnswer(false);
         setCorrectIndex(-1);
-        setWaiting({boolean: false, name: null});
+        setWaiting({ boolean: false, name: null });
 
         if (!questionObj.answers) {
           let answerArr = insertCorrectAnswer(questionObj);
           questionObj.answers = answerArr;
-          
+
           let arrOfAnsObj = questionObj.answers.map((ans, i) => {
             let ansObj = {
               answer: ans,
@@ -165,11 +167,12 @@ function GameScreen(props) {
           });
           setAnsObjsForRendering(arrOfAnsObj)
         }
-
+        
         setSelected(-1);
         setFormattedQuestionInfo(questionObj);
         setSubmitted(-1);
- 
+        setAllowSubmit(true);
+
         if (firstQuestion.current) {
           firstQuestion.current = false
         }
@@ -242,209 +245,209 @@ function GameScreen(props) {
   return (
 
     <View
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      width: "100%",
-      height: "100%"
-    }}
-  >
-
-    {formattedQuestionInfo.question &&
-    <>
-
-    {/* TOP ROW */}
-
-    <View
-      style={{ flexDirection: "row", flex: .25}}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%'
+      }}
     >
-      
-      <View style={{ flex: .41, flexDirection: "row" }}>
-        <Pressable 
-          onPress={() => {
-            setSelected(ansObjForRendering[0].index)
-          }}
-          style={chooseColor(ansObjForRendering[0].index)}
-    
-          key={ansObjForRendering[0].index}
-          disabled={submitted >= 0}>
-          <Text 
-            style={styles.answerText}>
-              {he.decode(ansObjForRendering[0].answer)}
-          </Text>
-        </Pressable>  
-      </View> 
 
+      {formattedQuestionInfo.question &&
+        <>
 
-      <View style={{ flex: .18, alignItems: "center", justifyContent: "center" }}>
-      {score.playerOne &&
-       <>
+          {/* TOP ROW */}
 
-        {waiting.boolean === true && waiting.name !== score.playerOne.name &&
-          <Image 
-            source={require('../../images/win95_hourglass.gif')} 
-            style={{ height: 30, width: 30}}/>
-        }
-        <Text>{score.playerOne.name}</Text>
-        <Text>{score.playerOne.score}</Text>
-       </>
-       } 
-      </View>  
-
-      <View style={{ flex: .41, flexDirection: "row" }}>
-        <Pressable 
-          onPress={() => {
-            setSelected(ansObjForRendering[1].index)
-          }}
-          style={chooseColor(ansObjForRendering[1].index)}
-    
-          key={ansObjForRendering[1].index}
-          disabled={submitted >= 0}>
-          <Text 
-            style={styles.answerText}>
-              {he.decode(ansObjForRendering[1].answer)}
-          </Text>
-        </Pressable>  
-      </View>
-
-    </View>
-
-    {/* SUBMIT AND QUESTION ROW */}
-
-    <View
-      style={{ flexDirection: "row", flex: .40 }}
-    >
-     {selected === 0 || selected === 2 ? 
-      <View style={{ flex: .15, justifyContent: "center"}}>
-        <Pressable
-          onPress={() => {
-            handleAnsPress(formattedQuestionInfo.answers[selected], selected)
-          }}
-          style={styles.submitButton}
+          <View
+            style={{ flexDirection: 'row', flex: .25 }}
           >
-          <Text
-            style={styles.answerText}>
-            Submit
-          </Text>
-        </Pressable>
-      </View> 
-      : <View style={{ flex: .15 }} /> }
 
-      <View style={{ flex: .70, alignItems: "center" }}>
-        {/* <Text style={styles.categoryText}>
+            <View style={{ flex: .41, flexDirection: 'row' }}>
+              <Pressable
+                onPress={() => {
+                  setSelected(ansObjForRendering[0].index)
+                }}
+                style={chooseColor(ansObjForRendering[0].index)}
+
+                key={ansObjForRendering[0].index}
+                disabled={submitted >= 0}>
+                <Text
+                  style={styles.answerText}>
+                  {he.decode(ansObjForRendering[0].answer)}
+                </Text>
+              </Pressable>
+            </View>
+
+
+            <View style={{ flex: .18, alignItems: 'center', justifyContent: 'center' }}>
+              {score.playerOne &&
+                <>
+
+                  {waiting.boolean === true && waiting.name !== score.playerOne.name &&
+                    <Image
+                      source={require('../../images/win95_hourglass.gif')}
+                      style={{ height: 30, width: 30 }} />
+                  }
+                  <Text>{score.playerOne.name}</Text>
+                  <Text>{score.playerOne.score}</Text>
+                </>
+              }
+            </View>
+
+            <View style={{ flex: .41, flexDirection: 'row' }}>
+              <Pressable
+                onPress={() => {
+                  setSelected(ansObjForRendering[1].index)
+                }}
+                style={chooseColor(ansObjForRendering[1].index)}
+
+                key={ansObjForRendering[1].index}
+                disabled={submitted >= 0}>
+                <Text
+                  style={styles.answerText}>
+                  {he.decode(ansObjForRendering[1].answer)}
+                </Text>
+              </Pressable>
+            </View>
+
+          </View>
+
+          {/* SUBMIT AND QUESTION ROW */}
+
+          <View
+            style={{ flexDirection: 'row', flex: .40 }}
+          >
+            {selected === 0 || selected === 2 ?
+              <View style={{ flex: .15, justifyContent: 'center' }}>
+                <Pressable
+                  onPress={() => {
+                    handleAnsPress(formattedQuestionInfo.answers[selected], selected)
+                  }}
+                  style={styles.submitButton}
+                >
+                  <Text
+                    style={styles.answerText}>
+                    Submit
+                  </Text>
+                </Pressable>
+              </View>
+              : <View style={{ flex: .15 }} />}
+
+            <View style={{ flex: .70, alignItems: 'center' }}>
+              {/* <Text style={styles.categoryText}>
           {he.decode(formattedQuestionInfo.category)}
         </Text> */}
-        <Text style={styles.questionText}>
-          {he.decode(formattedQuestionInfo.question)}
-        </Text>
-      </View>
-      
-      {selected === 1 || selected === 3 ? 
-      <View style={{ flex: .15, justifyContent: "center"}}>
-        <Pressable
-          onPress={() => {
-            handleAnsPress(formattedQuestionInfo.answers[selected], selected)
-          }}
-          style={styles.submitButton}
+              <Text style={styles.questionText}>
+                {he.decode(formattedQuestionInfo.question)}
+              </Text>
+            </View>
+
+            {selected === 1 || selected === 3 ?
+              <View style={{ flex: .15, justifyContent: 'center' }}>
+                <Pressable
+                  onPress={() => {
+                    handleAnsPress(formattedQuestionInfo.answers[selected], selected)
+                  }}
+                  style={styles.submitButton}
+                >
+                  <Text
+                    style={styles.answerText}>
+                    Submit
+                  </Text>
+                </Pressable>
+              </View>
+              : <View style={{ flex: .15 }} />}
+
+          </View>
+
+          {/* COUNTDOWN ROW */}
+          <View
+            style={{ flexDirection: 'row', flex: .10 }}
           >
-          <Text
-            style={styles.answerText}>
-            Submit
-          </Text>
-        </Pressable>
-      </View> 
-      : <View style={{ flex: .15 }} /> }
+            <View style={{ flex: .45 }} />
+            <View style={{ flex: .10 }}>
+              <Countdown
+                seconds={seconds}
+                setSeconds={setSeconds}
+                style={{ color: 'red' }}
+              />
+            </View>
+            <View style={{ flex: .45 }} />
+          </View>
+
+          {/* BOTTOM ROW */}
+
+          <View
+            style={{ flexDirection: 'row', flex: .25 }}
+          >
+
+            {ansObjForRendering[2] &&
+              <View style={{ flex: .41, flexDirection: 'row' }}>
+                <Pressable
+                  onPress={() => {
+                    setSelected(ansObjForRendering[2].index)
+                  }}
+                  style={chooseColor(ansObjForRendering[2].index)}
+
+                  key={ansObjForRendering[2].index}
+                  disabled={submitted >= 0}>
+                  <Text
+                    style={styles.answerText}>
+                    {he.decode(ansObjForRendering[2].answer)}
+                  </Text>
+                </Pressable>
+              </View>
+            }
+
+            {!ansObjForRendering[2] && <View style={{ flex: .41, flexDirection: 'row' }} />}
+
+            <View style={{ flex: .18, alignItems: 'center', justifyContent: 'center' }}>
+              {score.playerOne &&
+                <>
+                  {waiting.boolean === true && waiting.name !== score.playerTwo.name &&
+                    <Image
+                      source={require('../../images/win95_hourglass.gif')}
+                      style={{ height: 30, width: 30 }} />
+                  }
+                  <Text>{score.playerTwo.name}</Text>
+                  <Text>{score.playerTwo.score}</Text>
+                </>
+              }
+            </View>
+
+            {ansObjForRendering[3] &&
+              <View style={{ flex: .41, flexDirection: 'row' }}>
+                <Pressable
+                  onPress={() => {
+                    setSelected(ansObjForRendering[3].index)
+                  }}
+                  style={chooseColor(ansObjForRendering[3].index)}
+
+                  key={ansObjForRendering[3].index}
+                  disabled={submitted >= 0}>
+                  <Text
+                    style={styles.answerText}>
+                    {he.decode(ansObjForRendering[3].answer)}
+                  </Text>
+                </Pressable>
+              </View>
+            }
+
+            {!ansObjForRendering[3] && <View style={{ flex: .41, flexDirection: 'row' }} />}
+
+          </View>
+
+          {gameEnd &&
+            <Redirect
+              to={{
+                pathname: '/gameend',
+                state: { finalScore: score },
+              }} />}
+
+        </>
+      }
 
     </View>
-
-    {/* COUNTDOWN ROW */}
-    <View
-      style={{ flexDirection: "row", flex: .10 }}
-    >
-      <View style={{ flex: .45 }} />
-      <View style={{ flex: .10 }}>
-        <Countdown
-          seconds={seconds}
-          setSeconds={setSeconds}
-          style={{color: "red" }}
-        />
-      </View>  
-      <View style={{ flex: .45 }} />
-    </View>
-
-    {/* BOTTOM ROW */}
-
-    <View
-      style={{ flexDirection: "row", flex: .25}}
-    >
-
-    {ansObjForRendering[2] &&  
-      <View style={{ flex: .41, flexDirection: "row" }}>
-        <Pressable 
-          onPress={() => {
-            setSelected(ansObjForRendering[2].index)
-          }}
-          style={chooseColor(ansObjForRendering[2].index)}
-    
-          key={ansObjForRendering[2].index}
-          disabled={submitted >= 0}>
-          <Text 
-            style={styles.answerText}>
-              {he.decode(ansObjForRendering[2].answer)}
-          </Text>
-        </Pressable>  
-      </View>
-    }
-
-    {!ansObjForRendering[2] &&  <View style={{ flex: .41, flexDirection: "row" }} />}
-
-      <View style={{ flex: .18, alignItems: "center", justifyContent: "center" }}>
-      {score.playerOne &&
-       <>
-        {waiting.boolean === true && waiting.name !== score.playerTwo.name &&
-          <Image 
-            source={require('../../images/win95_hourglass.gif')} 
-            style={{ height: 30, width: 30}}/>
-        }
-        <Text>{score.playerTwo.name}</Text>
-        <Text>{score.playerTwo.score}</Text>
-       </>
-       } 
-      </View>  
-
-    {ansObjForRendering[3] &&
-      <View style={{ flex: .41, flexDirection: "row" }}>
-        <Pressable 
-          onPress={() => {
-            setSelected(ansObjForRendering[3].index)
-          }}
-          style={chooseColor(ansObjForRendering[3].index)}
-    
-          key={ansObjForRendering[3].index}
-          disabled={submitted >= 0}>
-          <Text 
-            style={styles.answerText}>
-              {he.decode(ansObjForRendering[3].answer)}
-          </Text>
-        </Pressable>  
-      </View>
-    } 
-
-    {!ansObjForRendering[3] &&  <View style={{ flex: .41, flexDirection: "row" }} />}
-
-    </View>
-
-     { gameEnd &&
-        <Redirect
-          to={{
-            pathname: '/gameend',
-            state: { finalScore: score },
-          }} />}
-
-    </>
-  }
-
-  </View>
 
   )
 }

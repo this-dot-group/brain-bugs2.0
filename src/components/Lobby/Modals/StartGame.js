@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { Platform, View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
-import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
 import * as Notifications from 'expo-notifications';
-import DropDownPicker from 'react-native-dropdown-picker'
-import { Link, Redirect } from 'react-router-native'
-import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate, gameMakerPushToken } from '../../../store/gameInfoReducer'
-// import socketReducer from '../../../store/socketReducer'
+import DropDownPicker from 'react-native-dropdown-picker';
+import { Link } from 'react-router-native';
+import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate, gameMakerPushToken } from '../../../store/gameInfoReducer';
 import { newOpponent } from '../../../store/userReducer';
 
 import he from 'he';
@@ -41,6 +38,7 @@ function StartGame(props) {
 
   const [categoryList, setCategoryList] = useState([]);
   const [numPlayers, setNumPlayers] = useState(1);
+  const [showGo, setShowGo] = useState(false);
 
   // the below setNotificationHandler is what allows the push notification to go through while the app is in foreground
   Notifications.setNotificationHandler({
@@ -50,24 +48,24 @@ function StartGame(props) {
       shouldSetBadge: false,
     }),
   });
-  
+
   // THIS WORKS, BUT IT DOESNT ASK FOR PERMISSION (on android)
 
   async function registerForPushNotificationsAsync() {
     let pushToken;
-      const { status: existingStatus } = await Notifications.getPermissionsAsync();
-      let finalStatus = existingStatus;
-      if (existingStatus !== 'granted') {
-        // DOES THE BELOW REQUEST ONE MORE TIME?
-        const { status } = await Notifications.requestPermissionsAsync();
-        finalStatus = status;
-      }
-      if (finalStatus !== 'granted') {
-        alert('Failed to get token for push notification!');
-        return;
-      }
-      pushToken = (await Notifications.getExpoPushTokenAsync()).data;
-      
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      // DOES THE BELOW REQUEST ONE MORE TIME?
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get token for push notification!');
+      return;
+    }
+    pushToken = (await Notifications.getExpoPushTokenAsync()).data;
+
     if (Platform.OS === 'android') {
       Notifications.setNotificationChannelAsync('default', {
         name: 'default',
@@ -94,8 +92,22 @@ function StartGame(props) {
         console.log(e);
       }
     })()
+  }, []);
 
-  }, [])
+  useEffect(() => {
+    const goButtonStatus = ['numPlayers', 'category', 'numQuestions', 'publicOrPrivate'].reduce((acc, prop) => {
+      if (prop === 'publicOrPrivate' && props.gameInfo.numPlayers === 1) {
+        return acc;
+      }
+      return props.gameInfo[prop] ? acc : false
+    }, true);
+    setShowGo(goButtonStatus)
+  }, [
+    props.gameInfo.numPlayers,
+    props.gameInfo.category,  
+    props.gameInfo.numPlayers,
+    props.gameInfo.publicOrPrivate
+  ]);
 
 
   return (
@@ -113,9 +125,9 @@ function StartGame(props) {
           <View
             style={styles.modalView}
           >
-            <View style={{ flexDirection: "row", flex: .2 }}>
+            <View style={{ flexDirection: 'row', flex: .2 }}>
 
-              <Text style={{ textAlign: "center" }}>Start a game here!!</Text>
+              <Text style={{ textAlign: 'center' }}>Start a game here!!</Text>
 
               <Pressable
                 style={styles.closeModalButton}
@@ -126,7 +138,7 @@ function StartGame(props) {
 
             </View>
 
-            <View style={{ flexDirection: "row", flex: .35 }}>
+            <View style={{ flexDirection: 'row', flex: .35 }}>
               <View style={styles.dropDownView}>
                 <DropDownPicker
                   containerStyle={styles.dropDownContainer}
@@ -161,7 +173,7 @@ function StartGame(props) {
             </View>
 
 
-            <View style={{ flexDirection: "row", flex: .35 }}>
+            <View style={{ flexDirection: 'row', flex: .35 }}>
               <View style={styles.dropDownView}>
                 <DropDownPicker
                   containerStyle={styles.dropDownContainer}
@@ -187,7 +199,7 @@ function StartGame(props) {
                     multiple={false}
                     onChangeItem={item => {
                       props.publicOrPrivate(item.value);
-                      if(item.value === 'public'){registerForPushNotificationsAsync()}
+                      if (item.value === 'public') { registerForPushNotificationsAsync() }
                     }}
                     items={[
                       { label: 'Public Game', value: 'public' },
@@ -198,13 +210,14 @@ function StartGame(props) {
               }
             </View>
 
-            <View style={{ flexDirection: "row", flex: .1, alignSelf: "center" }}>
-
-              <Pressable style={{}}>
-                <Link to='/waitingroom'>
-                  <Text>Go!</Text>
-                </Link>
-              </Pressable>
+            <View style={{ flexDirection: 'row', flex: .1, alignSelf: 'center' }}>
+              {showGo &&
+                <Pressable style={{}}>
+                  <Link to='/waitingroom'>
+                    <Text>Go!</Text>
+                  </Link>
+                </Pressable>
+              }
             </View>
 
           </View>
@@ -216,8 +229,8 @@ function StartGame(props) {
 const mapStateToProps = (state) => {
   return {
     socket: state.socketReducer,
-    gameCode: state.userReducer.gameCode
-
+    gameCode: state.userReducer.gameCode,
+    gameInfo: state.gameInfoReducer,
   }
 }
 const mapDispatchToProps = {

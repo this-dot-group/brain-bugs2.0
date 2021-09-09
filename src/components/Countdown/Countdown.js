@@ -12,15 +12,6 @@ const styles = StyleSheet.create({
 
 function Countdown(props) {
 
-  // useEffect(() => {
-  //   const myInterval = setInterval(() => {
-  //     props.setSeconds((seconds) => seconds - 1);
-  //   }, 1000)
-  //   if (props.seconds === 0) {
-  //     clearInterval(myInterval);
-  //   }
-  //   return () => clearInterval(myInterval);
-  // });
   const lastTime = useRef();
   const lastFrame = useRef();
 

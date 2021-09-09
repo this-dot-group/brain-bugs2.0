@@ -23,8 +23,8 @@ function GameEnd(props) {
   const [rematchReady, setRematchReady] = useState(false)
   const [roomJoin, setRoomJoin] = useState(false);
   const [showInvitation, setShowInvitation] = useState(false);
-  const [currentUserObj, setCurrentUserObj] = useState({});
-  const [userOutcome, setUserOutcome] = useState('')
+  const [/* currentUserObj */, setCurrentUserObj] = useState({});
+  const [/* userOutcome */, setUserOutcome] = useState('')
 
   const playerOneName = props.location.state.finalScore.playerOne.name
   const playerOneScore = props.location.state.finalScore.playerOne.score
@@ -88,11 +88,11 @@ function GameEnd(props) {
 
   const createOpponentSaidNoAlert = (opponent) => {
     Alert.alert(
-      "Find another challenger!",
+      'Find another challenger!',
       `Your opponent ${opponent} declined your rematch request.`,
       [
         {
-          text: "Back to Lobby",
+          text: 'Back to Lobby',
           onPress: () => setBackToLobby(true),
         },
       ],
