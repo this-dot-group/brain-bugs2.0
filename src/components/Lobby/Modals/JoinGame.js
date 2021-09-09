@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
-import { Link, Redirect } from 'react-router-native'
 import { newOpponent } from '../../../store/userReducer';
 import { connect } from 'react-redux';
 import { Buttons, Views } from '../../../styles';
@@ -28,41 +27,42 @@ function JoinGame(props) {
       propogateSwipe
     >
 
-<SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{ flex: 1 }}>
 
-<ScrollView>
+        <ScrollView>
 
-      <View
-        style={styles.modalView}
-      >
-        <Text>JOIN a game here!!</Text>
-        
-        {props.gamesWaiting.map((gameObj, i) =>
-
-          
-          <Pressable
-            style={styles.gameJoinButton}
-            key={i}
-            onPress={() => {
-              props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username, gameObj.gameMakerPushToken])}}
+          <View
+            style={styles.modalView}
           >
-            <Text>
-              {gameObj.player} is waiting to play {gameObj.category}
-            </Text>
-          </Pressable>
-        )}
+            <Text>JOIN a game here!!</Text>
+
+            {props.gamesWaiting.map((gameObj, i) =>
+
+
+              <Pressable
+                style={styles.gameJoinButton}
+                key={i}
+                onPress={() => {
+                  props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username, gameObj.gameMakerPushToken])
+                }}
+              >
+                <Text>
+                  {gameObj.player} is waiting to play {gameObj.category}
+                </Text>
+              </Pressable>
+            )}
 
 
 
-        <Pressable
-          style={styles.closeModalButton}
-          onPress={() => props.setModalVisible(null)}
-        >
-          <Text>X</Text>
-        </Pressable>
-      </View>
-      </ScrollView>
-        </SafeAreaView>
+            <Pressable
+              style={styles.closeModalButton}
+              onPress={() => props.setModalVisible(null)}
+            >
+              <Text>X</Text>
+            </Pressable>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     </Modal>
   )
 }

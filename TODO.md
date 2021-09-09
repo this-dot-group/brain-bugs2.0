@@ -8,8 +8,11 @@
 ** PLAN OUT HOW TO APPROACH CHAT **
 
 
-Josh:
-- Ticking sound
+Josh:  
+- [ ] Ticking sound  
+- [x] Shouldn't be able to start a game without selecting all the necessary dropdown items needed - StartGame.js line 97
+- [x] You can hit submit many times in a row, at least in single player, and it will resubmit answer for next question
+- Handle error if run out of questions for a token
 
 Tia:
 - Push notification improvements:
@@ -75,12 +78,9 @@ Tia:
 - Works with both Game Maker and Game Joiner 
 
 ## Possible bugs
-- Shouldn't be able to start a game without selecting all the necessary dropdown items needed
-- You can hit submit many times in a row, at least in single player, and it will resubmit answer for next question
-- Handle error if run out of questions for a token
+
 - If one player chooses "back to lobby" or leaves the app, the other person should not have the option to rematch
 - When one person leaves mid-game, let other user know that they have left
-- Need to relook at timer not going down while picking answers
 
 
 

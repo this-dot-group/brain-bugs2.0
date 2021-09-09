@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Modal, Pressable, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
+import { View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import { Input } from 'react-native-elements';
-import { Link, Redirect } from 'react-router-native';
 import { connect } from 'react-redux'
 import { newOpponent } from '../../../store/userReducer';
 
@@ -28,13 +27,12 @@ function PrivateGame(props) {
   const [error, setError] = useState(false);
   const [validGamecodes, setValidGamecodes] = useState([]);
   const [goButton, setGoButton] = useState(false);
-  // const [roomJoin, setRoomJoin] = useState(false);
 
 
   useEffect(() => {
 
     props.socket.emit('inJoinGame', null)
-    
+
     const receiveAvailableGames = allGames => {
       let filteredGames = [];
 
@@ -47,7 +45,6 @@ function PrivateGame(props) {
         }
       }
       setValidGamecodes(filteredGames)
-      // console.log('filteredGames in PRIVATE GAME screen:  ', filteredGames)
     }
 
     props.socket.on('sendAvailGameInfo', receiveAvailableGames)
@@ -90,53 +87,51 @@ function PrivateGame(props) {
       propogateSwipe
     >
 
-<SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{ flex: 1 }}>
 
-<ScrollView>
-      <View
-        style={styles.modalView}
-      >
-        <Text>JOIN a private game here!!</Text>
-        <Text>Enter Code</Text>
+        <ScrollView>
+          <View
+            style={styles.modalView}
+          >
+            <Text>JOIN a private game here!!</Text>
+            <Text>Enter Code</Text>
 
-        {!goButton &&
-          <Input
-            placeholder='code here'
-            style={styles.gamecodeTextInput}
-            onChangeText={value => handleChange(value)}
-            maxLength={5}
-          />}
+            {!goButton &&
+              <Input
+                placeholder='code here'
+                style={styles.gamecodeTextInput}
+                onChangeText={value => handleChange(value)}
+                maxLength={5}
+              />}
 
-        {error && <Text style={styles.alertText}>Invalid code, please try again </Text>}
+            {error && <Text style={styles.alertText}>Invalid code, please try again </Text>}
 
-        {goButton &&
-          <Pressable
-            onPress={() => {
-              props.socket.emit('joinTwoPlayer', [gameCode, props.username]);
-            }}>
-            <Text>Go!</Text>
-          </Pressable>}
-
-        {/* {  console.log('GAME CODE: ', gameCode)} */}
+            {goButton &&
+              <Pressable
+                onPress={() => {
+                  props.socket.emit('joinTwoPlayer', [gameCode, props.username]);
+                }}>
+                <Text>Go!</Text>
+              </Pressable>}
 
 
 
-        <Pressable
-          style={styles.closeModalButton}
-          onPress={() => props.setModalVisible(null)}
-        >
-          <Text>X</Text>
-        </Pressable>
-      </View>
-      </ScrollView>
-        </SafeAreaView>
+            <Pressable
+              style={styles.closeModalButton}
+              onPress={() => props.setModalVisible(null)}
+            >
+              <Text>X</Text>
+            </Pressable>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     </Modal>
   )
 }
 
 const mapStateToProps = (state) => {
   return {
-    socket: state.socketReducer, 
+    socket: state.socketReducer,
     username: state.userReducer.username,
   }
 }
