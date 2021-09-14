@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet, Alert } from 'react-native'
+import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet } from 'react-native'
 import { Link, Redirect } from 'react-router-native';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import { newOpponent } from '../../store/userReducer'
@@ -25,22 +25,7 @@ const styles = StyleSheet.create({
 const WaitingRoom2 = (props) => {
 
   const [modalVisible, setModalVisible] = useState(false)
-  const [backToLobby, setBackToLobby] = useState(false);
   const [roomJoin, setRoomJoin] = useState(false)
-
-  const invalidPushTokenRedirect = () => {
-    Alert.alert(
-      "Oh no!",
-      `We were unable to connect your game.`,
-      [
-        {
-          text: "Back to Lobby",
-          onPress: () => setBackToLobby(true),
-        },
-      ],
-      { cancelable: false }
-    );
-  }
 
   useEffect(() => {
 
@@ -50,12 +35,9 @@ const WaitingRoom2 = (props) => {
     }
 
     props.socket.on('redirectToHowToPlay', redirectToHowToPlay)
-    // props.socket.on('invalidPushTokenRedirect', invalidPushTokenRedirect)
 
     return () => {
       props.socket.off('redirectToHowToPlay', redirectToHowToPlay);
-      // props.socket.off('invalidPushTokenRedirect', invalidPushTokenRedirect)
-
     }
 
   })
@@ -104,8 +86,6 @@ const WaitingRoom2 = (props) => {
         {roomJoin &&
           <Redirect to='/howtoplay' />
         }
-
-        {backToLobby && <Redirect to='/lobby' />}
 
       </View>
   )

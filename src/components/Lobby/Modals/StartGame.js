@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { Platform, View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
+import { Platform, View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView, Alert} from 'react-native'
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as Notifications from 'expo-notifications';
@@ -42,6 +42,31 @@ function StartGame(props) {
   const [categoryList, setCategoryList] = useState([]);
   const [numPlayers, setNumPlayers] = useState(1);
 
+  const validPushToken = (pushToken) => {
+    Alert.alert(
+      "Thanks for enabling push notifications!",
+      `If you choose to leave the app while you are waiting we will send you a push notification when your game is ready.`,
+      [
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
+
+    props.gameMakerPushToken(pushToken)
+
+  }
+
+  const invalidPushToken = (pushToken) => {
+    Alert.alert(
+      "Sorry, we could not enable push notifications on your device.",
+      `When your game is joined you will be automatically dropped back into the app`,
+      [
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
+  }
+
   // the below setNotificationHandler is what allows the push notification to go through while the app is in foreground
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -58,7 +83,6 @@ function StartGame(props) {
       const { status: existingStatus } = await Notifications.getPermissionsAsync();
       let finalStatus = existingStatus;
       if (existingStatus !== 'granted') {
-        // DOES THE BELOW REQUEST ONE MORE TIME?
         const { status } = await Notifications.requestPermissionsAsync();
         finalStatus = status;
       }
@@ -76,12 +100,16 @@ function StartGame(props) {
         lightColor: '#FF231F7C',
       });
     }
-    props.gameMakerPushToken('meep')
 
-    // props.gameMakerPushToken(pushToken)
+    // this emits event to the server which then checks to see if token is valid, and 
+    // sends either invalidPushToken or validPushToken event back to kick off Alert to user
+    props.socket.emit('checkPushToken', pushToken)
+
+
   }
 
   useEffect(() => {
+
     (async () => {
       try {
         const categories = await axios.get(`http://${EXPO_LOCAL_URL}:3000/categories`);
@@ -96,6 +124,14 @@ function StartGame(props) {
         console.log(e);
       }
     })()
+
+    props.socket.on('validPushToken', validPushToken)
+    props.socket.on('invalidPushToken', invalidPushToken)
+
+    return () => {
+      props.socket.off('validPushToken', validPushToken)
+      props.socket.off('invalidPushToken', invalidPushToken)
+    }
 
   }, [])
 
@@ -189,7 +225,7 @@ function StartGame(props) {
                     multiple={false}
                     onChangeItem={item => {
                       props.publicOrPrivate(item.value);
-                      if(item.value === 'public'){registerForPushNotificationsAsync()}
+                      registerForPushNotificationsAsync()
                     }}
                     items={[
                       { label: 'Public Game', value: 'public' },

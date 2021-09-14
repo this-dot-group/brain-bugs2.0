@@ -10,19 +10,38 @@
 
 Josh:
 - Ticking sound
+- bug squashes
 
 Tia:
+
+**CURRENT**
+- now we're emitting and event on StartGame to validate the pushToken on the server
+  - if bad, Alert
+  - if good, Alert
+  - should clicking 'OK' on alert automatically take you to waiting room, or should it still be on the user to click Go?
+
+  
+
+  - add appState listener at top level, will keep track of the users state the whole time in a reducer or something (track the change event listener)
+  - when the gameMaker's game is joined, we'll check the app state of the game maker and do something different depending on what it is
+  - if app is backgrounded, activate push notification service
+  - if app is foregrounded, they just drop back into their game via countdown screen
+
+  - improvement to consider: when the user backgrounds their app, they see an alert that further reminds them that theyll see a push notification to get them back into their game
+  - what about those who have already permissioned notification service? their token will already be validated, but we can check for it again? (to kick off the alert on good/bad token)
+
+  https://docs.expo.dev/versions/latest/react-native/appstate/
+
 - Push notification cleaup:
   - doesnt work as intended if you dont click push notification while its active 
     - *** THIS SEEMS TO WORK FINE?
+    - *** maybe it works while app is in foreground, and doesnt work while app is in background
 
   - something on game joiner device that indicates theyre waiting for game maker to rejoin
     - *** NOW REDIRECTS TO WAITINGROOM2
 
-  - on server side, one player check in joinTwoPlayer is crappy (re push notifications)
-    - *** CHECKING NOW FOR NUMPLAYERS=1, NOT NAME
-
-  - what to do if the push notification is not a valid expo one? it just stops there  
+  - what to do if the push notification is not a valid expo one? it just stops there
+    - *** see new notes above re change to push notification order  
 
 - add the following to app.json to customize notifications
     // "plugins": [
@@ -49,8 +68,8 @@ Tia:
   - DEPLOY to server:
     - heroku?
 
-    # NEW BUG - REMATCH: YES
-    - rematch doesnt work. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
+# NEW BUG - REMATCH: YES
+- rematch doesnt work. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
 
 
 
@@ -74,6 +93,7 @@ Tia:
 - use local storage to remember mute status, name, maybe high score? 
   - Track high score by category and num questions
 - Cancel a game from the waiting room, in case you change your mind or nobody joins you can go to home now, but not just back
+- Something to do in the WaitingRoom for gameMaker (jumping brain bug!)
 
 ## Manuel Testing
 - Single Player Works
