@@ -18,6 +18,8 @@ export default (state = {}, action) => {
     return { ...state, socketId: payload };
   case 'NEW_TOKEN':
     return { ...state, token: payload };
+  case 'APP_STATE':
+    return {...state, appState: payload};
   default:
     return state;
   }
@@ -51,6 +53,13 @@ export const newSocketId = (id) => {
     payload: id,
   };
 };
+
+export const appState = (nextAppState) => {
+  return {
+    type: 'APP_STATE',
+    payload: nextAppState
+  }
+}
 
 export const newToken = () => {
   return async dispatch => {

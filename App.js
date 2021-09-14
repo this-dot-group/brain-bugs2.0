@@ -1,8 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Provider } from 'react-redux';
-import { NativeRouter, Route, Link } from 'react-router-native'
+import { NativeRouter, Route } from 'react-router-native'
 
 import store from './src/store/index.js';
 
@@ -15,14 +14,7 @@ import WaitingRoom from './src/components/WaitingRoom/WaitingRoom.js'
 import WaitingRoom2 from './src/components/WaitingRoom/WaitingRoom2.js'
 
 import Sounds from './src/sounds/Sounds'
-
-// import flute from './flute.wav'
-// import click from './click.wav';
-
-// export const allSounds = {
-//   flute,
-//   click
-// }
+import AppStateTracker from './src/components/AppState/AppStateTracker'
 
 
 const styles = StyleSheet.create({
@@ -36,11 +28,13 @@ const styles = StyleSheet.create({
 
 
 export default function App() {
+
   return (
 
     <Provider
       store={store}>
       <Sounds />
+      <AppStateTracker />
       <NativeRouter>
         <View style={styles.container}>
           <Route
@@ -76,11 +70,6 @@ export default function App() {
   );
 }
 
-{/* <GameScreen />
-        <GameEnd />
-        <HowToPlay />         
-      <Text>Brain Bugs 2.0 - Coming Soon!</Text> */}
-{/* <StatusBar style="auto" /> */ }
 
 
 
