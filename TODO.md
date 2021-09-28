@@ -14,15 +14,24 @@ Josh:
 
 Tia:
 
-**CURRENT**
-- now we're emitting and event on StartGame to validate the pushToken on the server
+**9/14/21**
+
+- NEED TO ADD GAME MAKER APP STATE TO GAMEOBJ(BUT WILL IT UPDATE?) SO THAT WHEN A GAME IS JOINED, WE KNOW IF THE GAMEMAKER IS ACTIVE OR BACKGROUND
+
+- now we're emitting an event on StartGame to validate the pushToken on the server
   - if bad, Alert
   - if good, Alert
   - should clicking 'OK' on alert automatically take you to waiting room, or should it still be on the user to click Go?
 
-  
+- appState is being recorded via new component AppStateTracker, will update reducer everytime it changes (active, background, etc) 
 
-  - add appState listener at top level, will keep track of the users state the whole time in a reducer or something (track the change event listener)
+- MAYBE WE DONT NEED REDUCER? JUST NEED TO USE THE SERVER EVENT?
+
+- DONT NEED INVALIDPUSHTOKENREDIRECT EVENT
+
+
+
+
   - when the gameMaker's game is joined, we'll check the app state of the game maker and do something different depending on what it is
   - if app is backgrounded, activate push notification service
   - if app is foregrounded, they just drop back into their game via countdown screen

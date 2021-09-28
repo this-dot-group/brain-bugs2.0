@@ -83,8 +83,16 @@ const WaitingRoom = (props) => {
     props.fullGameInfo.gameCode = props.gameCode;
     props.fullGameInfo.token = props.token;
 
+    //need to re-emit so that the app state is attached in the first time something is added to availableGames
+    let appStateGameCode = {
+      appState: 'active',
+      gameCode: props.gameCode,
+    }
+
     if(props.fullGameInfo.liveGameQuestions) {
       props.socket.emit('newGame', {...props.fullGameInfo, token })
+
+      props.socket.emit('appStateUpdate', appStateGameCode)
     }
 
     const redirectToHowToPlay = usernames => {
