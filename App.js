@@ -14,7 +14,6 @@ import WaitingRoom from './src/components/WaitingRoom/WaitingRoom.js'
 import WaitingRoom2 from './src/components/WaitingRoom/WaitingRoom2.js'
 
 import Sounds from './src/sounds/Sounds'
-import AppStateTracker from './src/components/AppState/AppStateTracker'
 
 
 const styles = StyleSheet.create({
@@ -34,7 +33,6 @@ export default function App() {
     <Provider
       store={store}>
       <Sounds />
-      <AppStateTracker />
       <NativeRouter>
         <View style={styles.container}>
           <Route

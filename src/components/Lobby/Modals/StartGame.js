@@ -41,6 +41,7 @@ function StartGame(props) {
 
   const [categoryList, setCategoryList] = useState([]);
   const [numPlayers, setNumPlayers] = useState(1);
+ 
 
   const validPushToken = (pushToken) => {
     Alert.alert(
@@ -59,12 +60,15 @@ function StartGame(props) {
   const invalidPushToken = (pushToken) => {
     Alert.alert(
       "Sorry, we could not enable push notifications on your device.",
-      `When your game is joined you will be automatically dropped back into the app`,
+      `When your game is joined you will be automatically dropped back into the app.`,
       [
         { text: "OK", onPress: () => console.log("OK Pressed") }
       ],
       { cancelable: false }
     );
+
+    // what should we do here?
+    // props.gameMakerPushToken("INVALID") ?
   }
 
   // the below setNotificationHandler is what allows the push notification to go through while the app is in foreground
@@ -87,7 +91,7 @@ function StartGame(props) {
         finalStatus = status;
       }
       if (finalStatus !== 'granted') {
-        alert('Failed to get token for push notification!');
+        alert('Failed to get token for push notification! When your game is joined you will be automatically dropped back into the app.');
         return;
       }
       pushToken = (await Notifications.getExpoPushTokenAsync()).data;

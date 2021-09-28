@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import * as Notifications from 'expo-notifications';
 
 import { Buttons, Views, Typography } from '../../styles';
+import AppStateTracker from '../AppState/AppStateTracker.js';
 
 const styles = StyleSheet.create({
   modalView: {
@@ -129,6 +130,8 @@ const WaitingRoom = (props) => {
     return (
 
       <View>
+        <AppStateTracker
+          gameCode={props.gameCode} />
         <Modal
           transparent={true}
           visible={modalVisible}>
