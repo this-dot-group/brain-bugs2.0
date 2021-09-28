@@ -20,32 +20,7 @@ const styles = StyleSheet.create({
 function JoinGame(props) {
 
   const [ redirectToWaitingRoom2, setRedirectToWaitingRoom2 ] = useState(false)
-  // const [ backToLobby, setBackToLobby ] = useState(false)
 
-  // const invalidPushTokenRedirect = () => {
-  //   Alert.alert(
-  //     "Oh no!",
-  //     `We were unable to connect your game.`,
-  //     [
-  //       {
-  //         text: "Back to Lobby",
-  //         onPress: () => setBackToLobby(true),
-  //       },
-  //     ],
-  //     { cancelable: false }
-  //   );
-  // }
-
-  // useEffect(() => {
-
-  //   props.socket.on('invalidPushTokenRedirect', invalidPushTokenRedirect)
-
-  //   return () => {
-  //     props.socket.off('invalidPushTokenRedirect', invalidPushTokenRedirect)
-  //   }
-
-
-  // }, [])
 
   return (
     <Modal
@@ -73,10 +48,7 @@ function JoinGame(props) {
             key={i}
             onPress={() => {
               props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username, gameObj.gameMakerPushToken]);
-              // by this stage we need to know if push notification is good or not 
-              // if good token, redirect to waiting room
-              // if bad, show alert with option to go back to lobby
-              // maybe we should be checking if its a good token or not in the beginning 
+
               setRedirectToWaitingRoom2(true);
             }}
           >

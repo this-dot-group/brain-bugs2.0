@@ -18,8 +18,6 @@ export default (state = {}, action) => {
     return { ...state, socketId: payload };
   case 'NEW_TOKEN':
     return { ...state, token: payload };
-  case 'APP_STATE_GAME_CODE_OBJ':
-    return {...state, appStateGameCode: payload};
   default:
     return state;
   }
@@ -53,14 +51,6 @@ export const newSocketId = (id) => {
     payload: id,
   };
 };
-
-export const appStateObj = (appStateandGameCodeObj) => {
-  console.log('appStateandGameCodeObj in reducer: ', appStateandGameCodeObj)
-  return {
-    type: 'APP_STATE_GAME_CODE_OBJ',
-    payload: appStateandGameCodeObj
-  }
-}
 
 export const newToken = () => {
   return async dispatch => {

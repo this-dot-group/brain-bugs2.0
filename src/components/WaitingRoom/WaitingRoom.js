@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet, Alert } from 'react-native'
+import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet } from 'react-native'
 import { Link, Redirect } from 'react-router-native';
 import Clipboard from 'expo-clipboard';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
@@ -106,30 +106,12 @@ const WaitingRoom = (props) => {
       }
     }
 
-    const invalidPushTokenRedirect = () => {
-      Alert.alert(
-        "Oh no!",
-        `We were unable to connect your game.`,
-        [
-          {
-            text: "Back to Lobby",
-            onPress: () => {
-              setBackToLobby(true)
-            },
-          },
-        ],
-        { cancelable: false }
-      );
-    }
-
     props.socket.on('redirectToHowToPlay', redirectToHowToPlay)
     props.socket.on('startOnePlayer', startOnePlayer)
-    props.socket.on('invalidPushTokenRedirect', invalidPushTokenRedirect)
 
     return () => {
       props.socket.off('redirectToHowToPlay', redirectToHowToPlay);
       props.socket.off('startOnePlayer', startOnePlayer);
-      props.socket.off('invalidPushTokenRedirect', invalidPushTokenRedirect)
     }
 
   }, [props.fullGameInfo.liveGameQuestions])

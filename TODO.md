@@ -14,30 +14,23 @@ Josh:
 
 Tia:
 
-**9/14/21**
-
-- NEED TO ADD GAME MAKER APP STATE TO GAMEOBJ(BUT WILL IT UPDATE?) SO THAT WHEN A GAME IS JOINED, WE KNOW IF THE GAMEMAKER IS ACTIVE OR BACKGROUND
+**9/28/21**
 
 - now we're emitting an event on StartGame to validate the pushToken on the server
   - if bad, Alert
   - if good, Alert
-  - should clicking 'OK' on alert automatically take you to waiting room, or should it still be on the user to click Go?
+  - need to make it so that 'Go' doesnt show until youve interacted with the alert also
 
-- appState is being recorded via new component AppStateTracker, will update reducer everytime it changes (active, background, etc) 
+- appState is being recorded via new component AppStateTracker in WaitingRoom, will send event to server everytime it changes (active, background, etc) 
 
-- MAYBE WE DONT NEED REDUCER? JUST NEED TO USE THE SERVER EVENT?
+- DO WE STILL NEED WAITINGROOM2 in JOINGAME?
 
-- DONT NEED INVALIDPUSHTOKENREDIRECT EVENT
+- when the gameMaker's game is joined, we check their appState in server and either start gameplay if theyre active OR do push notification if theyre anything but active
 
+- what happens on bad token? on start game, we go to get token but say its bad. should we record that also? (so that when we try to send notification we know not to if we already know its a bad one?)
 
-
-
-  - when the gameMaker's game is joined, we'll check the app state of the game maker and do something different depending on what it is
-  - if app is backgrounded, activate push notification service
-  - if app is foregrounded, they just drop back into their game via countdown screen
-
-  - improvement to consider: when the user backgrounds their app, they see an alert that further reminds them that theyll see a push notification to get them back into their game
-  - what about those who have already permissioned notification service? their token will already be validated, but we can check for it again? (to kick off the alert on good/bad token)
+- improvement to consider: when the user backgrounds their app, they see an alert that further reminds them that theyll see a push notification to get them back into their game
+- what about those who have already permissioned notification service? their token will already be validated, but we can check for it again? (to kick off the alert on good/bad token)
 
   https://docs.expo.dev/versions/latest/react-native/appstate/
 
@@ -45,12 +38,6 @@ Tia:
   - doesnt work as intended if you dont click push notification while its active 
     - *** THIS SEEMS TO WORK FINE?
     - *** maybe it works while app is in foreground, and doesnt work while app is in background
-
-  - something on game joiner device that indicates theyre waiting for game maker to rejoin
-    - *** NOW REDIRECTS TO WAITINGROOM2
-
-  - what to do if the push notification is not a valid expo one? it just stops there
-    - *** see new notes above re change to push notification order  
 
 - add the following to app.json to customize notifications
     // "plugins": [
