@@ -5,9 +5,11 @@
 ** REVISIT and DISCUSS MVP **
 - put things into MVP and Stretch Goals categories
 
-Josh:
-- Ticking sound
-- bug squashes
+Josh:  
+- [ ] Ticking sound  
+- [x] Shouldn't be able to start a game without selecting all the necessary dropdown items needed - StartGame.js line 97
+- [x] You can hit submit many times in a row, at least in single player, and it will resubmit answer for next question
+- Handle error if run out of questions for a token
 
 Tia:
 
@@ -99,12 +101,9 @@ Tia:
 - Works with both Game Maker and Game Joiner 
 
 ## Possible bugs
-- Shouldn't be able to start a game without selecting all the necessary dropdown items needed
-- You can hit submit many times in a row, at least in single player, and it will resubmit answer for next question
-- Handle error if run out of questions for a token
+
 - If one player chooses "back to lobby" or leaves the app, the other person should not have the option to rematch
 - When one person leaves mid-game, let other user know that they have left
-- Need to relook at timer not going down while picking answers
 
 
 

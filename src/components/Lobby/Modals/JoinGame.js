@@ -31,9 +31,8 @@ function JoinGame(props) {
       propogateSwipe
     >
 
-<SafeAreaView style={{flex: 1}}>
-
-<ScrollView>
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView>
 
       <View
         style={styles.modalView}
@@ -58,8 +57,6 @@ function JoinGame(props) {
           </Pressable>
         )}
 
-
-
         <Pressable
           style={styles.closeModalButton}
           onPress={() => props.setModalVisible(null)}
@@ -68,11 +65,11 @@ function JoinGame(props) {
         </Pressable>
 
         {redirectToWaitingRoom2 && <Redirect to='/waitingroom2' />}
-        {/* {backToLobby && <Redirect to='/lobby' />} */}
 
-      </View>
+        </View>
       </ScrollView>
-        </SafeAreaView>
+    </SafeAreaView>
+
     </Modal>
   )
 }

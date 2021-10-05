@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Pressable, StyleSheet, Modal } from 'react-native';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { Redirect } from 'react-router-native';
 import { connect } from 'react-redux';
 import faker from 'faker';
@@ -12,7 +12,6 @@ import { newGame } from '../../store/gameInfoReducer';
 import { playSound } from '../../store/soundsReducer'
 
 import { Buttons } from '../../styles';
-// import usePlaySound from '../../sounds/usePlaySound'
 
 const styles = StyleSheet.create({
   gameOptionButtons: {
@@ -25,8 +24,6 @@ function StartScreen(props) {
 
   const [gamesWaiting, setGamesWaiting] = useState([])
   const [roomJoin, setRoomJoin] = useState(false);
-
-  // const { playSound } = usePlaySound(['flute', 'click'])
 
   useEffect(() => {
     // reset game so no info from previous games carries over
