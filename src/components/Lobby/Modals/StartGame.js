@@ -48,7 +48,7 @@ function StartGame(props) {
       "Thanks for enabling push notifications!",
       `If you choose to leave the app while you are waiting we will send you a push notification when your game is ready.`,
       [
-        { text: "OK", onPress: () => console.log("OK Pressed") }
+        { text: "OK", onPress: () => console.log("MAKE GO BUTTON VISIBLE") }
       ],
       { cancelable: false }
     );
@@ -60,15 +60,15 @@ function StartGame(props) {
   const invalidPushToken = (pushToken) => {
     Alert.alert(
       "Sorry, we could not enable push notifications on your device.",
-      `When your game is joined you will be automatically dropped back into the app.`,
+      `Please do not leave the app while waiting for an opponent.`,
       [
-        { text: "OK", onPress: () => console.log("OK Pressed") }
+        { text: "OK", onPress: () => console.log("MAKE GO BUTTON VISIBLE") }
       ],
       { cancelable: false }
     );
 
-    // what should we do here?
-    // props.gameMakerPushToken("INVALID") ?
+    props.gameMakerPushToken('INVALID')
+
   }
 
   // the below setNotificationHandler is what allows the push notification to go through while the app is in foreground
@@ -107,7 +107,7 @@ function StartGame(props) {
 
     // this emits event to the server which then checks to see if token is valid, and 
     // sends either invalidPushToken or validPushToken event back to kick off Alert to user
-    props.socket.emit('checkPushToken', pushToken)
+    props.socket.emit('checkPushToken', 'pushToken')
 
 
   }

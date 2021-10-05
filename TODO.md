@@ -1,20 +1,15 @@
 ## TO DO List
 ***************************
-# AUG
+# OCT
 
 ** REVISIT and DISCUSS MVP **
 - put things into MVP and Stretch Goals categories
-
-** PLAN OUT HOW TO APPROACH CHAT **
-
 
 Josh:
 - Ticking sound
 - bug squashes
 
 Tia:
-
-**9/28/21**
 
 - now we're emitting an event on StartGame to validate the pushToken on the server
   - if bad, Alert
@@ -23,14 +18,19 @@ Tia:
 
 - appState is being recorded via new component AppStateTracker in WaitingRoom, will send event to server everytime it changes (active, background, etc) 
 
-- DO WE STILL NEED WAITINGROOM2 in JOINGAME?
+- Still have WaitingRoom2, has a bit different language about waiting for opponent to rejoin (vs waiting for one more player)
 
 - when the gameMaker's game is joined, we check their appState in server and either start gameplay if theyre active OR do push notification if theyre anything but active
 
-- what happens on bad token? on start game, we go to get token but say its bad. should we record that also? (so that when we try to send notification we know not to if we already know its a bad one?)
+- we also have check for gameMaker being inactive and with bad token. in that case it emits new event and will generate an alert on both sides, with the ability to return to the lobby 
+
+- need to fix alert language in redirectGameJoinerToLobby   : )
 
 - improvement to consider: when the user backgrounds their app, they see an alert that further reminds them that theyll see a push notification to get them back into their game
-- what about those who have already permissioned notification service? their token will already be validated, but we can check for it again? (to kick off the alert on good/bad token)
+
+- needs improvement around those who already have push token and have permissioned notifications, so we dont ask/alert on every start game
+
+- update start game so that the Go button doesnt show until push notification alert has been exited 
 
   https://docs.expo.dev/versions/latest/react-native/appstate/
 
@@ -40,17 +40,17 @@ Tia:
     - *** maybe it works while app is in foreground, and doesnt work while app is in background
 
 - add the following to app.json to customize notifications
-    // "plugins": [
-    //   [
-    //     "expo-notifications",
-    //     {
-    //       "icon": "./local/path/to/myNotificationIcon.png",
-    //       "color": "#ffffff",
-    //       "sounds": ["./local/path/to/mySound.wav", "./local/path/to/myOtherSound.wav"],
-    //       "mode": "production"
-    //     }
-    //   ]
-    // ],
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./local/path/to/myNotificationIcon.png",
+          "color": "#ffffff",
+          "sounds": ["./local/path/to/mySound.wav", "./local/path/to/myOtherSound.wav"],
+          "mode": "production"
+        }
+      ]
+    ],
 
 - Research deployment 
   - DEPLOY to app store:

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet } from 'react-native'
+import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet, Alert } from 'react-native'
 import { Link, Redirect } from 'react-router-native';
 import Clipboard from 'expo-clipboard';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
@@ -45,37 +45,30 @@ const WaitingRoom = (props) => {
     }, 1500)
   }
 
+  const handleNotificationResponse = response => {
+    // response.notification.request.content.data has the relevant info sent from two person event
+    // { gameCode, gameMaker, gameJoiner}
+    props.socket.emit('joinTwoPlayerViaPushNotification', response.notification.request.content.data)
+  };
+
+  const redirectGameMakerToLobby = () => {
+    // ok to do without an alert since this only occurs if gameMaker has the app backgrounded and their push token was invalid so they werent able to get push notification
+    setBackToLobby(true);
+  };
+
   useEffect(() => {
-    
     const tokenToUse = props.location.state?.token || props.token
     setToken(tokenToUse);
 
-
-    // RECEIVE ALL IF APP IN FOREGROUND
-    // RECEIVE ONLY INTERACTED IF APP IS IN BACKGROUND
-    const handleNotification = notification => {
-      console.log('GAMEMAKER HAS RECEIVED THEIR NOTIFICATION:', notification);
-    };
-  
-    const handleNotificationResponse = response => {
-      // response.notification.request.content.data has the relevant info sent from two person event
-      // { gameCode, gameMaker, gameJoiner}
-      console.log('GAMEMAKER HAS INTERACTED WITH THEIR NOTIFICATION:', response.notification.request.content.data);
-
-      props.socket.emit('joinTwoPlayerViaPushNotification', response.notification.request.content.data)
-
-    };
-    
-    Notifications.addNotificationReceivedListener(handleNotification);
+    // don't need this anymore because it only ran when push notification was interacted with while the app is in foreground, but at this point we aren't sending a notification when app is foregrounded, we're just dropping them into game
+    // Notifications.addNotificationReceivedListener(handleNotification);
     
     Notifications.addNotificationResponseReceivedListener(handleNotificationResponse);
 
-
     (async () => {
       await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions, tokenToUse)
-      
     })()
-    
+
   }, [])
   
   useEffect(() => {
@@ -108,10 +101,12 @@ const WaitingRoom = (props) => {
 
     props.socket.on('redirectToHowToPlay', redirectToHowToPlay)
     props.socket.on('startOnePlayer', startOnePlayer)
-
+    props.socket.on('couldNotJoinPlayers', redirectGameMakerToLobby)
+    
     return () => {
       props.socket.off('redirectToHowToPlay', redirectToHowToPlay);
       props.socket.off('startOnePlayer', startOnePlayer);
+      props.socket.off('couldNotJoinPlayers', redirectGameMakerToLobby)
     }
 
   }, [props.fullGameInfo.liveGameQuestions])

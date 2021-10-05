@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { AppState } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -6,15 +6,10 @@ function AppStateTracker(props) {
 
 
   const handleAppStateChange = (nextAppState) => {
-    console.log('APP STATE CHANGE:::::  ', nextAppState)
-
-    console.log('props.gameCode:', props.gameCode)
-
     let appStateGameCode = {
       appState: nextAppState,
       gameCode: props.gameCode,
     }
-
     props.socket.emit('appStateUpdate', appStateGameCode)
   }
 
@@ -35,7 +30,6 @@ function AppStateTracker(props) {
     };
 
   }, [])
-
 
   return null;
 

@@ -10,7 +10,6 @@ export default (state = {}, action) => {
   case 'NEW_USER':
     return { ...state, username: payload };
   case 'NEW_GAME_CODE':
-    console.log('making game code', payload);
     return { ...state, gameCode: payload };
   case 'NEW_OPPONENT':
     return { ...state, opponent: payload };
