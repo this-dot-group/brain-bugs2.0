@@ -81,7 +81,12 @@ Tia:
 
 - If one player chooses "back to lobby" or leaves the app, the other person should not have the option to rematch
 - When one person leaves mid-game, let other user know that they have left
+- Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
 
+
+## Chat
+- Show both sides
+- Array of objects with messages and user Id, message, and message key
 
 
 

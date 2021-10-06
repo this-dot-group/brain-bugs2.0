@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { EXPO_LOCAL_URL } from '../../env'
 
-
 export default (state = {}, action) => {
 
   const { type, payload } = action;
