@@ -1,39 +1,18 @@
 ## TO DO List
 ***************************
-# AUG
+# OCT
 
 ** REVISIT and DISCUSS MVP **
 - put things into MVP and Stretch Goals categories
 
-** PLAN OUT HOW TO APPROACH CHAT **
-
-
 Josh:  
-- [ ] Ticking sound  
-- [x] Shouldn't be able to start a game without selecting all the necessary dropdown items needed - StartGame.js line 97
-- [x] You can hit submit many times in a row, at least in single player, and it will resubmit answer for next question
+- Continue to work on Chat
 - Handle error if run out of questions for a token
+  - Give player option to continue in the same category but with old questions (get a new token), or to choose a new category
 
 Tia:
-- Push notification improvements:
-  - doesnt work as intended if you dont click push notification while its active 
-  - can repeat the notification, if it isnt interacted with in time
-  - somethig on game joiner device that indicates theyre waiting for game maker to rejoin
-  - on server side, one player check in joinTwoPlayer is crappy (re push notifications)
-  - what to do if the push notification is not a valid expo one? it just stops there  
-
-- add the following to app.json to customize notifications
-    // "plugins": [
-    //   [
-    //     "expo-notifications",
-    //     {
-    //       "icon": "./local/path/to/myNotificationIcon.png",
-    //       "color": "#ffffff",
-    //       "sounds": ["./local/path/to/mySound.wav", "./local/path/to/myOtherSound.wav"],
-    //       "mode": "production"
-    //     }
-    //   ]
-    // ],
+- Continue to work on push notifications
+- Change waiting room "Go Home" button to cancel game, and make sure the game is removed from available games, and redirect to lobby
 
 - Research deployment 
   - DEPLOY to app store:
@@ -53,22 +32,20 @@ Tia:
 - clean up package.json unused dependencies
 
 ## New Features
-* Chat functionality at end
 * Emoji decorations 
 
 ## Styling/Content
 - Responsive font size for answer pressables and question on GameScreen
-- Content for all pages, such as how to play instructions 
+- Content for all pages, such as how to play instructions, content for alerts
 - Logo/img/etc
 - if you dont answer a question, when the correct answer moment occurs it looks like you answered correctly (because no other option is selected)
-  - improve selected/submitted feedback (raining down smileys/sads)
+- improve selected/submitted feedback (raining down smileys/sads)
+- More sounds (ticking sound)
 
 ## Improvement ideas
 * Single player fake opponent scoring (right now they get it right 50% of time, random # for points)
-- Change one player game title to 'practice round'?
 - use local storage to remember mute status, name, maybe high score? 
   - Track high score by category and num questions
-- Cancel a game from the waiting room, in case you change your mind or nobody joins you can go to home now, but not just back
 
 ## Manuel Testing
 - Single Player Works
@@ -78,8 +55,7 @@ Tia:
 - Works with both Game Maker and Game Joiner 
 
 ## Possible bugs
-
-- If one player chooses "back to lobby" or leaves the app, the other person should not have the option to rematch
+- If one player chooses "back to lobby" on the end screen or leaves the app, the other person should not have the option to rematch
 - When one person leaves mid-game, let other user know that they have left
 
 
