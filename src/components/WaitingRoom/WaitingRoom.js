@@ -56,6 +56,13 @@ const WaitingRoom = (props) => {
     setBackToLobby(true);
   };
 
+  const cancelGame = () => {
+
+    props.socket.emit('cancelGame');
+
+    setBackToLobby(true);
+  }
+
   useEffect(() => {
     const tokenToUse = props.location.state?.token || props.token
     setToken(tokenToUse);
@@ -165,9 +172,11 @@ const WaitingRoom = (props) => {
 
         {backToLobby && <Redirect to='/lobby' />}
 
-        <Link to='/'>
-          <Text>(Go Home)</Text>
-        </Link>
+        <Pressable
+            style={styles.gameCodeCopyButton}
+            onPress={cancelGame}>
+            <Text>Cancel Game</Text>
+          </Pressable>
         {roomJoin &&
           <Redirect to='/howtoplay' />
         }
