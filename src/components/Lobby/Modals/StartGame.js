@@ -4,7 +4,7 @@ import { Platform, View, Text, Modal, Pressable, StyleSheet, SafeAreaView, Scrol
 import * as Notifications from 'expo-notifications';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Link } from 'react-router-native';
-import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate, gameMakerPushToken } from '../../../store/gameInfoReducer';
+import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate, pushTokenAlertInteraction, gameMakerPushToken } from '../../../store/gameInfoReducer';
 import { newOpponent } from '../../../store/userReducer';
 
 import he from 'he';
@@ -46,7 +46,7 @@ function StartGame(props) {
       "Thanks for enabling push notifications!",
       `If you choose to leave the app while you are waiting we will send you a push notification when your game is ready.`,
       [
-        { text: "OK", onPress: () => console.log("MAKE GO BUTTON VISIBLE") }
+        { text: "OK", onPress: () => props.pushTokenAlertInteraction(true) }
       ],
       { cancelable: false }
     );
@@ -58,7 +58,7 @@ function StartGame(props) {
       "Sorry, we could not enable push notifications on your device.",
       `Please do not leave the app while waiting for an opponent.`,
       [
-        { text: "OK", onPress: () => console.log("MAKE GO BUTTON VISIBLE") }
+        { text: "OK", onPress: () => props.pushTokenAlertInteraction(true) }
       ],
       { cancelable: false }
     );
@@ -135,7 +135,7 @@ function StartGame(props) {
   }, []);
 
   useEffect(() => {
-    const goButtonStatus = ['numPlayers', 'category', 'numQuestions', 'publicOrPrivate'].reduce((acc, prop) => {
+    const goButtonStatus = ['numPlayers', 'category', 'numQuestions', 'publicOrPrivate', 'pushTokenAlertInteraction'].reduce((acc, prop) => {
       if (prop === 'publicOrPrivate' && props.gameInfo.numPlayers === 1) {
         return acc;
       }
@@ -146,7 +146,8 @@ function StartGame(props) {
     props.gameInfo.numPlayers,
     props.gameInfo.category,  
     props.gameInfo.numPlayers,
-    props.gameInfo.publicOrPrivate
+    props.gameInfo.publicOrPrivate,
+    props.gameInfo.pushTokenAlertInteraction
   ]);
 
   return (
@@ -279,6 +280,7 @@ const mapDispatchToProps = {
   newCategory,
   publicOrPrivate,
   gameMakerPushToken,
+  pushTokenAlertInteraction,
   newOpponent
 }
 
