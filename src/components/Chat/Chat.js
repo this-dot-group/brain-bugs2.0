@@ -1,7 +1,8 @@
-import { View, Text, Pressable, StyleSheet, TextInput } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { View, Text, Pressable, StyleSheet, TextInput, ScrollView } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import { Buttons, Views } from '../../styles';
+import { Buttons, Views, Chat as ChatStyles } from '../../styles';
+import KeyboardAvoidingComponent from './KeyboardAvoiding';
 
 const styles = StyleSheet.create({
   modalView: {
@@ -9,51 +10,78 @@ const styles = StyleSheet.create({
   },
   closeModalButton: {
     ...Buttons.openButton,
-  }
+  },
+  ...ChatStyles,
 })
 
-function Chat({ setShowChat, socket, socketId, gameCode, user }) {
+function Chat({ setShowChat, socket, socketId, gameCode, user, setUnseenMessages }) {
   const [messages, setMessages] = useState([]);
   const [currMessage, setCurrMesssage] = useState('');
+  const scrollViewRef = useRef();
+  const textInputRef = useRef();
 
   useEffect(() => {
+    setUnseenMessages(0);
     socket.emit('messageFetch');
-    socket.on('newMessage', updatedMessages => {
-      setMessages(updatedMessages)
-    });
-    return () => socket.off('newMessage', setMessages);
+    socket.on('newMessage', messageHandler);
+    return () => socket.off('newMessage', messageHandler);
   }, [])
+  
+  const messageHandler = updatedMessages => {
+    socket.emit('messageSeen');
+    setMessages(updatedMessages);
+    setUnseenMessages(0);
+  }
 
   const sendMessage = () => {
-    socket.emit('messageSend', { gameCode, message: currMessage, ...user })
+    socket.emit('messageSend', { gameCode, message: currMessage, ...user });
+    setCurrMesssage('');
+    textInputRef.current.clear();
+  }
+
+  const hideModal = () => {
+    socket.emit('messageSeen');
+    setShowChat(false);
   }
 
   return (
     <View
       style={styles.modalView}
     >
-      {messages.map(({ message, userId, timeStamp }) =>
-        <Text
-          key={timeStamp}
-          style={{ color: userId === socketId ? 'blue' : 'green' }}
-        >{message}</Text>
-      )}
-      <TextInput
-        multiline={true}
-        onChangeText={value => setCurrMesssage(value)}
-        onSubmitEditing={value => {
-          console.log(value.nativeEvent)
-          sendMessage()
-        }}
-        returnKeyType="send"
-        blurOnSubmit={true}
-        style={{
-          height: 40,
-          width: 400,
-          borderColor: 'gray',
-          borderWidth: 1
-        }}
-      />
+      <KeyboardAvoidingComponent>
+        <ScrollView
+          ref={scrollViewRef}
+          style={styles.messagesContainer}
+          onContentSizeChange={() => scrollViewRef.current.scrollToEnd({animated: true})}
+        >
+          {messages.map(({ message, userId, timeStamp }) =>
+            <Text
+              key={timeStamp}
+              style={
+                userId === socketId
+                ? {...styles.messages}
+                : {...styles.messages, ...styles.opponentMessages}
+              }
+            >{message}</Text>
+          )}
+          </ScrollView>
+        <TextInput
+          multiline={true}
+          onChangeText={value => setCurrMesssage(value)}
+          ref={textInputRef}
+          onSubmitEditing={() => {
+            sendMessage();
+          }}
+          returnKeyType="send"
+          blurOnSubmit={true}
+          style={{
+            height: 40,
+            width: 500,
+            borderColor: 'gray',
+            borderWidth: 1
+          }}
+        />
+      </KeyboardAvoidingComponent>
 
       <Pressable
         style={styles.closeModalButton}
@@ -64,7 +92,7 @@ function Chat({ setShowChat, socket, socketId, gameCode, user }) {
 
       <Pressable
         style={styles.closeModalButton}
-        onPress={() => setShowChat(false)}
+        onPress={() => hideModal()}
       >
         <Text>X</Text>
       </Pressable>
