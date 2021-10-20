@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { connect } from 'react-redux'
 import { Platform, View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView, Alert} from 'react-native'
 import * as Notifications from 'expo-notifications';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Link } from 'react-router-native';
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate, pushTokenAlertInteraction, gameMakerPushToken } from '../../../store/gameInfoReducer';
-import { newOpponent } from '../../../store/userReducer';
+import { newOpponent, pushNotificationToken } from '../../../store/userReducer';
 
 import he from 'he';
 import { Buttons, Views } from '../../../styles'
@@ -38,19 +38,30 @@ function StartGame(props) {
   
   const [categoryList, setCategoryList] = useState([]);
   const [numPlayers, setNumPlayers] = useState(1);
-  const [showGo, setShowGo] = useState(false);
- 
+  const [showGo, setShowGo] = useState(false); 
 
   const validPushToken = (pushToken) => {
     Alert.alert(
       "Thanks for enabling push notifications!",
       `If you choose to leave the app while you are waiting we will send you a push notification when your game is ready.`,
       [
-        { text: "OK", onPress: () => props.pushTokenAlertInteraction(true) }
+        { text: "OK", onPress: () => {
+          // the below is used to remember that this user has allowed push notifications so we dont keep asking
+          props.pushNotificationToken(pushToken);
+          // the below is to remember that the push token has been interacted with so that we can use it in the reduce method that shows the Go button
+          props.pushTokenAlertInteraction('VALID')
+        }}
       ],
       { cancelable: false }
     );
+
     props.gameMakerPushToken(pushToken)
+  }
+
+  const pushNotificationAlreadyEnabled = () => {
+    // have to reset the pushToken for the game with the users token thats saved from the validToken event
+    props.gameMakerPushToken(props.pushNotificationUserToken)
+    props.pushTokenAlertInteraction('VALID');
   }
 
   const invalidPushToken = (pushToken) => {
@@ -58,7 +69,7 @@ function StartGame(props) {
       "Sorry, we could not enable push notifications on your device.",
       `Please do not leave the app while waiting for an opponent.`,
       [
-        { text: "OK", onPress: () => props.pushTokenAlertInteraction(true) }
+        { text: "OK", onPress: () => props.pushTokenAlertInteraction('INVALID') }
       ],
       { cancelable: false }
     );
@@ -86,6 +97,7 @@ function StartGame(props) {
       }
       if (finalStatus !== 'granted') {
         alert('Failed to get token for push notification! When your game is joined you will be automatically dropped back into the app.');
+        props.pushTokenAlertInteraction('INVALID');
         return;
       }
       pushToken = (await Notifications.getExpoPushTokenAsync()).data;
@@ -222,6 +234,7 @@ function StartGame(props) {
                   onChangeItem={item => {
                     props.numPlayers(item.value);
                     setNumPlayers(item.value);
+                    console.log('PT before PT req:', props.gameInfo.gameMakerPushToken)
 
                   }}
                   items={[
@@ -239,7 +252,10 @@ function StartGame(props) {
                     multiple={false}
                     onChangeItem={item => {
                       props.publicOrPrivate(item.value);
-                      registerForPushNotificationsAsync()
+                      // !props.gameInfo.gameMakerPushToken
+                      props.pushNotificationUserToken === undefined 
+                      ? registerForPushNotificationsAsync()
+                      : pushNotificationAlreadyEnabled();
                     }}
                     items={[
                       { label: 'Public Game', value: 'public' },
@@ -270,6 +286,7 @@ const mapStateToProps = (state) => {
   return {
     socket: state.socketReducer,
     gameCode: state.userReducer.gameCode,
+    pushNotificationUserToken: state.userReducer.pushNotificationUserToken,
     gameInfo: state.gameInfoReducer,
   }
 }
@@ -281,6 +298,7 @@ const mapDispatchToProps = {
   publicOrPrivate,
   gameMakerPushToken,
   pushTokenAlertInteraction,
+  pushNotificationToken,
   newOpponent
 }
 
