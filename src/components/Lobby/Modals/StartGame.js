@@ -234,8 +234,6 @@ function StartGame(props) {
                   onChangeItem={item => {
                     props.numPlayers(item.value);
                     setNumPlayers(item.value);
-                    console.log('PT before PT req:', props.gameInfo.gameMakerPushToken)
-
                   }}
                   items={[
                     { label: 'Single Player', value: 1 },

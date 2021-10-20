@@ -46,7 +46,6 @@ function JoinGame(props) {
             style={styles.gameJoinButton}
             key={i}
             onPress={() => {
-              console.log('IN JOIN GAME, PUSH TOKEN: ', gameObj.gameMakerPushToken)
               props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username, gameObj.gameMakerPushToken]);
 
               setRedirectToWaitingRoom2(true);

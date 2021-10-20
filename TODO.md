@@ -12,7 +12,6 @@ Josh:
 - Handle error if run out of questions for a token
 
 Tia:
-
 - now we're emitting an event on StartGame to validate the pushToken on the server
   - if bad, Alert
   - if good, Alert
@@ -28,18 +27,17 @@ Tia:
 
 - need to fix alert language in redirectGameJoinerToLobby   : )
 
-- improvement to consider: when the user backgrounds their app, they see an alert that further reminds them that theyll see a push notification to get them back into their game
 
-- needs improvement around those who already have push token and have permissioned notifications, so we dont ask/alert on every start game
 
-- update start game so that the Go button doesnt show until push notification alert has been exited 
+TODO re PUSH NOTIFICATIONS:
 
-  https://docs.expo.dev/versions/latest/react-native/appstate/
+- need to figure out expiration issue on push notification (if they dont interact with notification right away, it doesnt work)
+  - gameMaker, when interacted with it goes back to waitingRoom
+  - gameJoiner, did the countdown but then blank screen for gameplay 
+  - is there a way to make push notification last longer?
+  - is there a way to tell if notification has gone to background?
+    - if so, we could make notification last longer and if it isnt joined, cancel game and alert gameJoiner
 
-- Push notification cleaup:
-  - doesnt work as intended if you dont click push notification while its active 
-    - *** THIS SEEMS TO WORK FINE?
-    - *** maybe it works while app is in foreground, and doesnt work while app is in background
 
 - add the following to app.json to customize notifications
     "plugins": [
