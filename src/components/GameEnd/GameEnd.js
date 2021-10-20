@@ -6,6 +6,7 @@ import { numQuestions, newCategory, publicOrPrivate, getQuestions, resetQuestion
 import { newOpponent } from '../../store/userReducer';
 import { playSound } from '../../store/soundsReducer'
 import Chat from '../Chat/Chat';
+import Badge from '../Chat/Badge';
 import { Buttons } from '../../styles'
 
 
@@ -24,7 +25,8 @@ function GameEnd(props) {
   const [showInvitation, setShowInvitation] = useState(false);
   const [currentUserObj, setCurrentUserObj] = useState({});
   const [/* userOutcome */, setUserOutcome] = useState('');
-  const [showChat, setShowChat] = useState(false)
+  const [showChat, setShowChat] = useState(false);
+  const [unseenMessages, setUnseenMessages] = useState(0);
 
   const playerOneName = props.location.state.finalScore.playerOne.name
   const playerOneScore = props.location.state.finalScore.playerOne.score
@@ -36,6 +38,7 @@ function GameEnd(props) {
   useEffect(() => {
     // Play sound to reward winner and punish loser
     let userObj = playerOneSocket === props.socketId ? props.location.state.finalScore.playerOne : props.location.state.finalScore.playerTwo;
+    console.log('useEffect of game end')
 
     setCurrentUserObj(userObj)
 
@@ -53,15 +56,15 @@ function GameEnd(props) {
     props.socket.on('opponentRematchResponse', onRematchResponse)
     props.socket.on('gameCodeForRematch', joinRematch)
     props.socket.on('redirectToHowToPlay', redirect);
+    props.socket.on('newMessage', calculateUnseenMessages);
 
     return () => {
       props.socket.off('rematchInvitation', onRematchInvitation)
       props.socket.off('opponentRematchResponse', onRematchResponse)
       props.socket.off('gameCodeForRematch', joinRematch)
       props.socket.off('redirectToHowToPlay', redirect);
-
+      props.socket.off('newMessage', calculateUnseenMessages);
     }
-
 
   }, [])
 
@@ -80,6 +83,20 @@ function GameEnd(props) {
     console.log('USERNAMES in redirect func in GameEnd:', usernames);
     props.newOpponent(usernames.gameMaker);
     setRoomJoin(true);
+  }
+
+  const calculateUnseenMessages = messages => {
+    if (showChat) { 
+      setUnseenMessages(0);
+      return;
+    }
+    if(!showChat) {
+      const newMessages = messages.filter(message => {
+        return !(props.socket.id.toString() in message.socketsSeen);
+      });
+      setUnseenMessages(newMessages.length);
+    }
+
   }
 
   const onRematchInvitation = () => {
@@ -151,7 +168,9 @@ function GameEnd(props) {
     leaveRoomAndGoToLobby();
   }
 
-  const handleShowChat = () => setShowChat(true);
+  const handleShowChat = () => {
+    setShowChat(true)
+  };
 
   const leaveRoomAndGoToLobby = () => {
 
@@ -180,8 +199,10 @@ function GameEnd(props) {
       </Pressable>
 
       <Pressable style={styles.backToLobbyButton} onPress={handleShowChat}>
+        {!!unseenMessages && <Badge>{unseenMessages}</Badge>}
         <Text>Show Chat</Text>
       </Pressable>
+
 
       {backToLobby && <Redirect to='/lobby' />}
 
@@ -220,6 +241,7 @@ function GameEnd(props) {
           setShowChat={setShowChat}
           gameCode={props.gameCode}
           user={currentUserObj}
+          setUnseenMessages={setUnseenMessages}
         />
       </Modal>
 
