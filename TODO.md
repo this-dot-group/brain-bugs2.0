@@ -11,8 +11,47 @@ Josh:
   - Give player option to continue in the same category but with old questions (get a new token), or to choose a new category
 
 Tia:
-- Continue to work on push notifications
-- Change waiting room "Go Home" button to cancel game, and make sure the game is removed from available games, and redirect to lobby
+
+- now we're emitting an event on StartGame to validate the pushToken on the server
+  - if bad, Alert
+  - if good, Alert
+  - need to make it so that 'Go' doesnt show until youve interacted with the alert also
+
+- appState is being recorded via new component AppStateTracker in WaitingRoom, will send event to server everytime it changes (active, background, etc) 
+
+- Still have WaitingRoom2, has a bit different language about waiting for opponent to rejoin (vs waiting for one more player)
+
+- when the gameMaker's game is joined, we check their appState in server and either start gameplay if theyre active OR do push notification if theyre anything but active
+
+- we also have check for gameMaker being inactive and with bad token. in that case it emits new event and will generate an alert on both sides, with the ability to return to the lobby 
+
+- need to fix alert language in redirectGameJoinerToLobby   : )
+
+
+
+TODO re PUSH NOTIFICATIONS:
+
+- need to figure out expiration issue on push notification (if they dont interact with notification right away, it doesnt work)
+  - gameMaker, when interacted with it goes back to waitingRoom
+  - gameJoiner, did the countdown but then blank screen for gameplay 
+  - is there a way to make push notification last longer?
+  - is there a way to tell if notification has gone to background?
+    - if so, we could make notification last longer and if it isnt joined, cancel game and alert gameJoiner
+
+
+- add the following to app.json to customize notifications
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./local/path/to/myNotificationIcon.png",
+          "color": "#ffffff",
+          "sounds": ["./local/path/to/mySound.wav", "./local/path/to/myOtherSound.wav"],
+          "mode": "production"
+        }
+      ]
+    ],
+
 
 - Research deployment 
   - DEPLOY to app store:
@@ -25,6 +64,9 @@ Tia:
 
   - DEPLOY to server:
     - heroku?
+
+# NEW BUG - REMATCH: YES
+- rematch doesnt work. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
 
 
 
@@ -46,6 +88,8 @@ Tia:
 * Single player fake opponent scoring (right now they get it right 50% of time, random # for points)
 - use local storage to remember mute status, name, maybe high score? 
   - Track high score by category and num questions
+- Something to do in the WaitingRoom for gameMaker (jumping brain bug!)
+
 
 ## Manuel Testing
 - Single Player Works

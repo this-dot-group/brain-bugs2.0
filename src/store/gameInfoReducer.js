@@ -23,6 +23,8 @@ export default (state = {}, action) => {
   case 'PUBLIC_OR_PRIVATE':
     // console.log('public OR private in reducer',payload);
     return {...state, publicOrPrivate: payload};
+  case 'PUSH_TOKEN_ALERT_INTERACTION':
+    return {...state, pushTokenAlertInteraction: payload}
   case 'GAME_MAKER_PUSH_TOKEN':
     // console.log('gameMakerPushToken in reducer',payload);
     return {...state, gameMakerPushToken: payload};
@@ -62,6 +64,14 @@ export const numQuestions = num => {
 export const publicOrPrivate = answer => {
   return {
     type: 'PUBLIC_OR_PRIVATE',
+    payload: answer,
+  };
+};
+
+// not explicit to game information, but needed for reducer to show 'Go' button
+export const pushTokenAlertInteraction = answer => {
+  return {
+    type: 'PUSH_TOKEN_ALERT_INTERACTION',
     payload: answer,
   };
 };
