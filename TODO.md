@@ -64,6 +64,10 @@ Tia:
 - Show both sides
 - Array of objects with messages and user Id, message, and message key
 
+## Chat
+- Show both sides
+- Array of objects with messages and user Id, message, and message key
+
 
 
 
