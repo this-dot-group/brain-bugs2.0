@@ -10,34 +10,24 @@ Josh:
 - Handle error if run out of questions for a token
   - Give player option to continue in the same category but with old questions (get a new token), or to choose a new category
 
-Tia:
 
+## Push Notification explanation (should we start Readme or something with descriptions of features?)
 - now we're emitting an event on StartGame to validate the pushToken on the server
   - if bad, Alert
   - if good, Alert
   - need to make it so that 'Go' doesnt show until youve interacted with the alert also
-
 - appState is being recorded via new component AppStateTracker in WaitingRoom, will send event to server everytime it changes (active, background, etc) 
-
 - Still have WaitingRoom2, has a bit different language about waiting for opponent to rejoin (vs waiting for one more player)
-
 - when the gameMaker's game is joined, we check their appState in server and either start gameplay if theyre active OR do push notification if theyre anything but active
-
 - we also have check for gameMaker being inactive and with bad token. in that case it emits new event and will generate an alert on both sides, with the ability to return to the lobby 
-
 - need to fix alert language in redirectGameJoinerToLobby   : )
 
 
 
 TODO re PUSH NOTIFICATIONS:
 
-- need to figure out expiration issue on push notification (if they dont interact with notification right away, it doesnt work)
-  - gameMaker, when interacted with it goes back to waitingRoom
-  - gameJoiner, did the countdown but then blank screen for gameplay 
-  - is there a way to make push notification last longer?
-  - is there a way to tell if notification has gone to background?
-    - if so, we could make notification last longer and if it isnt joined, cancel game and alert gameJoiner
-
+- added priority: high to the push notification message, seems to make push notification stay focused for longer, works if you click right after it goes to drawer as well
+- should still probably have a fallback for if the gameMaker presses push notification and it cant connect
 
 - add the following to app.json to customize notifications
     "plugins": [
@@ -64,10 +54,6 @@ TODO re PUSH NOTIFICATIONS:
 
   - DEPLOY to server:
     - heroku?
-
-# NEW BUG - REMATCH: YES
-- rematch doesnt work. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
-
 
 
 ## Code
@@ -101,8 +87,7 @@ TODO re PUSH NOTIFICATIONS:
 ## Possible bugs
 - If one player chooses "back to lobby" on the end screen or leaves the app, the other person should not have the option to rematch
 - When one person leaves mid-game, let other user know that they have left
-
-
+- time period before rematch connects, one person goes to waiting room showing gamecode for a moment which is kind of weird user experience. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
 
 
 
