@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Pressable, StyleSheet, Alert } from 'react-native'
+import { View, Text, Pressable, StyleSheet, Alert, Modal } from 'react-native'
 import { Redirect } from 'react-router-native'
 import { connect } from 'react-redux';
 import { numQuestions, newCategory, publicOrPrivate, getQuestions, resetQuestions } from '../../store/gameInfoReducer';
 import { newOpponent } from '../../store/userReducer';
 import { playSound } from '../../store/soundsReducer'
-
-
+import Chat from '../Chat/Chat';
+import Badge from '../Chat/Badge';
 import { Buttons } from '../../styles'
 
 
@@ -23,8 +23,10 @@ function GameEnd(props) {
   const [rematchReady, setRematchReady] = useState(false)
   const [roomJoin, setRoomJoin] = useState(false);
   const [showInvitation, setShowInvitation] = useState(false);
-  const [/* currentUserObj */, setCurrentUserObj] = useState({});
-  const [/* userOutcome */, setUserOutcome] = useState('')
+  const [currentUserObj, setCurrentUserObj] = useState({});
+  const [/* userOutcome */, setUserOutcome] = useState('');
+  const [showChat, setShowChat] = useState(false);
+  const [unseenMessages, setUnseenMessages] = useState(0);
 
   const playerOneName = props.location.state.finalScore.playerOne.name
   const playerOneScore = props.location.state.finalScore.playerOne.score
@@ -36,6 +38,7 @@ function GameEnd(props) {
   useEffect(() => {
     // Play sound to reward winner and punish loser
     let userObj = playerOneSocket === props.socketId ? props.location.state.finalScore.playerOne : props.location.state.finalScore.playerTwo;
+    console.log('useEffect of game end')
 
     setCurrentUserObj(userObj)
 
@@ -53,15 +56,15 @@ function GameEnd(props) {
     props.socket.on('opponentRematchResponse', onRematchResponse)
     props.socket.on('gameCodeForRematch', joinRematch)
     props.socket.on('redirectToHowToPlay', redirect);
+    props.socket.on('newMessage', calculateUnseenMessages);
 
     return () => {
       props.socket.off('rematchInvitation', onRematchInvitation)
       props.socket.off('opponentRematchResponse', onRematchResponse)
       props.socket.off('gameCodeForRematch', joinRematch)
       props.socket.off('redirectToHowToPlay', redirect);
-
+      props.socket.off('newMessage', calculateUnseenMessages);
     }
-
 
   }, [])
 
@@ -79,6 +82,20 @@ function GameEnd(props) {
     // this stuff is happening to the opponent (person who said yes to rematch)
     props.newOpponent(usernames.gameMaker);
     setRoomJoin(true);
+  }
+
+  const calculateUnseenMessages = messages => {
+    if (showChat) { 
+      setUnseenMessages(0);
+      return;
+    }
+    if(!showChat) {
+      const newMessages = messages.filter(message => {
+        return !(props.socket.id.toString() in message.socketsSeen);
+      });
+      setUnseenMessages(newMessages.length);
+    }
+
   }
 
   const onRematchInvitation = () => {
@@ -104,7 +121,7 @@ function GameEnd(props) {
     const { response, rematchGameInfo } = payload;
     // all the stuff in this function is happening to the person who ASKED for the rematch
 
-    if(response){
+    if (response) {
 
       props.newCategory({ name: rematchGameInfo.categoryName, id: rematchGameInfo.categoryID })
       props.numQuestions(rematchGameInfo.numQuestions);
@@ -113,13 +130,13 @@ function GameEnd(props) {
       props.socket.emit('sendRematchOpponentToPrivateGameJoin', props.gameCode);
 
       setRematchReady(true);
-    
+
     }
 
-    if(!response) {
+    if (!response) {
       createOpponentSaidNoAlert(props.opponent);
     }
-    
+
   }
 
   const joinRematch = (gameCode) => {
@@ -148,8 +165,11 @@ function GameEnd(props) {
   const handleNo = () => {
     props.socket.emit('rematchResponse', false)
     leaveRoomAndGoToLobby();
-
   }
+
+  const handleShowChat = () => {
+    setShowChat(true)
+  };
 
   const leaveRoomAndGoToLobby = () => {
 
@@ -177,13 +197,19 @@ function GameEnd(props) {
         <Text>Rematch</Text>
       </Pressable>
 
+      <Pressable style={styles.backToLobbyButton} onPress={handleShowChat}>
+        {!!unseenMessages && <Badge>{unseenMessages}</Badge>}
+        <Text>Show Chat</Text>
+      </Pressable>
+
+
       {backToLobby && <Redirect to='/lobby' />}
 
       {rematchReady && <Redirect to={{
-        pathname:'/waitingroom',
+        pathname: '/waitingroom',
         state: { token },
-      }}/>}
-      {roomJoin && <Redirect to='/howtoplay'/>}
+      }} />}
+      {roomJoin && <Redirect to='/howtoplay' />}
 
       {showInvitation &&
         <>
@@ -202,6 +228,21 @@ function GameEnd(props) {
             <Text>No</Text>
           </Pressable>
         </>}
+
+
+      <Modal
+        visible={showChat}
+        transparent={true}
+        animationType="slide"
+        supportedOrientations={['landscape']}
+      >
+        <Chat
+          setShowChat={setShowChat}
+          gameCode={props.gameCode}
+          user={currentUserObj}
+          setUnseenMessages={setUnseenMessages}
+        />
+      </Modal>
 
     </View>
   )

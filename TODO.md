@@ -71,6 +71,9 @@ Josh:
 - time period before rematch connects, one person goes to waiting room showing gamecode for a moment which is kind of weird user experience. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
 - Revisit expiration on push notifications, to make sure game joiner doesn't have to wait too long
 - Look into how to have android keyboard within app, if possible
+- Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
+
+
 
 
 
