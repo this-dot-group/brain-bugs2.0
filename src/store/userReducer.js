@@ -9,8 +9,9 @@ export default (state = {}, action) => {
 
   case 'NEW_USER':
     return { ...state, username: payload };
+  case 'PUSH_NOTIFICATION_TOKEN':
+    return {...state, pushNotificationUserToken: payload}
   case 'NEW_GAME_CODE':
-    console.log('making game code', payload);
     return { ...state, gameCode: payload };
   case 'NEW_OPPONENT':
     return { ...state, opponent: payload };
@@ -30,6 +31,14 @@ export const newUsername = (username) => {
     payload: username,
   };
 };
+
+export const pushNotificationToken = answer => {
+  return {
+    type: 'PUSH_NOTIFICATION_TOKEN',
+    payload: answer,
+  };
+};
+
 export const newGameCode = (gameCode) => {
 
   return {

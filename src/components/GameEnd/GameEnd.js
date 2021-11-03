@@ -80,7 +80,6 @@ function GameEnd(props) {
   const redirect = (usernames) => {
 
     // this stuff is happening to the opponent (person who said yes to rematch)
-    console.log('USERNAMES in redirect func in GameEnd:', usernames);
     props.newOpponent(usernames.gameMaker);
     setRoomJoin(true);
   }

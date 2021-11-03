@@ -10,9 +10,6 @@ Josh:
 - Handle error if run out of questions for a token
   - Give player option to continue in the same category but with old questions (get a new token), or to choose a new category
 
-Tia:
-- Continue to work on push notifications
-- Change waiting room "Go Home" button to cancel game, and make sure the game is removed from available games, and redirect to lobby
 
 - Research deployment 
   - DEPLOY to app store:
@@ -25,7 +22,6 @@ Tia:
 
   - DEPLOY to server:
     - heroku?
-
 
 
 ## Code
@@ -41,11 +37,26 @@ Tia:
 - if you dont answer a question, when the correct answer moment occurs it looks like you answered correctly (because no other option is selected)
 - improve selected/submitted feedback (raining down smileys/sads)
 - More sounds (ticking sound)
+- need to fix alert language in redirectGameJoinerToLobby   : )
+- add the following to app.json to customize notifications
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./local/path/to/myNotificationIcon.png",
+          "color": "#ffffff",
+          "sounds": ["./local/path/to/mySound.wav", "./local/path/to/myOtherSound.wav"],
+          "mode": "production"
+        }
+      ]
+    ],
 
 ## Improvement ideas
 * Single player fake opponent scoring (right now they get it right 50% of time, random # for points)
 - use local storage to remember mute status, name, maybe high score? 
   - Track high score by category and num questions
+- Something to do in the WaitingRoom for gameMaker (jumping brain bug!)
+
 
 ## Manuel Testing
 - Single Player Works
@@ -57,16 +68,10 @@ Tia:
 ## Possible bugs
 - If one player chooses "back to lobby" on the end screen or leaves the app, the other person should not have the option to rematch
 - When one person leaves mid-game, let other user know that they have left
+- time period before rematch connects, one person goes to waiting room showing gamecode for a moment which is kind of weird user experience. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
+- Revisit expiration on push notifications, to make sure game joiner doesn't have to wait too long
+- Look into how to have android keyboard within app, if possible
 - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
-
-
-## Chat
-- Show both sides
-- Array of objects with messages and user Id, message, and message key
-
-## Chat
-- Show both sides
-- Array of objects with messages and user Id, message, and message key
 
 
 
