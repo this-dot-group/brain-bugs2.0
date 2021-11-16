@@ -107,7 +107,7 @@ function GameEnd(props) {
   }
 
   const onOpponentLeftRoom = () => {
-    setOpponentLeftRoom(true)
+    createOpponentLeftRoomAlert();
   }
 
   const createOpponentSaidNoAlert = (opponent) => {
@@ -118,6 +118,20 @@ function GameEnd(props) {
         {
           text: 'Back to Lobby',
           onPress: () => setBackToLobby(true),
+        },
+      ],
+      { cancelable: false }
+    );
+  }
+
+  const createOpponentLeftRoomAlert = () => {
+    Alert.alert(
+      'Your opponent has left the room.',
+      'Rematch and chat no longer enabled.',
+      [
+        {
+          text: 'Got it',
+          onPress: () => setOpponentLeftRoom(true),
         },
       ],
       { cancelable: false }
