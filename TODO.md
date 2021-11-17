@@ -5,6 +5,10 @@
 ** REVISIT and DISCUSS MVP **
 - put things into MVP and Stretch Goals categories
 
+Tia:
+- bug(?) re push notification and Go button when sim starts game
+- when player leaves during game play, alert works for opponent, but when the player that left rejoins the app theyre on same screen. cancelGame send something back from server to use? 
+
 Josh:  
 - Continue to work on Chat
 - Handle error if run out of questions for a token
@@ -66,11 +70,8 @@ Josh:
 - Works with both Game Maker and Game Joiner 
 
 ## Possible bugs
-- If one player chooses "back to lobby" on the end screen or leaves the app, the other person should not have the option to rematch
-  - *** FIXED with an alert to user that they left, rematch/chat options no longer available
 - If one player doesnt answer the question before countdown runs out, the countdown doesnt start on the next question
-- When one person leaves mid-game, let other user know that they have left
-- *** FIXED, brought AppStateTracker into gameplay
+- Remove chat button from game end if its 1 player
 - time period before rematch connects, one person goes to waiting room showing gamecode for a moment which is kind of weird user experience. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
 - Revisit expiration on push notifications, to make sure game joiner doesn't have to wait too long
 - Look into how to have android keyboard within app, if possible

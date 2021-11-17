@@ -151,6 +151,9 @@ function StartGame(props) {
       if (prop === 'publicOrPrivate' && props.gameInfo.numPlayers === 1) {
         return acc;
       }
+      if (prop === 'pushTokenAlertInteraction' && props.gameInfo.numPlayers === 1) {
+        return acc;
+      }
       return props.gameInfo[prop] ? acc : false
     }, true);
     setShowGo(goButtonStatus)
