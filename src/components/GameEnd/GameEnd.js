@@ -58,7 +58,7 @@ function GameEnd(props) {
     props.socket.on('gameCodeForRematch', joinRematch)
     props.socket.on('redirectToHowToPlay', redirect);
     props.socket.on('newMessage', calculateUnseenMessages);
-    props.socket.on('opponentLeftRoom', onOpponentLeftRoom)
+    props.socket.on('opponentLeftRoom', createOpponentLeftRoomAlert)
 
     return () => {
       props.socket.off('rematchInvitation', onRematchInvitation)
@@ -66,7 +66,7 @@ function GameEnd(props) {
       props.socket.off('gameCodeForRematch', joinRematch)
       props.socket.off('redirectToHowToPlay', redirect);
       props.socket.off('newMessage', calculateUnseenMessages);
-      props.socket.off('opponentLeftRoom', onOpponentLeftRoom)
+      props.socket.off('opponentLeftRoom', createOpponentLeftRoomAlert)
 
     }
 
@@ -104,10 +104,6 @@ function GameEnd(props) {
 
   const onRematchInvitation = () => {
     setShowInvitation(true)
-  }
-
-  const onOpponentLeftRoom = () => {
-    createOpponentLeftRoomAlert();
   }
 
   const createOpponentSaidNoAlert = (opponent) => {

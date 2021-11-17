@@ -9,6 +9,7 @@ function AppStateTracker(props) {
     let appStateGameCode = {
       appState: nextAppState,
       gameCode: props.gameCode,
+      gamePhase: props.gamePhase
     }
     props.socket.emit('appStateUpdate', appStateGameCode)
   }
@@ -21,6 +22,7 @@ function AppStateTracker(props) {
     let appStateGameCode = {
       appState: AppState.currentState,
       gameCode: props.gameCode,
+      gamePhase: props.gamePhase,
     }
 
     props.socket.emit('appStateUpdate', appStateGameCode)
