@@ -9,6 +9,7 @@ Josh:
 - Continue to work on Chat
 - Handle error if run out of questions for a token
   - Give player option to continue in the same category but with old questions (get a new token), or to choose a new category
+- [X] Need to work on for for multiplayer rematch - just reset category and start over
 
 
 - Research deployment 
@@ -58,6 +59,7 @@ Josh:
 - Something to do in the WaitingRoom for gameMaker (jumping brain bug!)
 
 
+
 ## Manuel Testing
 - Single Player Works
 - Multi Player
@@ -83,3 +85,11 @@ Josh:
 Co-authored-by: Tia Low <lowtia@gmail.com>
 Co-authored-by: Chris Hamersly <christopherhamersly@gmail.com>
 Co-authored-by: Josh Williams <joshuasrwilliams@gmail.com>
+
+## New Items
+- Show how many questions are left in game
+- Reset token automatically if it expires after 6 hours
+  - Maybe keep track of time when new token is created, so if the user has the app running for 6 hours, send a request for a new token
+- Countdown was not working, when one player let the time run out
+- Take off chat from final screen for one player
+

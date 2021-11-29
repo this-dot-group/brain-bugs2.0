@@ -61,17 +61,23 @@ export const newSocketId = (id) => {
   };
 };
 
-export const newToken = () => {
-  return async dispatch => {
-    try {
-      const { data: token } = await axios.get(`http://${EXPO_LOCAL_URL}:3000/token`);
-      dispatch({
-        type:'NEW_TOKEN',
-        payload: token,
-      })
-    } catch(e) {
-      console.log(e);
-    }
+const _getToken = async endpoint => {
+  try {
+    const { data: token } = await axios.get(`http://${EXPO_LOCAL_URL}:3000/${endpoint}`);
+    return token;
+  } catch(e) {
+    console.log(e);
   }
 }
 
+export const newToken = () => async dispatch => {
+  dispatch({
+    type: 'NEW_TOKEN',
+    payload: await _getToken('token')
+  });
+}
+
+export const resetUserGameToken = currentToken => async (_dispatch, getState) => {
+  const token = currentToken || getState().userReducer.token;
+  _getToken(`token-reset/${token}`);
+}

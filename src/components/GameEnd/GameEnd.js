@@ -122,7 +122,7 @@ function GameEnd(props) {
     // all the stuff in this function is happening to the person who ASKED for the rematch
 
     if (response) {
-
+      props.resetQuestions();
       props.newCategory({ name: rematchGameInfo.categoryName, id: rematchGameInfo.categoryID })
       props.numQuestions(rematchGameInfo.numQuestions);
       props.publicOrPrivate('private');
