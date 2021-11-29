@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
 })
 
-function Countdown(props) {
+function Countdown({seconds, setSeconds}) {
 
   const lastTime = useRef();
   const lastFrame = useRef();
@@ -18,11 +18,9 @@ function Countdown(props) {
   const animate = time => {
     if(lastTime.current) {
       let timePassed = time - lastTime.current;
-      props.setSeconds(sec => {
+      setSeconds(sec => {
         let newTime = sec - timePassed;
         if(newTime < 0) {
-          cancelAnimationFrame(lastFrame.current);
-          lastFrame.current = null;
           return 0;
         }
         return newTime;
@@ -42,7 +40,7 @@ function Countdown(props) {
   }, [])
 
   
-  return (<Text style={styles.countdownText}>{Math.ceil(props.seconds/1000)}</Text>);
+  return (<Text style={styles.countdownText}>{Math.ceil(seconds/1000)}</Text>);
 
 }
 
