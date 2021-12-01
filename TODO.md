@@ -6,11 +6,15 @@
 - put things into MVP and Stretch Goals categories
 
 Josh:  
-- Continue to work on Chat
-- Handle error if run out of questions for a token
-  - Give player option to continue in the same category but with old questions (get a new token), or to choose a new category
-- [X] Need to work on for for multiplayer rematch - just reset category and start over
+- Show how many questions are left in game
+- Take off chat from final screen for one player
+- time period before rematch connects, one person goes to waiting room showing gamecode for a moment which is kind of weird user experience. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
 
+
+Tia: 
+- Finishing game leaver redirect
+- Some modals (How to Play) are still portrait
+- Maybe - Issue with iPhone swiping to close the app horizontally
 
 - Research deployment 
   - DEPLOY to app store:
@@ -32,8 +36,8 @@ Josh:
 * Emoji decorations 
 
 ## Styling/Content
-- Responsive font size for answer pressables and question on GameScreen
 - Content for all pages, such as how to play instructions, content for alerts
+- Responsive font size for answer pressables and question on GameScreen
 - Logo/img/etc
 - if you dont answer a question, when the correct answer moment occurs it looks like you answered correctly (because no other option is selected)
 - improve selected/submitted feedback (raining down smileys/sads)
@@ -68,12 +72,10 @@ Josh:
 - Works with both Game Maker and Game Joiner 
 
 ## Possible bugs
-- If one player chooses "back to lobby" on the end screen or leaves the app, the other person should not have the option to rematch
-- When one person leaves mid-game, let other user know that they have left
-- time period before rematch connects, one person goes to waiting room showing gamecode for a moment which is kind of weird user experience. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
-- Revisit expiration on push notifications, to make sure game joiner doesn't have to wait too long
 - Look into how to have android keyboard within app, if possible
 - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
+- App seems to load in portrait before switching to landscape, looks glitchy
+
 
 
 
@@ -87,9 +89,5 @@ Co-authored-by: Chris Hamersly <christopherhamersly@gmail.com>
 Co-authored-by: Josh Williams <joshuasrwilliams@gmail.com>
 
 ## New Items
-- Show how many questions are left in game
-- Reset token automatically if it expires after 6 hours
-  - Maybe keep track of time when new token is created, so if the user has the app running for 6 hours, send a request for a new token
-- Countdown was not working, when one player let the time run out
-- Take off chat from final screen for one player
+
 
