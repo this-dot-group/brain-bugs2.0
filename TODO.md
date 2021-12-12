@@ -6,13 +6,10 @@
 - put things into MVP and Stretch Goals categories
 
 Tia:
-- bug(?) re push notification and Go button when sim starts game
+- DONE bug(?) re push notification and Go button when sim starts game
+  - using Constants.isDevice 
 - when player leaves during game play, alert works for opponent, but when the player that left rejoins the app theyre on same screen. cancelGame send something back from server to use? 
 
-Josh:  
-- Continue to work on Chat
-- Handle error if run out of questions for a token
-  - Give player option to continue in the same category but with old questions (get a new token), or to choose a new category
 
 
 - Research deployment 

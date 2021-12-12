@@ -6,6 +6,9 @@ function AppStateTracker(props) {
 
 
   const handleAppStateChange = (nextAppState) => {
+    console.log('inAppSTATETracker:  ', nextAppState)
+
+
     let appStateGameCode = {
       appState: nextAppState,
       gameCode: props.gameCode,
@@ -33,6 +36,9 @@ function AppStateTracker(props) {
 
   }, [])
 
+  // TODO: return a redirect if certain things are true? 
+  // could maybe use gamePhase
+  // if gamePhase is game play OR game end, and app state change is to background, send redirect
   return null;
 
 }

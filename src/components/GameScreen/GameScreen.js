@@ -156,6 +156,10 @@ function GameScreen(props) {
   }
 
   const showOpponentLeftAlert = () => {
+
+    // TODO: stop the countdown here so it doesnt go to Game End screen
+    // let Countdown know its time to stop, rest of work is done in component
+
     Alert.alert(
       'Your opponent left!',
       'Please press UGH to go back to lobby for new game.',
@@ -226,12 +230,12 @@ function GameScreen(props) {
     props.socket.on('score', handleScore);
     props.socket.on('endGame', endGame);
     props.socket.on('opponentLeftDuringGame', showOpponentLeftAlert)
+    
 
     return () => {
       props.socket.off('question', questionHandler)
       props.socket.off('score', handleScore);
       props.socket.off('endGame', endGame);
-      props.socket.off('opponentLeftDuringGame', showOpponentLeftAlert)
 
     }
 

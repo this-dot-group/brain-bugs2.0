@@ -15,6 +15,10 @@ function Countdown(props) {
   const lastTime = useRef();
   const lastFrame = useRef();
 
+  // TODO: we told countdown to stop
+  //           cancelAnimationFrame(lastFrame.current);
+
+
   const animate = time => {
     if(lastTime.current) {
       let timePassed = time - lastTime.current;
