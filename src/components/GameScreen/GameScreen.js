@@ -244,7 +244,7 @@ function GameScreen(props) {
 
 
   useEffect(() => {
-    if (seconds === 0) {
+    if (seconds === 0 && submitted === -1) {
       lastCorrect.current = 0;
       props.socket.emit('userAnsweredinGame',
         {

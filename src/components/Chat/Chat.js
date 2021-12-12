@@ -59,12 +59,12 @@ function Chat({ setShowChat, socket, socketId, gameCode, user, setUnseenMessages
               key={timeStamp}
               style={
                 userId === socketId
-                ? {...styles.messages}
-                : {...styles.messages, ...styles.opponentMessages}
+                  ? {...styles.messages}
+                  : {...styles.messages, ...styles.opponentMessages}
               }
             >{message}</Text>
           )}
-          </ScrollView>
+        </ScrollView>
         <TextInput
           multiline={true}
           onChangeText={value => setCurrMesssage(value)}

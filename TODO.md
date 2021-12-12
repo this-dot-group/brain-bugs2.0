@@ -5,12 +5,23 @@
 ** REVISIT and DISCUSS MVP **
 - put things into MVP and Stretch Goals categories
 
+
 Tia:
 - DONE bug(?) re push notification and Go button when sim starts game
   - using Constants.isDevice 
 - when player leaves during game play, alert works for opponent, but when the player that left rejoins the app theyre on same screen. cancelGame send something back from server to use? 
 
+Josh:  
+- Show how many questions are left in game
+- Take off chat from final screen for one player
+- time period before rematch connects, one person goes to waiting room showing gamecode for a moment which is kind of weird user experience. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
 
+
+
+Tia: 
+- Finishing game leaver redirect
+- Some modals (How to Play) are still portrait
+- Maybe - Issue with iPhone swiping to close the app horizontally
 
 - Research deployment 
   - DEPLOY to app store:
@@ -32,8 +43,8 @@ Tia:
 * Emoji decorations 
 
 ## Styling/Content
-- Responsive font size for answer pressables and question on GameScreen
 - Content for all pages, such as how to play instructions, content for alerts
+- Responsive font size for answer pressables and question on GameScreen
 - Logo/img/etc
 - if you dont answer a question, when the correct answer moment occurs it looks like you answered correctly (because no other option is selected)
 - improve selected/submitted feedback (raining down smileys/sads)
@@ -59,6 +70,7 @@ Tia:
 - Something to do in the WaitingRoom for gameMaker (jumping brain bug!)
 
 
+
 ## Manuel Testing
 - Single Player Works
 - Multi Player
@@ -67,12 +79,11 @@ Tia:
 - Works with both Game Maker and Game Joiner 
 
 ## Possible bugs
-- If one player doesnt answer the question before countdown runs out, the countdown doesnt start on the next question
-- Remove chat button from game end if its 1 player
-- time period before rematch connects, one person goes to waiting room showing gamecode for a moment which is kind of weird user experience. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
-- Revisit expiration on push notifications, to make sure game joiner doesn't have to wait too long
+
 - Look into how to have android keyboard within app, if possible
 - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
+- App seems to load in portrait before switching to landscape, looks glitchy
+
 
 
 
@@ -84,3 +95,7 @@ Tia:
 Co-authored-by: Tia Low <lowtia@gmail.com>
 Co-authored-by: Chris Hamersly <christopherhamersly@gmail.com>
 Co-authored-by: Josh Williams <joshuasrwilliams@gmail.com>
+
+## New Items
+
+

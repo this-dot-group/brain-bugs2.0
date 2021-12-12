@@ -82,21 +82,26 @@ export const gameMakerPushToken = pushToken => {
   }
 }
 
-export const getQuestions = (id, numQuestions, tokenForRematch) => {
+export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired) => {
 
-  
   return async (dispatch, getState) => {
     try {
       const { userReducer: { token } } = getState();
       const response = await axios.get(`http://${EXPO_LOCAL_URL}:3000/questions/${id}/${numQuestions}/${tokenForRematch || token}`);
-      // console.log('response from axois', response.data);
+      console.log(response.data)
+      if(!response.data || !response.data.length) {
+        categoryExpired();
+        return;
+      }
       dispatch({
         type: 'GET_QUESTIONS',
         payload: response.data,
       });
     } catch(e) {
-      // Do something with expended category
-      console.log(e);
+      if(e.response.data === 'Invalid status code: 4') {
+        console.log(e.response.data);
+        categoryExpired();
+      }
     }
   };
 };

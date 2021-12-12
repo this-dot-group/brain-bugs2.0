@@ -3,7 +3,7 @@ import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet, Alert } fr
 import { Link, Redirect } from 'react-router-native';
 import Clipboard from 'expo-clipboard';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
-import { newOpponent } from '../../store/userReducer'
+import { newOpponent, resetUserGameToken } from '../../store/userReducer'
 import { getQuestions } from '../../store/gameInfoReducer'
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer'
 import { connect } from 'react-redux';
@@ -32,8 +32,7 @@ const WaitingRoom = (props) => {
   const [modalVisible, setModalVisible] = useState(false)
   const [roomJoin, setRoomJoin] = useState(false)
   const [backToLobby, setBackToLobby] = useState(false);
-
-
+  const [showNoMoreQuestionsOptions, setShowNoMoreQuestionsOptions] = useState(false);
   const [copied, setCopied] = useState(false);
   const [token, setToken] = useState('');
 
@@ -63,8 +62,24 @@ const WaitingRoom = (props) => {
     setBackToLobby(true);
   }
 
+  const handleNoQuestions = async () => {
+    if(props.location.state?.token) {
+      await props.resetUserGameToken(props.location.state?.token);
+      await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions,props.location.state?.token);
+      return;
+    }
+    setShowNoMoreQuestionsOptions(true);
+  }
+
+  const resetGameToken = async () => {
+    await props.resetUserGameToken()
+    await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions, props.token, handleNoQuestions);
+    setShowNoMoreQuestionsOptions(false);
+  }
+
   useEffect(() => {
-    const tokenToUse = props.location.state?.token || props.token
+    const tokenToUse = props.location.state?.token || props.token;
+
     setToken(tokenToUse);
 
     // don't need this anymore because it only ran when push notification was interacted with while the app is in foreground, but at this point we aren't sending a notification when app is foregrounded, we're just dropping them into game
@@ -73,7 +88,7 @@ const WaitingRoom = (props) => {
     Notifications.addNotificationResponseReceivedListener(handleNotificationResponse);
 
     (async () => {
-      await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions, tokenToUse)
+      await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions, tokenToUse, handleNoQuestions);
     })()
 
   }, [])
@@ -168,16 +183,34 @@ const WaitingRoom = (props) => {
           </Pressable>
 
         }
+        {showNoMoreQuestionsOptions && 
+          <View>
+            <Text>You have played all the questions in this category!</Text>
+            <Pressable
+              style={styles.gameCodeCopyButton}
+              onPress={resetGameToken}
+            >
+              <Text>Play this category with repeated questions</Text>
+            </Pressable>
+            <Pressable
+              style={styles.gameCodeCopyButton}
+              onPress={() => setBackToLobby(true)}
+            >
+              <Text>Go back to lobby to choose a new category</Text>
+            </Pressable>
+
+          </View>
+        }
 
         {copied && <Text style={styles.alertText}> Copied </Text>}
 
         {backToLobby && <Redirect to='/lobby' />}
 
         <Pressable
-            style={styles.gameCodeCopyButton}
-            onPress={cancelGame}>
-            <Text>Cancel Game</Text>
-          </Pressable>
+          style={styles.gameCodeCopyButton}
+          onPress={cancelGame}>
+          <Text>Cancel Game</Text>
+        </Pressable>
         {roomJoin &&
           <Redirect to='/howtoplay' />
         }
@@ -199,6 +232,6 @@ const mapStateToProps = (state) => {
 
   }
 }
-const mapDispatchToProps = { newOpponent, getQuestions, newFakeOpponent }
+const mapDispatchToProps = { newOpponent, getQuestions, newFakeOpponent, resetUserGameToken }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WaitingRoom);
