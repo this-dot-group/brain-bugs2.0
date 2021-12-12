@@ -6,8 +6,8 @@
 - put things into MVP and Stretch Goals categories
 
 Josh:  
-- Show how many questions are left in game
-- Take off chat from final screen for one player
+- [x] Show how many questions are left in game
+- [x] Take off chat from final screen for one player
 - time period before rematch connects, one person goes to waiting room showing gamecode for a moment which is kind of weird user experience. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
 
 
