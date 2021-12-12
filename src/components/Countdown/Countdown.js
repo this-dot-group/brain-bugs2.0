@@ -10,13 +10,15 @@ const styles = StyleSheet.create({
   },
 })
 
-function Countdown({seconds, setSeconds}) {
+function Countdown({seconds, setSeconds, stop}) {
 
   const lastTime = useRef();
   const lastFrame = useRef();
 
-  // TODO: we told countdown to stop
-  //           cancelAnimationFrame(lastFrame.current);
+  // prop passed from GameScreen, this resolves true when a player leaves the game during gameplay and their opponent gets the Alert that they've left and can then return to lobby. during the Alert we want to stop the countdown from running in the background.
+  if(stop) {
+    cancelAnimationFrame(lastFrame.current)
+  }
 
 
   const animate = time => {

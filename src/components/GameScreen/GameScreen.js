@@ -82,6 +82,7 @@ function GameScreen(props) {
   const firstQuestion = useRef(true)
   const lastCorrect = useRef(null)
   const [backToLobby, setBackToLobby] = useState(false);
+  const [stopCountdown, setStopCountdown] = useState(false);
 
 
   // the function below adds the correct answer at a random index to the array of incorrect answers, return it to save later as the answerArr
@@ -160,6 +161,8 @@ function GameScreen(props) {
     // TODO: stop the countdown here so it doesnt go to Game End screen
     // let Countdown know its time to stop, rest of work is done in component
 
+    setStopCountdown(true);
+    
     Alert.alert(
       'Your opponent left!',
       'Please press UGH to go back to lobby for new game.',
@@ -407,6 +410,7 @@ function GameScreen(props) {
                 seconds={seconds}
                 setSeconds={setSeconds}
                 style={{ color: 'red' }}
+                stop={stopCountdown}
               />
             </View>
             <View style={{ flex: .45 }} />
