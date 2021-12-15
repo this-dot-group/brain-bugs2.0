@@ -9,7 +9,10 @@
 Tia:
 - DONE bug(?) re push notification and Go button when sim starts game
   - using Constants.isDevice 
-- when player leaves during game play, alert works for opponent, but when the player that left rejoins the app theyre on same screen. cancelGame send something back from server to use? 
+- DONE stop countdown during Alert when one player leaves mid game
+  - added a prop to the Countdown to render true when we want it to stop
+- DONE when player leaves during game play, alert works for opponent, but when the player that left rejoins the app theyre on same screen. cancelGame send something back from server to use? 
+  - added a check in AppStateTracker
 
 Josh:  
 - Show how many questions are left in game

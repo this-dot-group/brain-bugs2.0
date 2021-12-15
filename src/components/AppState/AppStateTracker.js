@@ -1,20 +1,32 @@
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppState } from 'react-native';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-native'
 
 function AppStateTracker(props) {
 
+  const [backToHome, setBackToHome] = useState(false);
+
+  let socketIdOfUserWhoBackgrounded;
 
   const handleAppStateChange = (nextAppState) => {
-    console.log('inAppSTATETracker:  ', nextAppState)
-
-
+    // if a user was previously backgrounded and then they return, redirect home
+    if(nextAppState === "active" && props.socket.id === socketIdOfUserWhoBackgrounded) {
+      setBackToHome(true)
+    }
+    
     let appStateGameCode = {
       appState: nextAppState,
       gameCode: props.gameCode,
       gamePhase: props.gamePhase
     }
+    
     props.socket.emit('appStateUpdate', appStateGameCode)
+
+    if(nextAppState === "background" && props.gamePhase === "game_play") {
+      socketIdOfUserWhoBackgrounded = props.socket.id
+    }
+
   }
 
 
@@ -36,10 +48,11 @@ function AppStateTracker(props) {
 
   }, [])
 
-  // TODO: return a redirect if certain things are true? 
-  // could maybe use gamePhase
-  // if gamePhase is game play OR game end, and app state change is to background, send redirect
-  return null;
+  return (
+    backToHome
+      ? <Redirect to='/' />
+      : null
+  )
 
 }
 
