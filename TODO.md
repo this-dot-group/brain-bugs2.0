@@ -7,14 +7,21 @@
 
 Josh:  
 - [x] Show how many questions are left in game
-- [x] Take off chat from final screen for one player
+  - Make sure next question number doesn't show up until the next question shows up
+
+- On ios, the 'opponent left during game' alert shows twice, maybe because of inactive vs background state: https://reactnative.dev/docs/appstate
+
 - time period before rematch connects, one person goes to waiting room showing gamecode for a moment which is kind of weird user experience. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
+
+- Maybe - Issue with iPhone swiping to close the app horizontally
 
 
 Tia: 
-- Finishing game leaver redirect
 - Some modals (How to Play) are still portrait
-- Maybe - Issue with iPhone swiping to close the app horizontally
+
+- Look into how to have android keyboard within app, if possible
+
+- User name shows up twice on 'how to play' screen instead of user and opponent names
 
 - Research deployment 
   - DEPLOY to app store:
@@ -72,9 +79,10 @@ Tia:
 - Works with both Game Maker and Game Joiner 
 
 ## Possible bugs
-- Look into how to have android keyboard within app, if possible
+
 - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
 - App seems to load in portrait before switching to landscape, looks glitchy
+
 
 
 
