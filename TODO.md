@@ -5,10 +5,20 @@
 ** REVISIT and DISCUSS MVP **
 - put things into MVP and Stretch Goals categories
 
+
+Tia:
+- DONE bug(?) re push notification and Go button when sim starts game
+  - using Constants.isDevice 
+- DONE stop countdown during Alert when one player leaves mid game
+  - added a prop to the Countdown to render true when we want it to stop
+- DONE when player leaves during game play, alert works for opponent, but when the player that left rejoins the app theyre on same screen. cancelGame send something back from server to use? 
+  - added a check in AppStateTracker
+
 Josh:  
 - Show how many questions are left in game
 - Take off chat from final screen for one player
 - time period before rematch connects, one person goes to waiting room showing gamecode for a moment which is kind of weird user experience. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
+
 
 
 Tia: 
@@ -72,6 +82,7 @@ Tia:
 - Works with both Game Maker and Game Joiner 
 
 ## Possible bugs
+
 - Look into how to have android keyboard within app, if possible
 - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
 - App seems to load in portrait before switching to landscape, looks glitchy
