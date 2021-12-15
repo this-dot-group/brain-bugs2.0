@@ -23,7 +23,7 @@ function AppStateTracker(props) {
     
     props.socket.emit('appStateUpdate', appStateGameCode)
 
-    if(nextAppState === "background" && props.gamePhase === "game_play") {
+    if((nextAppState === "background" || nextAppState === "inactive") && props.gamePhase === "game_play") {
       socketIdOfUserWhoBackgrounded = props.socket.id
     }
 
