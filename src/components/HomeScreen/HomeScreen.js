@@ -132,7 +132,9 @@ function Homescreen(props) {
 
       <Modal
         transparent={true}
-        visible={modalVisible}>
+        visible={modalVisible}
+        supportedOrientations={['landscape']}
+        >
 
         <View
           style={styles.modalView}>

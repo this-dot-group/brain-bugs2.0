@@ -22,9 +22,18 @@ Josh:
 
 
 Tia: 
-- Finishing game leaver redirect
+- Finishing game leaver redirect (your opponent left alert shows up twice)
 - Some modals (How to Play) are still portrait
-- Maybe - Issue with iPhone swiping to close the app horizontally
+  ** doesnt happen on android, added         supportedOrientations attribute to how to play Modal and that fixed it on ios
+
+
+- Look into how to have android keyboard within app, if possible
+
+- User name shows up twice on 'how to play' screen instead of user and opponent names 
+  ** NOT seeing this anymore, seems ok?
+
+BUG: whens someone says no to rematch, the requestor also sees the "your opponent has left room" alert (not just the "said no to rematch" alert)
+
 
 - Research deployment 
   - DEPLOY to app store:
