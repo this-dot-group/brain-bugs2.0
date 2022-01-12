@@ -79,6 +79,8 @@ function GameScreen(props) {
   const [correctIndex, setCorrectIndex] = useState(-1);
   const [displayAnswer, setDisplayAnswer] = useState(false);
   const [ansObjForRendering, setAnsObjsForRendering] = useState(null);
+  const [currQuestionNum, setCurrQuestionNum] = useState(null);
+  const [totalQuestions, setTotalQuestions] = useState(null)
   const firstQuestion = useRef(true)
   const lastCorrect = useRef(null)
   const [backToLobby, setBackToLobby] = useState(false);
@@ -187,6 +189,11 @@ function GameScreen(props) {
 
     const questionHandler = questionObj => {
 
+      if(!totalQuestions) {
+        setTotalQuestions(questionObj.numQuestions);
+        setCurrQuestionNum(questionObj.numQuestions - questionObj.questionsLeft + 1)
+      }
+
       setDisplayAnswer(true)
 
       setTimeout(() => {
@@ -194,7 +201,7 @@ function GameScreen(props) {
         setDisplayAnswer(false);
         setCorrectIndex(-1);
         setWaiting({ boolean: false, name: null });
-
+        setCurrQuestionNum(questionObj.numQuestions - questionObj.questionsLeft + 1)
         if (!questionObj.answers) {
           let answerArr = insertCorrectAnswer(questionObj);
           questionObj.answers = answerArr;
@@ -398,6 +405,16 @@ function GameScreen(props) {
               </View>
               : <View style={{ flex: .15 }} />}
 
+          </View>
+          {/* COUNTDOWN ROW */}
+          <View
+            style={{ flexDirection: 'row', flex: .10 }}
+          >
+            <View style={{ flex: .45 }} />
+            <View style={{ flex: .10 }}>
+              <Text>{currQuestionNum} / {totalQuestions}</Text>
+            </View>
+            <View style={{ flex: .45 }} />
           </View>
 
           {/* COUNTDOWN ROW */}

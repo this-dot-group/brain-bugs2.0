@@ -210,17 +210,32 @@ function GameEnd(props) {
       >
         <Text>Back to Lobby</Text>
       </Pressable>
-      {!opponentLeftRoom &&
+
+     {!opponentLeftRoom && props.numPlayers === 2 &&
         <Pressable style={styles.backToLobbyButton} onPress={handleRematch}>
           <Text>Rematch</Text>
         </Pressable>
       }
-      {!opponentLeftRoom &&
+      {!opponentLeftRoom && props.numPlayers === 2 &&
         <Pressable style={styles.backToLobbyButton} onPress={handleShowChat}>
           {!!unseenMessages && <Badge>{unseenMessages}</Badge>}
           <Text>Show Chat</Text>
         </Pressable>
       }
+
+      <Modal
+        visible={showChat}
+        transparent={true}
+        animationType="slide"
+        supportedOrientations={['landscape']}
+      >
+        <Chat
+          setShowChat={setShowChat}
+          gameCode={props.gameCode}
+          user={currentUserObj}
+          setUnseenMessages={setUnseenMessages}
+        />
+      </Modal>
 
 
       {backToLobby && <Redirect to='/lobby' />}
@@ -248,21 +263,6 @@ function GameEnd(props) {
             <Text>No</Text>
           </Pressable>
         </>}
-
-
-      <Modal
-        visible={showChat}
-        transparent={true}
-        animationType="slide"
-        supportedOrientations={['landscape']}
-      >
-        <Chat
-          setShowChat={setShowChat}
-          gameCode={props.gameCode}
-          user={currentUserObj}
-          setUnseenMessages={setUnseenMessages}
-        />
-      </Modal>
 
     </View>
   )
