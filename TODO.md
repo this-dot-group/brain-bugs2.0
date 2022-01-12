@@ -15,14 +15,18 @@ Tia:
   - added a check in AppStateTracker
 
 Josh:  
-- Show how many questions are left in game
-- Take off chat from final screen for one player
+- [x] Show how many questions are left in game
+  - Make sure next question number doesn't show up until the next question shows up
+
+- On ios, the 'opponent left during game' alert shows twice, maybe because of inactive vs background state: https://reactnative.dev/docs/appstate
+
 - time period before rematch connects, one person goes to waiting room showing gamecode for a moment which is kind of weird user experience. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
+
+- Maybe - Issue with iPhone swiping to close the app horizontally
 
 
 
 Tia: 
-
 
 - Look into how to have android keyboard within app, if possible
   ** not sure if i can make the keyboard smaller. but it seems what happens is the TextInput itself gets much taller, taking up the rest of the screen. If the TextInout stayed its normal size, it would show the rest of the stuff too. textinput stays the same size when youre in portrait mode.
@@ -34,6 +38,7 @@ Tia:
 BUG: whens someone says no to rematch, the requestor also sees the "your opponent has left room" alert (not just the "said no to rematch" alert)
 
 BUG: join private game doesnt work
+
 
 
 - Research deployment 
@@ -92,10 +97,9 @@ BUG: join private game doesnt work
 - Works with both Game Maker and Game Joiner 
 
 ## Possible bugs
-
-- Look into how to have android keyboard within app, if possible
 - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
 - App seems to load in portrait before switching to landscape, looks glitchy
+
 
 
 

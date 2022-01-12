@@ -155,7 +155,7 @@ function StartGame(props) {
 
   useEffect(() => {
     const goButtonStatus = ['numPlayers', 'category', 'numQuestions', 'publicOrPrivate', 'pushTokenAlertInteraction'].reduce((acc, prop) => {
-      if (prop === 'publicOrPrivate' && props.gameInfo.numPlayers === 1) {
+      if (prop === 'publicOrPrivate' || prop === 'pushTokenAlertInteraction' && props.gameInfo.numPlayers === 1) {
         return acc;
       }
       if (prop === 'pushTokenAlertInteraction' && props.gameInfo.numPlayers === 1) {
