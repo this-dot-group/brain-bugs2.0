@@ -22,17 +22,18 @@ Josh:
 
 
 Tia: 
-- Finishing game leaver redirect (your opponent left alert shows up twice)
-- Some modals (How to Play) are still portrait
-  ** doesnt happen on android, added         supportedOrientations attribute to how to play Modal and that fixed it on ios
 
 
 - Look into how to have android keyboard within app, if possible
+  ** not sure if i can make the keyboard smaller. but it seems what happens is the TextInput itself gets much taller, taking up the rest of the screen. If the TextInout stayed its normal size, it would show the rest of the stuff too. textinput stays the same size when youre in portrait mode.
 
-- User name shows up twice on 'how to play' screen instead of user and opponent names 
-  ** NOT seeing this anymore, seems ok?
+- Nan with # questions work (to be pulled down from master)
+
+- look into removing/replacing the use of faker
 
 BUG: whens someone says no to rematch, the requestor also sees the "your opponent has left room" alert (not just the "said no to rematch" alert)
+
+BUG: join private game doesnt work
 
 
 - Research deployment 

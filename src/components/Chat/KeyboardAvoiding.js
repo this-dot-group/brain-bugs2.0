@@ -4,7 +4,7 @@ import { KeyboardAvoidingView, StyleSheet, Platform } from 'react-native';
 const KeyboardAvoidingComponent = ({ children }) => {
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'position' : 'position'}
+      behavior={Platform.OS === 'ios' ? 'position' : 'height'}
       style={styles.container}
     >
       {children}

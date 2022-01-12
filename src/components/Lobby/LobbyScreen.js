@@ -30,10 +30,10 @@ function StartScreen(props) {
     props.newGame({});
 
     // maybe make a new game code each time coming here
-    let codeNum = faker.random.number();
+    let codeNum = faker.datatype.number();
     let code = codeNum.toString();
     while (code.length !== 5) {
-      codeNum = faker.random.number()
+      codeNum = faker.datatype.number()
       code = codeNum.toString();
     }
     props.newGameCode(code);

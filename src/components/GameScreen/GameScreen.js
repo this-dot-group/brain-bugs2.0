@@ -157,9 +157,7 @@ function GameScreen(props) {
   }
 
   const showOpponentLeftAlert = () => {
-
-    // TODO: stop the countdown here so it doesnt go to Game End screen
-    // let Countdown know its time to stop, rest of work is done in component
+    console.log('in showOpponentLeftAlert')
 
     setStopCountdown(true);
     
