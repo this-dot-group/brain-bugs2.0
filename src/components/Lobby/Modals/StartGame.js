@@ -12,6 +12,7 @@ import { Buttons, Views } from '../../../styles'
 import { EXPO_LOCAL_URL } from '../../../../env'
 
 import axios from 'axios';
+import Constants from 'expo-constants';
 
 
 const styles = StyleSheet.create({
@@ -89,6 +90,7 @@ function StartGame(props) {
 
   async function registerForPushNotificationsAsync() {
     let pushToken;
+    if(Constants.isDevice) {
       const { status: existingStatus } = await Notifications.getPermissionsAsync();
       let finalStatus = existingStatus;
       if (existingStatus !== 'granted') {
@@ -101,19 +103,24 @@ function StartGame(props) {
         return;
       }
       pushToken = (await Notifications.getExpoPushTokenAsync()).data;
-      
-    if (Platform.OS === 'android') {
-      Notifications.setNotificationChannelAsync('default', {
-        name: 'default',
-        importance: Notifications.AndroidImportance.MAX,
-        vibrationPattern: [0, 250, 250, 250],
-        lightColor: '#FF231F7C',
-      });
-    }
+        
+      if (Platform.OS === 'android') {
+        Notifications.setNotificationChannelAsync('default', {
+          name: 'default',
+          importance: Notifications.AndroidImportance.MAX,
+          vibrationPattern: [0, 250, 250, 250],
+          lightColor: '#FF231F7C',
+        });
+      }
+  
+      // this emits event to the server which then checks to see if token is valid, and 
+      // sends either invalidPushToken or validPushToken event back to kick off Alert to user
+      props.socket.emit('checkPushToken', pushToken)
 
-    // this emits event to the server which then checks to see if token is valid, and 
-    // sends either invalidPushToken or validPushToken event back to kick off Alert to user
-    props.socket.emit('checkPushToken', pushToken)
+    } else {
+      // the below is to remember that the push token has been interacted with so that we can use it in the reduce method that shows the Go button
+      props.pushTokenAlertInteraction('VALID')
+    }
 
 
   }
@@ -149,6 +156,9 @@ function StartGame(props) {
   useEffect(() => {
     const goButtonStatus = ['numPlayers', 'category', 'numQuestions', 'publicOrPrivate', 'pushTokenAlertInteraction'].reduce((acc, prop) => {
       if (prop === 'publicOrPrivate' || prop === 'pushTokenAlertInteraction' && props.gameInfo.numPlayers === 1) {
+        return acc;
+      }
+      if (prop === 'pushTokenAlertInteraction' && props.gameInfo.numPlayers === 1) {
         return acc;
       }
       return props.gameInfo[prop] ? acc : false

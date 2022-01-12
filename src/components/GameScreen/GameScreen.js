@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Text, View, Pressable, StyleSheet, Image } from 'react-native'
+import { Text, View, Pressable, StyleSheet, Image, Alert } from 'react-native'
 import he from 'he';
 import { Redirect } from 'react-router-native';
 
 import { connect } from 'react-redux';
 import { playSound } from '../../store/soundsReducer';
 import Countdown from '../Countdown/Countdown';
+import AppStateTracker from '../AppState/AppStateTracker.js';
+
 
 import { Buttons, Views, Typography } from '../../styles/'
 
@@ -81,6 +83,9 @@ function GameScreen(props) {
   const [totalQuestions, setTotalQuestions] = useState(null)
   const firstQuestion = useRef(true)
   const lastCorrect = useRef(null)
+  const [backToLobby, setBackToLobby] = useState(false);
+  const [stopCountdown, setStopCountdown] = useState(false);
+
 
   // the function below adds the correct answer at a random index to the array of incorrect answers, return it to save later as the answerArr
   const insertCorrectAnswer = (questionObj) => {
@@ -135,6 +140,42 @@ function GameScreen(props) {
         points: Math.floor(Math.random() * 2) * (Math.floor(Math.random() * QUESTION_TIME) + 1),
       }
     )
+  }
+
+  const handleScore = newScore => {
+    if (lastCorrect.current > 0) {
+      props.playSound('positiveTone')
+    } else if (lastCorrect.current === 0) {
+      props.playSound('negativeTone');
+    }
+    setScore(newScore);
+    lastCorrect.current = -1;
+  }
+
+  const handleOpponentLeftResponse = () => {
+    props.socket.emit('cancelGame');
+
+    setBackToLobby(true);
+  }
+
+  const showOpponentLeftAlert = () => {
+
+    // TODO: stop the countdown here so it doesnt go to Game End screen
+    // let Countdown know its time to stop, rest of work is done in component
+
+    setStopCountdown(true);
+    
+    Alert.alert(
+      'Your opponent left!',
+      'Please press UGH to go back to lobby for new game.',
+      [
+        {
+          text: 'UGH',
+          onPress: () => handleOpponentLeftResponse(),
+        },
+      ],
+      { cancelable: false }
+    );
   }
 
 
@@ -198,24 +239,19 @@ function GameScreen(props) {
     props.socket.on('question', questionHandler);
     props.socket.on('score', handleScore);
     props.socket.on('endGame', endGame);
+    props.socket.on('opponentLeftDuringGame', showOpponentLeftAlert)
+    
 
     return () => {
       props.socket.off('question', questionHandler)
       props.socket.off('score', handleScore);
       props.socket.off('endGame', endGame);
+
     }
 
   }, [])
 
-  const handleScore = newScore => {
-    if (lastCorrect.current > 0) {
-      props.playSound('positiveTone')
-    } else if (lastCorrect.current === 0) {
-      props.playSound('negativeTone');
-    }
-    setScore(newScore);
-    lastCorrect.current = -1;
-  }
+
 
   useEffect(() => {
     if (seconds === 0 && submitted === -1) {
@@ -260,8 +296,12 @@ function GameScreen(props) {
       }}
     >
 
+
       {formattedQuestionInfo.question &&
         <>
+          <AppStateTracker
+            gameCode={props.gameCode}
+            gamePhase='game_play' />
 
           {/* TOP ROW */}
 
@@ -387,6 +427,7 @@ function GameScreen(props) {
                 seconds={seconds}
                 setSeconds={setSeconds}
                 style={{ color: 'red' }}
+                stop={stopCountdown}
               />
             </View>
             <View style={{ flex: .45 }} />
@@ -454,6 +495,8 @@ function GameScreen(props) {
 
           </View>
 
+          {backToLobby && <Redirect to='/lobby' />}
+
           {gameEnd &&
             <Redirect
               to={{
@@ -472,6 +515,7 @@ function GameScreen(props) {
 const mapStateToProps = (state) => {
   return {
     socket: state.socketReducer,
+    gameCode: state.userReducer.gameCode,
     fakeOpponentSocket: state.fakeOpponentSocketReducer,
     userName: state.userReducer.username,
     numPlayers: state.gameInfoReducer.numPlayers || 2,

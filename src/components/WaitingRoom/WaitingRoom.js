@@ -138,7 +138,8 @@ const WaitingRoom = (props) => {
 
       <View>
         <AppStateTracker
-          gameCode={props.gameCode} />
+          gameCode={props.gameCode}
+          gamePhase='waiting_room' />
         <Modal
           transparent={true}
           visible={modalVisible}>

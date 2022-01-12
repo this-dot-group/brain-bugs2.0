@@ -27,6 +27,7 @@ function GameEnd(props) {
   const [/* userOutcome */, setUserOutcome] = useState('');
   const [showChat, setShowChat] = useState(false);
   const [unseenMessages, setUnseenMessages] = useState(0);
+  const [opponentLeftRoom, setOpponentLeftRoom] = useState(false);
 
   const playerOneName = props.location.state.finalScore.playerOne.name
   const playerOneScore = props.location.state.finalScore.playerOne.score
@@ -57,6 +58,7 @@ function GameEnd(props) {
     props.socket.on('gameCodeForRematch', joinRematch)
     props.socket.on('redirectToHowToPlay', redirect);
     props.socket.on('newMessage', calculateUnseenMessages);
+    props.socket.on('opponentLeftRoom', createOpponentLeftRoomAlert)
 
     return () => {
       props.socket.off('rematchInvitation', onRematchInvitation)
@@ -64,6 +66,8 @@ function GameEnd(props) {
       props.socket.off('gameCodeForRematch', joinRematch)
       props.socket.off('redirectToHowToPlay', redirect);
       props.socket.off('newMessage', calculateUnseenMessages);
+      props.socket.off('opponentLeftRoom', createOpponentLeftRoomAlert)
+
     }
 
   }, [])
@@ -110,6 +114,20 @@ function GameEnd(props) {
         {
           text: 'Back to Lobby',
           onPress: () => setBackToLobby(true),
+        },
+      ],
+      { cancelable: false }
+    );
+  }
+
+  const createOpponentLeftRoomAlert = () => {
+    Alert.alert(
+      'Your opponent has left the room.',
+      'Rematch and chat no longer enabled.',
+      [
+        {
+          text: 'Got it',
+          onPress: () => setOpponentLeftRoom(true),
         },
       ],
       { cancelable: false }
@@ -193,31 +211,31 @@ function GameEnd(props) {
         <Text>Back to Lobby</Text>
       </Pressable>
 
-      <Pressable style={styles.backToLobbyButton} onPress={handleRematch}>
-        <Text>Rematch</Text>
-      </Pressable>
-
-      {props.numPlayers === 2 && 
-      <>
+     {!opponentLeftRoom && props.numPlayers === 2 &&
+        <Pressable style={styles.backToLobbyButton} onPress={handleRematch}>
+          <Text>Rematch</Text>
+        </Pressable>
+      }
+      {!opponentLeftRoom && props.numPlayers === 2 &&
         <Pressable style={styles.backToLobbyButton} onPress={handleShowChat}>
           {!!unseenMessages && <Badge>{unseenMessages}</Badge>}
           <Text>Show Chat</Text>
         </Pressable>
-        <Modal
-          visible={showChat}
-          transparent={true}
-          animationType="slide"
-          supportedOrientations={['landscape']}
-        >
-          <Chat
-            setShowChat={setShowChat}
-            gameCode={props.gameCode}
-            user={currentUserObj}
-            setUnseenMessages={setUnseenMessages}
-          />
-        </Modal>
-      </>
       }
+
+      <Modal
+        visible={showChat}
+        transparent={true}
+        animationType="slide"
+        supportedOrientations={['landscape']}
+      >
+        <Chat
+          setShowChat={setShowChat}
+          gameCode={props.gameCode}
+          user={currentUserObj}
+          setUnseenMessages={setUnseenMessages}
+        />
+      </Modal>
 
 
       {backToLobby && <Redirect to='/lobby' />}
