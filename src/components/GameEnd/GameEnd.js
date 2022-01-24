@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Pressable, StyleSheet, Alert, Modal } from 'react-native'
+import { View, Text, Pressable, StyleSheet, Alert, Modal, Image } from 'react-native'
 import { Redirect } from 'react-router-native'
 import { connect } from 'react-redux';
 import { numQuestions, newCategory, publicOrPrivate, getQuestions, resetQuestions } from '../../store/gameInfoReducer';
@@ -28,6 +28,7 @@ function GameEnd(props) {
   const [showChat, setShowChat] = useState(false);
   const [unseenMessages, setUnseenMessages] = useState(0);
   const [opponentLeftRoom, setOpponentLeftRoom] = useState(false);
+  const [saidYesToRematch, setSaidYesToRematch] = useState(false);
 
   const playerOneName = props.location.state.finalScore.playerOne.name
   const playerOneScore = props.location.state.finalScore.playerOne.score
@@ -177,7 +178,8 @@ function GameEnd(props) {
   };
 
   const handleYes = () => {
-    props.socket.emit('rematchResponse', true)
+    props.socket.emit('rematchResponse', true);
+    setSaidYesToRematch(true);
   }
 
   const handleNo = () => {
@@ -198,8 +200,20 @@ function GameEnd(props) {
     setBackToLobby(true);
   }
 
+  const screenToShow = () => {
+    if(roomJoin) return <Redirect to='/howtoplay' />
+    if(saidYesToRematch) {
+      return (
+        <Image
+          source={require('../../images/win95_hourglass.gif')}
+          style={{ height: 30, width: 30 }}
+        />
+      )
+    }
+    return false;
+  }
 
-  return (
+  return screenToShow() || (
     <View>
       <Text> Game End </Text>
       <Text>{playerOneName} {playerOneScore}</Text>
@@ -211,7 +225,7 @@ function GameEnd(props) {
         <Text>Back to Lobby</Text>
       </Pressable>
 
-     {!opponentLeftRoom && props.numPlayers === 2 &&
+      {!opponentLeftRoom && props.numPlayers === 2 &&
         <Pressable style={styles.backToLobbyButton} onPress={handleRematch}>
           <Text>Rematch</Text>
         </Pressable>
@@ -244,7 +258,6 @@ function GameEnd(props) {
         pathname: '/waitingroom',
         state: { token },
       }} />}
-      {roomJoin && <Redirect to='/howtoplay' />}
 
       {showInvitation &&
         <>
