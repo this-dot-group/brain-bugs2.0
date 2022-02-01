@@ -1,28 +1,20 @@
 ## TO DO List
 ***************************
-# OCT
 
 ** REVISIT and DISCUSS MVP **
 - put things into MVP and Stretch Goals categories
 
 
-Tia:
-- DONE bug(?) re push notification and Go button when sim starts game
-  - using Constants.isDevice 
-- DONE stop countdown during Alert when one player leaves mid game
-  - added a prop to the Countdown to render true when we want it to stop
-- DONE when player leaves during game play, alert works for opponent, but when the player that left rejoins the app theyre on same screen. cancelGame send something back from server to use? 
-  - added a check in AppStateTracker
-
 Josh:  
 - [x] Show how many questions are left in game
   - Make sure next question number doesn't show up until the next question shows up
 
-- On ios, the 'opponent left during game' alert shows twice, maybe because of inactive vs background state: https://reactnative.dev/docs/appstate
 
 - time period before rematch connects, one person goes to waiting room showing gamecode for a moment which is kind of weird user experience. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
 
 - Maybe - Issue with iPhone swiping to close the app horizontally
+- Nan with # questions on game play screen
+- replace faker (also look into bug with private game not working?)
 
 
 
@@ -30,14 +22,14 @@ Tia:
 
 - Look into how to have android keyboard within app, if possible
   ** not sure if i can make the keyboard smaller. but it seems what happens is the TextInput itself gets much taller, taking up the rest of the screen. If the TextInout stayed its normal size, it would show the rest of the stuff too. textinput stays the same size when youre in portrait mode.
+  ** lets revisit this when we sort out layout and styling? might uncover some issues or insight in that process
 
-- Nan with # questions work (to be pulled down from master)
+  - josh looking into Nan issue (where the num of questions should be)?
 
-- look into removing/replacing the use of faker
 
 BUG: whens someone says no to rematch, the requestor also sees the "your opponent has left room" alert (not just the "said no to rematch" alert)
 
-BUG: join private game doesnt work
+BUG: join private game doesnt work (hear from josh if he fixed it?)
 
 
 
