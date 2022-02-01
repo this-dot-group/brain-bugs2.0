@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { View, Text, Pressable, StyleSheet, Alert, Modal } from 'react-native'
 import { Redirect } from 'react-router-native'
 import { connect } from 'react-redux';
@@ -21,6 +21,7 @@ function GameEnd(props) {
 
   const [backToLobby, setBackToLobby] = useState(false);
   const [rematchReady, setRematchReady] = useState(false)
+  const opponentSaidNoToRematch = useRef(false);
   const [roomJoin, setRoomJoin] = useState(false);
   const [showInvitation, setShowInvitation] = useState(false);
   const [currentUserObj, setCurrentUserObj] = useState({});
@@ -107,6 +108,7 @@ function GameEnd(props) {
   }
 
   const createOpponentSaidNoAlert = (opponent) => {
+
     Alert.alert(
       'Find another challenger!',
       `Your opponent ${opponent} declined your rematch request.`,
@@ -121,17 +123,23 @@ function GameEnd(props) {
   }
 
   const createOpponentLeftRoomAlert = () => {
-    Alert.alert(
-      'Your opponent has left the room.',
-      'Rematch and chat no longer enabled.',
-      [
-        {
-          text: 'Got it',
-          onPress: () => setOpponentLeftRoom(true),
-        },
-      ],
-      { cancelable: false }
-    );
+    // check here to see if rematch is already no, in which case we dont need to show the alert
+
+    if(!opponentSaidNoToRematch.current){
+      Alert.alert(
+        'Your opponent has left the room.',
+        'Rematch and chat no longer enabled.',
+        [
+          {
+            text: 'Got it',
+            onPress: () => setOpponentLeftRoom(true),
+          },
+        ],
+        { cancelable: false }
+      );
+      opponentSaidNoToRematch.current = false;
+    }
+    return;
   }
 
   const onRematchResponse = (payload) => {
@@ -152,6 +160,8 @@ function GameEnd(props) {
     }
 
     if (!response) {
+      // setting this to true so that when opponent leaves the room and triggers that event, the subsequent Alert will have a check to see if theyve already said no to a rematch, and then will not show that second Alert that theyve left the rom 
+      opponentSaidNoToRematch.current = true;
       createOpponentSaidNoAlert(props.opponent);
     }
 
