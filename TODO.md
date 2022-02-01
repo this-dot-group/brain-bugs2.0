@@ -24,12 +24,11 @@ Tia:
   ** not sure if i can make the keyboard smaller. but it seems what happens is the TextInput itself gets much taller, taking up the rest of the screen. If the TextInout stayed its normal size, it would show the rest of the stuff too. textinput stays the same size when youre in portrait mode.
   ** lets revisit this when we sort out layout and styling? might uncover some issues or insight in that process
 
-  - josh looking into Nan issue (where the num of questions should be)?
 
 
 BUG: whens someone says no to rematch, the requestor also sees the "your opponent has left room" alert (not just the "said no to rematch" alert)
+  ** fixed, added a check with useRef to see if theyve already said no to the rematch 
 
-BUG: join private game doesnt work (hear from josh if he fixed it?)
 
 
 
