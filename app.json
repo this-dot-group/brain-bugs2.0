@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "brain-bugs2",
-    "slug": "brain-bugs2",
+    "name": "Brain Bugs",
+    "slug": "brain-bugs-2",
     "version": "1.0.0",
     "orientation": "landscape",
     "icon": "./assets/icon.png",
@@ -20,7 +20,8 @@
       "supportsTablet": true
     },
     "android": {
-      "useNextNotificationsApi": true
+      "useNextNotificationsApi": true,
+      "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
       "favicon": "./assets/favicon.png"

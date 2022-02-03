@@ -1,38 +1,33 @@
 ## TO DO List
 ***************************
-# OCT
 
 ** REVISIT and DISCUSS MVP **
 - put things into MVP and Stretch Goals categories
 
 
-Tia:
-- DONE bug(?) re push notification and Go button when sim starts game
-  - using Constants.isDevice 
-- DONE stop countdown during Alert when one player leaves mid game
-  - added a prop to the Countdown to render true when we want it to stop
-- DONE when player leaves during game play, alert works for opponent, but when the player that left rejoins the app theyre on same screen. cancelGame send something back from server to use? 
-  - added a check in AppStateTracker
-
 Josh:  
-- [x] Show how many questions are left in game
-  - [x] Make sure next question number doesn't show up until the next question shows up
 
-- [x] faker replacement
-- [x] look into why private game isn't working - could not replicate, maybe was caused by faker or question num not accounted for in server
-- time period before rematch connects, one person goes to waiting room showing gamecode for a moment which is kind of weird user experience. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
-  - Maybe want to replace waiting image with a shared component for making changes
-
+- private game rematch, hangs on hourglass, hits catch in gameInfoReduce,line 88ish. possible issue with the id in the axios req?
+- manual testing! run through game play scenarios
+- Maybe want to replace waiting image (hourglass) with a shared component for making changes. in the waiting room and game end
 - Maybe - Issue with iPhone swiping to close the app horizontally
 
 
 
 Tia: 
-- Some modals (How to Play) are still portrait
 
+- rematch, leave room mid-game from phone, Alert shows on sim but doesnt go back to lobby?
+- manual testing! run through game play scenarios
 - Look into how to have android keyboard within app, if possible
+  ** not sure if i can make the keyboard smaller. but it seems what happens is the TextInput itself gets much taller, taking up the rest of the screen. If the TextInout stayed its normal size, it would show the rest of the stuff too. textinput stays the same size when youre in portrait mode.
+  ** lets revisit this when we sort out layout and styling? might uncover some issues or insight in that process
 
-- User name shows up twice on 'how to play' screen instead of user and opponent names
+
+## BUGS
+
+
+
+
 
 - Research deployment 
   - DEPLOY to app store:

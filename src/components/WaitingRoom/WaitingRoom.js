@@ -142,7 +142,9 @@ const WaitingRoom = (props) => {
           gamePhase='waiting_room' />
         <Modal
           transparent={true}
-          visible={modalVisible}>
+          visible={modalVisible}
+          supportedOrientations={['landscape']}
+          >
 
           <View
             style={styles.modalView}>
