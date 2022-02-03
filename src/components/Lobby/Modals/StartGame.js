@@ -115,7 +115,8 @@ function StartGame(props) {
   
       // this emits event to the server which then checks to see if token is valid, and 
       // sends either invalidPushToken or validPushToken event back to kick off Alert to user
-      props.socket.emit('checkPushToken', pushToken)
+      console.log('pushToken in startgame', pushToken);
+      props.socket.emit('checkPushToken', pushToken);
 
     } else {
       // the below is to remember that the push token has been interacted with so that we can use it in the reduce method that shows the Go button

@@ -10,6 +10,7 @@ function AppStateTracker(props) {
   let socketIdOfUserWhoBackgrounded;
 
   const handleAppStateChange = (nextAppState) => {
+    console.log('app state on change',nextAppState)
     // if a user was previously backgrounded and then they return, redirect home
     if(nextAppState === "active" && props.socket.id === socketIdOfUserWhoBackgrounded) {
       setBackToHome(true)
@@ -34,6 +35,7 @@ function AppStateTracker(props) {
     AppState.addEventListener('change', handleAppStateChange);
 
     // initial set to "active" state, listener will take care of changes
+    console.log(AppState.currentState)
     let appStateGameCode = {
       appState: AppState.currentState,
       gameCode: props.gameCode,

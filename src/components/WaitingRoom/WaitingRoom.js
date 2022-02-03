@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet, Alert } from 'react-native'
+import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet, Image, Alert } from 'react-native'
 import { Link, Redirect } from 'react-router-native';
 import Clipboard from 'expo-clipboard';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
@@ -133,7 +133,7 @@ const WaitingRoom = (props) => {
 
   }, [props.fullGameInfo.liveGameQuestions])
 
-  if (props.fullGameInfo.numPlayers === 2) {
+  if (props.fullGameInfo.numPlayers === 2 && !props.location.state?.token) {
     return (
 
       <View>
@@ -219,7 +219,12 @@ const WaitingRoom = (props) => {
       </View>
     )
   }
-  else return roomJoin && <Redirect to='/howtoplay' />
+  else return roomJoin
+    ? <Redirect to='/howtoplay' />
+    : <Image
+      source={require('../../images/win95_hourglass.gif')}
+      style={{ height: 30, width: 30 }}
+    />
 }
 
 const mapStateToProps = (state) => {

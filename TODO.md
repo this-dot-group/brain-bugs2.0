@@ -6,28 +6,25 @@
 
 
 Josh:  
-- [x] Show how many questions are left in game
-  - Make sure next question number doesn't show up until the next question shows up
 
-
-- time period before rematch connects, one person goes to waiting room showing gamecode for a moment which is kind of weird user experience. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
-
+- private game rematch, hangs on hourglass, hits catch in gameInfoReduce,line 88ish. possible issue with the id in the axios req?
+- manual testing! run through game play scenarios
+- Maybe want to replace waiting image (hourglass) with a shared component for making changes. in the waiting room and game end
 - Maybe - Issue with iPhone swiping to close the app horizontally
-- Nan with # questions on game play screen
-- replace faker (also look into bug with private game not working?)
 
 
 
 Tia: 
 
+- rematch, leave room mid-game from phone, Alert shows on sim but doesnt go back to lobby?
+- manual testing! run through game play scenarios
 - Look into how to have android keyboard within app, if possible
   ** not sure if i can make the keyboard smaller. but it seems what happens is the TextInput itself gets much taller, taking up the rest of the screen. If the TextInout stayed its normal size, it would show the rest of the stuff too. textinput stays the same size when youre in portrait mode.
   ** lets revisit this when we sort out layout and styling? might uncover some issues or insight in that process
 
 
+## BUGS
 
-BUG: whens someone says no to rematch, the requestor also sees the "your opponent has left room" alert (not just the "said no to rematch" alert)
-  ** fixed, added a check with useRef to see if theyve already said no to the rematch 
 
 
 
@@ -92,7 +89,8 @@ BUG: whens someone says no to rematch, the requestor also sees the "your opponen
 - App seems to load in portrait before switching to landscape, looks glitchy
 
 
-
+## New 1/23
+ - Longer questions are cut off on iPhone
 
 
 

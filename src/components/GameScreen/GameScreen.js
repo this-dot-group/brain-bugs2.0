@@ -187,9 +187,10 @@ function GameScreen(props) {
 
     const questionHandler = questionObj => {
 
+      console.log(questionObj)
+
       if(!totalQuestions) {
         setTotalQuestions(questionObj.numQuestions);
-        setCurrQuestionNum(questionObj.numQuestions - questionObj.questionsLeft + 1)
       }
 
       setDisplayAnswer(true)
