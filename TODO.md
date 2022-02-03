@@ -16,11 +16,12 @@ Tia:
 
 Josh:  
 - [x] Show how many questions are left in game
-  - Make sure next question number doesn't show up until the next question shows up
+  - [x] Make sure next question number doesn't show up until the next question shows up
 
-- On ios, the 'opponent left during game' alert shows twice, maybe because of inactive vs background state: https://reactnative.dev/docs/appstate
-
+- [x] faker replacement
+- [x] look into why private game isn't working - could not replicate, maybe was caused by faker or question num not accounted for in server
 - time period before rematch connects, one person goes to waiting room showing gamecode for a moment which is kind of weird user experience. person requests rematch, opponent says yes, requestors screen goes to waiting room (with the code showing) and the opponent screen stays on rematch with yes/no options showing
+  - Maybe want to replace waiting image with a shared component for making changes
 
 - Maybe - Issue with iPhone swiping to close the app horizontally
 
@@ -93,7 +94,8 @@ Tia:
 - App seems to load in portrait before switching to landscape, looks glitchy
 
 
-
+## New 1/23
+ - Longer questions are cut off on iPhone
 
 
 
