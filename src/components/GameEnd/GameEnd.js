@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { View, Text, Pressable, StyleSheet, Alert, Modal, Image } from 'react-native'
+import { View, Text, Pressable, StyleSheet, Alert, Modal } from 'react-native'
 import { Redirect } from 'react-router-native'
 import { connect } from 'react-redux';
 import { numQuestions, newCategory, publicOrPrivate, getQuestions, resetQuestions } from '../../store/gameInfoReducer';
@@ -7,6 +7,7 @@ import { newOpponent } from '../../store/userReducer';
 import { playSound } from '../../store/soundsReducer'
 import Chat from '../Chat/Chat';
 import Badge from '../Chat/Badge';
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import { Buttons } from '../../styles'
 
 
@@ -214,10 +215,7 @@ function GameEnd(props) {
     if(roomJoin) return <Redirect to='/howtoplay' />
     if(saidYesToRematch) {
       return (
-        <Image
-          source={require('../../images/win95_hourglass.gif')}
-          style={{ height: 30, width: 30 }}
-        />
+        <LoadingScreen />
       )
     }
     return false;
