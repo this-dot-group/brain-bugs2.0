@@ -26,7 +26,8 @@ function Countdown({seconds, setSeconds, stop}) {
       let timePassed = time - lastTime.current;
       setSeconds(sec => {
         let newTime = sec - timePassed;
-        if(newTime < 0) {
+        if(newTime <= 0) {
+          lastFrame.current = null;
           return 0;
         }
         return newTime;
@@ -40,9 +41,7 @@ function Countdown({seconds, setSeconds, stop}) {
 
   useEffect(() => {
     lastFrame.current = requestAnimationFrame(animate);
-    return () => {
-      cancelAnimationFrame(lastFrame.current);
-    }
+    return () => cancelAnimationFrame(lastFrame.current);
   }, [])
 
   

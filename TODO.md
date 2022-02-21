@@ -7,7 +7,7 @@
 
 Josh:  
 
-- private game rematch, hangs on hourglass, hits catch in gameInfoReduce,line 88ish. possible issue with the id in the axios req?
+- [x?] COULD NOT RECREATE - private game rematch, hangs on hourglass, hits catch in gameInfoReduce,line 88ish. possible issue with the id in the axios req?
 - manual testing! run through game play scenarios
 - [x] Maybe want to replace waiting image (hourglass) with a shared component for making changes. in the waiting room and game end
 - Maybe - Issue with iPhone swiping to close the app horizontally
@@ -92,8 +92,8 @@ Tia:
 ## New 1/23
  - Longer questions are cut off on iPhone
 
-
-
+## New 2/20
+- Look into 
 
 
 
