@@ -10,7 +10,9 @@ const styles = StyleSheet.create({
   },
 })
 
-function Countdown({seconds, setSeconds, stop}) {
+function Countdown({seconds, setSeconds, stop, place}) {
+  console.log('COUNTDOWN LOADED')
+  console.log('FROM: ', place)
 
   const lastTime = useRef();
   const lastFrame = useRef();

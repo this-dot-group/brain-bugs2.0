@@ -427,6 +427,7 @@ function GameScreen(props) {
                 setSeconds={setSeconds}
                 style={{ color: 'red' }}
                 stop={stopCountdown}
+                place="GameScreen"
               />
             </View>
             <View style={{ flex: .45 }} />

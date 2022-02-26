@@ -24,6 +24,7 @@ function HowToPlay(props) {
         <Countdown
           seconds={seconds}
           setSeconds={setSeconds}
+          place="HowToPlay"
         />
       </Text>
       <Text>{props.username} {props.opponent && `vs ${props.opponent}`}</Text>

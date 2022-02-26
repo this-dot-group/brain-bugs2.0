@@ -16,17 +16,56 @@ Josh:
 
 Tia: 
 
-- rematch, leave room mid-game from phone, Alert shows on sim but doesnt go back to lobby?
-- manual testing! run through game play scenarios
+- MANUAL TESTING
+
+  - Single Player
+    - no rematch on single player. intentional, right?
+
+  - Two Player, private code
+    - phone makes code, sim joins (OK)
+        - phone asks for rematch, sim says yes (OK)
+        - phone asks for rematch, sim says no (OK)
+        - sim asks for rematch, phone says yes (OK)
+        - sim asks for rematch, phone says no (OK)
+    - sim makes code, phone joins (OK)
+        - sim asks for rematch, phone says yes (OK)
+        - sim asks for rematch, phone says no (OK)
+        - phone asks for rematch, sim says yes (OK)
+        - phone asks for rematch, sim says no (OK)
+
+  - Two Player
+    - phone start game, sim joins (OK)
+        - phone asks for rematch, sim says yes (OK)
+        - phone asks for rematch, sim says no (OK)
+        - phone leaves during game (OK)
+        - sim leaves during game (NO ALERT ON PHONE)
+    - sim starts game, phone joins
+        - sim asks for rematch, phone says yes (OK)
+        - sim asks for rematch, phone says no (OK)
+        - sim leaves during game (ALERT SHOWS ON PHONE, HAVE TO CLICK SEVERAL TIMES)
+        - phone leaves during game (NO ALERT ON SIM)
+
+    - Push Notifications
+      - phone makes game, leaves while waiting, sim joins (OK)
+      - (cant test opposite since push notification dont work on sim)
+
+    - Back to lobby
+      - shows Alert, removes chat and rematch buttons (OK)
+
+
+Observations:
+- we need feedback for rematch requestor. they dont know whats happening while opponent is choosing yes or no. 
+- should anything special happen in case of tie?
+- RE ERROR about setting state in unmounted component: see log in Countdown. the component rerenders a ton of times, more than just the updates from countdown in HowToPlay and GamePlay (including both players, that should be around 26 times at max, num of seconds in each mount? 3+3+10+10). i think the reason we're seeing the error is because it trips up and can't keep up. (I added the log in Countdown and a "place" prop to it's use sites) 
+
+
+
 - Look into how to have android keyboard within app, if possible
   ** not sure if i can make the keyboard smaller. but it seems what happens is the TextInput itself gets much taller, taking up the rest of the screen. If the TextInout stayed its normal size, it would show the rest of the stuff too. textinput stays the same size when youre in portrait mode.
   ** lets revisit this when we sort out layout and styling? might uncover some issues or insight in that process
 
 
 ## BUGS
-
-
-
 
 
 - Research deployment 
