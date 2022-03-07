@@ -19,14 +19,11 @@ function Countdown({seconds, setSeconds, go, setGo}) {
   
   useEffect(() => {
     if(!go) {
-      console.log('go', go)
       lastTime.current = null;
       cancelAnimationFrame(lastFrame.current)
       lastFrame.current = null;
     }
     else if (go) {
-      console.log('is this running')
-      console.log('go', go);
       lastFrame.current = requestAnimationFrame(animate);
     }
   }, [go])
@@ -34,7 +31,6 @@ function Countdown({seconds, setSeconds, go, setGo}) {
   const animate = time => {
     let timeLeft = true;
     if(lastTime.current && go) {
-      // console.log('stil ggoin')
       let timePassed = time - lastTime.current;
       setSeconds(sec => {
         if(!go) return sec;
@@ -52,19 +48,16 @@ function Countdown({seconds, setSeconds, go, setGo}) {
     if(go) {
       lastTime.current = time;
     } else {
-      console.log('it shoudl stop here')
       lastTime.current = null;
       cancelAnimationFrame(lastFrame.current);
       lastFrame.current = null;
     }
     if(lastFrame.current && timeLeft && go) {
-      // cancelAnimationFrame(lastFrame.current);
       lastFrame.current = requestAnimationFrame(animate);
     }
   }
 
   useEffect(() => {
-    // setGo(true)
     if(go) {
       lastFrame.current = requestAnimationFrame(animate);
     }

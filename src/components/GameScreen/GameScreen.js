@@ -178,7 +178,6 @@ function GameScreen(props) {
 
 
   useEffect(() => {
-
     props.socket.emit('readyForGame');
 
     if (props.numPlayers === 1) {
@@ -246,7 +245,7 @@ function GameScreen(props) {
       props.socket.off('question', questionHandler)
       props.socket.off('score', handleScore);
       props.socket.off('endGame', endGame);
-
+      props.socket.off('opponentLeftDuringGame', showOpponentLeftAlert);
     }
 
   }, [])
