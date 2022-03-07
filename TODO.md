@@ -12,6 +12,11 @@ Josh:
 - manual testing! run through game play scenarios
 - [x] Maybe want to replace waiting image (hourglass) with a shared component for making changes. in the waiting room and game end
 - Look into countdown issues
+ <!-- - Still something wrong when submitting an answer on first question -->
+ <!-- - need to check two player -->
+ <!-- - need to check user left game -->
+ - test some more
+ - clean up code
 - Maybe - Issue with iPhone swiping to close the app horizontally
 
 Manuel Testing Notes:
@@ -101,6 +106,9 @@ Tia:
 
 ## New 1/23
  - Longer questions are cut off on iPhone
+
+ ## New 3/6
+- User answered in game socket id issue
 
 
 
