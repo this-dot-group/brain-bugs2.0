@@ -9,6 +9,8 @@ import Countdown from '../Countdown/Countdown'
 
 
 function HowToPlay(props) {
+  console.log('props.userName in HowToPlay:', props.username)
+  console.log('props.opponent in HowToPlay:', props.opponent)
 
   const [seconds, setSeconds] = useState(1000);
 
