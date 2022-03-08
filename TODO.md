@@ -54,9 +54,16 @@ Tia:
 
 
 Observations:
-- we need feedback for rematch requestor. they dont know whats happening while opponent is choosing yes or no. 
+- we need feedback for rematch requestor. they dont know whats happening while opponent is choosing yes or no. (*** the button text changes now)
 - should anything special happen in case of tie?
 - RE ERROR about setting state in unmounted component: see log in Countdown. the component rerenders a ton of times, more than just the updates from countdown in HowToPlay and GamePlay (including both players, that should be around 26 times at max, num of seconds in each mount? 3+3+10+10). i think the reason we're seeing the error is because it trips up and can't keep up. (I added the log in Countdown and a "place" prop to it's use sites) 
+- RE ERROR with double name on HowToPlay screen, i think it will shake itself out once Countdown is fixed. that component is mounting tons of times too, but the names are correct for the first several mounts
+
+Patterns we should streamline:
+- Feedback to user while waiting for opponent response
+    - waiting room screen: loading spinner
+    - gameplay: hourglass icon
+    - game end, rematch request: "Rematch" changes to "Requesting..." 
 
 
 

@@ -30,6 +30,7 @@ function GameEnd(props) {
   const [unseenMessages, setUnseenMessages] = useState(0);
   const [opponentLeftRoom, setOpponentLeftRoom] = useState(false);
   const [saidYesToRematch, setSaidYesToRematch] = useState(false);
+  const [rematchRequested, setRematchRequested] = useState(false);
 
   const playerOneName = props.location.state.finalScore.playerOne.name
   const playerOneScore = props.location.state.finalScore.playerOne.score
@@ -180,6 +181,7 @@ function GameEnd(props) {
 
 
   const handleRematch = () => {
+    setRematchRequested(true);
     props.socket.emit('rematch')
     if (props.numPlayers === 1) {
       props.resetQuestions()
@@ -188,11 +190,13 @@ function GameEnd(props) {
   };
 
   const handleYes = () => {
+    setRematchRequested(false);
     props.socket.emit('rematchResponse', true);
     setSaidYesToRematch(true);
   }
 
   const handleNo = () => {
+    setRematchRequested(false);
     props.socket.emit('rematchResponse', false)
     leaveRoomAndGoToLobby();
   }
@@ -237,7 +241,7 @@ function GameEnd(props) {
 
       {!opponentLeftRoom && props.numPlayers === 2 &&
         <Pressable style={styles.backToLobbyButton} onPress={handleRematch}>
-          <Text>Rematch</Text>
+          <Text>{rematchRequested ? `Requesting...` : `Rematch`}</Text>
         </Pressable>
       }
       {!opponentLeftRoom && props.numPlayers === 2 &&
