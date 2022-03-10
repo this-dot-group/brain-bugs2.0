@@ -82,12 +82,14 @@ Tia:
         }
       ]
     ],
+- Hide countdown after both players have answered
 
 ## Improvement ideas
 * Single player fake opponent scoring (right now they get it right 50% of time, random # for points)
 - use local storage to remember mute status, name, maybe high score? 
   - Track high score by category and num questions
 - Something to do in the WaitingRoom for gameMaker (jumping brain bug!)
+
 
 
 
