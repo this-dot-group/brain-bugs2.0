@@ -33,7 +33,7 @@ Tia:
         - phone asks for rematch, sim says yes (OK)
         - phone asks for rematch, sim says no (OK)
 
-  - Two Player
+  - Two Player (SIM v PHONE)
     - phone start game, sim joins (OK)
         - phone asks for rematch, sim says yes (OK)
         - phone asks for rematch, sim says no (OK)
@@ -44,6 +44,18 @@ Tia:
         - sim asks for rematch, phone says no (OK)
         - sim leaves during game (ALERT SHOWS ON PHONE, HAVE TO CLICK SEVERAL TIMES)
         - phone leaves during game (NO ALERT ON SIM)
+
+  - Two Player (PHONE vs IOS)
+    - phone start game, iPhone joins ()
+        - phone asks for rematch, iPhone says yes ()
+        - phone asks for rematch, iPhone says no ()
+        - phone leaves during game ()
+        - iPhone leaves during game ()
+    - iPhone starts game, phone joins
+        - iPhone asks for rematch, phone says yes ()
+        - iPhone asks for rematch, phone says no ()
+        - iPhone leaves during game ()
+        - phone leaves during game ()
 
     - Push Notifications
       - phone makes game, leaves while waiting, sim joins (OK)
