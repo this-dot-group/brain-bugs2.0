@@ -18,9 +18,6 @@ Tia:
 
 - MANUAL TESTING
 
-  - Single Player
-    - no rematch on single player. intentional, right?
-
   - Two Player, private code
     - phone makes code, sim joins (OK)
         - phone asks for rematch, sim says yes (OK)
@@ -46,36 +43,29 @@ Tia:
         - phone leaves during game (NO ALERT ON SIM)
 
   - Two Player (PHONE vs IOS)
-    - phone start game, iPhone joins ()
-        - phone asks for rematch, iPhone says yes ()
-        - phone asks for rematch, iPhone says no ()
-        - phone leaves during game ()
-        - iPhone leaves during game ()
+    - phone start game, iPhone joins
+        - phone leaves during game (OK)
+        - iPhone leaves during game (NO ALERT ON PHONE)
     - iPhone starts game, phone joins
-        - iPhone asks for rematch, phone says yes ()
-        - iPhone asks for rematch, phone says no ()
-        - iPhone leaves during game ()
-        - phone leaves during game ()
+        - iPhone leaves during game (ALERT SHOWS ON PHONE TWICE)
+        - phone leaves during game (NO ALERT ON IPHONE)
 
     - Push Notifications
       - phone makes game, leaves while waiting, sim joins (OK)
-      - (cant test opposite since push notification dont work on sim)
+      - iphone makes game, leaves while waiting, android joins (NO NOTIFICATION ON PHONE, DOES THIS WORK FOR JOSH?)
 
     - Back to lobby
       - shows Alert, removes chat and rematch buttons (OK)
 
+  - check issue with same name on HowToPlay screen before game play
+  - need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.
+  - test the following after pulling fresh (both fixed):
+    - NO ALERT FOR GAMEMAKER WHEN GAMEJOINER LEAVES
+    - WHEN GAMEMAKER LEAVES, GAMEJOINER SEES ALERT SEVERAL TIMES (when gameMaker is sim or iphone,    something to do with android?)
 
-Observations:
-- we need feedback for rematch requestor. they dont know whats happening while opponent is choosing yes or no. (*** the button text changes now)
-- should anything special happen in case of tie?
-- RE ERROR about setting state in unmounted component: see log in Countdown. the component rerenders a ton of times, more than just the updates from countdown in HowToPlay and GamePlay (including both players, that should be around 26 times at max, num of seconds in each mount? 3+3+10+10). i think the reason we're seeing the error is because it trips up and can't keep up. (I added the log in Countdown and a "place" prop to it's use sites) 
-- RE ERROR with double name on HowToPlay screen, i think it will shake itself out once Countdown is fixed. that component is mounting tons of times too, but the names are correct for the first several mounts
 
-Patterns we should streamline:
-- Feedback to user while waiting for opponent response
-    - waiting room screen: loading spinner
-    - gameplay: hourglass icon
-    - game end, rematch request: "Rematch" changes to "Requesting..." 
+
+
 
 
 
@@ -127,11 +117,19 @@ Patterns we should streamline:
       ]
     ],
 
+
+- Feedback patterns to user while waiting for opponent response
+    - waiting room screen: loading spinner
+    - gameplay: hourglass icon
+    - game end, rematch request: "Rematch" changes to "Requesting..." 
+    - if start game options are still loading: ____________
+
 ## Improvement ideas
 * Single player fake opponent scoring (right now they get it right 50% of time, random # for points)
 - use local storage to remember mute status, name, maybe high score? 
   - Track high score by category and num questions
 - Something to do in the WaitingRoom for gameMaker (jumping brain bug!)
+- Any special way to handle a tie?
 
 
 
