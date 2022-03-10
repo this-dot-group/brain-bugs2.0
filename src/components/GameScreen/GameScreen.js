@@ -84,7 +84,7 @@ function GameScreen(props) {
   const firstQuestion = useRef(true)
   const lastCorrect = useRef(null)
   const [backToLobby, setBackToLobby] = useState(false);
-  const [stopCountdown, setStopCountdown] = useState(false);
+  const [goCountdown, setGoCountdown] = useState(false);
 
 
   // the function below adds the correct answer at a random index to the array of incorrect answers, return it to save later as the answerArr
@@ -100,6 +100,7 @@ function GameScreen(props) {
   const handleAnsPress = (answer, i) => {
     if(!allowSubmit) return;
     setAllowSubmit(false)
+    setGoCountdown(false);
     setTimeout(() => {
       handleSubmitAnswer(answer, i);
     }, 500)
@@ -107,7 +108,6 @@ function GameScreen(props) {
 
   //needs to know if its the correct answer 
   const handleSubmitAnswer = (answer, i) => {
-
     let questionPoints;
 
     answer === formattedQuestionInfo.correct_answer ?
@@ -161,7 +161,7 @@ function GameScreen(props) {
   const showOpponentLeftAlert = () => {
     console.log('in showOpponentLeftAlert')
 
-    setStopCountdown(true);
+    setGoCountdown(false);
     
     Alert.alert(
       'Your opponent left!',
@@ -178,7 +178,6 @@ function GameScreen(props) {
 
 
   useEffect(() => {
-
     props.socket.emit('readyForGame');
 
     if (props.numPlayers === 1) {
@@ -219,7 +218,8 @@ function GameScreen(props) {
         setFormattedQuestionInfo(questionObj);
         setSubmitted(-1);
         setAllowSubmit(true);
-
+        
+        setGoCountdown(true)
         if (firstQuestion.current) {
           firstQuestion.current = false
         }
@@ -245,7 +245,7 @@ function GameScreen(props) {
       props.socket.off('question', questionHandler)
       props.socket.off('score', handleScore);
       props.socket.off('endGame', endGame);
-
+      props.socket.off('opponentLeftDuringGame', showOpponentLeftAlert);
     }
 
   }, [])
@@ -264,6 +264,7 @@ function GameScreen(props) {
         fakeOpponentSubmit()
       }
     }
+    // console.log('seconds', seconds)
 
   }, [seconds])
 
@@ -426,8 +427,9 @@ function GameScreen(props) {
                 seconds={seconds}
                 setSeconds={setSeconds}
                 style={{ color: 'red' }}
-                stop={stopCountdown}
-                place="GameScreen"
+                go={goCountdown}
+                setGo={setGoCountdown}
+
               />
             </View>
             <View style={{ flex: .45 }} />
