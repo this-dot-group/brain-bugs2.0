@@ -7,11 +7,25 @@
 
 Josh:  
 
-- private game rematch, hangs on hourglass, hits catch in gameInfoReduce,line 88ish. possible issue with the id in the axios req?
+- [x?] COULD NOT RECREATE - private game rematch, hangs on hourglass, hits catch in gameInfoReduce,line 88ish. possible issue with the id in the axios req?
+ - Happens when Sim starts the private game, but phone starts the rematch.. or intermittently
 - manual testing! run through game play scenarios
-- Maybe want to replace waiting image (hourglass) with a shared component for making changes. in the waiting room and game end
+- [x] Maybe want to replace waiting image (hourglass) with a shared component for making changes. in the waiting room and game end
+- [x] Look into countdown issues
+  - Belive i fixed memory leak issues with counddown and user left game
+- In server fixed issue with user leaving game and made it more precise.
+- In server fixed one error that kept crashing the server
+
 - Maybe - Issue with iPhone swiping to close the app horizontally
 
+Manuel Testing Notes:
+
+- When a game is started by sim, I wasn't able to see it on my phone sometimes
+- Says "Phone vs Phone" on waiting room screen when Sim creates game, ie Game Joiner screen
+- Timer should stop after both players have answered
+- Should hourglass be removed after both players have answered?
+- Increase waiting room screen time (I had reduced at some point to speed up testing)
+- If countdown runs out, it doesn't start again
 
 
 Tia: 
@@ -68,12 +82,14 @@ Tia:
         }
       ]
     ],
+- Hide countdown after both players have answered
 
 ## Improvement ideas
 * Single player fake opponent scoring (right now they get it right 50% of time, random # for points)
 - use local storage to remember mute status, name, maybe high score? 
   - Track high score by category and num questions
 - Something to do in the WaitingRoom for gameMaker (jumping brain bug!)
+
 
 
 
@@ -92,6 +108,8 @@ Tia:
 ## New 1/23
  - Longer questions are cut off on iPhone
 
+ ## New 3/6
+- Add error catcher in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 
 

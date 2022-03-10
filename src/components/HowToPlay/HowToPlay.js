@@ -11,10 +11,15 @@ import Countdown from '../Countdown/Countdown'
 function HowToPlay(props) {
 
   const [seconds, setSeconds] = useState(1000);
+  const [goCountdown, setGoCountdown] = useState(true);
+  const [goToGame, setGoToGame] = useState(false);
 
 
   useEffect(() => {
-    
+    if(seconds === 0) {
+      setGoCountdown(false);
+      setGoToGame(true)
+    }
   }, [seconds])
 
   return (
@@ -24,11 +29,13 @@ function HowToPlay(props) {
         <Countdown
           seconds={seconds}
           setSeconds={setSeconds}
+          go={goCountdown}
+          setGo={setGoCountdown}
         />
       </Text>
       <Text>{props.username} {props.opponent && `vs ${props.opponent}`}</Text>
 
-      {seconds === 0 &&
+      {goToGame &&
         <Redirect to='/gameplay' />
       }
 

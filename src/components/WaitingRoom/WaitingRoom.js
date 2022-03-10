@@ -11,6 +11,7 @@ import * as Notifications from 'expo-notifications';
 
 import { Buttons, Views, Typography } from '../../styles';
 import AppStateTracker from '../AppState/AppStateTracker.js';
+import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
 
 const styles = StyleSheet.create({
   modalView: {
@@ -144,7 +145,7 @@ const WaitingRoom = (props) => {
           transparent={true}
           visible={modalVisible}
           supportedOrientations={['landscape']}
-          >
+        >
 
           <View
             style={styles.modalView}>
@@ -221,10 +222,7 @@ const WaitingRoom = (props) => {
   }
   else return roomJoin
     ? <Redirect to='/howtoplay' />
-    : <Image
-      source={require('../../images/win95_hourglass.gif')}
-      style={{ height: 30, width: 30 }}
-    />
+    : <LoadingScreen />
 }
 
 const mapStateToProps = (state) => {

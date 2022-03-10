@@ -10,39 +10,58 @@ const styles = StyleSheet.create({
   },
 })
 
-function Countdown({seconds, setSeconds, stop}) {
+function Countdown({seconds, setSeconds, go, setGo}) {
 
   const lastTime = useRef();
   const lastFrame = useRef();
 
   // prop passed from GameScreen, this resolves true when a player leaves the game during gameplay and their opponent gets the Alert that they've left and can then return to lobby. during the Alert we want to stop the countdown from running in the background.
-  if(stop) {
-    cancelAnimationFrame(lastFrame.current)
-  }
-
+  
+  useEffect(() => {
+    if(!go) {
+      lastTime.current = null;
+      cancelAnimationFrame(lastFrame.current)
+      lastFrame.current = null;
+    }
+    else if (go) {
+      lastFrame.current = requestAnimationFrame(animate);
+    }
+  }, [go])
 
   const animate = time => {
-    if(lastTime.current) {
+    let timeLeft = true;
+    if(lastTime.current && go) {
       let timePassed = time - lastTime.current;
       setSeconds(sec => {
+        if(!go) return sec;
         let newTime = sec - timePassed;
-        if(newTime < 0) {
+        if(newTime <= 0) {
+          cancelAnimationFrame(lastFrame.current);
+          lastFrame.current = null;
+          setGo(false);
+          timeLeft = false;
           return 0;
         }
         return newTime;
       });
     }
-    lastTime.current = time;
-    if(lastFrame.current) {
+    if(go) {
+      lastTime.current = time;
+    } else {
+      lastTime.current = null;
+      cancelAnimationFrame(lastFrame.current);
+      lastFrame.current = null;
+    }
+    if(lastFrame.current && timeLeft && go) {
       lastFrame.current = requestAnimationFrame(animate);
     }
   }
 
   useEffect(() => {
-    lastFrame.current = requestAnimationFrame(animate);
-    return () => {
-      cancelAnimationFrame(lastFrame.current);
+    if(go) {
+      lastFrame.current = requestAnimationFrame(animate);
     }
+    return () => cancelAnimationFrame(lastFrame.current);
   }, [])
 
   
