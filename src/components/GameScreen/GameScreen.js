@@ -7,11 +7,10 @@ import { connect } from 'react-redux';
 import { playSound } from '../../store/soundsReducer';
 import Countdown from '../Countdown/Countdown';
 import AppStateTracker from '../AppState/AppStateTracker.js';
+import { QUESTION_TIME } from '../../../config';
 
 
 import { Buttons, Views, Typography } from '../../styles/'
-
-const QUESTION_TIME = 10;
 
 const styles = StyleSheet.create({
   modalView: {
@@ -406,7 +405,7 @@ function GameScreen(props) {
               : <View style={{ flex: .15 }} />}
 
           </View>
-          {/* COUNTDOWN ROW */}
+          {/* QUESTIONS LEFT ROW */}
           <View
             style={{ flexDirection: 'row', flex: .10 }}
           >
@@ -418,22 +417,24 @@ function GameScreen(props) {
           </View>
 
           {/* COUNTDOWN ROW */}
-          <View
-            style={{ flexDirection: 'row', flex: .10 }}
-          >
-            <View style={{ flex: .45 }} />
-            <View style={{ flex: .10 }}>
-              <Countdown
-                seconds={seconds}
-                setSeconds={setSeconds}
-                style={{ color: 'red' }}
-                go={goCountdown}
-                setGo={setGoCountdown}
+          {!displayAnswer &&
+            <View
+              style={{ flexDirection: 'row', flex: .10 }}
+            >
+              <View style={{ flex: .45 }} />
+              <View style={{ flex: .10 }}>
+                <Countdown
+                  seconds={seconds}
+                  setSeconds={setSeconds}
+                  style={{ color: 'red' }}
+                  go={goCountdown}
+                  setGo={setGoCountdown}
 
-              />
+                />
+              </View>
+              <View style={{ flex: .45 }} />
             </View>
-            <View style={{ flex: .45 }} />
-          </View>
+          }
 
           {/* BOTTOM ROW */}
 

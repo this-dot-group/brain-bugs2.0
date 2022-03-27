@@ -9,10 +9,12 @@
 Josh:  
 
 - [] COULD NOT RECREATE - private game rematch, hangs on hourglass, hits catch in gameInfoReduce,line 88ish. possible issue with the id in the axios req?
- - Happens when Sim starts the private game, but phone starts the rematch.. or intermittently
+ - Happens when Sim starts the private game, but phone starts the rematch.. or intermittently -
+  - 3/26 - tried a bunch of times, and could not recreate
 - [] Maybe - Issue with iPhone swiping to close the app horizontally
 - [] TEST: When a game is started by sim, I wasn't able to see it on my phone sometimes
-- [] Timer should be hidden after both players have answered
+- [X] Timer should be hidden after both players have answered
+- [X] Added config to more easily turn on test mode or make global changes
 
 
 Tia: 

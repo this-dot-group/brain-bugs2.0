@@ -1,4 +1,5 @@
 import { Audio } from 'expo-av';
+import { DEFAULT_MUTED } from '../../config';
 
 export default function soundsReducer(state = {}, action) {
 
@@ -15,12 +16,13 @@ export default function soundsReducer(state = {}, action) {
 
 }
 
-export const isMuted = (state = false, { type }) => type === 'TOGGLE_MUTE' ? !state : state;
+export const isMuted = (state = DEFAULT_MUTED, { type }) => type === 'TOGGLE_MUTE' ? !state : state;
 
 export const newSound = (sound, name) => {
   return async dispatch => {
     let newSound = new Audio.Sound();
-    await newSound.loadAsync(sound)
+    await newSound.loadAsync(sound);
+    await newSound.setIsMutedAsync(DEFAULT_MUTED);
     dispatch({
       type: 'NEW_SOUND',
       payload: { name, newSound },
