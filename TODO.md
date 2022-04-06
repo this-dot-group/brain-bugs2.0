@@ -17,12 +17,17 @@ Josh:
 
 Tia: 
 
-- TEST: check issue with same name on HowToPlay screen before game play
-- TEST: When a game is started by sim, I wasn't able to see it on my phone sometimes
+- TEST: check issue with same name on HowToPlay screen before game play [FIXED, we were using the wrong username in setting the opponent in WaitingRoom2]
+
+- TEST: When a game is started by sim, I wasn't able to see it on my phone sometimes [COULD NOT RECREATE]
+
 - TEST: the following after pulling fresh (both fixed):
-  - NO ALERT FOR GAMEMAKER WHEN GAMEJOINER LEAVES
-  - WHEN GAMEMAKER LEAVES, GAMEJOINER SEES ALERT SEVERAL TIMES (when gameMaker is sim or iphone,    something to do with android?)
+  - NO ALERT FOR GAMEMAKER WHEN GAMEJOINER LEAVES [WOOHOO! THIS WORKS]
+
+  - WHEN GAMEMAKER LEAVES, GAMEJOINER SEES ALERT SEVERAL TIMES (when gameMaker is sim or iphone,    something to do with android?) [WOOHOO! THIS IS FIXED]
+
 - [] need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.
+
 - [] Hourglass should be removed after both players have answered
 
 

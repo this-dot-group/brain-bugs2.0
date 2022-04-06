@@ -58,14 +58,15 @@ function StartScreen(props) {
     }
     props.socket.on('sendAvailGameInfo', receiveAvailableGames);
 
-    /** 
-     * Redirect for both the join game modal and private game modal
-     * Both modals end up emitting an event that triggers the server to send 'redirectToHowToPlay',
+    /**
+     * redirectToHowToPlay is only listened to in the case of a PRIVATE game 
+     * 
      */
     const redirect = (usernames) => {
       props.newOpponent(usernames.gameMaker);
       setRoomJoin(true);
     }
+
     props.socket.on('redirectToHowToPlay', redirect);
 
     return () => {

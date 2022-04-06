@@ -186,7 +186,7 @@ function GameScreen(props) {
 
     const questionHandler = questionObj => {
 
-      console.log(questionObj)
+      // console.log(questionObj)
 
       if(!totalQuestions) {
         setTotalQuestions(questionObj.numQuestions);
