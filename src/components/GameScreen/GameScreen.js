@@ -100,7 +100,7 @@ function GameScreen(props) {
   const handleAnsPress = (answer, i) => {
     if(!allowSubmit) return;
     setAllowSubmit(false)
-    setGoCountdown(false);
+    // setGoCountdown(false);
     setTimeout(() => {
       handleSubmitAnswer(answer, i);
     }, 500)
@@ -192,6 +192,7 @@ function GameScreen(props) {
         setTotalQuestions(questionObj.numQuestions);
       }
 
+      setGoCountdown(false)
       setDisplayAnswer(true)
 
       setTimeout(() => {
