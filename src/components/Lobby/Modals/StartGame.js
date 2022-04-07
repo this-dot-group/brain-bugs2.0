@@ -6,6 +6,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { Link } from 'react-router-native';
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate, pushTokenAlertInteraction, gameMakerPushToken } from '../../../store/gameInfoReducer';
 import { newOpponent, pushNotificationToken } from '../../../store/userReducer';
+import { QUESTION_DROPDOWN_CHOICES } from '../../../../config';
 
 import he from 'he';
 import { Buttons, Views } from '../../../styles'
@@ -224,13 +225,7 @@ function StartGame(props) {
                   onChangeItem={item => {
                     props.numQuestions(item.value)
                   }}
-                  items={[
-                    { label: '1 - TEST', value: 1 },
-                    { label: '10', value: 10 },
-                    { label: '15', value: 15 },
-                    { label: '20', value: 20 },
-                    { label: '25', value: 25 },
-                  ]}
+                  items={QUESTION_DROPDOWN_CHOICES}
                 />
               </View>
             </View>

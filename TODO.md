@@ -9,10 +9,17 @@
 Josh:  
 
 - [] COULD NOT RECREATE - private game rematch, hangs on hourglass, hits catch in gameInfoReduce,line 88ish. possible issue with the id in the axios req?
- - Happens when Sim starts the private game, but phone starts the rematch.. or intermittently
+  - Sim starts, Sim rematch - works
+  - Sim start, phone rematch - works
+  - phone start, phone rematch - works
+  - phone start, sim rematch - works
+ - Happens when Sim starts the private game, but phone starts the rematch.. or intermittently -
+  - 3/26 - tried a bunch of times, and could not recreate
 - [] Maybe - Issue with iPhone swiping to close the app horizontally
 - [] TEST: When a game is started by sim, I wasn't able to see it on my phone sometimes
-- [] Timer should be hidden after both players have answered
+  - Could not recreate
+- [X] Timer should be hidden after both players have answered
+- [X] Added config to more easily turn on test mode or make global changes
 
 
 Tia: 
@@ -31,6 +38,9 @@ Tia:
 ## Possible bugs
 - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
 - App seems to load in portrait before switching to landscape, looks glitchy
+
+NEW 4/2
+- If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
 
 
 ## Code / Fit & finish

@@ -3,13 +3,15 @@ import { View, Text, Pressable } from 'react-native'
 import { Link, Redirect } from 'react-router-native';
 import { connect } from 'react-redux'
 import Countdown from '../Countdown/Countdown'
+import { START_COUNTDOWN } from '../../../config'
 
 
 //Import Timer from Server
 
 
 function HowToPlay(props) {
-  const [seconds, setSeconds] = useState(1000);
+  const [seconds, setSeconds] = useState(START_COUNTDOWN * 1000);
+
   const [goCountdown, setGoCountdown] = useState(true);
   const [goToGame, setGoToGame] = useState(false);
 
