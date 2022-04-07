@@ -7,30 +7,12 @@
 
 
 Josh:  
-
-- [] COULD NOT RECREATE - private game rematch, hangs on hourglass, hits catch in gameInfoReduce,line 88ish. possible issue with the id in the axios req?
-  - Sim starts, Sim rematch - works
-  - Sim start, phone rematch - works
-  - phone start, phone rematch - works
-  - phone start, sim rematch - works
- - Happens when Sim starts the private game, but phone starts the rematch.. or intermittently -
-  - 3/26 - tried a bunch of times, and could not recreate
 - [] Maybe - Issue with iPhone swiping to close the app horizontally
-- [] TEST: When a game is started by sim, I wasn't able to see it on my phone sometimes
-  - Could not recreate
-- [X] Timer should be hidden after both players have answered
-- [X] Added config to more easily turn on test mode or make global changes
-
+- If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
+ - Disable all buttons between questions
 
 Tia: 
-
-- [x] CHECK NO ALERT FOR GAMEMAKER WHEN GAMEJOINER LEAVES [WOOHOO! THIS WORKS     [FIXED!]
-- [x] CHECK WHEN GAMEMAKER LEAVES, GAMEJOINER SEES ALERT SEVERAL TIMES (when gameMaker is sim or iphone,    something to do with android?)    [FIXED!]
-- [x] TEST When a game is started by sim, I wasn't able to see it on my phone sometimes [COULD NOT RECREATE]
-
-- [x] Fixed issue with same name on HowToPlay for gamejoiner (we were using wrong username to set opponent in WaitingRoom2)
-- [x] Hourglass should be removed after both players have answered
-- [x] Moved goCountdown(false) state change from handleSubmitAnswer to questionHandler (to prevent countdown from stopping when they answer)
+- [] COULD NOT RECREATE - private game rematch, hangs on hourglass, hits catch in gameInfoReduce,line 88ish. possible issue with the id in the axios req?
 
 - [] need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.
 
@@ -38,9 +20,8 @@ Tia:
 ## Possible bugs
 - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
 - App seems to load in portrait before switching to landscape, looks glitchy
+ - Maybe this is caused by expo go
 
-NEW 4/2
-- If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
 
 
 ## Code / Fit & finish
