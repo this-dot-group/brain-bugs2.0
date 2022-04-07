@@ -140,7 +140,7 @@ function StartGame(props) {
         })
         setCategoryList(categoryListArray);
       } catch (e) {
-        console.log(e);
+        console.log('ERROR IN STARTGAME:', e);
       }
     })()
 

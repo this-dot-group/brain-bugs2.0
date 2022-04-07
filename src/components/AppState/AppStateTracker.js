@@ -35,7 +35,7 @@ function AppStateTracker(props) {
     AppState.addEventListener('change', handleAppStateChange);
 
     // initial set to "active" state, listener will take care of changes
-    console.log(AppState.currentState)
+    console.log('inAppStateTracker useEffect:', AppState.currentState)
     let appStateGameCode = {
       appState: AppState.currentState,
       gameCode: props.gameCode,

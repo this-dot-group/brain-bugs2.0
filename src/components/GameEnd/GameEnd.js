@@ -43,7 +43,6 @@ function GameEnd(props) {
   useEffect(() => {
     // Play sound to reward winner and punish loser
     let userObj = playerOneSocket === props.socketId ? props.location.state.finalScore.playerOne : props.location.state.finalScore.playerTwo;
-    console.log('useEffect of game end')
 
     setCurrentUserObj(userObj)
 
