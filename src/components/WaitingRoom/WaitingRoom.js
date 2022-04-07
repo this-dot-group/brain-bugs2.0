@@ -111,6 +111,7 @@ const WaitingRoom = (props) => {
       props.socket.emit('appStateUpdate', appStateGameCode)
     }
 
+    // THIS IS HAPPENING TO THE GAMEMAKER WHO IS IN THE WAITING ROOM
     const redirectToHowToPlay = usernames => {
       props.newOpponent(usernames.gameJoiner)
       setRoomJoin(true);

@@ -29,7 +29,7 @@ const WaitingRoom2 = (props) => {
   const [backToLobby, setBackToLobby] = useState(false);
 
   const redirectToHowToPlay = usernames => {
-    props.newOpponent(usernames.gameJoiner)
+    props.newOpponent(usernames.gameMaker)
     setRoomJoin(true);
   }
 

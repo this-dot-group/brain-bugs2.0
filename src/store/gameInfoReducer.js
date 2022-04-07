@@ -88,7 +88,7 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired)
     try {
       const { userReducer: { token } } = getState();
       const response = await axios.get(`http://${EXPO_LOCAL_URL}:3000/questions/${id}/${numQuestions}/${tokenForRematch || token}`);
-      console.log(response.data)
+      // console.log(response.data)
       if(!response.data || !response.data.length) {
         categoryExpired();
         return;

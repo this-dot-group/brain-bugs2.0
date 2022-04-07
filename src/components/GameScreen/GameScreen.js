@@ -100,7 +100,7 @@ function GameScreen(props) {
   const handleAnsPress = (answer, i) => {
     if(!allowSubmit) return;
     setAllowSubmit(false)
-    setGoCountdown(false);
+    // setGoCountdown(false);
     setTimeout(() => {
       handleSubmitAnswer(answer, i);
     }, 500)
@@ -186,12 +186,13 @@ function GameScreen(props) {
 
     const questionHandler = questionObj => {
 
-      console.log(questionObj)
+      // console.log(questionObj)
 
       if(!totalQuestions) {
         setTotalQuestions(questionObj.numQuestions);
       }
 
+      setGoCountdown(false)
       setDisplayAnswer(true)
 
       setTimeout(() => {
@@ -199,6 +200,8 @@ function GameScreen(props) {
         setDisplayAnswer(false);
         setCorrectIndex(-1);
         setWaiting({ boolean: false, name: null });
+     
+
         setCurrQuestionNum(questionObj.numQuestions - questionObj.questionsLeft + 1)
         if (!questionObj.answers) {
           let answerArr = insertCorrectAnswer(questionObj);
@@ -234,6 +237,7 @@ function GameScreen(props) {
         setGameEnd(true);
       }, 2000)
     }
+
 
     props.socket.on('question', questionHandler);
     props.socket.on('score', handleScore);
@@ -330,7 +334,7 @@ function GameScreen(props) {
               {score.playerOne &&
                 <>
 
-                  {waiting.boolean === true && waiting.name !== score.playerOne.name &&
+                  {waiting.boolean === true && displayAnswer !== true && waiting.name !== score.playerOne.name &&
                     <Image
                       source={require('../../images/win95_hourglass.gif')}
                       style={{ height: 30, width: 30 }} />
@@ -464,7 +468,7 @@ function GameScreen(props) {
             <View style={{ flex: .18, alignItems: 'center', justifyContent: 'center' }}>
               {score.playerOne &&
                 <>
-                  {waiting.boolean === true && waiting.name !== score.playerTwo.name &&
+                  {waiting.boolean === true && displayAnswer !== true && waiting.name !== score.playerTwo.name &&
                     <Image
                       source={require('../../images/win95_hourglass.gif')}
                       style={{ height: 30, width: 30 }} />
