@@ -10,9 +10,12 @@ Josh:
 - [] Maybe - Issue with iPhone swiping to close the app horizontally
 - If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
  - Disable all buttons between questions
+- [] LAYOUT: lobby with modals, game end/chat
+- [] ADD TO CANVA: how to play/countdown screen
 
 Tia: 
-- [] COULD NOT RECREATE - private game rematch, hangs on hourglass, hits catch in gameInfoReduce,line 88ish. possible issue with the id in the axios req?
+- [] LAYOUT: welcome screen, waiting room, game play 
+- [] ADD TO CANVA: game end screen
 
 - [] need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.
 
