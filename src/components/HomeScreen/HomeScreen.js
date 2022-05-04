@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, Modal, Pressable } from 'react-native'
-import { Image, Input } from 'react-native-elements'
+import { View, Text, TextInput, StyleSheet, Modal, Pressable } from 'react-native'
+import { Image } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-native';
 import socketIO from 'socket.io-client';
@@ -10,46 +10,100 @@ import MuteButton from '../MuteButton/MuteButton';
 
 // modular styles
 import { Buttons, Images, Views, Typography, Colors } from '../../styles/'
-
-// socket imports
 import { newSocket } from '../../store/socketReducer.js';
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer';
 import { playSound } from '../../store/soundsReducer';
-
 import { newUsername, newGameCode, newSocketId, newToken } from '../../store/userReducer.js';
 import { EXPO_LOCAL_URL } from '../../../env'
-
 
 
 const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 const fakeOpponentSocket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 
-// construct styles here, ability to add indv styling as needed on a per-component basis
+
 const styles = StyleSheet.create({
+  // CONTAINER VIEW
   container: {
-    ...Views.viewContainer,
+    flex: 1,
+    paddingTop: 40,
+    paddingBottom: 40,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
-  howToPlayModalButton: {
-    ...Buttons.openButton,
-    backgroundColor: Colors.orange.hex,
-    position: 'absolute',
-    bottom: 50
-  },
-  goButton: {
-    ...Buttons.openButton,
-    backgroundColor: Colors.red.hex,
-    minWidth: '90%',
-    alignItems: 'center'
-  },
+  // BIG IMAGE
   logoImg: {
-    ...Images.logoImg,
+    width: 120,
+    height: 120,
+  },
+  // NAME TEXT
+  logoText:{
+    fontSize: 60
+  },
+  // WRAPS USERNAME ROW
+  inputNestedRowView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  // WRAPS HOWTOPLAY MODAL ROW
+  bottomNestedRowView: {
+    flexDirection: 'row',
+    width: '90%',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  // USERNAME INPUT
+  input: {
+    borderColor: 'black',
+    borderWidth: 2,
+    borderRadius: 10,
+    padding: 10,
+    width: '30%',
+    // height: '100%',
+  },
+  // GO BTN SHOWS UP AFTER USERNAME
+  goButton: {
+    padding: 10,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+    marginLeft: 20
+  },
+  // HOW TO PLAY BTN
+  howToPlayModalButton: {
+    padding: 10,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+    marginRight: 100
   },
   modalView: {
     ...Views.modalView,
   },
-  input: {
-    ...Typography.input,
-  }
+  // container: {
+  //   ...Views.viewContainer,
+  // },
+  // howToPlayModalButton: {
+  //   ...Buttons.openButton,
+  //   backgroundColor: Colors.orange.hex,
+  //   position: 'absolute',
+  //   bottom: 50
+  // },
+  // goButton: {
+  //   ...Buttons.openButton,
+  //   backgroundColor: Colors.red.hex,
+  //   minWidth: '90%',
+  //   alignItems: 'center'
+  // },
+  // logoImg: {
+  //   ...Images.logoImg,
+  // },
+  // modalView: {
+  //   ...Views.modalView,
+  // },
+  // input: {
+  //   ...Typography.input,
+  // }
 })
 
 function Homescreen(props) {
@@ -91,65 +145,68 @@ function Homescreen(props) {
 
   return (
     <View style={styles.container}>
-
-      <Pressable
-        style={styles.howToPlayModalButton}
-        onPress={() => {
-          props.playSound('click')
-          setModalVisible(true);
-        }}
-      >
-        <Text>How To Play</Text>
-      </Pressable>
-      <MuteButton />
       
       <Image
-        source={require('../../images/logo_option.png')}
+        source={require('../../images/BRAIN_BUG1.png')}
         style={styles.logoImg} />
-      <Text>Welcome to This Game</Text>
+      <Text style={styles.logoText}>BRAIN BUGS</Text>  
+
+      <View style={styles.inputNestedRowView}>
+        <TextInput
+          placeholder={'username'}
+          style={styles.input}
+          onChangeText={value => handleUsernameChange(value)}
+        />
+
+        {validUsername &&
+          <Pressable style={styles.goButton} onPress={handleGo}>
+            <Text>Go!</Text>
+          </Pressable>
+        }
+      </View>
 
 
-      <Text>Please enter your name to display here:</Text>
-
-      <Input
-        placeholder={'username'}
-        style={styles.input}
-        onChangeText={value => handleUsernameChange(value)}
-      />
-
-      {validUsername &&
-        <Pressable style={styles.goButton} onPress={handleGo}>
-          <Text>Go!</Text>
+      <View style={styles.bottomNestedRowView}>
+        <Pressable
+          style={styles.howToPlayModalButton}
+          onPress={() => {
+            props.playSound('click')
+            setModalVisible(true);
+          }}
+        >
+          <Text>How To Play</Text>
         </Pressable>
 
-      }
+        <Modal
+          transparent={true}
+          visible={modalVisible}
+          supportedOrientations={['landscape']}
+          >
+          <View
+            style={styles.modalView}>
+            <HowToPlayModal />
+            <Pressable
+              style={styles.howToPlayModalButton}
+              onPress={() => {
+                props.playSound('click')
+                setModalVisible(!modalVisible)
+              }}
+            >
+              <Text>Hide</Text>
+            </Pressable>
+          </View>
+        </Modal>
+
+        <View style={styles.muteIconWrapper}>
+          <MuteButton/>
+        </View>
+     
+      </View>
+
+      
 
       {toLobby && <Redirect to='/lobby' />}
 
-
-
-      {/* how to play component wrapped in Modal here, can think about moving some of this to HowToPlayModal.js component */}
-
-      <Modal
-        transparent={true}
-        visible={modalVisible}
-        supportedOrientations={['landscape']}
-        >
-
-        <View
-          style={styles.modalView}>
-          <HowToPlayModal />
-          <Pressable
-            style={styles.howToPlayModalButton}
-            onPress={() => {
-              props.playSound('click')
-              setModalVisible(!modalVisible)
-            }}
-          >
-            <Text>Hide</Text>
-          </Pressable>
-        </View>
-      </Modal>
       
     </View>
   )
