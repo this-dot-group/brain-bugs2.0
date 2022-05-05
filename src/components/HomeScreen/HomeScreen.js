@@ -78,31 +78,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     ...Views.modalView,
-  },
-  // container: {
-  //   ...Views.viewContainer,
-  // },
-  // howToPlayModalButton: {
-  //   ...Buttons.openButton,
-  //   backgroundColor: Colors.orange.hex,
-  //   position: 'absolute',
-  //   bottom: 50
-  // },
-  // goButton: {
-  //   ...Buttons.openButton,
-  //   backgroundColor: Colors.red.hex,
-  //   minWidth: '90%',
-  //   alignItems: 'center'
-  // },
-  // logoImg: {
-  //   ...Images.logoImg,
-  // },
-  // modalView: {
-  //   ...Views.modalView,
-  // },
-  // input: {
-  //   ...Typography.input,
-  // }
+  }
 })
 
 function Homescreen(props) {

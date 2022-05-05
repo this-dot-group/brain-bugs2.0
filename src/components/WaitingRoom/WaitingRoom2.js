@@ -18,12 +18,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between'
   },
-  // topRowView: {
-  //   flexDirection: 'row',
-  //   justifyContent: 'space-between',
-  //   width: '100%',
-  // },
-
   HowToPlayModalButton: {
     padding: 10,
     borderRadius: 10,

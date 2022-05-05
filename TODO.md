@@ -21,9 +21,10 @@ Tia:
 - [ ] LAYOUT: game play 
 - [ ] Add audio icon to waiting room screen
 
+- responsive font size?
+
 - [ ] need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.
 
-- responsive font size?
 
 
 ## Possible bugs
