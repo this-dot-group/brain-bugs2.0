@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet, Image, Alert } from 'react-native'
-import { Link, Redirect } from 'react-router-native';
+import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet} from 'react-native'
+import { Redirect } from 'react-router-native';
 import Clipboard from 'expo-clipboard';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import { newOpponent, resetUserGameToken } from '../../store/userReducer'
@@ -9,11 +9,59 @@ import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer'
 import { connect } from 'react-redux';
 import * as Notifications from 'expo-notifications';
 
-import { Buttons, Views, Typography } from '../../styles';
+import { Views } from '../../styles';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
 
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 40,
+    paddingLeft: 40,
+    paddingRight: 40,
+    paddingBottom: 40,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  topRowView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  CancelGameButton: {
+    alignSelf: 'flex-start',
+    padding: 10,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+  },
+  gameCodeCopyButton: {
+    padding: 10,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+  },
+  gameCodeText: {
+    fontSize: 40
+  },
+  alertText: {
+    fontSize: 30,
+    color: 'red',
+    alignSelf: 'flex-end',
+    marginRight: 10
+  },
+  modalView: {
+    ...Views.modalView,
+  },
+  HowToPlayModalButton: {
+    padding: 10,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+    alignSelf: 'flex-start',
+  }
+})
 
 const WaitingRoom = (props) => {
 
@@ -121,56 +169,6 @@ const WaitingRoom = (props) => {
     }
 
   }, [props.fullGameInfo.liveGameQuestions])
-
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      paddingTop: 40,
-      paddingLeft: 40,
-      paddingRight: 40,
-      paddingBottom: 40,
-      width: '100%',
-      alignItems: 'center',
-      justifyContent: 'space-between'
-    },
-    topRowView: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      width: '100%',
-    },
-    CancelGameButton: {
-      alignSelf: 'flex-start',
-      padding: 10,
-      borderRadius: 10,
-      borderColor: 'black',
-      borderWidth: 2,
-    },
-    gameCodeCopyButton: {
-      padding: 10,
-      borderRadius: 10,
-      borderColor: 'black',
-      borderWidth: 2,
-    },
-    gameCodeText: {
-      fontSize: 40
-    },
-    alertText: {
-      fontSize: 30,
-      color: 'red',
-      alignSelf: 'flex-end',
-      marginRight: 10
-    },
-    modalView: {
-      ...Views.modalView,
-    },
-    HowToPlayModalButton: {
-      padding: 10,
-      borderRadius: 10,
-      borderColor: 'black',
-      borderWidth: 2,
-      alignSelf: 'flex-start',
-    }
-  })
 
   if (props.fullGameInfo.numPlayers === 2 && !props.location.state?.token) {
     return (

@@ -1,7 +1,7 @@
 const testMode = true;
 
 // Should be 10
-export const QUESTION_TIME = testMode ? 5 : 10;
+export const QUESTION_TIME = testMode ? 500000 : 10;
 
 // Should be 3
 export const START_COUNTDOWN =  testMode ? 1 : 3;

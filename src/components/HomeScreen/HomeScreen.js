@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     width: '30%',
-    // height: '100%',
   },
   // GO BTN SHOWS UP AFTER USERNAME
   goButton: {

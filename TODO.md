@@ -14,10 +14,16 @@ Josh:
 - [] ADD TO CANVA: how to play/countdown screen
 
 Tia: 
-- [] LAYOUT: welcome screen, waiting room, game play 
-- [] ADD TO CANVA: game end screen
+- [x] ADD TO CANVA: game end screen
+- [x] LAYOUT: welcome screen
+- [x] LAYOUT: waiting room
+- [x] LAYOUT: waiting room 2
+- [ ] LAYOUT: game play 
+- [ ] Add audio icon to waiting room screen
 
-- [] need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.
+- [ ] need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.
+
+- responsive font size?
 
 
 ## Possible bugs
