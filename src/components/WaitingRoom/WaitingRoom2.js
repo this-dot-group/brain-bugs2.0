@@ -8,18 +8,55 @@ import { connect } from 'react-redux';
 import { Buttons, Views, Typography } from '../../styles';
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 40,
+    paddingLeft: 40,
+    paddingRight: 40,
+    paddingBottom: 40,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  // topRowView: {
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-between',
+  //   width: '100%',
+  // },
+
+  HowToPlayModalButton: {
+    padding: 10,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+    alignSelf: 'flex-start',
+  },
+  CancelGameButton: {
+    alignSelf: 'flex-start',
+    padding: 10,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+  },
+  gameCodeCopyButton: {
+    padding: 10,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+  },
+  gameCodeText: {
+    fontSize: 40
+  },
+  alertText: {
+    fontSize: 30,
+    color: 'red',
+    alignSelf: 'flex-end',
+    marginRight: 10
+  },
   modalView: {
     ...Views.modalView,
   },
-  HowToPlayModalButton: {
-    ...Buttons.openButton,
-  },
-  alertText: {
-    ...Typography.alertText,
-  },
-  gameCodeCopyButton: {
-    ...Buttons.openButton,
-  }
+
 })
 
 const WaitingRoom2 = (props) => {
@@ -59,15 +96,15 @@ const WaitingRoom2 = (props) => {
   }, [])
 
   return (
-    <View>
+    <View style={styles.container}>
         <Modal
           transparent={true}
           visible={modalVisible}
           supportedOrientations={['landscape']}
-          >
-
+        >
           <View
-            style={styles.modalView}>
+            style={styles.modalView}
+          >
             <HowToPlayModal />
             <Pressable
               style={styles.HowToPlayModalButton}
@@ -79,6 +116,7 @@ const WaitingRoom2 = (props) => {
             </Pressable>
           </View>
         </Modal>
+
         <Pressable
           style={styles.HowToPlayModalButton}
           onPress={() => {
@@ -89,7 +127,9 @@ const WaitingRoom2 = (props) => {
         </Pressable>
 
 
-        <Text>We have alerted your opponent, please wait a moment...</Text>
+        <Text>
+          We have alerted your opponent, please wait a moment...
+        </Text>
 
         <ActivityIndicator
           color='red'
@@ -97,8 +137,11 @@ const WaitingRoom2 = (props) => {
           animating={true} />
 
 
-        <Link to='/'>
-          <Text>(Go Home)</Text>
+        <Link 
+          to='/' 
+          style={styles.CancelGameButton}
+        >
+          <Text>Cancel Game</Text>
         </Link>
 
         {roomJoin &&
