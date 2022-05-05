@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet, Image, Alert } from 'react-native'
-import { Link, Redirect } from 'react-router-native';
+import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet} from 'react-native'
+import { Redirect } from 'react-router-native';
 import Clipboard from 'expo-clipboard';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import { newOpponent, resetUserGameToken } from '../../store/userReducer'
@@ -9,22 +9,57 @@ import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer'
 import { connect } from 'react-redux';
 import * as Notifications from 'expo-notifications';
 
-import { Buttons, Views, Typography } from '../../styles';
+import { Views } from '../../styles';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 40,
+    paddingLeft: 40,
+    paddingRight: 40,
+    paddingBottom: 40,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  topRowView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  CancelGameButton: {
+    alignSelf: 'flex-start',
+    padding: 10,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+  },
+  gameCodeCopyButton: {
+    padding: 10,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+  },
+  gameCodeText: {
+    fontSize: 40
+  },
+  alertText: {
+    fontSize: 30,
+    color: 'red',
+    alignSelf: 'flex-end',
+    marginRight: 10
+  },
   modalView: {
     ...Views.modalView,
   },
   HowToPlayModalButton: {
-    ...Buttons.openButton,
-  },
-  alertText: {
-    ...Typography.alertText,
-  },
-  gameCodeCopyButton: {
-    ...Buttons.openButton,
+    padding: 10,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+    alignSelf: 'flex-start',
   }
 })
 
@@ -138,16 +173,70 @@ const WaitingRoom = (props) => {
   if (props.fullGameInfo.numPlayers === 2 && !props.location.state?.token) {
     return (
 
-      <View>
+      <View style={styles.container}>
         <AppStateTracker
           gameCode={props.gameCode}
           gamePhase='waiting_room' />
+
+        <View style={styles.topRowView}>
+          <Pressable
+            style={styles.CancelGameButton}
+            onPress={cancelGame}>
+            <Text>Cancel Game</Text>
+          </Pressable>
+
+          {/* TODO: maybe we could have feedback on btn, like a shadow that shows up when its copied, instead of changing to "Copied!" */}
+          {props.publicOrPrivate === 'private' &&
+            <Pressable
+              style={styles.gameCodeCopyButton}
+              onPress={handleCodeCopy}>
+              {copied && (
+                <Text style={styles.alertText}>Copied!</Text>
+              )} 
+              {!copied && (
+                <Text style={styles.gameCodeText}>
+                  {props.gameCode}
+                </Text>
+              )}  
+            </Pressable>
+          }
+        </View>
+
+        {props.publicOrPrivate === 'private' &&
+          <>
+            <Text style={{textAlign: 'center'}}>
+              Give the game code to your opponent!
+              {"\n"}{"\n"}
+              Click to copy
+            </Text>
+            
+          </>
+        }
+
+        {props.publicOrPrivate !== 'private' &&
+          <Text>Waiting for 1 more player...</Text> 
+        }
+
+        <ActivityIndicator
+          color='red'
+          size='large'
+          animating={true} />
+
+         
+        <Pressable
+          style={styles.HowToPlayModalButton}
+          onPress={() => {
+            setModalVisible(true);
+          }}
+        >
+          <Text>How To Play</Text>
+        </Pressable>  
+
         <Modal
           transparent={true}
           visible={modalVisible}
           supportedOrientations={['landscape']}
         >
-
           <View
             style={styles.modalView}>
             <HowToPlayModal />
@@ -161,32 +250,9 @@ const WaitingRoom = (props) => {
             </Pressable>
           </View>
         </Modal>
-        <Pressable
-          style={styles.HowToPlayModalButton}
-          onPress={() => {
-            setModalVisible(true);
-          }}
-        >
-          <Text>How To Play</Text>
-        </Pressable>
 
 
-        <Text>Waiting for 1 more player...</Text>
-
-        <ActivityIndicator
-          color='red'
-          size='large'
-          animating={true} />
-
-        {props.publicOrPrivate === 'private' &&
-
-          <Pressable
-            style={styles.gameCodeCopyButton}
-            onPress={handleCodeCopy}>
-            <Text>{props.gameCode}</Text>
-          </Pressable>
-
-        }
+        {/* TODO: sim below scenario to see styling */}
         {showNoMoreQuestionsOptions && 
           <View>
             <Text>You have played all the questions in this category!</Text>
@@ -206,18 +272,10 @@ const WaitingRoom = (props) => {
           </View>
         }
 
-        {copied && <Text style={styles.alertText}> Copied </Text>}
-
         {backToLobby && <Redirect to='/lobby' />}
+        
+        {roomJoin && <Redirect to='/howtoplay' />}
 
-        <Pressable
-          style={styles.gameCodeCopyButton}
-          onPress={cancelGame}>
-          <Text>Cancel Game</Text>
-        </Pressable>
-        {roomJoin &&
-          <Redirect to='/howtoplay' />
-        }
       </View>
     )
   }
