@@ -11,15 +11,13 @@ Josh:
 - If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
  - Disable all buttons between questions
 - [] LAYOUT: lobby with modals, game end/chat
-- [] ADD TO CANVA: how to play/countdown screen
+- [] ADD TO CANVA: Lobby screen modals
 
 Tia: 
-- [x] ADD TO CANVA: game end screen
-- [x] LAYOUT: welcome screen
-- [x] LAYOUT: waiting room
-- [x] LAYOUT: waiting room 2
 - [ ] LAYOUT: game play 
 - [ ] Add audio icon to waiting room screen
+- [ ] ADD TO CANVA: CHAT
+- [ ] Checking for # of characters to decide font size
 
 - responsive font size?
 
