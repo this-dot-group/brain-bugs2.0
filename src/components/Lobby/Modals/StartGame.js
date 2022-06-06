@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { Platform, View, Text, Pressable, StyleSheet, Alert } from 'react-native'
+import { Platform, View, StyleSheet, Alert } from 'react-native'
 import * as Notifications from 'expo-notifications';
 import { Link } from 'react-router-native';
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate, pushTokenAlertInteraction, gameMakerPushToken } from '../../../store/gameInfoReducer';
 import { newOpponent, pushNotificationToken } from '../../../store/userReducer';
 import { QUESTION_DROPDOWN_CHOICES } from '../../../../config';
 import { PixelButton, GenericModal, DropdownMenu } from '../../Shared';
+import TitleBar from './TitleBar';
 
 import he from 'he';
 import { Views } from '../../../styles'
@@ -17,21 +18,6 @@ import Constants from 'expo-constants';
 
 
 const styles = StyleSheet.create({
-  closeModalButton: {
-    height: 30,
-    width: 30,
-    borderRadius: 10,
-    borderColor: 'black',
-    borderWidth: 2,
-    padding: 0,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 10,
-  },
-  closeModalButtonText: {
-    fontWeight: 'bold',
-  },
   dropdowns: {
     display: 'flex',
     flexDirection: 'row',
@@ -45,16 +31,6 @@ const styles = StyleSheet.create({
   },
   dropDownView: {
     ...Views.dropDownView,
-  },
-  text: {
-    textAlign: 'center',
-    fontSize: 25,
-  },
-  topBar: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginBottom: 30,
   },
   goRow: {
     flexDirection: 'row',
@@ -206,15 +182,11 @@ function StartGame(props) {
 
   return (
     <GenericModal visible={props.modalVisible === 'start'}>
-      <View style={styles.topBar}>
-        <Text style={styles.text}>Start a game here!!</Text>
-        <Pressable
-          style={styles.closeModalButton}
-          onPress={() => props.setModalVisible(null)}
-        >
-          <Text style={styles.closeModalButtonText}>X</Text>
-        </Pressable>
-      </View>
+      <TitleBar
+        cb={() => props.setModalVisible(null)}
+      >
+        Start a game here!!
+      </TitleBar>
 
       <View style={styles.dropdowns}>
         <View style={styles.dropDownView}>

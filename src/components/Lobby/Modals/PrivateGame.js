@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Pressable, StyleSheet } from 'react-native'
+import { Text, Pressable, StyleSheet } from 'react-native'
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux'
 import { newOpponent } from '../../../store/userReducer';
 import { Typography } from '../../../styles';
 import { GenericModal } from '../../Shared';
+import TitleBar from './TitleBar';
 
 const styles = StyleSheet.create({
   alertText: {
@@ -16,32 +17,7 @@ const styles = StyleSheet.create({
   },
   gamecodeTextInput: {
     ...Typography.input,
-  },
-  text: {
-    textAlign: 'center',
-    fontSize: 25,
-  },
-  topBar: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginBottom: 20,
-  },
-  closeModalButton: {
-    height: 30,
-    width: 30,
-    borderRadius: 10,
-    borderColor: 'black',
-    borderWidth: 2,
-    padding: 0,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 10,
-  },
-  closeModalButtonText: {
-    fontWeight: 'bold',
-  },
+  }
 })
 
 function PrivateGame(props) {
@@ -103,18 +79,11 @@ function PrivateGame(props) {
     <GenericModal
       visible={props.modalVisible === 'private'}
     >
-      <View style={styles.topBar}>
-
-        <Text style={styles.text}>JOIN a private game here!!</Text>
-
-        <Pressable
-          style={styles.closeModalButton}
-          onPress={() => props.setModalVisible(null)}
-        >
-          <Text style={styles.closeModalButtonText}>X</Text>
-        </Pressable>
-
-      </View>
+      <TitleBar
+        cb={() => props.setModalVisible(null)}
+      >
+        JOIN a private game here!!
+      </TitleBar>
 
       {!goButton &&
         <Input
