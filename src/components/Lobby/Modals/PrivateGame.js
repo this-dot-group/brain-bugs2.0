@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
+import { View, Text, Pressable, StyleSheet } from 'react-native'
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux'
 import { newOpponent } from '../../../store/userReducer';
-import { Typography, Views } from '../../../styles';
+import { Typography } from '../../../styles';
+import { GenericModal } from '../../Shared';
 
 const styles = StyleSheet.create({
-  modalView: {
-    ...Views.modalView,
-  },
   alertText: {
     ...Typography.alertText,
   },
@@ -102,53 +100,39 @@ function PrivateGame(props) {
 
 
   return (
-    <Modal
-      transparent={true}
+    <GenericModal
       visible={props.modalVisible === 'private'}
-      animationType="slide"
-      supportedOrientations={['landscape']}
-      propogateSwipe
     >
+      <View style={styles.topBar}>
 
-      <SafeAreaView style={{ flex: 1 }}>
+        <Text style={styles.text}>JOIN a private game here!!</Text>
 
-        <ScrollView>
-          <View
-            style={styles.modalView}
-          >
-            <View style={styles.topBar}>
+        <Pressable
+          style={styles.closeModalButton}
+          onPress={() => props.setModalVisible(null)}
+        >
+          <Text style={styles.closeModalButtonText}>X</Text>
+        </Pressable>
 
-              <Text style={styles.text}>JOIN a private game here!!</Text>
+      </View>
 
-              <Pressable
-                style={styles.closeModalButton}
-                onPress={() => props.setModalVisible(null)}
-              >
-                <Text style={styles.closeModalButtonText}>X</Text>
-              </Pressable>
+      {!goButton &&
+        <Input
+          placeholder='Enter code'
+          style={styles.gamecodeTextInput}
+          onChangeText={value => handleChange(value)}
+          maxLength={5}
+        />}
+      <Text style={styles[error ? 'alertText' : 'alertTextHidden']}>Invalid code, please try again </Text>
 
-            </View>
-
-            {!goButton &&
-              <Input
-                placeholder='Enter code'
-                style={styles.gamecodeTextInput}
-                onChangeText={value => handleChange(value)}
-                maxLength={5}
-              />}
-            <Text style={styles[error ? 'alertText' : 'alertTextHidden']}>Invalid code, please try again </Text>
-
-            {goButton &&
-              <Pressable
-                onPress={() => {
-                  props.socket.emit('joinTwoPlayer', [gameCode, props.username]);
-                }}>
-                <Text>Go!</Text>
-              </Pressable>}
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </Modal>
+      {goButton &&
+        <Pressable
+          onPress={() => {
+            props.socket.emit('joinTwoPlayer', [gameCode, props.username]);
+          }}>
+          <Text>Go!</Text>
+        </Pressable>}
+    </GenericModal>
   )
 }
 

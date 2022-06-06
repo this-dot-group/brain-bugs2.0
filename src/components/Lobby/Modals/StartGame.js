@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { Platform, View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView, Alert} from 'react-native'
+import { Platform, View, Text, Pressable, StyleSheet, Alert } from 'react-native'
 import * as Notifications from 'expo-notifications';
 import { Link } from 'react-router-native';
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate, pushTokenAlertInteraction, gameMakerPushToken } from '../../../store/gameInfoReducer';
 import { newOpponent, pushNotificationToken } from '../../../store/userReducer';
 import { QUESTION_DROPDOWN_CHOICES } from '../../../../config';
-import PixelButton from '../../Shared/PixelButton';
-import DropdownMenu from '../../Shared/DropdownMenu';
+import { PixelButton, GenericModal, DropdownMenu } from '../../Shared';
 
 import he from 'he';
 import { Views } from '../../../styles'
@@ -18,9 +17,6 @@ import Constants from 'expo-constants';
 
 
 const styles = StyleSheet.create({
-  modalView: {
-    ...Views.modalView,
-  },
   closeModalButton: {
     height: 30,
     width: 30,
@@ -75,8 +71,6 @@ const styles = StyleSheet.create({
 
 
 function StartGame(props) {
-  
-  
   const [categoryList, setCategoryList] = useState([]);
   const [numPlayers, setNumPlayers] = useState(1);
   const [showGo, setShowGo] = useState(false);
@@ -211,113 +205,97 @@ function StartGame(props) {
   ]);
 
   return (
-    <Modal  
-      transparent={true}
-      visible={props.modalVisible === 'start'}
-      animationType="slide"
-      supportedOrientations={['landscape']}
-      propogateSwipe
-    >
-      <SafeAreaView style={{ flex: 1 }}>
+    <GenericModal visible={props.modalVisible === 'start'}>
+      <View style={styles.topBar}>
+        <Text style={styles.text}>Start a game here!!</Text>
+        <Pressable
+          style={styles.closeModalButton}
+          onPress={() => props.setModalVisible(null)}
+        >
+          <Text style={styles.closeModalButtonText}>X</Text>
+        </Pressable>
+      </View>
 
-        <ScrollView>
+      <View style={styles.dropdowns}>
+        <View style={styles.dropDownView}>
+          <DropdownMenu
+            items={categoryList}
+            title="Select a Category"
+            cb={(item) => {
+              props.newCategory({ name: item.label, id: item.value });
+            }}
+            selected={props.gameInfo.category?.id || null}
+          />
+        </View>
 
-          <View
-            style={styles.modalView}
-          >
-            <View style={styles.topBar}>
-              <Text style={styles.text}>Start a game here!!</Text>
-              <Pressable
-                style={styles.closeModalButton}
-                onPress={() => props.setModalVisible(null)}
-              >
-                <Text style={styles.closeModalButtonText}>X</Text>
-              </Pressable>
-            </View>
+        <View style={styles.dropDownView}>
+          <DropdownMenu
+            items={QUESTION_DROPDOWN_CHOICES}
+            title="Number of Questions"
+            cb={(item) => {
+              props.numQuestions(item.value);
+            }}
+            selected={props.gameInfo.numQuestions || null}
+          />
+        </View>
 
-            <View style={styles.dropdowns}>
-              <View style={styles.dropDownView}>
-                <DropdownMenu
-                  items={categoryList}
-                  title='Select a Category'
-                  cb={item => {
-                    props.newCategory({ name: item.label, id: item.value })
-                  }}
-                  selected={props.gameInfo.category?.id || null}
-                />
-              </View>
+        <View style={styles.dropDownView}>
+          <DropdownMenu
+            items={[
+              { label: 'Single Player', value: 1 },
+              { label: 'Two Players', value: 2 }
+            ]}
+            title='Number of Players'
+            cb={item => {
+              props.numPlayers(item.value);
+              setNumPlayers(item.value);
+            }}
+            selected={props.gameInfo.numPlayers || null}
+          />
+        </View>
 
-              <View style={styles.dropDownView}>
-                <DropdownMenu
-                  items={QUESTION_DROPDOWN_CHOICES}
-                  title='Number of Questions'
-                  cb={item => {
-                    props.numQuestions(item.value)
-                  }}
-                  selected={props.gameInfo.numQuestions || null}
-                />
-              </View>
-
-              <View style={styles.dropDownView}>
-                <DropdownMenu
-                  items={[
-                    { label: 'Single Player', value: 1 },
-                    { label: 'Two Players', value: 2 }
-                  ]}
-                  title='Number of Players'
-                  cb={item => {
-                    props.numPlayers(item.value);
-                    setNumPlayers(item.value);
-                  }}
-                  selected={props.gameInfo.numPlayers || null}
-                />
-              </View>
-
-              {numPlayers === 2 &&
-                <View style={styles.dropDownView}>
-                  <DropdownMenu
-                    items={[
-                      { label: 'Public Game', value: 'public' },
-                      { label: 'Private Game', value: 'private' }
-                    ]}
-                    title='Public or Private Game'
-                    cb={item => {
-                      props.publicOrPrivate(item.value);
-                      props.pushNotificationUserToken === undefined 
-                        ? registerForPushNotificationsAsync()
-                        : pushNotificationAlreadyEnabled();
-                    }}
-                    selected={props.gameInfo.publicOrPrivate || null}
-                  />
-                </View>
-              }
-            </View>
-
-            <View style={styles.goRow}>
-              <Link
-                to='/waitingroom'
-                component={PixelButton}
-                buttonStyle={{
-                  ...styles[showGo ? 'goButton' : 'goButtonHidden'],
-                  backgroundColor: 'green',
-                  borderColor: 'green',
-                  width: 50,
-                  height: 50
-                }}
-                textStyle={{
-                  color: 'white',
-                  fontWeight: 'bold',
-                  fontSize: 20
-                }}
-              >
-                GO
-              </Link>
-            </View>
+        {numPlayers === 2 && (
+          <View style={styles.dropDownView}>
+            <DropdownMenu
+              items={[
+                { label: 'Public Game', value: 'public' },
+                { label: 'Private Game', value: 'private' }
+              ]}
+              title='Public or Private Game'
+              cb={item => {
+                props.publicOrPrivate(item.value);
+                props.pushNotificationUserToken === undefined 
+                  ? registerForPushNotificationsAsync()
+                  : pushNotificationAlreadyEnabled();
+              }}
+              selected={props.gameInfo.publicOrPrivate || null}
+            />
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    </Modal>
-  )
+        )}
+      </View>
+
+      <View style={styles.goRow}>
+        <Link
+          to="/waitingroom"
+          component={PixelButton}
+          buttonStyle={{
+            ...styles[showGo ? 'goButton' : 'goButtonHidden'],
+            backgroundColor: 'green',
+            borderColor: 'green',
+            width: 50,
+            height: 50,
+          }}
+          textStyle={{
+            color: 'white',
+            fontWeight: 'bold',
+            fontSize: 20,
+          }}
+        >
+          GO
+        </Link>
+      </View>
+    </GenericModal>
+  );
 }
 const mapStateToProps = (state) => {
   return {
