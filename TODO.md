@@ -9,9 +9,15 @@
 Josh:  
 - [] Maybe - Issue with iPhone swiping to close the app horizontally
 - If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
- - Disable all buttons between questions
-- [] LAYOUT: lobby with modals, game end/chat
+- Disable all buttons between questions
+- [x] LAYOUT: lobby with modals
+- [] LAYOUT: game end/chat
 - [] ADD TO CANVA: Lobby screen modals
+
+- Made button (large and small variants)
+- Made it so your current choice still shows in dropdown if you close and open modal
+- Need to do join existing game modal
+
 
 Tia: 
 - [ ] LAYOUT: game play 

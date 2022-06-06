@@ -3,22 +3,47 @@ import { View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView } fr
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux'
 import { newOpponent } from '../../../store/userReducer';
-
-import { Buttons, Typography, Views } from '../../../styles';
+import { Typography, Views } from '../../../styles';
 
 const styles = StyleSheet.create({
   modalView: {
     ...Views.modalView,
   },
-  closeModalButton: {
-    ...Buttons.openButton,
-  },
   alertText: {
     ...Typography.alertText,
   },
+  alertTextHidden: {
+    ...Typography.alertText,
+    opacity: 0
+  },
   gamecodeTextInput: {
     ...Typography.input,
-  }
+  },
+  text: {
+    textAlign: 'center',
+    fontSize: 25,
+  },
+  topBar: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  closeModalButton: {
+    height: 30,
+    width: 30,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+    padding: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 10,
+  },
+  closeModalButtonText: {
+    fontWeight: 'bold',
+  },
 })
 
 function PrivateGame(props) {
@@ -60,8 +85,6 @@ function PrivateGame(props) {
     // value is the user-entered game code 
     setGameCode(value);
 
-    // console.log('validGameCodes in PRIVATE SCREEN:  ', validGamecodes)
-
     if (value.length === 5) {
 
       if (!validGamecodes.includes(value)) {
@@ -93,18 +116,27 @@ function PrivateGame(props) {
           <View
             style={styles.modalView}
           >
-            <Text>JOIN a private game here!!</Text>
-            <Text>Enter Code</Text>
+            <View style={styles.topBar}>
+
+              <Text style={styles.text}>JOIN a private game here!!</Text>
+
+              <Pressable
+                style={styles.closeModalButton}
+                onPress={() => props.setModalVisible(null)}
+              >
+                <Text style={styles.closeModalButtonText}>X</Text>
+              </Pressable>
+
+            </View>
 
             {!goButton &&
               <Input
-                placeholder='code here'
+                placeholder='Enter code'
                 style={styles.gamecodeTextInput}
                 onChangeText={value => handleChange(value)}
                 maxLength={5}
               />}
-
-            {error && <Text style={styles.alertText}>Invalid code, please try again </Text>}
+            <Text style={styles[error ? 'alertText' : 'alertTextHidden']}>Invalid code, please try again </Text>
 
             {goButton &&
               <Pressable
@@ -113,15 +145,6 @@ function PrivateGame(props) {
                 }}>
                 <Text>Go!</Text>
               </Pressable>}
-
-
-
-            <Pressable
-              style={styles.closeModalButton}
-              onPress={() => props.setModalVisible(null)}
-            >
-              <Text>X</Text>
-            </Pressable>
           </View>
         </ScrollView>
       </SafeAreaView>

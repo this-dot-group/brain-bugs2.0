@@ -28,10 +28,11 @@ export const modalView = {
 };
 
 export const dropDownView = {
-  height: 100,
+  height: 60,
+  borderColor: 'black'
 };
 
 export const dropDownContainer = {
   height: 40,
-  width: 200,
+  width: 150,
 };

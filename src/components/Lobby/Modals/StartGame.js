@@ -1,15 +1,16 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Platform, View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView, Alert} from 'react-native'
 import * as Notifications from 'expo-notifications';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { Link } from 'react-router-native';
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate, pushTokenAlertInteraction, gameMakerPushToken } from '../../../store/gameInfoReducer';
 import { newOpponent, pushNotificationToken } from '../../../store/userReducer';
 import { QUESTION_DROPDOWN_CHOICES } from '../../../../config';
+import PixelButton from '../../Shared/PixelButton';
+import DropdownMenu from '../../Shared/DropdownMenu';
 
 import he from 'he';
-import { Buttons, Views } from '../../../styles'
+import { Views } from '../../../styles'
 import { EXPO_LOCAL_URL } from '../../../../env'
 
 import axios from 'axios';
@@ -21,16 +22,54 @@ const styles = StyleSheet.create({
     ...Views.modalView,
   },
   closeModalButton: {
-    ...Buttons.openButton,
+    height: 30,
+    width: 30,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+    padding: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 10,
+  },
+  closeModalButtonText: {
+    fontWeight: 'bold',
+  },
+  dropdowns: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    position: 'relative',
+    zIndex: 1,
+    marginBottom: 30
   },
   dropDownView: {
     ...Views.dropDownView,
   },
-  dropDownContainer: {
-    ...Views.dropDownContainer,
+  text: {
+    textAlign: 'center',
+    fontSize: 25,
   },
-  dropDownItem: {
-    height: 50,
+  topBar: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 30,
+  },
+  goRow: {
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    paddingHorizontal: 10
+  },
+  goButton: {
+    opacity: 1,
+  },
+  goButtonHidden: {
+    opacity: 0,
   }
 })
 
@@ -40,7 +79,7 @@ function StartGame(props) {
   
   const [categoryList, setCategoryList] = useState([]);
   const [numPlayers, setNumPlayers] = useState(1);
-  const [showGo, setShowGo] = useState(false); 
+  const [showGo, setShowGo] = useState(false);
 
   const validPushToken = (pushToken) => {
     Alert.alert(
@@ -123,8 +162,6 @@ function StartGame(props) {
       // the below is to remember that the push token has been interacted with so that we can use it in the reduce method that shows the Go button
       props.pushTokenAlertInteraction('VALID')
     }
-
-
   }
 
   useEffect(() => {
@@ -157,7 +194,7 @@ function StartGame(props) {
 
   useEffect(() => {
     const goButtonStatus = ['numPlayers', 'category', 'numQuestions', 'publicOrPrivate', 'pushTokenAlertInteraction'].reduce((acc, prop) => {
-      if (prop === 'publicOrPrivate' || prop === 'pushTokenAlertInteraction' && props.gameInfo.numPlayers === 1) {
+      if (prop === 'publicOrPrivate' && props.gameInfo.numPlayers === 1) {
         return acc;
       }
       if (prop === 'pushTokenAlertInteraction' && props.gameInfo.numPlayers === 1) {
@@ -169,13 +206,12 @@ function StartGame(props) {
   }, [
     props.gameInfo.numPlayers,
     props.gameInfo.category,  
-    props.gameInfo.numPlayers,
     props.gameInfo.publicOrPrivate,
     props.gameInfo.pushTokenAlertInteraction
   ]);
 
   return (
-    <Modal
+    <Modal  
       transparent={true}
       visible={props.modalVisible === 'start'}
       animationType="slide"
@@ -189,97 +225,81 @@ function StartGame(props) {
           <View
             style={styles.modalView}
           >
-            <View style={{ flexDirection: 'row', flex: .2 }}>
-
-              <Text style={{ textAlign: 'center' }}>Start a game here!!</Text>
-
+            <View style={styles.topBar}>
+              <Text style={styles.text}>Start a game here!!</Text>
               <Pressable
                 style={styles.closeModalButton}
                 onPress={() => props.setModalVisible(null)}
               >
-                <Text>X</Text>
+                <Text style={styles.closeModalButtonText}>X</Text>
               </Pressable>
-
             </View>
 
-            <View style={{ flexDirection: 'row', flex: .35 }}>
+            <View style={styles.dropdowns}>
               <View style={styles.dropDownView}>
-                <DropDownPicker
-                  containerStyle={styles.dropDownContainer}
-                  multiple={false}
-                  placeholder='Select a Category'
-                  itemStyle={styles.dropDownItem}
-
-                  onChangeItem={item => {
+                <DropdownMenu
+                  items={categoryList}
+                  title='Select a Category'
+                  cb={item => {
                     props.newCategory({ name: item.label, id: item.value })
                   }}
-                  items={categoryList}
+                  selected={props.gameInfo.category?.id || null}
                 />
               </View>
 
               <View style={styles.dropDownView}>
-                <DropDownPicker
-                  containerStyle={styles.dropDownContainer}
-                  placeholder='Number of Questions'
-                  multiple={false}
-                  onChangeItem={item => {
+                <DropdownMenu
+                  items={QUESTION_DROPDOWN_CHOICES}
+                  title='Number of Questions'
+                  cb={item => {
                     props.numQuestions(item.value)
                   }}
-                  items={QUESTION_DROPDOWN_CHOICES}
+                  selected={props.gameInfo.numQuestions || null}
                 />
               </View>
-            </View>
 
-
-            <View style={{ flexDirection: 'row', flex: .35 }}>
               <View style={styles.dropDownView}>
-                <DropDownPicker
-                  containerStyle={styles.dropDownContainer}
-                  placeholder='Number of Players'
-                  multiple={false}
-                  onChangeItem={item => {
-                    props.numPlayers(item.value);
-                    setNumPlayers(item.value);
-                  }}
+                <DropdownMenu
                   items={[
                     { label: 'Single Player', value: 1 },
                     { label: 'Two Players', value: 2 }
                   ]}
+                  title='Number of Players'
+                  cb={item => {
+                    props.numPlayers(item.value);
+                    setNumPlayers(item.value);
+                  }}
+                  selected={props.gameInfo.numPlayers || null}
                 />
               </View>
 
               {numPlayers === 2 &&
                 <View style={styles.dropDownView}>
-                  <DropDownPicker
-                    containerStyle={styles.dropDownContainer}
-                    placeholder='Public or Private Game'
-                    multiple={false}
-                    onChangeItem={item => {
-                      props.publicOrPrivate(item.value);
-                      // !props.gameInfo.gameMakerPushToken
-                      props.pushNotificationUserToken === undefined 
-                      ? registerForPushNotificationsAsync()
-                      : pushNotificationAlreadyEnabled();
-                    }}
+                  <DropdownMenu
                     items={[
                       { label: 'Public Game', value: 'public' },
                       { label: 'Private Game', value: 'private' }
                     ]}
+                    title='Public or Private Game'
+                    cb={item => {
+                      props.publicOrPrivate(item.value);
+                      props.pushNotificationUserToken === undefined 
+                        ? registerForPushNotificationsAsync()
+                        : pushNotificationAlreadyEnabled();
+                    }}
+                    selected={props.gameInfo.publicOrPrivate || null}
                   />
                 </View>
               }
             </View>
 
-            <View style={{ flexDirection: 'row', flex: .1, alignSelf: 'center' }}>
-              {showGo &&
-                <Pressable style={{}}>
-                  <Link to='/waitingroom'>
-                    <Text>Go!</Text>
-                  </Link>
-                </Pressable>
-              }
+            <View style={styles.goRow}>
+              <PixelButton style={styles[showGo ? 'goButton' : 'goButtonHidden']} small>
+                <Link to='/waitingroom'>
+                  <Text>GO</Text>
+                </Link>
+              </PixelButton>
             </View>
-
           </View>
         </ScrollView>
       </SafeAreaView>

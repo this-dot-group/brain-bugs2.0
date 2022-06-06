@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Redirect } from 'react-router-native';
 import { connect } from 'react-redux';
 import JoinGameModal from './Modals/JoinGame';
@@ -9,12 +9,29 @@ import MuteButton from '../MuteButton/MuteButton';
 import { newOpponent, newGameCode } from '../../store/userReducer';
 import { newGame } from '../../store/gameInfoReducer';
 import { playSound } from '../../store/soundsReducer'
-
-import { Buttons } from '../../styles';
+import PixelButton from '../Shared/PixelButton'
 
 const styles = StyleSheet.create({
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    paddingVertical: 60,
+    paddingHorizontal: 60,
+  },
   gameOptionButtons: {
-    ...Buttons.openButton,
+    marginBottom: 30,
+  },
+  muteButton: {
+    alignSelf: 'flex-end',
+    marginBottom: 0,
+    marginTop: 'auto'
+  },
+  greeting: {
+    marginBottom: 40,
+    fontSize: 40
   }
 })
 
@@ -81,46 +98,49 @@ function StartScreen(props) {
   }
 
   return (
-    <View>
-      <Text> Welcome {props.userName}! </Text>
-      <Text> Short explanation of options below </Text>
-      <MuteButton />
-      <Pressable
+    <View style={styles.root}>
+      <Text style={styles.greeting}> WELCOME {props.userName.toUpperCase()}! </Text>
+
+      <PixelButton
         style={styles.gameOptionButtons}
         onPress={() => handleModalChange('start')}
       >
         <Text> Start a Game </Text>
-      </Pressable>
+      </PixelButton>
       <StartGameModal
         setModalVisible={handleModalChange}
         modalVisible={modalVisible}
       />
 
-      <Pressable
+      <PixelButton
         style={styles.gameOptionButtons}
         onPress={() => handleModalChange('join')}
       >
-        <Text> Join a Game </Text>
-      </Pressable>
+        <Text> Join Existing Game </Text>
+      </PixelButton>
       <JoinGameModal
         setModalVisible={handleModalChange}
         modalVisible={modalVisible}
         gamesWaiting={gamesWaiting}
       />
 
-      <Pressable
+      <PixelButton
         style={styles.gameOptionButtons}
         onPress={() => handleModalChange('private')}
       >
         <Text> Join Private Game </Text>
-      </Pressable>
+      </PixelButton>
       <PrivateGameModal
         setModalVisible={handleModalChange}
         modalVisible={modalVisible}
       />
+
       {roomJoin &&
         <Redirect to='/howtoplay' />
       }
+      <MuteButton
+        styles={styles.muteButton}
+      />
     </View>
   )
 }
