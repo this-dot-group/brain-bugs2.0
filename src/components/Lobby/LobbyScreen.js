@@ -102,10 +102,10 @@ function StartScreen(props) {
       <Text style={styles.greeting}> WELCOME {props.userName.toUpperCase()}! </Text>
 
       <PixelButton
-        style={styles.gameOptionButtons}
+        buttonStyle={styles.gameOptionButtons}
         onPress={() => handleModalChange('start')}
       >
-        <Text> Start a Game </Text>
+        Start a Game
       </PixelButton>
       <StartGameModal
         setModalVisible={handleModalChange}
@@ -113,7 +113,7 @@ function StartScreen(props) {
       />
 
       <PixelButton
-        style={styles.gameOptionButtons}
+        buttonStyle={styles.gameOptionButtons}
         onPress={() => handleModalChange('join')}
       >
         <Text> Join Existing Game </Text>
@@ -125,7 +125,7 @@ function StartScreen(props) {
       />
 
       <PixelButton
-        style={styles.gameOptionButtons}
+        buttonStyle={styles.gameOptionButtons}
         onPress={() => handleModalChange('private')}
       >
         <Text> Join Private Game </Text>

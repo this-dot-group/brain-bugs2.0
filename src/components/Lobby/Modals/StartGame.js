@@ -294,11 +294,24 @@ function StartGame(props) {
             </View>
 
             <View style={styles.goRow}>
-              <PixelButton style={styles[showGo ? 'goButton' : 'goButtonHidden']} small>
-                <Link to='/waitingroom'>
-                  <Text>GO</Text>
-                </Link>
-              </PixelButton>
+              <Link
+                to='/waitingroom'
+                component={PixelButton}
+                buttonStyle={{
+                  ...styles[showGo ? 'goButton' : 'goButtonHidden'],
+                  backgroundColor: 'green',
+                  borderColor: 'green',
+                  width: 50,
+                  height: 50
+                }}
+                textStyle={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  fontSize: 20
+                }}
+              >
+                GO
+              </Link>
             </View>
           </View>
         </ScrollView>
