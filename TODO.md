@@ -19,7 +19,7 @@ Tia:
 - [x] LAYOUT: waiting room
 - [x] LAYOUT: waiting room 2
 - [ ] LAYOUT: game play 
-- [ ] Add audio icon to waiting room screen
+- [x] Add audio icon to waiting room screen
 
 - responsive font size?
 
