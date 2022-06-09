@@ -3,13 +3,14 @@ import { Pressable, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { toggleMute } from '../../store/soundsReducer';
 
-function MuteButton({ toggleMute, isMuted }) {
+function MuteButton({ toggleMute, isMuted, styles }) {
 
   const handlePress = () => toggleMute();
 
   return (
     <Pressable
       onPress={handlePress}
+      style={styles}
     >
       <Text>
         {isMuted ? '🔕' : '🔔'}

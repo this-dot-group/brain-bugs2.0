@@ -9,9 +9,15 @@
 Josh:  
 - [] Maybe - Issue with iPhone swiping to close the app horizontally
 - If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
- - Disable all buttons between questions
-- [] LAYOUT: lobby with modals, game end/chat
+- Disable all buttons between questions
+- [x] LAYOUT: lobby with modals
+- [] LAYOUT: game end/chat
 - [] ADD TO CANVA: Lobby screen modals
+
+- Made button (large and small variants)
+- Made it so your current choice still shows in dropdown if you close and open modal
+- Need to do join existing game modal
+
 
 Tia: 
 - [ ] LAYOUT: game play 
@@ -29,6 +35,8 @@ Tia:
 - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
 - App seems to load in portrait before switching to landscape, looks glitchy
  - Maybe this is caused by expo go
+ - If a pivate game is cancelled after other player has already entered code but not pressed go, it appears that the game is still there
+ - Show Go not working on start modal on lobby screen on iphone for two player games
 
 
 

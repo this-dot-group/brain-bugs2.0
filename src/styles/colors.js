@@ -24,4 +24,8 @@ export const medBlue = {
 
 export const darkBlue = {
   hex: '#2F687C',
-}; 
+};
+
+export const gray = {
+  hex: '#ddd'
+}

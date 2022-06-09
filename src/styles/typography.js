@@ -1,7 +1,7 @@
 import { red } from "./colors";
 
 export const input = {
-  padding: '2%'
+  padding: 4
 };
 
 export const alertText = {

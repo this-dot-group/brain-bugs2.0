@@ -1,24 +1,30 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
+import { Text, StyleSheet, View } from 'react-native'
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux'
 import { newOpponent } from '../../../store/userReducer';
-
-import { Buttons, Typography, Views } from '../../../styles';
+import { Typography } from '../../../styles';
+import { GenericModal } from '../../Shared';
+import TitleBar from './TitleBar';
+import { PixelButton } from '../../Shared';
 
 const styles = StyleSheet.create({
-  modalView: {
-    ...Views.modalView,
-  },
-  closeModalButton: {
-    ...Buttons.openButton,
-  },
   alertText: {
     ...Typography.alertText,
   },
+  alertTextHidden: {
+    ...Typography.alertText,
+    opacity: 0
+  },
   gamecodeTextInput: {
     ...Typography.input,
-  }
+    textAlign: 'center'
+  },
+  goRow: {
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    paddingHorizontal: 10
+  },
 })
 
 function PrivateGame(props) {
@@ -26,7 +32,7 @@ function PrivateGame(props) {
   const [gameCode, setGameCode] = useState('');
   const [error, setError] = useState(false);
   const [validGamecodes, setValidGamecodes] = useState([]);
-  const [goButton, setGoButton] = useState(false);
+  const [showGo, setShowGo] = useState(false);
 
 
   useEffect(() => {
@@ -60,8 +66,6 @@ function PrivateGame(props) {
     // value is the user-entered game code 
     setGameCode(value);
 
-    // console.log('validGameCodes in PRIVATE SCREEN:  ', validGamecodes)
-
     if (value.length === 5) {
 
       if (!validGamecodes.includes(value)) {
@@ -70,7 +74,7 @@ function PrivateGame(props) {
           setError(false)
         }, 1500)
       } else {
-        setGoButton(true)
+        setShowGo(true)
       }
 
     }
@@ -79,53 +83,36 @@ function PrivateGame(props) {
 
 
   return (
-    <Modal
-      transparent={true}
+    <GenericModal
       visible={props.modalVisible === 'private'}
-      animationType="slide"
-      supportedOrientations={['landscape']}
-      propogateSwipe
     >
+      <TitleBar
+        cb={() => props.setModalVisible(null)}
+      >
+        JOIN a private game here!!
+      </TitleBar>
 
-      <SafeAreaView style={{ flex: 1 }}>
+      <Input
+        placeholder='Enter code'
+        style={styles.gamecodeTextInput}
+        onChangeText={value => handleChange(value)}
+        maxLength={5}
+        value={gameCode}
+        disabled={showGo}
+      />
+  
+      <Text style={styles[error ? 'alertText' : 'alertTextHidden']}>Invalid code, please try again </Text>
 
-        <ScrollView>
-          <View
-            style={styles.modalView}
-          >
-            <Text>JOIN a private game here!!</Text>
-            <Text>Enter Code</Text>
-
-            {!goButton &&
-              <Input
-                placeholder='code here'
-                style={styles.gamecodeTextInput}
-                onChangeText={value => handleChange(value)}
-                maxLength={5}
-              />}
-
-            {error && <Text style={styles.alertText}>Invalid code, please try again </Text>}
-
-            {goButton &&
-              <Pressable
-                onPress={() => {
-                  props.socket.emit('joinTwoPlayer', [gameCode, props.username]);
-                }}>
-                <Text>Go!</Text>
-              </Pressable>}
-
-
-
-            <Pressable
-              style={styles.closeModalButton}
-              onPress={() => props.setModalVisible(null)}
-            >
-              <Text>X</Text>
-            </Pressable>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </Modal>
+      <View style={styles.goRow}>
+        <PixelButton
+          buttonStyle={{
+            opacity: showGo ? 1 : 0,
+          }}
+          onPress={() => props.socket.emit('joinTwoPlayer', [gameCode, props.username])}
+          variant='go'
+        />
+      </View>
+    </GenericModal>
   )
 }
 
