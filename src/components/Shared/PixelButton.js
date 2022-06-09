@@ -2,8 +2,8 @@ import React from 'react';
 import { Pressable, StyleSheet, View, Text } from 'react-native';
 
 const getStyles = (
-  buttonStyle = {},
-  textStyle = {}
+  buttonStyle,
+  textStyle
 ) => {
   let {
     width = 216,
@@ -75,8 +75,27 @@ const getStyles = (
   });
 }
 
-function PixelButton({ onPress, children, buttonStyle, textStyle }) {
+function PixelButton({ onPress, children, buttonStyle = {}, textStyle = {}, variant }) {
+
+  if(variant?.toLowerCase() === 'go') {
+    if(!children) children = 'GO'
+    buttonStyle = {
+      backgroundColor: 'green',
+      borderColor: 'green',
+      width: 50,
+      height: 50,
+      ...buttonStyle
+    }
+    textStyle = {
+      color: 'white',
+      fontWeight: 'bold',
+      fontSize: 20,
+      ...textStyle
+    }
+  }
+
   const styles = getStyles(buttonStyle, textStyle);
+
   return (
     <Pressable
       onPress={onPress}

@@ -10,7 +10,7 @@ export const modalView = {
   margin: 20,
   backgroundColor: 'white',
   borderRadius: 20,
-  padding: 35,
+  padding: 15,
   alignItems: 'center',
   shadowColor: '#000',
   shadowOffset: {
@@ -23,7 +23,7 @@ export const modalView = {
   display: "flex",
   flexDirection: "column",
   alignSelf: "center",
-  width: "90%",
+  width: "95%",
   height: "80%"
 };
 
@@ -34,5 +34,5 @@ export const dropDownView = {
 
 export const dropDownContainer = {
   height: 40,
-  width: 150,
+  width: 200,
 };

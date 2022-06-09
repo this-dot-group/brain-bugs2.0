@@ -20,22 +20,23 @@ import Constants from 'expo-constants';
 const styles = StyleSheet.create({
   dropdowns: {
     display: 'flex',
-    flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
+    justifyContent: 'center',
     position: 'relative',
     zIndex: 1,
     marginBottom: 30
   },
   dropDownView: {
     ...Views.dropDownView,
+    marginBottom: 10
   },
   goRow: {
     flexDirection: 'row',
     alignSelf: 'flex-end',
-    paddingHorizontal: 10
+    paddingHorizontal: 30,
+    position: 'absolute',
+    bottom: 20,
   },
   goButton: {
     opacity: 1,
@@ -252,19 +253,11 @@ function StartGame(props) {
           component={PixelButton}
           buttonStyle={{
             ...styles[showGo ? 'goButton' : 'goButtonHidden'],
-            backgroundColor: 'green',
-            borderColor: 'green',
-            width: 50,
-            height: 50,
+            // opacity: showGo ? 1 : 0,
+            // need to make sure it isn't pressable when hidden - same for all with opacity
           }}
-          textStyle={{
-            color: 'white',
-            fontWeight: 'bold',
-            fontSize: 20,
-          }}
-        >
-          GO
-        </Link>
+          variant="go"
+        />
       </View>
     </GenericModal>
   );

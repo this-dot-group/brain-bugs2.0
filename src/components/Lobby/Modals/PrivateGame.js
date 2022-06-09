@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Text, Pressable, StyleSheet } from 'react-native'
+import { Text, StyleSheet, View } from 'react-native'
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux'
 import { newOpponent } from '../../../store/userReducer';
 import { Typography } from '../../../styles';
 import { GenericModal } from '../../Shared';
 import TitleBar from './TitleBar';
+import { PixelButton } from '../../Shared';
 
 const styles = StyleSheet.create({
   alertText: {
@@ -17,7 +18,13 @@ const styles = StyleSheet.create({
   },
   gamecodeTextInput: {
     ...Typography.input,
-  }
+    textAlign: 'center'
+  },
+  goRow: {
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    paddingHorizontal: 10
+  },
 })
 
 function PrivateGame(props) {
@@ -25,7 +32,7 @@ function PrivateGame(props) {
   const [gameCode, setGameCode] = useState('');
   const [error, setError] = useState(false);
   const [validGamecodes, setValidGamecodes] = useState([]);
-  const [goButton, setGoButton] = useState(false);
+  const [showGo, setShowGo] = useState(false);
 
 
   useEffect(() => {
@@ -67,7 +74,7 @@ function PrivateGame(props) {
           setError(false)
         }, 1500)
       } else {
-        setGoButton(true)
+        setShowGo(true)
       }
 
     }
@@ -85,22 +92,26 @@ function PrivateGame(props) {
         JOIN a private game here!!
       </TitleBar>
 
-      {!goButton &&
-        <Input
-          placeholder='Enter code'
-          style={styles.gamecodeTextInput}
-          onChangeText={value => handleChange(value)}
-          maxLength={5}
-        />}
+      <Input
+        placeholder='Enter code'
+        style={styles.gamecodeTextInput}
+        onChangeText={value => handleChange(value)}
+        maxLength={5}
+        value={gameCode}
+        disabled={showGo}
+      />
+  
       <Text style={styles[error ? 'alertText' : 'alertTextHidden']}>Invalid code, please try again </Text>
 
-      {goButton &&
-        <Pressable
-          onPress={() => {
-            props.socket.emit('joinTwoPlayer', [gameCode, props.username]);
-          }}>
-          <Text>Go!</Text>
-        </Pressable>}
+      <View style={styles.goRow}>
+        <PixelButton
+          buttonStyle={{
+            opacity: showGo ? 1 : 0,
+          }}
+          onPress={() => props.socket.emit('joinTwoPlayer', [gameCode, props.username])}
+          variant='go'
+        />
+      </View>
     </GenericModal>
   )
 }

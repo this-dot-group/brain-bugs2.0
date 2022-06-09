@@ -35,6 +35,8 @@ Tia:
 - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
 - App seems to load in portrait before switching to landscape, looks glitchy
  - Maybe this is caused by expo go
+ - If a pivate game is cancelled after other player has already entered code but not pressed go, it appears that the game is still there
+ - Show Go not working on start modal on lobby screen on iphone for two player games
 
 
 
