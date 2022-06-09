@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import { View, Text, Modal, Pressable, StyleSheet, SafeAreaView, ScrollView, Alert } from 'react-native'
-import { Link, Redirect } from 'react-router-native'
+import React, { useState } from 'react'
+import { Text, Pressable, StyleSheet } from 'react-native'
+import { Redirect } from 'react-router-native'
 import { newOpponent } from '../../../store/userReducer';
 import { connect } from 'react-redux';
-import { Buttons, Views } from '../../../styles';
+import { GenericModal } from '../../Shared';
+import TitleBar from './TitleBar';
 
 const styles = StyleSheet.create({
-  modalView: {
-    ...Views.modalView,
-  },
   gameJoinButton: {
-    ...Buttons.openButton,
-  },
-  closeModalButton: {
-    ...Buttons.openButton,
+    padding: 10,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+    marginLeft: 20
   }
 })
 
@@ -23,54 +22,39 @@ function JoinGame(props) {
 
 
   return (
-    <Modal
-      transparent={true}
+    <GenericModal
       visible={props.modalVisible === 'join'}
-      animationType="slide"
-      supportedOrientations={['landscape']}
-      propogateSwipe
     >
-
-      <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView>
-
-      <View
-        style={styles.modalView}
+      <TitleBar
+        cb={() => props.setModalVisible(null)}
       >
-        <Text>JOIN a game here!!</Text>
-        
-        {props.gamesWaiting.map((gameObj, i) =>
+        JOIN a game here!!
+      </TitleBar>
+  
+      {props.gamesWaiting.map((gameObj, i) =>
 
-          
-          <Pressable
-            style={styles.gameJoinButton}
-            key={i}
-            onPress={() => {
-              props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username, gameObj.gameMakerPushToken]);
-
-              setRedirectToWaitingRoom2(true);
-            }}
-          >
-            <Text>
-              {gameObj.player} is waiting to play {gameObj.category}
-            </Text>
-          </Pressable>
-        )}
-
+    
         <Pressable
-          style={styles.closeModalButton}
-          onPress={() => props.setModalVisible(null)}
+          style={styles.gameJoinButton}
+          key={i}
+          onPress={() => {
+            props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username, gameObj.gameMakerPushToken]);
+
+            setRedirectToWaitingRoom2(true);
+          }}
         >
-          <Text>X</Text>
+          <Text>
+            {gameObj.player} is waiting to play {gameObj.category}
+          </Text>
         </Pressable>
+      )}
 
-        {redirectToWaitingRoom2 && <Redirect to='/waitingroom2' />}
+      {!props.gamesWaiting.length && 
+        <Text>No available games</Text>
+      }
 
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-
-    </Modal>
+      {redirectToWaitingRoom2 && <Redirect to='/waitingroom2' />}
+    </GenericModal>
   )
 }
 

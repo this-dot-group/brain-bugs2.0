@@ -9,19 +9,20 @@
 Josh:  
 - [] Maybe - Issue with iPhone swiping to close the app horizontally
 - If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
- - Disable all buttons between questions
-- [] LAYOUT: lobby with modals, game end/chat
-- [] ADD TO CANVA: how to play/countdown screen
+- [ ] Fix go button visability on phone
+- [ ] Make sure hidden buttons are disabled 
+- [ ] LAYOUT: game end/chat
+- [ ] ADD TO CANVA: Lobby screen modals
+- [ ] Disable all buttons between questions
+
 
 Tia: 
-- [x] ADD TO CANVA: game end screen
-- [x] LAYOUT: welcome screen
-- [x] LAYOUT: waiting room
-- [x] LAYOUT: waiting room 2
-- [x] LAYOUT: game play 
-- [x] Add audio icon to waiting room screen
-
-- responsive font size? adjustsFontSizeToFit as prop on <Text>, looks like that works
+- [ ] Upgrade expo SDK 
+- [ ] Swap out with new PixelButton!
+- [ ] Add x and check to score on gameplay screen (showing briefly for who got the correct answer on prev question)
+- [ ] Add "waiting for other player..." opposite the submit button
+- [ ] ADD TO CANVA: CHAT
+- [ ] Checking for # of characters to decide font size (or try adjustsFontSizeToFit on <Text>)
 
 - [ ] need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.
 
@@ -31,6 +32,8 @@ Tia:
 - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
 - App seems to load in portrait before switching to landscape, looks glitchy
  - Maybe this is caused by expo go
+ - If a pivate game is cancelled after other player has already entered code but not pressed go, it appears that the game is still there
+ - Show Go not working on start modal on lobby screen on iphone for two player games
 
 
 
