@@ -18,10 +18,10 @@ Tia:
 - [x] LAYOUT: welcome screen
 - [x] LAYOUT: waiting room
 - [x] LAYOUT: waiting room 2
-- [ ] LAYOUT: game play 
+- [x] LAYOUT: game play 
 - [x] Add audio icon to waiting room screen
 
-- responsive font size?
+- responsive font size? adjustsFontSizeToFit as prop on <Text>, looks like that works
 
 - [ ] need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.
 

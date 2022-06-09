@@ -2,66 +2,103 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Text, View, Pressable, StyleSheet, Image, Alert } from 'react-native'
 import he from 'he';
 import { Redirect } from 'react-router-native';
-
 import { connect } from 'react-redux';
 import { playSound } from '../../store/soundsReducer';
 import Countdown from '../Countdown/Countdown';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import { QUESTION_TIME } from '../../../config';
 
-
-import { Buttons, Views, Typography } from '../../styles/'
-
 const styles = StyleSheet.create({
-  modalView: {
-    ...Views.modalView,
-  },
-  selectedAnswer: {
-    ...Buttons.selectedAnswer,
+  container: {
     flex: 1,
-    borderRadius: 30,
-    margin: 10,
-    justifyContent: 'center'
+    paddingTop: 30,
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingBottom: 30,
+    width: '100%',
+  },
+  topRowView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: '25%',
+    alignItems: 'center'
+  },
+  middleRowView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: '50%',
+    alignItems: 'center'
+  },
+  bottomRowView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: '25%',
+    alignItems: 'center'
   },
   answerOptionPressables: {
-    ...Buttons.answerPressables,
-    flex: 1,
-    borderRadius: 30,
-    margin: 10,
-    justifyContent: 'center'
+    width: '40%',
+  },
+  nonSelectedAnswer: {
+    justifyContent: 'center',
+    height: '80%',
+    padding: 10,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+  },
+  selectedAnswer: {
+    justifyContent: 'center',
+    height: '80%',
+    padding: 10,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+    backgroundColor: '#C0C0C0'
   },
   submittedAnswer: {
-    ...Buttons.submittedAnswer,
-    flex: 1,
-    borderRadius: 30,
-    margin: 10,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    height: '80%',
+    padding: 10,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+    backgroundColor: '#C0C0C0'
   },
   correctAnswer: {
-    ...Buttons.correctAnswer,
-    flex: 1,
-    borderRadius: 30,
-    margin: 10,
-    justifyContent: 'center'
-  },
-  howToPlayModalButton: {
-    ...Buttons.openButton
+    justifyContent: 'center',
+    height: '80%',
+    padding: 10,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+    backgroundColor: '#ADD8E6'
   },
   answerText: {
-    ...Typography.answerText,
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  questionTextArea: {
+    padding: 10,
+    width: '80%',
   },
   questionText: {
-    ...Typography.questionText,
+    fontSize: 20,
+    textAlign: 'center',
   },
-  categoryText: {
-    ...Typography.categoryText,
+  submitButtonView: {
+    width: '10%'
   },
   submitButton: {
-    ...Buttons.submitButton,
-    height: '50%',
-    margin: 10
-  }
-})
+    padding: 10,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+    backgroundColor: 'white',
+  },
+});
 
 
 function GameScreen(props) {
@@ -277,7 +314,7 @@ function GameScreen(props) {
 
   const chooseColor = (i) => {
 
-    let color = i === selected ? styles.selectedAnswer : styles.answerOptionPressables;
+    let color = i === selected ? styles.selectedAnswer : styles.nonSelectedAnswer;
 
     if (i === submitted) {
       color = styles.submittedAnswer
@@ -288,31 +325,25 @@ function GameScreen(props) {
     return color;
   }
 
+
   return (
 
     <View
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100%',
-        height: '100%'
-      }}
+      style={styles.container}
     >
-
-
       {formattedQuestionInfo.question &&
         <>
           <AppStateTracker
             gameCode={props.gameCode}
             gamePhase='game_play' />
 
-          {/* TOP ROW */}
+          {/* TOP ROW - ANSWER OPTION, PLAYERS AND SCORES, ANSWER OPTION */}
 
           <View
-            style={{ flexDirection: 'row', flex: .25 }}
+            style={styles.topRowView}
           >
 
-            <View style={{ flex: .41, flexDirection: 'row' }}>
+            <View style={styles.answerOptionPressables}>
               <Pressable
                 onPress={() => {
                   setSelected(ansObjForRendering[0].index)
@@ -328,23 +359,39 @@ function GameScreen(props) {
               </Pressable>
             </View>
 
+            <View style={{ flexDirection: 'row' }}>
+              <View style={{ alignItems: 'center', marginRight: 20 }}>
+                {score.playerOne &&
+                  <>
 
-            <View style={{ flex: .18, alignItems: 'center', justifyContent: 'center' }}>
-              {score.playerOne &&
-                <>
+                    {waiting.boolean === true && displayAnswer !== true && waiting.name !== score.playerOne.name &&
+                      <Image
+                        source={require('../../images/win95_hourglass.gif')}
+                        style={{ height: 30, width: 30 }} />
+                    }
+                    <Text>{score.playerOne.name}</Text>
+                    <Text>{score.playerOne.score}</Text>
+                  </>
+                }
+              </View>
 
-                  {waiting.boolean === true && displayAnswer !== true && waiting.name !== score.playerOne.name &&
-                    <Image
-                      source={require('../../images/win95_hourglass.gif')}
-                      style={{ height: 30, width: 30 }} />
-                  }
-                  <Text>{score.playerOne.name}</Text>
-                  <Text>{score.playerOne.score}</Text>
-                </>
-              }
+              <View style={{ alignItems: 'center', marginLeft: 20 }}>
+                {score.playerOne &&
+                  <>
+                    {waiting.boolean === true && displayAnswer !== true && waiting.name !== score.playerTwo.name &&
+                      <Image
+                        source={require('../../images/win95_hourglass.gif')}
+                        style={{ height: 30, width: 30 }} />
+                    }
+                    <Text>{score.playerTwo.name}</Text>
+                    <Text>{score.playerTwo.score}</Text>
+                  </>
+                }
+              </View>
+
             </View>
 
-            <View style={{ flex: .41, flexDirection: 'row' }}>
+            <View style={styles.answerOptionPressables}>
               <Pressable
                 onPress={() => {
                   setSelected(ansObjForRendering[1].index)
@@ -362,92 +409,68 @@ function GameScreen(props) {
 
           </View>
 
-          {/* SUBMIT AND QUESTION ROW */}
+          {/* MIDDLE ROW - SUBMIT OPTION, QUESTION WITH COUNT, SUBMIT OPTION */}
 
           <View
-            style={{ flexDirection: 'row', flex: .40 }}
+            style={styles.middleRowView}
           >
-            {selected === 0 || selected === 2 ?
-              <View style={{ flex: .15, justifyContent: 'center' }}>
-                <Pressable
-                  onPress={() => {
-                    handleAnsPress(formattedQuestionInfo.answers[selected], selected)
-                  }}
-                  style={styles.submitButton}
-                >
-                  <Text
-                    style={styles.answerText}>
-                    Submit
-                  </Text>
-                </Pressable>
-              </View>
-              : <View style={{ flex: .15 }} />}
+            {(selected === 0 || selected === 2) 
+              ?  <View style={styles.submitButtonView}>
+                    <Pressable
+                      onPress={() => {
+                        handleAnsPress(formattedQuestionInfo.answers[selected], selected)
+                      }}
+                      style={styles.submitButton}
+                    >
+                      <Text
+                        adjustsFontSizeToFit
+                        style={styles.answerText}>
+                        Submit
+                      </Text>
+                    </Pressable>
+                  </View>
+              : <View style={styles.submitButtonView}/>
+            }
 
-            <View style={{ flex: .70, alignItems: 'center' }}>
-              {/* <Text style={styles.categoryText}>
-          {he.decode(formattedQuestionInfo.category)}
-        </Text> */}
-              <Text style={styles.questionText}>
-                {he.decode(formattedQuestionInfo.question)}
-              </Text>
-            </View>
-
-            {selected === 1 || selected === 3 ?
-              <View style={{ flex: .15, justifyContent: 'center' }}>
-                <Pressable
-                  onPress={() => {
-                    handleAnsPress(formattedQuestionInfo.answers[selected], selected)
-                  }}
-                  style={styles.submitButton}
-                >
-                  <Text
-                    style={styles.answerText}>
-                    Submit
-                  </Text>
-                </Pressable>
+              <View style={styles.questionTextArea}>
+                <Text style={styles.questionText}>
+                  {he.decode(formattedQuestionInfo.question)}
+                  <Text style={{fontSize: 15}}>{'  '}{currQuestionNum} / {totalQuestions}</Text>
+                </Text>
+             
               </View>
-              : <View style={{ flex: .15 }} />}
+              
+        
+
+            {(selected === 1 || selected === 3 ) 
+              ?  <View style={styles.submitButtonView}>
+                  <Pressable
+                    onPress={() => {
+                      handleAnsPress(formattedQuestionInfo.answers[selected], selected)
+                    }}
+                    style={styles.submitButton}
+                  >
+                    <Text
+                      style={styles.answerText}>
+                      Submit
+                    </Text>
+                  </Pressable>
+                </View>
+              : <View style={styles.submitButtonView}/>
+            }
 
           </View>
-          {/* QUESTIONS LEFT ROW */}
-          <View
-            style={{ flexDirection: 'row', flex: .10 }}
-          >
-            <View style={{ flex: .45 }} />
-            <View style={{ flex: .10 }}>
-              <Text>{currQuestionNum} / {totalQuestions}</Text>
-            </View>
-            <View style={{ flex: .45 }} />
-          </View>
 
-          {/* COUNTDOWN ROW */}
-          {!displayAnswer &&
-            <View
-              style={{ flexDirection: 'row', flex: .10 }}
-            >
-              <View style={{ flex: .45 }} />
-              <View style={{ flex: .10 }}>
-                <Countdown
-                  seconds={seconds}
-                  setSeconds={setSeconds}
-                  style={{ color: 'red' }}
-                  go={goCountdown}
-                  setGo={setGoCountdown}
+            
 
-                />
-              </View>
-              <View style={{ flex: .45 }} />
-            </View>
-          }
-
-          {/* BOTTOM ROW */}
+          {/* BOTTOM ROW - ANSWER OPTION, COUNTDOWN, ANSWER OPTION */}
 
           <View
-            style={{ flexDirection: 'row', flex: .25 }}
+            style={styles.bottomRowView}
           >
 
             {ansObjForRendering[2] &&
-              <View style={{ flex: .41, flexDirection: 'row' }}>
+              <View style={styles.answerOptionPressables}>
                 <Pressable
                   onPress={() => {
                     setSelected(ansObjForRendering[2].index)
@@ -464,24 +487,20 @@ function GameScreen(props) {
               </View>
             }
 
-            {!ansObjForRendering[2] && <View style={{ flex: .41, flexDirection: 'row' }} />}
+            {!ansObjForRendering[2] && <View style={styles.answerOptionPressables} />}
 
-            <View style={{ flex: .18, alignItems: 'center', justifyContent: 'center' }}>
-              {score.playerOne &&
-                <>
-                  {waiting.boolean === true && displayAnswer !== true && waiting.name !== score.playerTwo.name &&
-                    <Image
-                      source={require('../../images/win95_hourglass.gif')}
-                      style={{ height: 30, width: 30 }} />
-                  }
-                  <Text>{score.playerTwo.name}</Text>
-                  <Text>{score.playerTwo.score}</Text>
-                </>
-              }
-            </View>
+            {!displayAnswer &&
+            <Countdown
+              seconds={seconds}
+              setSeconds={setSeconds}
+              style={{ color: 'red' }}
+              go={goCountdown}
+              setGo={setGoCountdown}
+            />
+          }
 
             {ansObjForRendering[3] &&
-              <View style={{ flex: .41, flexDirection: 'row' }}>
+              <View style={styles.answerOptionPressables}>
                 <Pressable
                   onPress={() => {
                     setSelected(ansObjForRendering[3].index)
@@ -498,7 +517,7 @@ function GameScreen(props) {
               </View>
             }
 
-            {!ansObjForRendering[3] && <View style={{ flex: .41, flexDirection: 'row' }} />}
+            {!ansObjForRendering[3] && <View style={styles.answerOptionPressables} />}
 
           </View>
 
