@@ -9,23 +9,20 @@
 Josh:  
 - [] Maybe - Issue with iPhone swiping to close the app horizontally
 - If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
-- Disable all buttons between questions
-- [x] LAYOUT: lobby with modals
-- [] LAYOUT: game end/chat
-- [] ADD TO CANVA: Lobby screen modals
-
-- Made button (large and small variants)
-- Made it so your current choice still shows in dropdown if you close and open modal
-- Need to do join existing game modal
+- [ ] Fix go button visability on phone
+- [ ] Make sure hidden buttons are disabled 
+- [ ] LAYOUT: game end/chat
+- [ ] ADD TO CANVA: Lobby screen modals
+- [ ] Disable all buttons between questions
 
 
 Tia: 
-- [ ] LAYOUT: game play 
-- [ ] Add audio icon to waiting room screen
+- [ ] Upgrade expo SDK 
+- [ ] Swap out with new PixelButton!
+- [ ] Add x and check to score on gameplay screen (showing briefly for who got the correct answer on prev question)
+- [ ] Add "waiting for other player..." opposite the submit button
 - [ ] ADD TO CANVA: CHAT
-- [ ] Checking for # of characters to decide font size
-
-- responsive font size?
+- [ ] Checking for # of characters to decide font size (or try adjustsFontSizeToFit on <Text>)
 
 - [ ] need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.
 

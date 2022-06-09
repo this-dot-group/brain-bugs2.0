@@ -3,6 +3,7 @@ import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet} from 'reac
 import { Redirect } from 'react-router-native';
 import Clipboard from 'expo-clipboard';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
+import MuteButton from '../MuteButton/MuteButton';
 import { newOpponent, resetUserGameToken } from '../../store/userReducer'
 import { getQuestions } from '../../store/gameInfoReducer'
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer'
@@ -25,6 +26,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   topRowView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  bottomRowView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
@@ -222,15 +228,21 @@ const WaitingRoom = (props) => {
           size='large'
           animating={true} />
 
-         
-        <Pressable
-          style={styles.HowToPlayModalButton}
-          onPress={() => {
-            setModalVisible(true);
-          }}
-        >
-          <Text>How To Play</Text>
-        </Pressable>  
+        <View style={styles.bottomRowView}>
+
+          
+          <Pressable
+            style={styles.HowToPlayModalButton}
+            onPress={() => {
+              setModalVisible(true);
+            }}
+          >
+            <Text>How To Play</Text>
+          </Pressable>  
+
+          <MuteButton/>
+        
+        </View>
 
         <Modal
           transparent={true}
