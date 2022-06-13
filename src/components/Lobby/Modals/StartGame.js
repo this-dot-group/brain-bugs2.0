@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     position: 'absolute',
     bottom: 20,
+    zIndex: 1
   },
   goButton: {
     opacity: 1,
