@@ -9,6 +9,7 @@ import Chat from '../Chat/Chat';
 import Badge from '../Chat/Badge';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import { Buttons } from '../../styles'
+import { PixelButton } from '../Shared';
 
 
 const styles = StyleSheet.create({

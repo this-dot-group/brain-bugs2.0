@@ -10,7 +10,7 @@ Josh:
 - [] Maybe - Issue with iPhone swiping to close the app horizontally
 - If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
 - [x] Fix go button visability on phone
-- [ ] Make sure hidden buttons are disabled 
+- [x] Make sure hidden buttons are disabled 
 - [ ] LAYOUT: game end/chat
 - [ ] ADD TO CANVA: Lobby screen modals
 - [ ] Disable all buttons between questions

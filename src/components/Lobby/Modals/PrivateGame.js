@@ -6,7 +6,7 @@ import { newOpponent } from '../../../store/userReducer';
 import { Typography } from '../../../styles';
 import { GenericModal } from '../../Shared';
 import TitleBar from './TitleBar';
-import { PixelButton } from '../../Shared';
+import { PixelButton, Hider } from '../../Shared';
 
 const styles = StyleSheet.create({
   alertText: {
@@ -101,16 +101,21 @@ function PrivateGame(props) {
         disabled={showGo}
       />
   
-      <Text style={styles[error ? 'alertText' : 'alertTextHidden']}>Invalid code, please try again </Text>
+      <Hider
+        show={error}
+      >
+        <Text style={styles.alertText}>Invalid code, please try again </Text>
+      </Hider>
 
       <View style={styles.goRow}>
-        <PixelButton
-          buttonStyle={{
-            opacity: showGo ? 1 : 0,
-          }}
-          onPress={() => props.socket.emit('joinTwoPlayer', [gameCode, props.username])}
-          variant='go'
-        />
+        <Hider
+          show={showGo}
+        >
+          <PixelButton
+            onPress={() => props.socket.emit('joinTwoPlayer', [gameCode, props.username])}
+            variant='go'
+          />
+        </Hider>
       </View>
     </GenericModal>
   )
