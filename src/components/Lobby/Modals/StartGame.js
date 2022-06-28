@@ -39,12 +39,6 @@ const styles = StyleSheet.create({
     bottom: 20,
     zIndex: 1
   },
-  goButton: {
-    opacity: 1,
-  },
-  goButtonHidden: {
-    opacity: 0,
-  }
 })
 
 
@@ -253,7 +247,7 @@ function StartGame(props) {
           to="/waitingroom"
           component={PixelButton}
           buttonStyle={{
-            ...styles[showGo ? 'goButton' : 'goButtonHidden'],
+            opacity: showGo ? 1 : 0,
             // opacity: showGo ? 1 : 0,
             // need to make sure it isn't pressable when hidden - same for all with opacity
           }}
