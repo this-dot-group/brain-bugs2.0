@@ -6,7 +6,7 @@ import { Link } from 'react-router-native';
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate, pushTokenAlertInteraction, gameMakerPushToken } from '../../../store/gameInfoReducer';
 import { newOpponent, pushNotificationToken } from '../../../store/userReducer';
 import { QUESTION_DROPDOWN_CHOICES } from '../../../../config';
-import { PixelButton, GenericModal, DropdownMenu } from '../../Shared';
+import { PixelButton, GenericModal, DropdownMenu, Hider } from '../../Shared';
 import TitleBar from './TitleBar';
 
 import he from 'he';
@@ -37,13 +37,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     position: 'absolute',
     bottom: 20,
+    zIndex: 1
   },
-  goButton: {
-    opacity: 1,
-  },
-  goButtonHidden: {
-    opacity: 0,
-  }
 })
 
 
@@ -248,16 +243,15 @@ function StartGame(props) {
       </View>
 
       <View style={styles.goRow}>
-        <Link
-          to="/waitingroom"
-          component={PixelButton}
-          buttonStyle={{
-            ...styles[showGo ? 'goButton' : 'goButtonHidden'],
-            // opacity: showGo ? 1 : 0,
-            // need to make sure it isn't pressable when hidden - same for all with opacity
-          }}
-          variant="go"
-        />
+        <Hider
+          show={showGo}
+        >
+          <Link
+            to="/waitingroom"
+            component={PixelButton}
+            variant="go"
+          />
+        </Hider>
       </View>
     </GenericModal>
   );
