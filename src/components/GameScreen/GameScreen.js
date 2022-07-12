@@ -80,6 +80,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
   },
+  submitText: {
+    fontSize: 15,
+    textAlign: 'center',
+  },
+  waitingText: {
+    fontSize: 12,
+    fontStyle: 'italic',
+    textAlign: 'center',
+  },
   questionTextArea: {
     padding: 10,
     width: '80%',
@@ -237,7 +246,6 @@ function GameScreen(props) {
         setDisplayAnswer(false);
         setCorrectIndex(-1);
         setWaiting({ boolean: false, name: null });
-     
 
         setCurrQuestionNum(questionObj.numQuestions - questionObj.questionsLeft + 1)
         if (!questionObj.answers) {
@@ -264,7 +272,7 @@ function GameScreen(props) {
           firstQuestion.current = false
         }
 
-      }, firstQuestion.current ? 0 : 5000)
+      }, firstQuestion.current ? 0 : 2000)
     }
 
     const endGame = finalScore => {
@@ -436,11 +444,18 @@ function GameScreen(props) {
                       style={styles.submitButton}
                     >
                       <Text
-                        style={styles.answerText}>
+                        style={styles.submitText}>
                         Submit
                       </Text>
                     </Pressable>
                   </View>
+              : waiting.boolean === true && displayAnswer !== true
+              ? <View style={styles.submitButtonView}>
+                  <Text
+                    style={styles.waitingText}>
+                    Waiting for other player...
+                  </Text>
+                </View>
               : <View style={styles.submitButtonView}/>
             }
 
@@ -449,7 +464,6 @@ function GameScreen(props) {
                   {he.decode(formattedQuestionInfo.question)}
                   <Text style={{fontSize: 15}}>{'  '}{currQuestionNum} / {totalQuestions}</Text>
                 </Text>
-             
               </View>
               
         
@@ -463,14 +477,20 @@ function GameScreen(props) {
                     style={styles.submitButton}
                   >
                     <Text
-                      style={styles.answerText}>
+                      style={styles.submitText}>
                       Submit
                     </Text>
                   </Pressable>
                 </View>
+              : waiting.boolean === true && displayAnswer !== true
+              ? <View style={styles.submitButtonView}>
+                  <Text
+                    style={styles.waitingText}>
+                    Waiting for other player...
+                  </Text>
+                </View>
               : <View style={styles.submitButtonView}/>
             }
-
           </View>
 
             
