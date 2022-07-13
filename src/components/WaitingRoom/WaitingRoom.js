@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet} from 'react-native'
 import { Redirect } from 'react-router-native';
-import Clipboard from 'expo-clipboard';
+import * as Clipboard from 'expo-clipboard';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import MuteButton from '../MuteButton/MuteButton';
 import { newOpponent, resetUserGameToken } from '../../store/userReducer'
@@ -13,6 +13,7 @@ import * as Notifications from 'expo-notifications';
 import { Views } from '../../styles';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
+import PixelButton from '../Shared/PixelButton.js';
 
 const styles = StyleSheet.create({
   container: {
@@ -48,11 +49,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 2,
   },
-  gameCodeText: {
-    fontSize: 40
-  },
   alertText: {
-    fontSize: 30,
     color: 'red',
     alignSelf: 'flex-end',
     marginRight: 10
@@ -79,6 +76,7 @@ const WaitingRoom = (props) => {
   const [token, setToken] = useState('');
 
   const handleCodeCopy = () => {
+    console.log('in handleCodeCopy:', props.gameCode)
     Clipboard.setString(props.gameCode);
     setCopied(true)
     setTimeout(() => {
@@ -185,26 +183,28 @@ const WaitingRoom = (props) => {
           gamePhase='waiting_room' />
 
         <View style={styles.topRowView}>
-          <Pressable
-            style={styles.CancelGameButton}
-            onPress={cancelGame}>
+          <PixelButton
+            buttonStyle={styles.CancelGameButton}
+            onPress={cancelGame}
+          >
             <Text>Cancel Game</Text>
-          </Pressable>
+          </PixelButton> 
 
           {/* TODO: maybe we could have feedback on btn, like a shadow that shows up when its copied, instead of changing to "Copied!" */}
           {props.publicOrPrivate === 'private' &&
-            <Pressable
-              style={styles.gameCodeCopyButton}
-              onPress={handleCodeCopy}>
-              {copied && (
-                <Text style={styles.alertText}>Copied!</Text>
-              )} 
-              {!copied && (
-                <Text style={styles.gameCodeText}>
-                  {props.gameCode}
-                </Text>
-              )}  
-            </Pressable>
+            <PixelButton
+            buttonStyle={styles.gameCodeCopyButton}
+            onPress={handleCodeCopy}
+            >
+            {copied && (
+              <Text style={styles.alertText}>Copied!</Text>
+            )} 
+            {!copied && (
+              <Text>
+                {props.gameCode}
+              </Text>
+            )}  
+            </PixelButton>  
           }
         </View>
 
@@ -230,15 +230,14 @@ const WaitingRoom = (props) => {
 
         <View style={styles.bottomRowView}>
 
-          
-          <Pressable
-            style={styles.HowToPlayModalButton}
-            onPress={() => {
-              setModalVisible(true);
-            }}
-          >
+          <PixelButton
+              buttonStyle={styles.HowToPlayModalButton}
+              onPress={() => {
+                setModalVisible(true);
+              }}
+            >
             <Text>How To Play</Text>
-          </Pressable>  
+          </PixelButton>  
 
           <MuteButton/>
         

@@ -83,6 +83,13 @@ const WaitingRoom2 = (props) => {
     }, 1000)
   }
 
+  const cancelGame = () => {
+
+    props.socket.emit('cancelGame');
+
+    setBackToLobby(true);
+  }
+
   useEffect(() => {
 
     props.socket.on('redirectToHowToPlay', redirectToHowToPlay)
@@ -140,7 +147,7 @@ const WaitingRoom2 = (props) => {
         <View style={styles.bottomRowView}>
           <PixelButton
             buttonStyle={styles.HowToPlayModalButton}
-            onPress={() => setBackToLobby(true)}
+            onPress={cancelGame}
             >
               <Text>Cancel Game</Text>
           </PixelButton> 
