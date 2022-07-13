@@ -22,6 +22,7 @@ Tia:
 - [NEXT] Swap out with new PixelButton!
 - [x] Add x and check to score on gameplay screen (showing briefly for who got the correct answer on prev question)
 - [X] Add "waiting for other player..." opposite the submit button
+- [NEXT] need to figure out how to not show Waiting for... the second time
 - [ ] Need to add mute button to waiting room 2 screen?
 - [ ] ADD TO CANVA: CHAT
 - [ ] Checking for # of characters to decide font size (or try adjustsFontSizeToFit on <Text>)

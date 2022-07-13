@@ -7,6 +7,7 @@ import { playSound } from '../../store/soundsReducer';
 import Countdown from '../Countdown/Countdown';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import { QUESTION_TIME } from '../../../config';
+import { PixelButton } from '../Shared';
 
 const styles = StyleSheet.create({
   container: {
@@ -353,6 +354,19 @@ function GameScreen(props) {
           >
 
             <View style={styles.answerOptionPressables}>
+              {/* <PixelButton
+                onPress={() => {
+                  setSelected(ansObjForRendering[0].index)
+                }}
+                buttonStyle={chooseColor(ansObjForRendering[0].index)}
+                // style={chooseColor(ansObjForRendering[0].index)}
+                key={ansObjForRendering[0].index}
+                disabled={submitted >= 0}>
+                  <Text
+                    style={styles.answerText}>
+                    {he.decode(ansObjForRendering[0].answer)}
+                  </Text>
+              </PixelButton> */}
               <Pressable
                 onPress={() => {
                   setSelected(ansObjForRendering[0].index)
