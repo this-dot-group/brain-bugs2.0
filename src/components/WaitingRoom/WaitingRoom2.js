@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet, Alert } from 'react-native'
-import { Link, Redirect } from 'react-router-native';
+import { Redirect } from 'react-router-native';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import { newOpponent } from '../../store/userReducer'
 import { connect } from 'react-redux';
+import MuteButton from '../MuteButton/MuteButton';
 
-import { Buttons, Views, Typography } from '../../styles';
+import { Buttons, Views } from '../../styles';
+import PixelButton from '../Shared/PixelButton.js';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,19 +20,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between'
   },
+  topRowView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  bottomRowView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
   HowToPlayModalButton: {
     padding: 10,
     borderRadius: 10,
     borderColor: 'black',
     borderWidth: 2,
     alignSelf: 'flex-start',
-  },
-  CancelGameButton: {
-    alignSelf: 'flex-start',
-    padding: 10,
-    borderRadius: 10,
-    borderColor: 'black',
-    borderWidth: 2,
   },
   gameCodeCopyButton: {
     padding: 10,
@@ -77,6 +82,13 @@ const WaitingRoom2 = (props) => {
     }, 1000)
   }
 
+  const cancelGame = () => {
+
+    props.socket.emit('cancelGame');
+
+    setBackToLobby(true);
+  }
+
   useEffect(() => {
 
     props.socket.on('redirectToHowToPlay', redirectToHowToPlay)
@@ -111,16 +123,17 @@ const WaitingRoom2 = (props) => {
           </View>
         </Modal>
 
-        <Pressable
-          style={styles.HowToPlayModalButton}
-          onPress={() => {
-            setModalVisible(true);
-          }}
-        >
-          <Text>How To Play</Text>
-        </Pressable>
+        <View style={styles.topRowView}>
+          <PixelButton
+            buttonStyle={styles.HowToPlayModalButton}
+            onPress={() => {
+              setModalVisible(true);
+            }}>
+              <Text>How To Play</Text>
+          </PixelButton> 
+        </View>
 
-
+        
         <Text>
           We have alerted your opponent, please wait a moment...
         </Text>
@@ -130,13 +143,16 @@ const WaitingRoom2 = (props) => {
           size='large'
           animating={true} />
 
-
-        <Link 
-          to='/' 
-          style={styles.CancelGameButton}
-        >
-          <Text>Cancel Game</Text>
-        </Link>
+        <View style={styles.bottomRowView}>
+          <PixelButton
+            buttonStyle={styles.HowToPlayModalButton}
+            onPress={cancelGame}
+            >
+              <Text>Cancel Game</Text>
+          </PixelButton> 
+     
+          <MuteButton/>
+        </View>
 
         {roomJoin &&
           <Redirect to='/howtoplay' />

@@ -18,12 +18,16 @@ Josh:
 
 
 Tia: 
-- [ ] Upgrade expo SDK 
+- [x] Pull Josh's work for upgrade expo SDK 
 - [ ] Swap out with new PixelButton!
-- [ ] Add x and check to score on gameplay screen (showing briefly for who got the correct answer on prev question)
-- [ ] Add "waiting for other player..." opposite the submit button
-- [ ] Need to add mute button to waiting room 2 screen?
-- [ ] ADD TO CANVA: CHAT
+  - [x] WaitingRoom
+  - [x] WaitingRoom2
+  - [ ] GameScreen (add variant in PixelButton)
+- [x] Add x and check to score on gameplay screen (showing briefly for who got the correct answer on prev question)
+- [X] Add "waiting for other player..." opposite the submit button
+- [ ] need to figure out how to not show Waiting for... the second time
+- [x] Need to add mute button to waiting room 2 screen
+- [x] ADD TO CANVA: CHAT
 - [ ] Checking for # of characters to decide font size (or try adjustsFontSizeToFit on <Text>)
 
 - [ ] need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.

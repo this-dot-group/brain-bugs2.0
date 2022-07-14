@@ -7,6 +7,7 @@ import { playSound } from '../../store/soundsReducer';
 import Countdown from '../Countdown/Countdown';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import { QUESTION_TIME } from '../../../config';
+import { PixelButton } from '../Shared';
 
 const styles = StyleSheet.create({
   container: {
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: 'black',
     borderWidth: 2,
-    backgroundColor: '#C0C0C0'
+    backgroundColor: '#8A8787'
   },
   correctAnswer: {
     justifyContent: 'center',
@@ -78,6 +79,15 @@ const styles = StyleSheet.create({
   },
   answerText: {
     fontSize: 20,
+    textAlign: 'center',
+  },
+  submitText: {
+    fontSize: 15,
+    textAlign: 'center',
+  },
+  waitingText: {
+    fontSize: 12,
+    fontStyle: 'italic',
     textAlign: 'center',
   },
   questionTextArea: {
@@ -156,7 +166,8 @@ function GameScreen(props) {
     props.socket.emit('userAnsweredinGame',
       {
         username: props.userName,
-        points: questionPoints
+        points: questionPoints,
+        correct: questionPoints > 0 ? true : false
       }
     )
 
@@ -236,7 +247,6 @@ function GameScreen(props) {
         setDisplayAnswer(false);
         setCorrectIndex(-1);
         setWaiting({ boolean: false, name: null });
-     
 
         setCurrQuestionNum(questionObj.numQuestions - questionObj.questionsLeft + 1)
         if (!questionObj.answers) {
@@ -344,6 +354,19 @@ function GameScreen(props) {
           >
 
             <View style={styles.answerOptionPressables}>
+              {/* <PixelButton
+                onPress={() => {
+                  setSelected(ansObjForRendering[0].index)
+                }}
+                buttonStyle={chooseColor(ansObjForRendering[0].index)}
+                // style={chooseColor(ansObjForRendering[0].index)}
+                key={ansObjForRendering[0].index}
+                disabled={submitted >= 0}>
+                  <Text
+                    style={styles.answerText}>
+                    {he.decode(ansObjForRendering[0].answer)}
+                  </Text>
+              </PixelButton> */}
               <Pressable
                 onPress={() => {
                   setSelected(ansObjForRendering[0].index)
@@ -359,16 +382,22 @@ function GameScreen(props) {
               </Pressable>
             </View>
 
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              {displayAnswer && (
+                <Image
+                source={score.playerOne.correct ? require('../../images/check.png') : require('../../images/x.png')}
+                style={{ height: 20, width: 20, marginRight: 10 }} 
+                />
+              )}
+              {!displayAnswer && (
+                <View
+                style={{ height: 20, width: 20, marginRight: 10 }} 
+                />
+              )}
+              
               <View style={{ alignItems: 'center', marginRight: 20 }}>
                 {score.playerOne &&
                   <>
-
-                    {waiting.boolean === true && displayAnswer !== true && waiting.name !== score.playerOne.name &&
-                      <Image
-                        source={require('../../images/win95_hourglass.gif')}
-                        style={{ height: 30, width: 30 }} />
-                    }
                     <Text>{score.playerOne.name}</Text>
                     <Text>{score.playerOne.score}</Text>
                   </>
@@ -378,16 +407,22 @@ function GameScreen(props) {
               <View style={{ alignItems: 'center', marginLeft: 20 }}>
                 {score.playerOne &&
                   <>
-                    {waiting.boolean === true && displayAnswer !== true && waiting.name !== score.playerTwo.name &&
-                      <Image
-                        source={require('../../images/win95_hourglass.gif')}
-                        style={{ height: 30, width: 30 }} />
-                    }
                     <Text>{score.playerTwo.name}</Text>
                     <Text>{score.playerTwo.score}</Text>
                   </>
                 }
               </View>
+              {displayAnswer && (
+                <Image
+                source={score.playerTwo.correct ? require('../../images/check.png') : require('../../images/x.png')}
+                style={{ height: 20, width: 20, marginLeft: 10 }} 
+                />
+              )}
+              {!displayAnswer && (
+                <View
+                style={{ height: 20, width: 20, marginLeft: 10 }} 
+                />
+              )}
 
             </View>
 
@@ -423,12 +458,18 @@ function GameScreen(props) {
                       style={styles.submitButton}
                     >
                       <Text
-                        adjustsFontSizeToFit
-                        style={styles.answerText}>
+                        style={styles.submitText}>
                         Submit
                       </Text>
                     </Pressable>
                   </View>
+              : waiting.boolean === true && displayAnswer !== true
+              ? <View style={styles.submitButtonView}>
+                  <Text
+                    style={styles.waitingText}>
+                    Waiting for other player...
+                  </Text>
+                </View>
               : <View style={styles.submitButtonView}/>
             }
 
@@ -437,7 +478,6 @@ function GameScreen(props) {
                   {he.decode(formattedQuestionInfo.question)}
                   <Text style={{fontSize: 15}}>{'  '}{currQuestionNum} / {totalQuestions}</Text>
                 </Text>
-             
               </View>
               
         
@@ -451,14 +491,20 @@ function GameScreen(props) {
                     style={styles.submitButton}
                   >
                     <Text
-                      style={styles.answerText}>
+                      style={styles.submitText}>
                       Submit
                     </Text>
                   </Pressable>
                 </View>
+              : waiting.boolean === true && displayAnswer !== true
+              ? <View style={styles.submitButtonView}>
+                  <Text
+                    style={styles.waitingText}>
+                    Waiting for other player...
+                  </Text>
+                </View>
               : <View style={styles.submitButtonView}/>
             }
-
           </View>
 
             
@@ -544,6 +590,7 @@ const mapStateToProps = (state) => {
     gameCode: state.userReducer.gameCode,
     fakeOpponentSocket: state.fakeOpponentSocketReducer,
     userName: state.userReducer.username,
+    socketId: state.userReducer.socketId,
     numPlayers: state.gameInfoReducer.numPlayers || 2,
     opponent: state.userReducer.opponent,
   }
