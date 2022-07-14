@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
   HowToPlayModalButton: {
     padding: 10,
     borderRadius: 10,
-    backgroundColor: "red",
     borderColor: 'black',
     borderWidth: 2,
     alignSelf: 'flex-start',
