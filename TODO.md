@@ -7,32 +7,28 @@
 
 
 Josh:  
-- [] Maybe - Issue with iPhone swiping to close the app horizontally
-- If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
-- [x] Fix go button visability on phone
-- [x] Make sure hidden buttons are disabled 
-- [ ] LAYOUT: game end/chat
-- [ ] ADD TO CANVA: Lobby screen modals
+- [ ] Maybe - Issue with iPhone swiping to close the app horizontally
+- [ ] LAYOUT: Chat
 - [ ] Disable all buttons between questions
-- [ ] Copy code in private game not working
+- [ ] If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
+- [ ] Looking into how responsive font sizing on sifferent devices
+- [ ] Loading screen animation
 
 
 Tia: 
-- [x] Pull Josh's work for upgrade expo SDK 
 - [ ] Swap out with new PixelButton!
   - [x] WaitingRoom
   - [x] WaitingRoom2
   - [ ] GameScreen (add variant in PixelButton)
-- [x] Add x and check to score on gameplay screen (showing briefly for who got the correct answer on prev question)
-- [X] Add "waiting for other player..." opposite the submit button
 - [ ] need to figure out how to not show Waiting for... the second time
-- [x] Need to add mute button to waiting room 2 screen
-- [x] ADD TO CANVA: CHAT
 - [ ] Checking for # of characters to decide font size (or try adjustsFontSizeToFit on <Text>)
-
+ Ideas
+- [ ] Breakpoints for different device sizes, and rejecting questions based on nmber of characters in answers
+- [ ] Expanding the question when you click 
+- [ ] Looking into how responsive font sizing on sifferent devices
+ 
 - [ ] need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.
-
-
+ 
 
 ## Possible bugs
 - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
