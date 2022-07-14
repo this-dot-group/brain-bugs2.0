@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { View, Text, Pressable, StyleSheet, Alert, Modal } from 'react-native'
+import { View, Text, Image, StyleSheet, Alert, Modal } from 'react-native'
 import { Redirect } from 'react-router-native'
 import { connect } from 'react-redux';
 import { numQuestions, newCategory, publicOrPrivate, getQuestions, resetQuestions } from '../../store/gameInfoReducer';
@@ -8,15 +8,69 @@ import { playSound } from '../../store/soundsReducer'
 import Chat from '../Chat/Chat';
 import Badge from '../Chat/Badge';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
-import { Buttons } from '../../styles'
 import { PixelButton } from '../Shared';
+import MuteButton from '../MuteButton/MuteButton';
 
 
 const styles = StyleSheet.create({
-  backToLobbyButton: {
-    ...Buttons.openButton,
-    marginTop: 20
+  root: {
+    height: '100%',
+    width: '100%',
+    justifyContent: 'space-between'
   },
+  showChatWrapper: {
+    position: 'relative'
+  },
+  scoreRows: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center'
+  },
+  scoreRow : {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  score: {
+    alignItems: 'center',
+    marginHorizontal: 20,
+    position: 'relative',
+    paddingBottom: 70
+  },
+  scoreText: {
+    fontSize: 25,
+  },
+  trophy: {
+    height: 60,
+    width: 60,
+    position: 'absolute',
+    bottom: 0
+  },
+  rematchInvite: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: 200,
+    alignItems: 'flex-start',
+  },
+  yesNoButtonCont: {
+    display: 'flex',
+    marginRight: 20
+
+  },
+  buttonRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    paddingHorizontal: 50,
+    paddingVertical: 30,
+    justifyContent: 'space-between'
+  },
+  endButton : {
+    marginLeft: 'auto'
+  }
 })
 
 function GameEnd(props) {
@@ -226,28 +280,77 @@ function GameEnd(props) {
   }
 
   return screenToShow() || (
-    <View>
-      <Text> Game End </Text>
-      <Text>{playerOneName} {playerOneScore}</Text>
-      <Text>{playerTwoName} {playerTwoScore}</Text>
-      <Pressable
-        style={styles.backToLobbyButton}
-        onPress={leaveRoomAndGoToLobby}
-      >
-        <Text>Back to Lobby</Text>
-      </Pressable>
+    <View style={styles.root}>
+      <View style={styles.buttonRow}>
+        {showInvitation ?
+          <View style={styles.rematchInvite}>
+            <View style={styles.yesNoButtonCont}>
+              <PixelButton
+                onPress={handleYes}
+                buttonStyle={{width: 60, marginBottom: 10 }}
+              >
+                Yes
+              </PixelButton>
 
-      {!opponentLeftRoom && props.numPlayers === 2 &&
-        <Pressable style={styles.backToLobbyButton} onPress={handleRematch}>
-          <Text>{rematchRequested ? `Requesting...` : `Rematch`}</Text>
-        </Pressable>
-      }
-      {!opponentLeftRoom && props.numPlayers === 2 &&
-        <Pressable style={styles.backToLobbyButton} onPress={handleShowChat}>
+              <PixelButton
+                onPress={handleNo}
+                buttonStyle={{width: 60 }}
+              >
+                No
+              </PixelButton>
+            </View>
+            <Text>{props.opponent} wants a rematch! What do you think?</Text>
+          </View> :
+          !opponentLeftRoom && props.numPlayers === 2 &&
+          <PixelButton 
+            onPress={handleRematch}>
+            {rematchRequested ? `Requesting...` : `Rematch`}
+          </PixelButton>
+        }
+        <MuteButton styles={styles.endButton} />
+      </View>
+      <View style={styles.scoreRows} pointerEvents="none">
+        <View style={styles.scoreRow}>
+          <View style={styles.score}>
+            <Text style={styles.scoreText}>{playerOneName}</Text>
+            <Text style={styles.scoreText}>{playerOneScore}</Text>
+            {playerOneScore > playerTwoScore && 
+              <Image
+                source={require('../../../assets/trophy.png')}
+                style={{ height: 30, width: 30 }}
+              />
+            }
+          </View>
+          <View style={styles.score}>
+            <Text style={styles.scoreText}>{playerTwoName}</Text>
+            <Text style={styles.scoreText}>{playerTwoScore}</Text>
+            {playerTwoScore > playerOneScore && 
+              <Image
+                source={require('../../../assets/trophy.png')}
+                style={styles.trophy}
+              />
+            }
+          </View>
+        </View>
+        <View style={styles.scoreRow}>
+        </View>
+      </View>
+      <View style={styles.buttonRow}>
+        <PixelButton
+          onPress={leaveRoomAndGoToLobby}
+        >
+          Back to Lobby
+        </PixelButton>
+
+        {!opponentLeftRoom && props.numPlayers === 2 &&
+        <View style={styles.showChatWrapper}>
+          <PixelButton onPress={handleShowChat} style={{position: 'relative'}}>
+            Show Chat
+          </PixelButton>
           {!!unseenMessages && <Badge>{unseenMessages}</Badge>}
-          <Text>Show Chat</Text>
-        </Pressable>
-      }
+        </View>
+        }
+      </View>
 
       <Modal
         visible={showChat}
@@ -270,24 +373,6 @@ function GameEnd(props) {
         pathname: '/waitingroom',
         state: { token },
       }} />}
-
-      {showInvitation &&
-        <>
-          <Text>{props.opponent} wants a rematch! What do you think?</Text>
-          <Pressable
-            style={styles.backToLobbyButton}
-            onPress={handleYes}
-          >
-            <Text>Yes</Text>
-          </Pressable>
-
-          <Pressable
-            style={styles.backToLobbyButton}
-            onPress={handleNo}
-          >
-            <Text>No</Text>
-          </Pressable>
-        </>}
 
     </View>
   )
