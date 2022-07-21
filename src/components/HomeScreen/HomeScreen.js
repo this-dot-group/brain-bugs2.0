@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   },
   // NAME TEXT
   logoText:{
+    fontFamily: 'DotGothic',
     fontSize: 60
   },
   // WRAPS USERNAME ROW

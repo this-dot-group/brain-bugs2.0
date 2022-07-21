@@ -78,14 +78,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#ADD8E6'
   },
   answerText: {
+    fontFamily: 'DotGothic',
     fontSize: 20,
     textAlign: 'center',
   },
   submitText: {
+    fontFamily: 'DotGothic',
     fontSize: 15,
     textAlign: 'center',
   },
   waitingText: {
+    fontFamily: 'DotGothic',
     fontSize: 12,
     fontStyle: 'italic',
     textAlign: 'center',
@@ -95,8 +98,9 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   questionText: {
-    fontSize: 20,
-    textAlign: 'center',
+    fontFamily: 'VT323',
+    fontSize: 40,
+    textAlign: 'center'
   },
   submitButtonView: {
     width: '10%'
