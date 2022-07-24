@@ -1,17 +1,34 @@
-import { View, Text, Pressable, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Keyboard } from 'react-native';
 import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import { Buttons, Views, Chat as ChatStyles } from '../../styles';
+import { Chat as ChatStyles } from '../../styles';
 import KeyboardAvoidingComponent from './KeyboardAvoiding';
+import { TitleBar, PixelButton, StyledInput } from '../Shared';
 
 const styles = StyleSheet.create({
-  modalView: {
-    ...Views.modalView,
-  },
-  closeModalButton: {
-    ...Buttons.openButton,
+  root: {
+    flex: 1,
+    height: '100%',
   },
   ...ChatStyles,
+  content: {
+    position: 'relative',
+    flex: 1,
+    paddingBottom: 50,
+    height: '100%'
+  },
+  form: {
+    flexDirection: 'row',
+    width: '100%',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    height: '100%'
+  },
+  input: {
+    flexGrow: 1,
+    marginRight: 10,
+    backgroundColor: 'white'
+  }
 })
 
 function Chat({ setShowChat, socket, socketId, gameCode, user, setUnseenMessages }) {
@@ -34,9 +51,11 @@ function Chat({ setShowChat, socket, socketId, gameCode, user, setUnseenMessages
   }
 
   const sendMessage = () => {
+    if(!currMessage) return;
     socket.emit('messageSend', { gameCode, message: currMessage, ...user });
     setCurrMesssage('');
     textInputRef.current.clear();
+    Keyboard.dismiss();
   }
 
   const hideModal = () => {
@@ -44,58 +63,73 @@ function Chat({ setShowChat, socket, socketId, gameCode, user, setUnseenMessages
     setShowChat(false);
   }
 
+  const handleInputPress = () => {
+    scrollViewRef.current.scrollToEnd({ animated: true })
+  }
+
   return (
-    <View
-      style={styles.modalView}
-    >
-      <KeyboardAvoidingComponent>
+    <View style={styles.root}     >
+      <TitleBar
+        cb={hideModal}
+      />
+      <View style={styles.content}>
         <ScrollView
           ref={scrollViewRef}
           style={styles.messagesContainer}
-          onContentSizeChange={() => scrollViewRef.current.scrollToEnd({animated: true})}
+          onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
+          contentContainerStyle={{
+            justifyContent: 'flex-end',
+            flexDirection: 'column',
+          }}
         >
-          {messages.map(({ message, userId, timeStamp }) =>
-            <Text
-              key={timeStamp}
-              style={
-                userId === socketId
-                  ? {...styles.messages}
-                  : {...styles.messages, ...styles.opponentMessages}
-              }
-            >{message}</Text>
-          )}
+          <KeyboardAvoidingComponent
+            style={{flex: 0}}
+            keyboardVerticalOffset={0}
+          >
+            {messages.map(({ message, userId, timeStamp }) =>
+              <Text
+                key={timeStamp}
+                style={
+                  userId === socketId
+                    ? {...styles.messages}
+                    : {...styles.messages, ...styles.opponentMessages}
+                }
+              >{message}</Text>
+
+            )}
+          </KeyboardAvoidingComponent>
         </ScrollView>
-        <TextInput
-          multiline={true}
-          onChangeText={value => setCurrMesssage(value)}
-          ref={textInputRef}
-          onSubmitEditing={() => {
-            sendMessage();
-          }}
-          returnKeyType="send"
-          blurOnSubmit={true}
+        <KeyboardAvoidingComponent
           style={{
-            height: 40,
-            width: 500,
-            borderColor: 'gray',
-            borderWidth: 1
+            position:'absolute',
+            bottom: 0,
+            width: '100%',
+            backgroundColor: 'white'
           }}
-        />
-      </KeyboardAvoidingComponent>
-
-      <Pressable
-        style={styles.closeModalButton}
-        onPress={() => sendMessage()}
-      >
-        <Text>Send Message</Text>
-      </Pressable>
-
-      <Pressable
-        style={styles.closeModalButton}
-        onPress={() => hideModal()}
-      >
-        <Text>X</Text>
-      </Pressable>
+        >
+          <ScrollView
+            contentContainerStyle={styles.form}
+            keyboardShouldPersistTaps="handled"
+          >
+            <StyledInput
+              multiline={true}
+              onChangeText={value => setCurrMesssage(value)}
+              onFocus={handleInputPress}
+              ref={textInputRef}
+              onSubmitEditing={sendMessage}
+              returnKeyType="send"
+              blurOnSubmit={true}
+              style={styles.input}
+            />
+            <PixelButton
+              buttonStyle={{ width: 100}}
+              onPress={sendMessage}
+            >
+              Send
+            </PixelButton>
+          </ScrollView>
+        </KeyboardAvoidingComponent>
+      </View>
     </View>
   )
 }

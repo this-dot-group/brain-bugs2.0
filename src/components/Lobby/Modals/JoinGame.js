@@ -3,8 +3,7 @@ import { Text, Pressable, StyleSheet } from 'react-native'
 import { Redirect } from 'react-router-native'
 import { newOpponent } from '../../../store/userReducer';
 import { connect } from 'react-redux';
-import { GenericModal } from '../../Shared';
-import TitleBar from './TitleBar';
+import { GenericModal, TitleBar } from '../../Shared';
 
 const styles = StyleSheet.create({
   gameJoinButton: {
@@ -12,7 +11,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: 'black',
     borderWidth: 2,
-    marginLeft: 20
+    marginLeft: 20,
+    alignSelf: 'center'
   }
 })
 

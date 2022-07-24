@@ -11,6 +11,8 @@ const getStyles = (
     borderColor = 'black',
     backgroundColor = 'white',
     borderWidth = 4,
+    marginLeft = 0,
+    marginRight = 0,
   } = buttonStyle;
   const sideborderheight = height - 4 * borderWidth;
   width -= (4 * borderWidth);
@@ -29,7 +31,9 @@ const getStyles = (
       borderWidth,
       borderLeftWidth: 0,
       borderRightWidth: 0,
-      ...buttonStyle
+      marginRight: marginRight + borderWidth * 2,
+      marginLeft: marginLeft + borderWidth * 2,
+      ...buttonStyle,
     },
     sideBorders: {
       width: borderWidth,

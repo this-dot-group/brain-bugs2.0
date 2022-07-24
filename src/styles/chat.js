@@ -1,5 +1,5 @@
 export const messagesContainer = {
-  maxHeight: '60%',
+  maxHeight: '100%',
   overflow: 'scroll',
   width: '100%',
 }
@@ -13,6 +13,7 @@ export const messages = {
   paddingVertical: 2,
   overflow: 'hidden',
   marginBottom: 2,
+  fontSize: 18,
 }
 
 export const opponentMessages = {

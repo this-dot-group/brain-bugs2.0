@@ -6,8 +6,7 @@ import { Link } from 'react-router-native';
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate, pushTokenAlertInteraction, gameMakerPushToken } from '../../../store/gameInfoReducer';
 import { newOpponent, pushNotificationToken } from '../../../store/userReducer';
 import { QUESTION_DROPDOWN_CHOICES } from '../../../../config';
-import { PixelButton, GenericModal, DropdownMenu, Hider } from '../../Shared';
-import TitleBar from './TitleBar';
+import { PixelButton, GenericModal, DropdownMenu, Hider, TitleBar } from '../../Shared';
 
 import he from 'he';
 import { Views } from '../../../styles'

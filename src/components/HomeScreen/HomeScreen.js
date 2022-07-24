@@ -15,6 +15,7 @@ import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer';
 import { playSound } from '../../store/soundsReducer';
 import { newUsername, newGameCode, newSocketId, newToken } from '../../store/userReducer.js';
 import { EXPO_LOCAL_URL } from '../../../env'
+import { StyledInput } from '../Shared';
 
 
 const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
@@ -54,10 +55,6 @@ const styles = StyleSheet.create({
   },
   // USERNAME INPUT
   input: {
-    borderColor: 'black',
-    borderWidth: 2,
-    borderRadius: 10,
-    padding: 10,
     width: '30%',
   },
   // GO BTN SHOWS UP AFTER USERNAME
@@ -127,9 +124,9 @@ function Homescreen(props) {
       <Text style={styles.logoText}>BRAIN BUGS</Text>  
 
       <View style={styles.inputNestedRowView}>
-        <TextInput
-          placeholder={'username'}
+        <StyledInput
           style={styles.input}
+          placeholder={'username'}
           onChangeText={value => handleUsernameChange(value)}
         />
 
@@ -156,7 +153,7 @@ function Homescreen(props) {
           transparent={true}
           visible={modalVisible}
           supportedOrientations={['landscape']}
-          >
+        >
           <View
             style={styles.modalView}>
             <HowToPlayModal />

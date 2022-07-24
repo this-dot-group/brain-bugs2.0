@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
 export default function App() {
 
   return (
-    // <SafeAreaProvider>
       <Provider
         store={store}>
         <Sounds />
@@ -65,7 +64,6 @@ export default function App() {
           </View>
         </NativeRouter>
       </Provider>
-    // </SafeAreaProvider>
 
   );
 }

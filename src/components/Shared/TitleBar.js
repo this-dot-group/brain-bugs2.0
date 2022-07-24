@@ -6,8 +6,10 @@ const styles = StyleSheet.create({
   root: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent:'center',
     flexDirection: 'row',
     marginBottom: 20,
+    position: 'relative'
   },
   text: {
     textAlign: 'center',
@@ -24,6 +26,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 10,
+    position: 'absolute',
+    top: 0,
+    right: 0,
   },
   closeModalButtonText: {
     fontWeight: 'bold',

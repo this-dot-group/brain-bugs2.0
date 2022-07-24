@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
   CancelGameButton: {
     alignSelf: 'flex-start',
     padding: 10,
-    borderRadius: 10,
     borderColor: 'black',
     borderWidth: 2,
   },
@@ -59,7 +58,6 @@ const styles = StyleSheet.create({
   },
   HowToPlayModalButton: {
     padding: 10,
-    borderRadius: 10,
     borderColor: 'black',
     borderWidth: 2,
     alignSelf: 'flex-start',
