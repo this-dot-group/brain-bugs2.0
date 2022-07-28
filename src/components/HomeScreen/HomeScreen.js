@@ -54,6 +54,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between'
   },
+  innerText: {
+    fontFamily: 'DotGothic',
+    fontSize: 16
+  },
   modalView: {
     ...Views.modalView,
   }
@@ -132,7 +136,7 @@ function Homescreen(props) {
               setModalVisible(true);
             }}
           >
-            <Text>How To Play</Text>
+            <Text style={styles.innerText}>How To Play</Text>
           </Pressable>
         </PixelButton>
 
