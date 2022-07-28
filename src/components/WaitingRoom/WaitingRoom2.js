@@ -6,7 +6,7 @@ import { newOpponent } from '../../store/userReducer'
 import { connect } from 'react-redux';
 import MuteButton from '../MuteButton/MuteButton';
 
-import { Buttons, Views } from '../../styles';
+import { Views } from '../../styles';
 import PixelButton from '../Shared/PixelButton.js';
 
 const styles = StyleSheet.create({

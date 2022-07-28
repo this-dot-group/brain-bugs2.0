@@ -1,5 +1,10 @@
 const testMode = true;
 
+import { Dimensions } from 'react-native';
+
+export const windowWidth = Dimensions.get('window').width;
+export const windowHeight = Dimensions.get('window').height;
+
 // Should be 10
 export const QUESTION_TIME = testMode ? 200 : 10;
 

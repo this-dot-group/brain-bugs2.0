@@ -5,8 +5,7 @@ import { connect } from 'react-redux'
 import { newOpponent } from '../../../store/userReducer';
 import { Typography } from '../../../styles';
 import { GenericModal } from '../../Shared';
-import TitleBar from './TitleBar';
-import { PixelButton, Hider } from '../../Shared';
+import { PixelButton, Hider, TitleBar } from '../../Shared';
 
 const styles = StyleSheet.create({
   alertText: {

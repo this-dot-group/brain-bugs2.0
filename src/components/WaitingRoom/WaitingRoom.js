@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
   },
+
   alertText: {
     color: 'red',
     alignSelf: 'flex-end',
@@ -179,7 +180,7 @@ const WaitingRoom = (props) => {
           {props.publicOrPrivate === 'private' && (
             <PixelButton>
               <Pressable
-              onPress={handleCodeCopy}
+                onPress={handleCodeCopy}
               >
               {copied && (
                 <Text style={styles.alertText}>Copied!</Text>

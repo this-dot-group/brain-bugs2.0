@@ -138,3 +138,62 @@ Tia:
 Co-authored-by: Tia Low <lowtia@gmail.com>
 Co-authored-by: Chris Hamersly <christopherhamersly@gmail.com>
 Co-authored-by: Josh Williams <joshuasrwilliams@gmail.com>
+
+Add to `.eslintrc.json`:
+```
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "commonjs": true,
+    "jest": true,
+    "es6": true
+  },
+  "globals": {
+    "fail": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2018,
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  },
+  // "ecmaFeatures": {
+  //   "jsx": true
+  // },
+  "rules": {
+    "no-console": "off",
+    "indent": [
+      "error",
+      2
+    ],
+    "quotes": [
+      "error",
+      "single",
+      {
+        "allowTemplateLiterals": true
+      }
+    ],
+    "no-unused-vars": [
+      1,
+      {
+        "vars": "local",
+        "args": "none"
+      }
+    ],
+    // "no-undef": "error",
+    "react/prop-types": "off"
+    // [
+    //   "enabled",
+    //    { "ignore":"ignore", "customValidators": "customValidator" }
+    //  ]
+  }
+}
+```

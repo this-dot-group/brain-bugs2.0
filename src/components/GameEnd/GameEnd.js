@@ -8,8 +8,9 @@ import { playSound } from '../../store/soundsReducer'
 import Chat from '../Chat/Chat';
 import Badge from '../Chat/Badge';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
-import { PixelButton } from '../Shared';
+import { PixelButton, GenericModal } from '../Shared';
 import MuteButton from '../MuteButton/MuteButton';
+import { windowHeight } from '../../../config';
 
 
 const styles = StyleSheet.create({
@@ -70,6 +71,9 @@ const styles = StyleSheet.create({
   },
   endButton : {
     marginLeft: 'auto'
+  },
+  chatModalStyles : {
+    height: windowHeight - 40,
   }
 })
 
@@ -354,12 +358,11 @@ function GameEnd(props) {
         </View>
         }
       </View>
-
-      <Modal
+      <GenericModal
         visible={showChat}
-        transparent={true}
-        animationType="slide"
-        supportedOrientations={['landscape']}
+        presentationStyle="fullScreen"
+        style={styles.chatModalStyles}
+
       >
         <Chat
           setShowChat={setShowChat}
@@ -367,7 +370,7 @@ function GameEnd(props) {
           user={currentUserObj}
           setUnseenMessages={setUnseenMessages}
         />
-      </Modal>
+      </GenericModal>
 
 
       {backToLobby && <Redirect to='/lobby' />}

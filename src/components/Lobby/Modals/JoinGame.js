@@ -3,13 +3,11 @@ import { Text, Pressable, StyleSheet } from 'react-native'
 import { Redirect } from 'react-router-native'
 import { newOpponent } from '../../../store/userReducer';
 import { connect } from 'react-redux';
-import { GenericModal, PixelButton } from '../../Shared';
-import TitleBar from './TitleBar';
+import { GenericModal, PixelButton, TitleBar } from '../../Shared';
 
 const styles = StyleSheet.create({
   innerText: {
     fontFamily: 'DotGothic',
-    fontSize: 16
   }
 })
 
@@ -30,9 +28,12 @@ function JoinGame(props) {
   
       {props.gamesWaiting.map((gameObj, i) =>
 
-        <PixelButton buttonStyle={{width: 500}}>
+        <PixelButton
+          key={i}
+          buttonStyle={{width: 500}}
+        >
           <Pressable
-            key={i}
+            
             onPress={() => {
               props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username, gameObj.gameMakerPushToken]);
 

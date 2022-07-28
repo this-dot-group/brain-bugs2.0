@@ -16,6 +16,7 @@ import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer';
 import { playSound } from '../../store/soundsReducer';
 import { newUsername, newGameCode, newSocketId, newToken } from '../../store/userReducer.js';
 import { EXPO_LOCAL_URL } from '../../../env'
+import { StyledInput } from '../Shared';
 
 
 const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
@@ -53,6 +54,11 @@ const styles = StyleSheet.create({
     width: '90%',
     alignItems: 'center',
     justifyContent: 'space-between'
+  },
+
+  // USERNAME INPUT
+  input: {
+    width: '30%',
   },
   innerText: {
     fontFamily: 'DotGothic',
@@ -110,12 +116,13 @@ function Homescreen(props) {
 
       <View style={styles.inputNestedRowView}>
 
-      <PixelButton>
-        <TextInput
-          placeholder={'username'}
-          onChangeText={value => handleUsernameChange(value)}
-        />
-      </PixelButton>
+        <PixelButton>
+          <TextInput
+
+            placeholder={'username'}
+            onChangeText={value => handleUsernameChange(value)}
+          />
+        </PixelButton>
 
         {validUsername &&
         <PixelButton buttonStyle={{ marginLeft: 20, width: 80}}>
@@ -144,7 +151,7 @@ function Homescreen(props) {
           transparent={true}
           visible={modalVisible}
           supportedOrientations={['landscape']}
-          >
+        >
           <View
             style={styles.modalView}>
             <HowToPlayModal />

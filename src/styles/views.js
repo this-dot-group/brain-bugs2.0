@@ -11,7 +11,7 @@ export const modalView = {
   backgroundColor: 'white',
   borderRadius: 20,
   padding: 15,
-  alignItems: 'center',
+  alignItems: 'stretch',
   shadowColor: '#000',
   shadowOffset: {
     width: 0,

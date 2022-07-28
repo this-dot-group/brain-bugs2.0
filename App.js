@@ -39,7 +39,7 @@ export default function App() {
       setFontsLoaded(true);
     })()
   }, [])
-    
+
 
   if (!fontsLoaded) {
     return (
