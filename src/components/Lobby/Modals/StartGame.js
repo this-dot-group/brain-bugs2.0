@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { Platform, View, StyleSheet, Alert } from 'react-native'
+import { Platform, View, StyleSheet, Alert, Pressable, Text } from 'react-native'
 import * as Notifications from 'expo-notifications';
 import { Link } from 'react-router-native';
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate, pushTokenAlertInteraction, gameMakerPushToken } from '../../../store/gameInfoReducer';
@@ -246,11 +246,13 @@ function StartGame(props) {
         <Hider
           show={showGo}
         >
-          <Link
-            to="/waitingroom"
-            component={PixelButton}
-            variant="go"
-          />
+          <PixelButton variant="go">
+            <Pressable>
+              <Link to="/waitingroom">
+                <Text>Go</Text>
+              </Link>
+            </Pressable>
+          </PixelButton>
         </Hider>
       </View>
     </GenericModal>

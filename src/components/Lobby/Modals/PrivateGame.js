@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import { Text, StyleSheet, View, Pressable } from 'react-native'
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux'
 import { newOpponent } from '../../../store/userReducer';
@@ -111,10 +111,13 @@ function PrivateGame(props) {
         <Hider
           show={showGo}
         >
-          <PixelButton
-            onPress={() => props.socket.emit('joinTwoPlayer', [gameCode, props.username])}
-            variant='go'
-          />
+          <PixelButton variant="go">
+            <Pressable
+              onPress={() => props.socket.emit('joinTwoPlayer', [gameCode, props.username])}
+            >
+              <Text>Go</Text>
+            </Pressable>
+          </PixelButton>
         </Hider>
       </View>
     </GenericModal>
