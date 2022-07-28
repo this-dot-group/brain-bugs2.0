@@ -98,7 +98,6 @@ function PixelButton({ onPress, children, buttonStyle = {}, textStyle = {}, vari
 
   return (
     <View style={styles.root}>
- {/* TODO: IN THE MIDDLE OF REFACTORING PIXELBUTTON TO JUST APPLY STYLE AND ACCEPT CHILDREN. would need to refactor everywhere pixel button is used and add the pressable around it */}
     {/* <Pressable
       onPress={onPress}
       style={styles.root}
