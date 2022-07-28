@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    fontSize: 25,
+    fontSize: 30,
+    fontFamily: 'VT323'
   },
   contentContainer: {
   },
@@ -35,6 +36,7 @@ function DropdownMenu({ items, selected, cb, title }) {
       containerStyle={styles.root}
       listItemContainerStyle={styles.item}
       items={items}
+      listItemLabelStyle={{fontFamily: 'DotGothic'}}
       multiple={false}
       listMode="MODAL"
       open={open}
@@ -43,6 +45,7 @@ function DropdownMenu({ items, selected, cb, title }) {
       setValue={setValue}
       onSelectItem={cb}
       placeholder={title}
+      placeholderStyle={{fontFamily: 'DotGothic'}}
       modalTitle={title}
       modalTitleStyle={styles.title}
       modalTitleContainerStyle={styles.titleCont}

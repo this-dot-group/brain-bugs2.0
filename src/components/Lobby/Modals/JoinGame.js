@@ -3,16 +3,13 @@ import { Text, Pressable, StyleSheet } from 'react-native'
 import { Redirect } from 'react-router-native'
 import { newOpponent } from '../../../store/userReducer';
 import { connect } from 'react-redux';
-import { GenericModal } from '../../Shared';
+import { GenericModal, PixelButton } from '../../Shared';
 import TitleBar from './TitleBar';
 
 const styles = StyleSheet.create({
-  gameJoinButton: {
-    padding: 10,
-    borderRadius: 10,
-    borderColor: 'black',
-    borderWidth: 2,
-    marginLeft: 20
+  innerText: {
+    fontFamily: 'DotGothic',
+    fontSize: 16
   }
 })
 
@@ -33,20 +30,20 @@ function JoinGame(props) {
   
       {props.gamesWaiting.map((gameObj, i) =>
 
-    
-        <Pressable
-          style={styles.gameJoinButton}
-          key={i}
-          onPress={() => {
-            props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username, gameObj.gameMakerPushToken]);
+        <PixelButton buttonStyle={{width: 500}}>
+          <Pressable
+            key={i}
+            onPress={() => {
+              props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username, gameObj.gameMakerPushToken]);
 
-            setRedirectToWaitingRoom2(true);
-          }}
-        >
-          <Text>
-            {gameObj.player} is waiting to play {gameObj.category}
-          </Text>
-        </Pressable>
+              setRedirectToWaitingRoom2(true);
+            }}
+          >
+            <Text style={styles.innerText}>
+              {gameObj.player} is waiting to play {gameObj.category}
+            </Text>
+          </Pressable>
+        </PixelButton>
       )}
 
       {!props.gamesWaiting.length && 
