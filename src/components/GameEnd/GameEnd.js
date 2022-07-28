@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { View, Text, Image, StyleSheet, Alert, Modal } from 'react-native'
+import { View, Text, Image, StyleSheet, Alert, Modal, Pressable } from 'react-native'
 import { Redirect } from 'react-router-native'
 import { connect } from 'react-redux';
 import { numQuestions, newCategory, publicOrPrivate, getQuestions, resetQuestions } from '../../store/gameInfoReducer';
@@ -289,26 +289,25 @@ function GameEnd(props) {
         {showInvitation ?
           <View style={styles.rematchInvite}>
             <View style={styles.yesNoButtonCont}>
-              <PixelButton
-                onPress={handleYes}
-                buttonStyle={{width: 60, marginBottom: 10 }}
-              >
-                Yes
+              <PixelButton buttonStyle={{width: 60, marginBottom: 10 }}>
+                <Pressable onPress={handleYes}>
+                  <Text>Yes</Text>
+                </Pressable>
               </PixelButton>
 
-              <PixelButton
-                onPress={handleNo}
-                buttonStyle={{width: 60 }}
-              >
-                No
+              <PixelButton buttonStyle={{width: 60}}>
+                <Pressable onPress={handleNo}>
+                  <Text>No</Text>
+                </Pressable>
               </PixelButton>
             </View>
             <Text>{props.opponent} wants a rematch! What do you think?</Text>
           </View> :
           !opponentLeftRoom && props.numPlayers === 2 &&
-          <PixelButton 
-            onPress={handleRematch}>
-            {rematchRequested ? `Requesting...` : `Rematch`}
+          <PixelButton>
+            <Pressable onPress={handleRematch}>
+              <Text>{rematchRequested ? `Requesting...` : `Rematch`}</Text>
+            </Pressable>
           </PixelButton>
         }
         <MuteButton styles={styles.endButton} />
@@ -340,16 +339,20 @@ function GameEnd(props) {
         </View>
       </View>
       <View style={styles.buttonRow}>
-        <PixelButton
-          onPress={leaveRoomAndGoToLobby}
-        >
-          Back to Lobby
+        <PixelButton>
+          <Pressable
+            onPress={leaveRoomAndGoToLobby}
+          >
+            <Text>Back to Lobby</Text>
+          </Pressable>
         </PixelButton>
 
         {!opponentLeftRoom && props.numPlayers === 2 &&
         <View style={styles.showChatWrapper}>
-          <PixelButton onPress={handleShowChat} style={{position: 'relative'}}>
-            Show Chat
+          <PixelButton>
+            <Pressable onPress={handleShowChat} style={{position: 'relative'}}>
+              <Text>Show Chat</Text>
+            </Pressable>
           </PixelButton>
           {!!unseenMessages && <Badge>{unseenMessages}</Badge>}
         </View>

@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     fontSize: 25,
+    fontFamily: 'VT323'
   },
   closeModalButton: {
     height: 30,

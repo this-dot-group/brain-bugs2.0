@@ -16,17 +16,19 @@ Josh:
 
 
 Tia: 
-- [ ] Swap out with new PixelButton!
-  - [x] WaitingRoom
-  - [x] WaitingRoom2
-  - [ ] GameScreen (add variant in PixelButton)
-- [ ] need to figure out how to not show Waiting for... the second time
+- [ ] More PixelButton swap out
 - [ ] Checking for # of characters to decide font size (or try adjustsFontSizeToFit on <Text>)
+- [ ] Fix right side answer pressables
+- [ ] Cancel Game from waiting room should have an "are you sure" modal
+- [ ] Feedback to user on category selection (loading circle until categories load in?)
+- [ ] If rematch is requested, hide chat screen (cant see the request since its behind the chat screen)
+- [ ] BUG: not sure rematch works anymore?
+
  Ideas
 - [ ] Breakpoints for different device sizes, and rejecting questions based on nmber of characters in answers
 - [ ] Expanding the question when you click 
 - [ ] Looking into how responsive font sizing on sifferent devices
- 
+
 - [ ] need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.
  
 
@@ -136,3 +138,62 @@ Tia:
 Co-authored-by: Tia Low <lowtia@gmail.com>
 Co-authored-by: Chris Hamersly <christopherhamersly@gmail.com>
 Co-authored-by: Josh Williams <joshuasrwilliams@gmail.com>
+
+Add to `.eslintrc.json`:
+```
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "commonjs": true,
+    "jest": true,
+    "es6": true
+  },
+  "globals": {
+    "fail": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2018,
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  },
+  // "ecmaFeatures": {
+  //   "jsx": true
+  // },
+  "rules": {
+    "no-console": "off",
+    "indent": [
+      "error",
+      2
+    ],
+    "quotes": [
+      "error",
+      "single",
+      {
+        "allowTemplateLiterals": true
+      }
+    ],
+    "no-unused-vars": [
+      1,
+      {
+        "vars": "local",
+        "args": "none"
+      }
+    ],
+    // "no-undef": "error",
+    "react/prop-types": "off"
+    // [
+    //   "enabled",
+    //    { "ignore":"ignore", "customValidators": "customValidator" }
+    //  ]
+  }
+}
+```
