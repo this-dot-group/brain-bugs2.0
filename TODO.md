@@ -22,11 +22,17 @@ Tia:
   - [ ] GameScreen (add variant in PixelButton)
 - [ ] need to figure out how to not show Waiting for... the second time
 - [ ] Checking for # of characters to decide font size (or try adjustsFontSizeToFit on <Text>)
+- [ ] Fix right side answer pressables
  Ideas
 - [ ] Breakpoints for different device sizes, and rejecting questions based on nmber of characters in answers
 - [ ] Expanding the question when you click 
 - [ ] Looking into how responsive font sizing on sifferent devices
- 
+- [ ] Cancel Game from waiting room should have an "are you sure" modal
+- [ ] Feedback to user on category selection (loading circle until categories load in?)
+- [ ] If rematch is requested, hide chat screen (cant see the request since its behind the chat screen)
+- [ ] BUG: not sure rematch works anymore?
+
+
 - [ ] need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.
  
 

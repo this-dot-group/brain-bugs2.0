@@ -30,28 +30,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
   },
-  HowToPlayModalButton: {
-    padding: 10,
-    borderRadius: 10,
-    borderColor: 'black',
-    borderWidth: 2,
-    alignSelf: 'flex-start',
-  },
-  gameCodeCopyButton: {
-    padding: 10,
-    borderRadius: 10,
-    borderColor: 'black',
-    borderWidth: 2,
-  },
-  gameCodeText: {
-    fontSize: 40
-  },
-  alertText: {
-    fontSize: 30,
-    color: 'red',
-    alignSelf: 'flex-end',
-    marginRight: 10
-  },
   modalView: {
     ...Views.modalView,
   },
@@ -124,13 +102,14 @@ const WaitingRoom2 = (props) => {
         </Modal>
 
         <View style={styles.topRowView}>
-          <PixelButton
-            buttonStyle={styles.HowToPlayModalButton}
-            onPress={() => {
-              setModalVisible(true);
-            }}>
-              <Text>How To Play</Text>
-          </PixelButton> 
+          <PixelButton>
+            <Pressable
+              onPress={() => {
+                setModalVisible(true);
+              }}>
+                <Text>How To Play</Text>
+            </Pressable> 
+          </PixelButton>
         </View>
 
         
@@ -144,12 +123,13 @@ const WaitingRoom2 = (props) => {
           animating={true} />
 
         <View style={styles.bottomRowView}>
-          <PixelButton
-            buttonStyle={styles.HowToPlayModalButton}
-            onPress={cancelGame}
-            >
-              <Text>Cancel Game</Text>
-          </PixelButton> 
+          <PixelButton>
+            <Pressable
+              onPress={cancelGame}
+              >
+                <Text>Cancel Game</Text>
+            </Pressable> 
+          </PixelButton>
      
           <MuteButton/>
         </View>

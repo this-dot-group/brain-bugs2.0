@@ -7,6 +7,7 @@ import socketIO from 'socket.io-client';
 
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import MuteButton from '../MuteButton/MuteButton';
+import { PixelButton } from '../Shared';
 
 // modular styles
 import { Buttons, Images, Views, Typography, Colors } from '../../styles/'
@@ -52,30 +53,6 @@ const styles = StyleSheet.create({
     width: '90%',
     alignItems: 'center',
     justifyContent: 'space-between'
-  },
-  // USERNAME INPUT
-  input: {
-    borderColor: 'black',
-    borderWidth: 2,
-    borderRadius: 10,
-    padding: 10,
-    width: '30%',
-  },
-  // GO BTN SHOWS UP AFTER USERNAME
-  goButton: {
-    padding: 10,
-    borderRadius: 10,
-    borderColor: 'black',
-    borderWidth: 2,
-    marginLeft: 20
-  },
-  // HOW TO PLAY BTN
-  howToPlayModalButton: {
-    padding: 10,
-    borderRadius: 10,
-    borderColor: 'black',
-    borderWidth: 2,
-    marginRight: 100
   },
   modalView: {
     ...Views.modalView,
@@ -128,30 +105,36 @@ function Homescreen(props) {
       <Text style={styles.logoText}>BRAIN BUGS</Text>  
 
       <View style={styles.inputNestedRowView}>
+
+      <PixelButton>
         <TextInput
           placeholder={'username'}
-          style={styles.input}
           onChangeText={value => handleUsernameChange(value)}
         />
+      </PixelButton>
 
         {validUsername &&
+        <PixelButton buttonStyle={{ marginLeft: 20, width: 80}}>
           <Pressable style={styles.goButton} onPress={handleGo}>
             <Text>Go!</Text>
           </Pressable>
+        </PixelButton>
         }
+       
       </View>
 
 
       <View style={styles.bottomNestedRowView}>
-        <Pressable
-          style={styles.howToPlayModalButton}
-          onPress={() => {
-            props.playSound('click')
-            setModalVisible(true);
-          }}
-        >
-          <Text>How To Play</Text>
-        </Pressable>
+        <PixelButton buttonStyle={{width: 150}}>
+          <Pressable
+            onPress={() => {
+              props.playSound('click')
+              setModalVisible(true);
+            }}
+          >
+            <Text>How To Play</Text>
+          </Pressable>
+        </PixelButton>
 
         <Modal
           transparent={true}

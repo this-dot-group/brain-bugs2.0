@@ -97,13 +97,15 @@ function PixelButton({ onPress, children, buttonStyle = {}, textStyle = {}, vari
   const styles = getStyles(buttonStyle, textStyle);
 
   return (
-    <Pressable
+    <View style={styles.root}>
+ {/* TODO: IN THE MIDDLE OF REFACTORING PIXELBUTTON TO JUST APPLY STYLE AND ACCEPT CHILDREN. would need to refactor everywhere pixel button is used and add the pressable around it */}
+    {/* <Pressable
       onPress={onPress}
       style={styles.root}
-    >
-      <Text style={styles.textStyle}>
+      > */}
+      {/* <Text style={styles.textStyle}> */}
         {children}
-      </Text>
+      {/* </Text> */}
 
       <View style={styles.sideBorders}></View>
       <View style={{...styles.sideBorders, ...styles.sideBorderRight}}></View>
@@ -113,7 +115,8 @@ function PixelButton({ onPress, children, buttonStyle = {}, textStyle = {}, vari
       <View style={{...styles.cornerDots, ...styles.topRightDot}}></View>
       <View style={{...styles.cornerDots, ...styles.bottomRightDot}}></View>
       <View style={{...styles.cornerDots, ...styles.bottomLeftDot}}></View>
-    </Pressable>
+    {/* </Pressable> */}
+    </View>
   )
 }
 
