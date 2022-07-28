@@ -7,27 +7,33 @@
 
 
 Josh:  
-- [ ] Maybe - Issue with iPhone swiping to close the app horizontally
 - [ ] LAYOUT: Chat
+  - [ ] Scroll while keyboard is active
+  - [ ] Move the bottom of the convo up when activated
+- [ ] Make sure you can see input on home when typing
+- [ ] Loading screen animation
+- [ ] Feedback to user on category selection (loading circle until categories load in?)
+- [ ] How To Play
+
 - [ ] Disable all buttons between questions
 - [ ] If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
-- [ ] Looking into how responsive font sizing on sifferent devices
-- [ ] Loading screen animation
 
 
 Tia: 
 - [ ] More PixelButton swap out
+- [ ] See if full pixel button can be pressed
+- [ ] Continue changing out fonts
 - [ ] Checking for # of characters to decide font size (or try adjustsFontSizeToFit on <Text>)
+  - See config for `Dimensions`
 - [ ] Fix right side answer pressables
-- [ ] Cancel Game from waiting room should have an "are you sure" modal
-- [ ] Feedback to user on category selection (loading circle until categories load in?)
-- [ ] If rematch is requested, hide chat screen (cant see the request since its behind the chat screen)
 - [ ] BUG: not sure rematch works anymore?
+- [ ] Test out chat
+ 
 
  Ideas
 - [ ] Breakpoints for different device sizes, and rejecting questions based on nmber of characters in answers
 - [ ] Expanding the question when you click 
-- [ ] Looking into how responsive font sizing on sifferent devices
+- [ ] Looking into how responsive font sizing on different devices
 
 - [ ] need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.
  
@@ -85,6 +91,9 @@ Tia:
   - Track high score by category and num questions
 - Something to do in the WaitingRoom for gameMaker (jumping brain bug!)
 - Any special way to handle a tie?
+- If rematch is requested, hide chat screen, or show rematch request in chat (cant see the request since its behind the chat screen)
+- Cancel Game from waiting room should have an "are you sure" modal
+ 
 
 
 ## Manuel Testing
