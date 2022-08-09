@@ -11,7 +11,8 @@ Josh:
   - [ ] Scroll while keyboard is active
   - [ ] Move the bottom of the convo up when activated
 - [ ] Make sure you can see input on home when typing
-- [ ] Loading screen animation
+- [x] Loading screen animation
+  - [ ] Put on all screens needed
 - [ ] Feedback to user on category selection (loading circle until categories load in?)
 - [ ] How To Play
 
