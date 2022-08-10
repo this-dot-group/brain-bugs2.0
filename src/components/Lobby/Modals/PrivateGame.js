@@ -15,10 +15,6 @@ const styles = StyleSheet.create({
     ...Typography.alertText,
     opacity: 0
   },
-  gamecodeTextInput: {
-    ...Typography.input,
-    textAlign: 'center'
-  },
   goRow: {
     flexDirection: 'row',
     alignSelf: 'flex-end',
@@ -90,14 +86,14 @@ function PrivateGame(props) {
       >
         JOIN a private game here!!
       </TitleBar>
-
       <Input
         placeholder='Enter code'
-        style={styles.gamecodeTextInput}
+        style={{fontFamily: 'DotGothic', fontSize: 20}}
         onChangeText={value => handleChange(value)}
         maxLength={5}
         value={gameCode}
         disabled={showGo}
+        containerStyle={{width: '50%', alignSelf: 'center'}}
       />
   
       <Hider

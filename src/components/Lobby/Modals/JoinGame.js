@@ -51,7 +51,7 @@ function JoinGame(props) {
       )}
 
       {!props.gamesWaiting.length && 
-        <Text>No available games</Text>
+        <Text style={styles.innerText}>No available games yet...</Text>
       }
 
       {redirectToWaitingRoom2 && <Redirect to='/waitingroom2' />}
