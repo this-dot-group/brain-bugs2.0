@@ -38,6 +38,8 @@ const styles = StyleSheet.create({
   },
 
   alertText: {
+    fontFamily: 'DotGothic',
+    fontSize: 20,
     color: 'red',
     alignSelf: 'flex-end',
     marginRight: 10
@@ -47,6 +49,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 'auto',
     marginBottom: 'auto',
+    textAlign: 'center'
+  },
+  waitingText: {
+    fontFamily: 'DotGothic',
+    fontSize: 16,
     textAlign: 'center'
   },
   modalView: {
@@ -180,7 +187,6 @@ const WaitingRoom = (props) => {
             </Pressable> 
           </PixelButton>
 
-          {/* TODO: maybe we could have feedback on btn, like a shadow that shows up when its copied, instead of changing to "Copied!" */}
           {props.publicOrPrivate === 'private' && (
             <PixelButton>
               <Pressable
@@ -191,7 +197,7 @@ const WaitingRoom = (props) => {
                 <Text style={styles.alertText}>Copied!</Text>
               )} 
               {!copied && (
-                <Text>
+                <Text style={styles.innerText}>
                   {props.gameCode}
                 </Text>
               )}  
@@ -202,7 +208,7 @@ const WaitingRoom = (props) => {
 
         {props.publicOrPrivate === 'private' &&
           <>
-            <Text style={{textAlign: 'center'}}>
+            <Text style={styles.waitingText}>
               Give the game code to your opponent!
               {"\n"}{"\n"}
               Click to copy
@@ -212,13 +218,13 @@ const WaitingRoom = (props) => {
         }
 
         {props.publicOrPrivate !== 'private' &&
-          <Text>Waiting for 1 more player...</Text> 
+          <Text style={styles.waitingText}>Waiting for 1 more player...</Text> 
         }
 
         <ActivityIndicator
           color='red'
           size='large'
-          animating={true} />
+          animating={true}/>
 
         <View style={styles.bottomRowView}>
           <PixelButton>

@@ -229,20 +229,22 @@ function StartGame(props) {
 
         {numPlayers === 2 && (
           <View style={styles.dropDownView}>
-            <DropdownMenu
-              items={[
-                { label: 'Public Game', value: 'public' },
-                { label: 'Private Game', value: 'private' }
-              ]}
-              title='Public or Private Game'
-              cb={item => {
-                props.publicOrPrivate(item.value);
-                props.pushNotificationUserToken === undefined 
-                  ? registerForPushNotificationsAsync()
-                  : pushNotificationAlreadyEnabled();
-              }}
-              selected={props.gameInfo.publicOrPrivate || null}
-            />
+            <PixelButton>
+              <DropdownMenu
+                items={[
+                  { label: 'Public Game', value: 'public' },
+                  { label: 'Private Game', value: 'private' }
+                ]}
+                title='Public / Private Game'
+                cb={item => {
+                  props.publicOrPrivate(item.value);
+                  props.pushNotificationUserToken === undefined 
+                    ? registerForPushNotificationsAsync()
+                    : pushNotificationAlreadyEnabled();
+                }}
+                selected={props.gameInfo.publicOrPrivate || null}
+              />
+            </PixelButton>
           </View>
         )}
       </View>

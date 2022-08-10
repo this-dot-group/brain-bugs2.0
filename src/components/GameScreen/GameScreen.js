@@ -104,6 +104,11 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
+  text: {
+    fontFamily: 'DotGothic',
+    fontSize: 18,
+    textAlign: 'center',
+  },
 });
 
 
@@ -383,8 +388,8 @@ function GameScreen(props) {
               <View style={{ alignItems: 'center', marginRight: 20 }}>
                 {score.playerOne &&
                   <>
-                    <Text>{score.playerOne.name}</Text>
-                    <Text>{score.playerOne.score}</Text>
+                    <Text style={styles.text}>{score.playerOne.name}</Text>
+                    <Text style={styles.text}>{score.playerOne.score}</Text>
                   </>
                 }
               </View>
@@ -392,8 +397,8 @@ function GameScreen(props) {
               <View style={{ alignItems: 'center', marginLeft: 20 }}>
                 {score.playerOne &&
                   <>
-                    <Text>{score.playerTwo.name}</Text>
-                    <Text>{score.playerTwo.score}</Text>
+                    <Text style={styles.text}>{score.playerTwo.name}</Text>
+                    <Text style={styles.text}>{score.playerTwo.score}</Text>
                   </>
                 }
               </View>
