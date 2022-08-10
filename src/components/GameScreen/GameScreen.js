@@ -77,7 +77,9 @@ const styles = StyleSheet.create({
   submitText: {
     fontFamily: 'DotGothic',
     fontSize: 15,
-    textAlign: 'center',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    textAlign: 'center'
   },
   waitingText: {
     fontSize: 12,

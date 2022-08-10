@@ -42,7 +42,8 @@ const styles = StyleSheet.create({
     paddingBottom: 70
   },
   scoreText: {
-    fontSize: 25,
+    fontFamily: 'VT323',
+    fontSize: 40,
   },
   trophy: {
     height: 60,
@@ -74,6 +75,17 @@ const styles = StyleSheet.create({
   },
   chatModalStyles : {
     height: windowHeight - 40,
+  },
+  innerText: {
+    fontFamily: 'DotGothic',
+    fontSize: 16,
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    textAlign: 'center'
+  },
+  rematchText: {
+    fontFamily: 'VT323',
+    fontSize: 30,
   }
 })
 
@@ -290,23 +302,25 @@ function GameEnd(props) {
           <View style={styles.rematchInvite}>
             <View style={styles.yesNoButtonCont}>
               <PixelButton buttonStyle={{width: 60, marginBottom: 10 }}>
-                <Pressable onPress={handleYes}>
-                  <Text>Yes</Text>
+                <Pressable onPress={handleYes} style={{height: '100%', width: '100%'}}>
+                  <Text style={styles.innerText}>Yes</Text>
                 </Pressable>
               </PixelButton>
 
               <PixelButton buttonStyle={{width: 60}}>
-                <Pressable onPress={handleNo}>
-                  <Text>No</Text>
+                <Pressable onPress={handleNo} style={{height: '100%', width: '100%'}}>
+                  <Text style={styles.innerText}>No</Text>
                 </Pressable>
               </PixelButton>
             </View>
-            <Text>{props.opponent} wants a rematch! What do you think?</Text>
+            <Text style={styles.rematchText}>{props.opponent} wants a rematch! What do you think?</Text>
           </View> :
           !opponentLeftRoom && props.numPlayers === 2 &&
           <PixelButton>
-            <Pressable onPress={handleRematch}>
-              <Text>{rematchRequested ? `Requesting...` : `Rematch`}</Text>
+            <Pressable 
+              onPress={handleRematch} 
+              style={{height: '100%', width: '100%'}}>
+              <Text style={styles.innerText}>{rematchRequested ? `Requesting...` : `Rematch`}</Text>
             </Pressable>
           </PixelButton>
         }
@@ -342,16 +356,17 @@ function GameEnd(props) {
         <PixelButton>
           <Pressable
             onPress={leaveRoomAndGoToLobby}
+            style={{height: '100%', width: '100%'}}
           >
-            <Text>Back to Lobby</Text>
+            <Text style={styles.innerText}>Back to Lobby</Text>
           </Pressable>
         </PixelButton>
 
         {!opponentLeftRoom && props.numPlayers === 2 &&
         <View style={styles.showChatWrapper}>
           <PixelButton>
-            <Pressable onPress={handleShowChat} style={{position: 'relative'}}>
-              <Text>Show Chat</Text>
+            <Pressable onPress={handleShowChat} style={{height: '100%', width: '100%', position: 'relative'}}>
+              <Text style={styles.innerText}>Show Chat</Text>
             </Pressable>
           </PixelButton>
           {!!unseenMessages && <Badge>{unseenMessages}</Badge>}
