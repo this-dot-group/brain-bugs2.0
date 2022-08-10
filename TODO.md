@@ -20,17 +20,14 @@ Josh:
 
 
 Tia: 
-- [ ] More PixelButton swap out
+- [x] More PixelButton swap out
 - [x] See if full pixel button can be pressed
-- [ ] Continue changing out fonts
+- [x] Continue changing out fonts
 - [ ] Checking for # of characters to decide font size (or try adjustsFontSizeToFit on <Text>)
   - See config for `Dimensions`
 - [x] Fix right side answer pressables
 - [ ] BUG: not sure rematch works anymore?
 - [ ] Test out chat
-
-places to streamline css:
-- innerText: {}
  
 
  Ideas
