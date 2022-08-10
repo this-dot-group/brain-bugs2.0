@@ -44,24 +44,28 @@ const styles = StyleSheet.create({
   },
   nonSelectedAnswer: {
     justifyContent: 'center',
-    height: '80%',
+    height: '100%',
+    width: '100%',
     padding: 2,
   },
   selectedAnswer: {
     justifyContent: 'center',
-    height: '80%',
+    height: '100%',
+    width: '100%',
     padding: 2,
     backgroundColor: '#C0C0C0'
   },
   submittedAnswer: {
     justifyContent: 'center',
-    height: '80%',
+    height: '100%',
+    width: '100%',
     padding: 2,
     backgroundColor: '#8A8787'
   },
   correctAnswer: {
     justifyContent: 'center',
-    height: '80%',
+    height: '100%',
+    width: '100%',
     padding: 2,
     backgroundColor: '#ADD8E6'
   },
@@ -95,6 +99,8 @@ const styles = StyleSheet.create({
   submitButton: {
     padding: 2,
     backgroundColor: 'white',
+    height: '100%',
+    width: '100%',
   },
 });
 
@@ -404,7 +410,7 @@ function GameScreen(props) {
             </View>
 
             <View style={styles.answerOptionPressables}>
-              <PixelButton>
+              <PixelButton buttonStyle={{alignSelf: 'flex-end'}}>
                 <Pressable
                   onPress={() => {
                     setSelected(ansObjForRendering[1].index)
@@ -532,7 +538,7 @@ function GameScreen(props) {
 
             {ansObjForRendering[3] &&
               <View style={styles.answerOptionPressables}>
-                <PixelButton>
+                <PixelButton buttonStyle={{alignSelf: 'flex-end'}}>
                   <Pressable
                     onPress={() => {
                       setSelected(ansObjForRendering[3].index)

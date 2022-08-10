@@ -102,13 +102,8 @@ function PixelButton({ onPress, children, buttonStyle = {}, textStyle = {}, vari
 
   return (
     <View style={styles.root}>
-    {/* <Pressable
-      onPress={onPress}
-      style={styles.root}
-      > */}
-      {/* <Text style={styles.textStyle}> */}
+
         {children}
-      {/* </Text> */}
 
       <View style={styles.sideBorders}></View>
       <View style={{...styles.sideBorders, ...styles.sideBorderRight}}></View>
@@ -118,7 +113,7 @@ function PixelButton({ onPress, children, buttonStyle = {}, textStyle = {}, vari
       <View style={{...styles.cornerDots, ...styles.topRightDot}}></View>
       <View style={{...styles.cornerDots, ...styles.bottomRightDot}}></View>
       <View style={{...styles.cornerDots, ...styles.bottomLeftDot}}></View>
-    {/* </Pressable> */}
+
     </View>
   )
 }
