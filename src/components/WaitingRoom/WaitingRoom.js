@@ -13,7 +13,7 @@ import * as Notifications from 'expo-notifications';
 import { Views } from '../../styles';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
-import PixelButton from '../Shared/PixelButton.js';
+import { PixelButton, Spinner } from '../Shared';
 
 const styles = StyleSheet.create({
   container: {
@@ -210,18 +210,15 @@ const WaitingRoom = (props) => {
           <Text>Waiting for 1 more player...</Text> 
         }
 
-        <ActivityIndicator
-          color='red'
-          size='large'
-          animating={true} />
+        <Spinner />
 
         <View style={styles.bottomRowView}>
           <PixelButton>
             <Pressable
-                onPress={() => {
-                  setModalVisible(true);
-                }}
-              >
+              onPress={() => {
+                setModalVisible(true);
+              }}
+            >
               <Text style={styles.innerText}>How To Play</Text>
             </Pressable>  
           </PixelButton>

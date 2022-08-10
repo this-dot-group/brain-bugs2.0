@@ -3,7 +3,7 @@ import { Image, View, StyleSheet, Animated, Easing } from 'react-native';
 
 const SIZE = 125;
 const BUG_SIZE = 20;
-const NUM_BUGS = 12;
+const NUM_BUGS = 8;
 const bugs = {};
 const bugTemplate = {
   position: 'absolute',

@@ -60,11 +60,12 @@ function HowToPlay(props) {
   const [modalVisible, setModalVisible] = useState(false)
 
   const [goCountdown, setGoCountdown] = useState(true);
-  const goToGame = !goCountdown;
+  const [goToGame, setGoToGame] = useState(false)
 
   useEffect(() => {
     if(seconds === 0) {
       setGoCountdown(false);
+      setGoToGame(true);
     }
   }, [seconds])
 

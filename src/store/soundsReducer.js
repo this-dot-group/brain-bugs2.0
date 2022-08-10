@@ -30,7 +30,7 @@ export const newSound = (sound, name) => {
   }
 };
 
-export const playSound =  soundName => {
+export const playSound = soundName => {
   return async (_dispatch, getState) => {
     const { soundsReducer } = getState();
     try {
