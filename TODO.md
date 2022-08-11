@@ -11,24 +11,21 @@ Josh:
   - [ ] Scroll while keyboard is active
   - [ ] Move the bottom of the convo up when activated
 - [ ] Make sure you can see input on home when typing
-- [x] Loading screen animation
-  - [ ] Put on all screens needed
+
 - [ ] Feedback to user on category selection (loading circle until categories load in?)
-- [ ] How To Play
-
-- [ ] Disable all buttons between questions
-- [ ] If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
-
+  - [ ] React Native Dropdown Picker https://hossein-zare.github.io/react-native-dropdown-picker-website/docs/advanced/loading
+- [ ] How To Play Modal
 
 Tia: 
-- [x] More PixelButton swap out
-- [x] See if full pixel button can be pressed
-- [x] Continue changing out fonts
 - [ ] Checking for # of characters to decide font size (or try adjustsFontSizeToFit on <Text>)
   - See config for `Dimensions`
-- [x] Fix right side answer pressables
+- [ ] Fix right side answer alignment
+
 - [ ] BUG: not sure rematch works anymore?
 - [ ] Test out chat
+ 
+- [ ] Disable all buttons between questions
+- [ ] If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
  
 
  Ideas
@@ -57,6 +54,12 @@ Tia:
 * Emoji decorations 
 
 ## Styling/Content
+- Animation Ideas
+ - Bug crawling in background - homescreen, endscreen
+ - Feedback copying private game code
+ - Bounce or something on pixel button
+ - Trophy Icon animation
+ 
 - Content for all pages, such as how to play instructions, content for alerts
 - Responsive font size for answer pressables and question on GameScreen
  - Longer questions are cut off on iPhone
