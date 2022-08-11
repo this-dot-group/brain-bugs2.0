@@ -8,6 +8,9 @@ import { GenericModal, PixelButton, TitleBar } from '../../Shared';
 const styles = StyleSheet.create({
   innerText: {
     fontFamily: 'DotGothic',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    textAlign: 'center'
   }
 })
 
@@ -30,15 +33,15 @@ function JoinGame(props) {
 
         <PixelButton
           key={i}
-          buttonStyle={{width: 500}}
+          buttonStyle={{width: 500, marginLeft: 'auto', marginRight: 'auto'}}
         >
           <Pressable
-            
             onPress={() => {
               props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username, gameObj.gameMakerPushToken]);
 
               setRedirectToWaitingRoom2(true);
             }}
+            style={{height: '100%', width: '100%'}}
           >
             <Text style={styles.innerText}>
               {gameObj.player} is waiting to play {gameObj.category}
@@ -48,7 +51,7 @@ function JoinGame(props) {
       )}
 
       {!props.gamesWaiting.length && 
-        <Text>No available games</Text>
+        <Text style={styles.innerText}>No available games yet...</Text>
       }
 
       {redirectToWaitingRoom2 && <Redirect to='/waitingroom2' />}

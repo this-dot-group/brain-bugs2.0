@@ -33,7 +33,10 @@ const styles = StyleSheet.create({
   },
   innerText: {
     fontFamily: 'DotGothic',
-    fontSize: 16
+    fontSize: 16,
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    textAlign: 'center'
   }
 })
 
@@ -106,6 +109,7 @@ function StartScreen(props) {
       <PixelButton buttonStyle={{marginBottom: 30}}>
         <Pressable
           onPress={() => handleModalChange('start')}
+          style={{height: '100%', width: '100%'}}
         >
           <Text style={styles.innerText}>Start a Game</Text>
         </Pressable>
@@ -119,6 +123,7 @@ function StartScreen(props) {
       <PixelButton buttonStyle={{marginBottom: 30}}>
         <Pressable
           onPress={() => handleModalChange('join')}
+          style={{height: '100%', width: '100%'}}
         >
           <Text style={styles.innerText}> Join Existing Game </Text>
         </Pressable>
@@ -132,6 +137,7 @@ function StartScreen(props) {
       <PixelButton>
         <Pressable
           onPress={() => handleModalChange('private')}
+          style={{height: '100%', width: '100%'}}
         >
           <Text style={styles.innerText}> Join Private Game </Text>
         </Pressable>

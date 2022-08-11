@@ -32,7 +32,10 @@ const styles = StyleSheet.create({
   },
   innerText: {
     fontFamily: 'DotGothic',
-    fontSize: 16
+    fontSize: 16,
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    textAlign: 'center'
   },
   modalView: {
     ...Views.modalView,
@@ -110,7 +113,8 @@ const WaitingRoom2 = (props) => {
             <Pressable
               onPress={() => {
                 setModalVisible(true);
-              }}>
+              }}
+              style={{height: '100%', width: '100%'}}>
                 <Text style={styles.innerText}>How To Play</Text>
             </Pressable> 
           </PixelButton>
@@ -127,6 +131,7 @@ const WaitingRoom2 = (props) => {
           <PixelButton>
             <Pressable
               onPress={cancelGame}
+              style={{height: '100%', width: '100%'}}
               >
                 <Text style={styles.innerText}>Cancel Game</Text>
             </Pressable> 

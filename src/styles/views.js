@@ -32,7 +32,3 @@ export const dropDownView = {
   borderColor: 'black'
 };
 
-export const dropDownContainer = {
-  height: 40,
-  width: 200,
-};

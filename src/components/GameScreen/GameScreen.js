@@ -44,24 +44,28 @@ const styles = StyleSheet.create({
   },
   nonSelectedAnswer: {
     justifyContent: 'center',
-    height: '80%',
+    height: '100%',
+    width: '100%',
     padding: 2,
   },
   selectedAnswer: {
     justifyContent: 'center',
-    height: '80%',
+    height: '100%',
+    width: '100%',
     padding: 2,
     backgroundColor: '#C0C0C0'
   },
   submittedAnswer: {
     justifyContent: 'center',
-    height: '80%',
+    height: '100%',
+    width: '100%',
     padding: 2,
     backgroundColor: '#8A8787'
   },
   correctAnswer: {
     justifyContent: 'center',
-    height: '80%',
+    height: '100%',
+    width: '100%',
     padding: 2,
     backgroundColor: '#ADD8E6'
   },
@@ -73,7 +77,9 @@ const styles = StyleSheet.create({
   submitText: {
     fontFamily: 'DotGothic',
     fontSize: 15,
-    textAlign: 'center',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    textAlign: 'center'
   },
   waitingText: {
     fontSize: 12,
@@ -95,6 +101,13 @@ const styles = StyleSheet.create({
   submitButton: {
     padding: 2,
     backgroundColor: 'white',
+    height: '100%',
+    width: '100%',
+  },
+  text: {
+    fontFamily: 'DotGothic',
+    fontSize: 18,
+    textAlign: 'center',
   },
 });
 
@@ -375,8 +388,8 @@ function GameScreen(props) {
               <View style={{ alignItems: 'center', marginRight: 20 }}>
                 {score.playerOne &&
                   <>
-                    <Text>{score.playerOne.name}</Text>
-                    <Text>{score.playerOne.score}</Text>
+                    <Text style={styles.text}>{score.playerOne.name}</Text>
+                    <Text style={styles.text}>{score.playerOne.score}</Text>
                   </>
                 }
               </View>
@@ -384,8 +397,8 @@ function GameScreen(props) {
               <View style={{ alignItems: 'center', marginLeft: 20 }}>
                 {score.playerOne &&
                   <>
-                    <Text>{score.playerTwo.name}</Text>
-                    <Text>{score.playerTwo.score}</Text>
+                    <Text style={styles.text}>{score.playerTwo.name}</Text>
+                    <Text style={styles.text}>{score.playerTwo.score}</Text>
                   </>
                 }
               </View>
@@ -404,7 +417,7 @@ function GameScreen(props) {
             </View>
 
             <View style={styles.answerOptionPressables}>
-              <PixelButton>
+              <PixelButton buttonStyle={{alignSelf: 'flex-end'}}>
                 <Pressable
                   onPress={() => {
                     setSelected(ansObjForRendering[1].index)
@@ -532,7 +545,7 @@ function GameScreen(props) {
 
             {ansObjForRendering[3] &&
               <View style={styles.answerOptionPressables}>
-                <PixelButton>
+                <PixelButton buttonStyle={{alignSelf: 'flex-end'}}>
                   <Pressable
                     onPress={() => {
                       setSelected(ansObjForRendering[3].index)

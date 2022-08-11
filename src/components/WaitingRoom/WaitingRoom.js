@@ -38,13 +38,23 @@ const styles = StyleSheet.create({
   },
 
   alertText: {
+    fontFamily: 'DotGothic',
+    fontSize: 20,
     color: 'red',
     alignSelf: 'flex-end',
     marginRight: 10
   },
   innerText: {
     fontFamily: 'DotGothic',
-    fontSize: 16
+    fontSize: 16,
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    textAlign: 'center'
+  },
+  waitingText: {
+    fontFamily: 'DotGothic',
+    fontSize: 16,
+    textAlign: 'center'
   },
   modalView: {
     ...Views.modalView,
@@ -171,22 +181,23 @@ const WaitingRoom = (props) => {
           <PixelButton>
             <Pressable
               onPress={cancelGame}
+              style={{height: '100%', width: '100%'}}
             >
               <Text style={styles.innerText}>Cancel Game</Text>
             </Pressable> 
           </PixelButton>
 
-          {/* TODO: maybe we could have feedback on btn, like a shadow that shows up when its copied, instead of changing to "Copied!" */}
           {props.publicOrPrivate === 'private' && (
             <PixelButton>
               <Pressable
                 onPress={handleCodeCopy}
+                style={{height: '100%', width: '100%'}}
               >
               {copied && (
                 <Text style={styles.alertText}>Copied!</Text>
               )} 
               {!copied && (
-                <Text>
+                <Text style={styles.innerText}>
                   {props.gameCode}
                 </Text>
               )}  
@@ -197,7 +208,7 @@ const WaitingRoom = (props) => {
 
         {props.publicOrPrivate === 'private' &&
           <>
-            <Text style={{textAlign: 'center'}}>
+            <Text style={styles.waitingText}>
               Give the game code to your opponent!
               {"\n"}{"\n"}
               Click to copy
@@ -207,7 +218,7 @@ const WaitingRoom = (props) => {
         }
 
         {props.publicOrPrivate !== 'private' &&
-          <Text>Waiting for 1 more player...</Text> 
+          <Text style={styles.waitingText}>Waiting for 1 more player...</Text> 
         }
 
         <Spinner />
@@ -215,9 +226,10 @@ const WaitingRoom = (props) => {
         <View style={styles.bottomRowView}>
           <PixelButton>
             <Pressable
-              onPress={() => {
-                setModalVisible(true);
-              }}
+                onPress={() => {
+                  setModalVisible(true);
+                }}
+                style={{height: '100%', width: '100%'}}
             >
               <Text style={styles.innerText}>How To Play</Text>
             </Pressable>  
