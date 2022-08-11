@@ -9,7 +9,7 @@ export const windowHeight = Dimensions.get('window').height;
 export const QUESTION_TIME = testMode ? 200 : 10;
 
 // Should be 3
-export const START_COUNTDOWN =  testMode ? 1 : 3;
+export const START_COUNTDOWN =  testMode ? 1000 : 3;
 
 // Should be [10, 15, 20, 25]
 let numQuestions = [10, 15, 20, 25];

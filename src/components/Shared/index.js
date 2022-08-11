@@ -3,6 +3,7 @@ import PixelButton from './PixelButton.js';
 import DropdownMenu from './DropdownMenu.js';
 import Hider from './Hider.js';
 import TitleBar from './TitleBar';
-import StyledInput from './StyledInput'
+import StyledInput from './StyledInput';
+import Spinner from './Spinner.js';
 
-export { GenericModal, PixelButton, DropdownMenu, Hider, TitleBar, StyledInput };
+export { GenericModal, PixelButton, DropdownMenu, Hider, TitleBar, StyledInput, Spinner };

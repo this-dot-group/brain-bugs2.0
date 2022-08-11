@@ -4,13 +4,16 @@ import { Text } from 'react-native';
 import { Typography } from '../../styles/'
 
 
-const styles = StyleSheet.create({
+const getStyles = (style = {}) => StyleSheet.create({
   countdownText: {
     ...Typography.countdownText,
+    ...style
   },
 })
 
-function Countdown({seconds, setSeconds, go, setGo}) {
+function Countdown({seconds, setSeconds, go, setGo, style}) {
+
+  const styles = getStyles(style)
 
   const lastTime = useRef();
   const lastFrame = useRef();

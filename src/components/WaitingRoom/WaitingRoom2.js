@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import MuteButton from '../MuteButton/MuteButton';
 
 import { Views } from '../../styles';
-import PixelButton from '../Shared/PixelButton.js';
+import { PixelButton, Spinner } from '../Shared';
 
 const styles = StyleSheet.create({
   container: {
@@ -125,10 +125,7 @@ const WaitingRoom2 = (props) => {
           We have alerted your opponent, please wait a moment...
         </Text>
 
-        <ActivityIndicator
-          color='red'
-          size='large'
-          animating={true} />
+        <Spinner />
 
         <View style={styles.bottomRowView}>
           <PixelButton>
