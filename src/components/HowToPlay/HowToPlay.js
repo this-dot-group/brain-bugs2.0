@@ -25,8 +25,8 @@ function HowToPlay(props) {
 
   return (
     <View>
-      <Text> HOW TO PLAY screen with countdown </Text>
-      <Text>Game starting in&nbsp;
+      <Text style={{ fontFamily: 'DotGothic', fontSize: 24, textAlign: 'center'}}> HOW TO PLAY screen with countdown </Text>
+      <Text style={{ fontFamily: 'DotGothic', fontSize: 18, textAlign: 'center'}}>Game starting in&nbsp;
         <Countdown
           seconds={seconds}
           setSeconds={setSeconds}
@@ -34,7 +34,7 @@ function HowToPlay(props) {
           setGo={setGoCountdown}
         />
       </Text>
-      <Text>{props.username} {props.opponent && `vs ${props.opponent}`}</Text>
+      <Text style={{ fontFamily: 'DotGothic', fontSize: 18, textAlign: 'center'}}>{props.username} {props.opponent && `vs ${props.opponent}`}</Text>
 
       {goToGame &&
         <Redirect to='/gameplay' />

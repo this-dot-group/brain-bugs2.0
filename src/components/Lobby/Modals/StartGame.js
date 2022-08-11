@@ -185,58 +185,66 @@ function StartGame(props) {
 
       <View style={styles.dropdowns}>
         <View style={styles.dropDownView}>
-          <DropdownMenu
-            items={categoryList}
-            title="Select a Category"
-            cb={(item) => {
-              props.newCategory({ name: item.label, id: item.value });
-            }}
-            selected={props.gameInfo.category?.id || null}
-          />
+          <PixelButton>
+            <DropdownMenu
+              items={categoryList}
+              title="Select a Category"
+              cb={(item) => {
+                props.newCategory({ name: item.label, id: item.value });
+              }}
+              selected={props.gameInfo.category?.id || null}
+              />
+          </PixelButton>
         </View>
 
         <View style={styles.dropDownView}>
-          <DropdownMenu
-            items={QUESTION_DROPDOWN_CHOICES}
-            title="Number of Questions"
-            cb={(item) => {
-              props.numQuestions(item.value);
-            }}
-            selected={props.gameInfo.numQuestions || null}
-          />
+          <PixelButton>
+            <DropdownMenu
+              items={QUESTION_DROPDOWN_CHOICES}
+              title="Number of Questions"
+              cb={(item) => {
+                props.numQuestions(item.value);
+              }}
+              selected={props.gameInfo.numQuestions || null}
+            />
+          </PixelButton>
         </View>
 
         <View style={styles.dropDownView}>
-          <DropdownMenu
-            items={[
-              { label: 'Single Player', value: 1 },
-              { label: 'Two Players', value: 2 }
-            ]}
-            title='Number of Players'
-            cb={item => {
-              props.numPlayers(item.value);
-              setNumPlayers(item.value);
-            }}
-            selected={props.gameInfo.numPlayers || null}
-          />
+          <PixelButton>
+            <DropdownMenu
+              items={[
+                { label: 'Single Player', value: 1 },
+                { label: 'Two Players', value: 2 }
+              ]}
+              title='Number of Players'
+              cb={item => {
+                props.numPlayers(item.value);
+                setNumPlayers(item.value);
+              }}
+              selected={props.gameInfo.numPlayers || null}
+            />
+          </PixelButton>
         </View>
 
         {numPlayers === 2 && (
           <View style={styles.dropDownView}>
-            <DropdownMenu
-              items={[
-                { label: 'Public Game', value: 'public' },
-                { label: 'Private Game', value: 'private' }
-              ]}
-              title='Public or Private Game'
-              cb={item => {
-                props.publicOrPrivate(item.value);
-                props.pushNotificationUserToken === undefined 
-                  ? registerForPushNotificationsAsync()
-                  : pushNotificationAlreadyEnabled();
-              }}
-              selected={props.gameInfo.publicOrPrivate || null}
-            />
+            <PixelButton>
+              <DropdownMenu
+                items={[
+                  { label: 'Public Game', value: 'public' },
+                  { label: 'Private Game', value: 'private' }
+                ]}
+                title='Public / Private Game'
+                cb={item => {
+                  props.publicOrPrivate(item.value);
+                  props.pushNotificationUserToken === undefined 
+                    ? registerForPushNotificationsAsync()
+                    : pushNotificationAlreadyEnabled();
+                }}
+                selected={props.gameInfo.publicOrPrivate || null}
+              />
+            </PixelButton>
           </View>
         )}
       </View>

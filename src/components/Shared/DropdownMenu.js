@@ -2,19 +2,13 @@ import React, { useState } from 'react';
 
 import { StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { Views } from '../../styles/index';
 import { gray } from '../../styles/colors';
 
 const styles = StyleSheet.create({
-  root: {
-    ...Views.dropDownContainer,
-  },
   title: {
     textAlign: 'center',
     fontSize: 30,
     fontFamily: 'VT323'
-  },
-  contentContainer: {
   },
   item: {
     alignSelf: 'center',
@@ -33,7 +27,13 @@ function DropdownMenu({ items, selected, cb, title }) {
 
   return (
     <DropDownPicker
-      containerStyle={styles.root}
+      style={{
+        borderWidth: 0,
+        backgroundColor: 'rgba(0,0,0,0)'
+      }}
+      labelStyle={{
+        fontWeight: "bold"
+      }}
       listItemContainerStyle={styles.item}
       items={items}
       listItemLabelStyle={{fontFamily: 'DotGothic'}}
@@ -48,8 +48,6 @@ function DropdownMenu({ items, selected, cb, title }) {
       placeholderStyle={{fontFamily: 'DotGothic'}}
       modalTitle={title}
       modalTitleStyle={styles.title}
-      modalTitleContainerStyle={styles.titleCont}
-      modalContentContainerStyle={styles.contentContainer}
       modalProps={{
         supportedOrientations: ['landscape'],
         animationType: 'slide',

@@ -62,7 +62,10 @@ const styles = StyleSheet.create({
   },
   innerText: {
     fontFamily: 'DotGothic',
-    fontSize: 16
+    fontSize: 16,
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    textAlign: 'center'
   },
   modalView: {
     ...Views.modalView,
@@ -118,7 +121,7 @@ function Homescreen(props) {
 
         <PixelButton>
           <TextInput
-
+            style={{height: '100%', width: '100%', textAlign: 'center', fontFamily: 'DotGothic', fontSize: 16}}
             placeholder={'username'}
             onChangeText={value => handleUsernameChange(value)}
           />
@@ -127,7 +130,7 @@ function Homescreen(props) {
         {validUsername &&
         <PixelButton buttonStyle={{ marginLeft: 20, width: 80}}>
           <Pressable style={styles.goButton} onPress={handleGo}>
-            <Text>Go!</Text>
+            <Text style={styles.innerText}>Go!</Text>
           </Pressable>
         </PixelButton>
         }
@@ -142,6 +145,7 @@ function Homescreen(props) {
               props.playSound('click')
               setModalVisible(true);
             }}
+            style={{height: '100%', width: '100%'}}
           >
             <Text style={styles.innerText}>How To Play</Text>
           </Pressable>
