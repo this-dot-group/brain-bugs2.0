@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, ScrollView, Keyboard } from 'react-native';
 import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Chat as ChatStyles } from '../../styles';
-import KeyboardAvoidingComponent from './KeyboardAvoiding';
+import KeyboardAvoidingComponent from '../Shared';
 import { TitleBar, PixelButton, StyledInput } from '../Shared';
 
 const styles = StyleSheet.create({

@@ -7,7 +7,7 @@ import socketIO from 'socket.io-client';
 
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import MuteButton from '../MuteButton/MuteButton';
-import { PixelButton } from '../Shared';
+import { PixelButton, KeyboardAvoidingComponent, Hider } from '../Shared';
 
 // modular styles
 import { Buttons, Images, Views, Typography, Colors } from '../../styles/'
@@ -16,7 +16,6 @@ import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer';
 import { playSound } from '../../store/soundsReducer';
 import { newUsername, newGameCode, newSocketId, newToken } from '../../store/userReducer.js';
 import { EXPO_LOCAL_URL } from '../../../env'
-import { StyledInput } from '../Shared';
 
 
 const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
@@ -58,7 +57,13 @@ const styles = StyleSheet.create({
 
   // USERNAME INPUT
   input: {
-    width: '30%',
+    height: '100%',
+    flex: 1,
+    fontFamily: 'DotGothic',
+    fontSize: 16,
+    paddingLeft: 8,
+    flexDirection: 'row',
+    paddingRight: 0
   },
   innerText: {
     fontFamily: 'DotGothic',
@@ -117,25 +122,32 @@ function Homescreen(props) {
         style={styles.logoImg} />
       <Text style={styles.logoText}>BRAIN BUGS</Text>  
 
-      <View style={styles.inputNestedRowView}>
-
-        <PixelButton>
-          <TextInput
-            style={{height: '100%', width: '100%', textAlign: 'center', fontFamily: 'DotGothic', fontSize: 16}}
-            placeholder={'username'}
-            onChangeText={value => handleUsernameChange(value)}
-          />
-        </PixelButton>
-
-        {validUsername &&
-        <PixelButton buttonStyle={{ marginLeft: 20, width: 80}}>
-          <Pressable style={styles.goButton} onPress={handleGo}>
-            <Text style={styles.innerText}>Go!</Text>
-          </Pressable>
-        </PixelButton>
-        }
-       
-      </View>
+      <KeyboardAvoidingComponent
+        offset={0}
+        style={{ backgroundColor: 'transparent' }}
+      >
+        <View style={styles.inputNestedRowView}>
+          <PixelButton
+            buttonStyle={{width: 300, flexDirection: 'row'}}
+          >
+            <TextInput
+              style={styles.input}
+              placeholder={'username'}
+              onChangeText={value => handleUsernameChange(value)}
+            />
+            <Hider
+              show={validUsername}
+              style={{ transform: [{translateX: 8 }], zIndex: 1, position: 'relative' }}
+            >
+              <PixelButton buttonStyle={{ width: 80 }}>
+                <Pressable onPress={handleGo}>
+                  <Text style={styles.innerText}>Go!</Text>
+                </Pressable>
+              </PixelButton>
+            </Hider>
+          </PixelButton>
+        </View>
+      </KeyboardAvoidingComponent>
 
 
       <View style={styles.bottomNestedRowView}>
