@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Text, Pressable, View, StyleSheet } from 'react-native';
+import { PixelButton } from '../Shared';
 
 const styles = StyleSheet.create({
   root: {
@@ -17,19 +18,11 @@ const styles = StyleSheet.create({
     fontFamily: 'VT323'
   },
   closeModalButton: {
-    height: 30,
-    width: 30,
-    borderRadius: 10,
-    borderColor: 'black',
-    borderWidth: 2,
-    padding: 0,
+    height: '100%',
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 10,
-    position: 'absolute',
-    top: 0,
-    right: 0,
   },
   closeModalButtonText: {
     fontWeight: 'bold',
@@ -40,14 +33,22 @@ function TitleBar({ children, cb }) {
   return (
     <View style={styles.root}>
       <Text style={styles.text}>{children}</Text>
-
-      <Pressable
-        style={styles.closeModalButton}
-        onPress={cb}
+      <PixelButton
+        buttonStyle={{
+          width: 40,
+          height: 40,
+          position: 'absolute',
+          top: 0,
+          right: 0
+        }}
       >
-        <Text style={styles.closeModalButtonText}>X</Text>
-      </Pressable>
-
+        <Pressable
+          style={styles.closeModalButton}
+          onPress={cb}
+        >
+          <Text style={styles.closeModalButtonText}>X</Text>
+        </Pressable>
+      </PixelButton>
     </View>
   );
 }

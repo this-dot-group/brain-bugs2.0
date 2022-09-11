@@ -10,11 +10,11 @@ Josh:
 - [ ] LAYOUT: Chat
   - [ ] Scroll while keyboard is active
   - [ ] Move the bottom of the convo up when activated
-- [ ] Make sure you can see input on home when typing
+- [x] Make sure you can see input on home when typing
 
 - [ ] Feedback to user on category selection (loading circle until categories load in?)
   - [ ] React Native Dropdown Picker https://hossein-zare.github.io/react-native-dropdown-picker-website/docs/advanced/loading
-- [ ] How To Play Modal
+- [x] How To Play Modal
 
 Tia: 
 - [ ] Checking for # of characters to decide font size (or try adjustsFontSizeToFit on <Text>)

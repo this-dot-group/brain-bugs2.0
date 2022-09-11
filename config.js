@@ -21,3 +21,11 @@ export const QUESTION_DROPDOWN_CHOICES = numQuestions.map(value => ({
 
 // Should be false
 export const DEFAULT_MUTED = testMode;
+
+export const instructions = [
+  'Read the question',
+  'Select an answer before the timer runs out',
+  'Press submit',
+  'Try to answer before your opponent',
+  'Stick around after the game to chat with your opponent'
+].map((instruction, i) => ({instruction, id: i + instruction[0]}))
