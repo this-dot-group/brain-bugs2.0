@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   answerOptionPressables: {
-    width: '40%',
+    width: '35%'
   },
   nonSelectedAnswer: {
     justifyContent: 'center',
@@ -88,11 +88,16 @@ const styles = StyleSheet.create({
   },
   questionTextArea: {
     padding: 10,
-    width: '80%',
+    width: '70%',
   },
   questionText: {
     fontFamily: 'VT323',
     fontSize: 40,
+    textAlign: 'center'
+  },
+  questionCountText: {
+    fontFamily: 'VT323',
+    fontSize: 16,
     textAlign: 'center'
   },
   submitButtonView: {
@@ -106,7 +111,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'DotGothic',
-    fontSize: 18,
+    fontSize: 16,
     textAlign: 'center',
   },
 });
@@ -417,7 +422,8 @@ function GameScreen(props) {
             </View>
 
             <View style={styles.answerOptionPressables}>
-              <PixelButton buttonStyle={{alignSelf: 'flex-end'}}>
+              <PixelButton 
+              buttonStyle={{alignSelf: 'flex-end'}}>
                 <Pressable
                   onPress={() => {
                     setSelected(ansObjForRendering[1].index)
@@ -443,7 +449,7 @@ function GameScreen(props) {
           >
             {(selected === 0 || selected === 2) 
               ?  <View style={styles.submitButtonView}>
-                  <PixelButton buttonStyle={{ width: 100}}>
+                  <PixelButton buttonStyle={{ width: 90 }}>
                     <Pressable
                       onPress={() => {
                         handleAnsPress(formattedQuestionInfo.answers[selected], selected)
@@ -457,28 +463,27 @@ function GameScreen(props) {
                     </Pressable>
                   </PixelButton>
                   </View>
-              : waiting.boolean === true && displayAnswer !== true
-              ? <View style={styles.submitButtonView}>
-                  <Text
-                    style={styles.waitingText}>
-                    Waiting for other player...
-                  </Text>
-                </View>
-              : <View style={styles.submitButtonView}/>
+              : <View style={styles.submitButtonView}>
+                  {waiting.boolean === true && displayAnswer !== true &&
+                  <Text style={styles.waitingText}>
+                      Waiting for other player...
+                    </Text>
+                  }
+                </View>        
             }
 
               <View style={styles.questionTextArea}>
                 <Text style={styles.questionText}>
                   {he.decode(formattedQuestionInfo.question)}
-                  <Text style={{fontSize: 15}}>{'  '}{currQuestionNum} / {totalQuestions}</Text>
                 </Text>
+                <Text style={styles.questionCountText}>{currQuestionNum} / {totalQuestions}</Text>
               </View>
               
         
 
             {(selected === 1 || selected === 3 ) 
               ?  <View style={styles.submitButtonView}>
-                <PixelButton buttonStyle={{ width: 100}}>
+                <PixelButton buttonStyle={{ width: 90}}>
                   <Pressable
                     onPress={() => {
                       handleAnsPress(formattedQuestionInfo.answers[selected], selected)
@@ -492,14 +497,13 @@ function GameScreen(props) {
                   </Pressable>
                 </PixelButton>
                 </View>
-              : waiting.boolean === true && displayAnswer !== true
-              ? <View style={styles.submitButtonView}>
-                  <Text
-                    style={styles.waitingText}>
-                    Waiting for other player...
-                  </Text>
-                </View>
-              : <View style={styles.submitButtonView}/>
+              : <View style={styles.submitButtonView}>
+                  {waiting.boolean === true && displayAnswer !== true &&
+                  <Text style={styles.waitingText}>
+                      Waiting for other player...
+                    </Text>
+                  }
+                </View>  
             }
           </View>
 
