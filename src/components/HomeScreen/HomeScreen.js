@@ -163,25 +163,10 @@ function Homescreen(props) {
           </Pressable>
         </PixelButton>
 
-        <Modal
-          transparent={true}
+        <HowToPlayModal
           visible={modalVisible}
-          supportedOrientations={['landscape']}
-        >
-          <View
-            style={styles.modalView}>
-            <HowToPlayModal />
-            <Pressable
-              style={styles.howToPlayModalButton}
-              onPress={() => {
-                props.playSound('click')
-                setModalVisible(!modalVisible)
-              }}
-            >
-              <Text>Hide</Text>
-            </Pressable>
-          </View>
-        </Modal>
+          setVisible={setModalVisible}
+        />
 
         <View style={styles.muteIconWrapper}>
           <MuteButton/>

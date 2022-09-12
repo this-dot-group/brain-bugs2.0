@@ -88,25 +88,10 @@ const WaitingRoom2 = (props) => {
 
   return (
     <View style={styles.container}>
-        <Modal
-          transparent={true}
-          visible={modalVisible}
-          supportedOrientations={['landscape']}
-        >
-          <View
-            style={styles.modalView}
-          >
-            <HowToPlayModal />
-            <Pressable
-              style={styles.HowToPlayModalButton}
-              onPress={() => {
-                setModalVisible(!modalVisible)
-              }}
-            >
-              <Text>Hide</Text>
-            </Pressable>
-          </View>
-        </Modal>
+      <HowToPlayModal 
+        visible={modalVisible}
+        setVisible={setModalVisible}
+      />
 
         <View style={styles.topRowView}>
           <PixelButton>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Text, Pressable, View, StyleSheet } from 'react-native';
-import { PixelButton } from '../Shared';
+import PixelButton  from './PixelButton';
 
 const styles = StyleSheet.create({
   root: {
