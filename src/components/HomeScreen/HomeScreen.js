@@ -8,6 +8,8 @@ import socketIO from 'socket.io-client';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import MuteButton from '../MuteButton/MuteButton';
 import { PixelButton } from '../Shared';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
 
 // modular styles
 import { Buttons, Images, Views, Typography, Colors } from '../../styles/'
@@ -35,13 +37,13 @@ const styles = StyleSheet.create({
   },
   // BIG IMAGE
   logoImg: {
-    width: 120,
-    height: 120,
+    width: scale(100),
+    height: scale(100),
   },
   // NAME TEXT
   logoText:{
     fontFamily: 'DotGothic',
-    fontSize: 60
+    fontSize: scale(54)
   },
   // WRAPS USERNAME ROW
   inputNestedRowView: {
@@ -62,7 +64,7 @@ const styles = StyleSheet.create({
   },
   innerText: {
     fontFamily: 'DotGothic',
-    fontSize: 16,
+    fontSize: scale(14),
     marginTop: 'auto',
     marginBottom: 'auto',
     textAlign: 'center'
@@ -121,14 +123,15 @@ function Homescreen(props) {
 
         <PixelButton>
           <TextInput
-            style={{height: '100%', width: '100%', textAlign: 'center', fontFamily: 'DotGothic', fontSize: 16}}
-            placeholder={'username'}
+            style={{height: '100%', width: '100%', textAlign: 'center', fontFamily: 'DotGothic', fontSize: scale(16)}}
+            placeholder={'Enter username'}
+            maxLength={15}
             onChangeText={value => handleUsernameChange(value)}
           />
         </PixelButton>
 
         {validUsername &&
-        <PixelButton buttonStyle={{ marginLeft: 20, width: 80}}>
+        <PixelButton buttonStyle={{ marginLeft: scale(16), width: scale(60)}}>
           <Pressable style={styles.goButton} onPress={handleGo}>
             <Text style={styles.innerText}>Go!</Text>
           </Pressable>
@@ -139,7 +142,7 @@ function Homescreen(props) {
 
 
       <View style={styles.bottomNestedRowView}>
-        <PixelButton buttonStyle={{width: 150}}>
+        <PixelButton buttonStyle={{width: scale(120)}}>
           <Pressable
             onPress={() => {
               props.playSound('click')

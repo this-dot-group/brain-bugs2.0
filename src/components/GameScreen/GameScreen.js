@@ -8,7 +8,7 @@ import Countdown from '../Countdown/Countdown';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import { QUESTION_TIME } from '../../../config';
 import { PixelButton } from '../Shared';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { scale, moderateScale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   container: {
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   answerOptionPressables: {
-    width: '35%',
+    width: '28%',
     height: '80%',
   },
   nonSelectedAnswer: {
