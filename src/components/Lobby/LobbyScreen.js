@@ -10,6 +10,7 @@ import { newOpponent, newGameCode } from '../../store/userReducer';
 import { newGame } from '../../store/gameInfoReducer';
 import { playSound } from '../../store/soundsReducer'
 import PixelButton from '../Shared/PixelButton'
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   root: {
@@ -29,11 +30,11 @@ const styles = StyleSheet.create({
   greeting: {
     fontFamily: 'VT323',
     marginBottom: 40,
-    fontSize: 60
+    fontSize: scale(50)
   },
   innerText: {
     fontFamily: 'DotGothic',
-    fontSize: 16,
+    fontSize: scale(14),
     marginTop: 'auto',
     marginBottom: 'auto',
     textAlign: 'center'
@@ -106,7 +107,7 @@ function StartScreen(props) {
     <View style={styles.root}>
       <Text style={styles.greeting}> WELCOME {props.userName.toUpperCase()}! </Text>
 
-      <PixelButton buttonStyle={{marginBottom: 30}}>
+      <PixelButton buttonStyle={{marginBottom: scale(24)}}>
         <Pressable
           onPress={() => handleModalChange('start')}
           style={{height: '100%', width: '100%'}}
@@ -120,7 +121,7 @@ function StartScreen(props) {
         modalVisible={modalVisible}
       />
 
-      <PixelButton buttonStyle={{marginBottom: 30}}>
+      <PixelButton buttonStyle={{marginBottom: scale(24)}}>
         <Pressable
           onPress={() => handleModalChange('join')}
           style={{height: '100%', width: '100%'}}
