@@ -1,6 +1,6 @@
 import React from 'react';
-
 import { Text, Pressable, View, StyleSheet } from 'react-native';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   root: {
@@ -8,25 +8,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent:'center',
     flexDirection: 'row',
-    marginBottom: 20,
+    marginBottom: scale(18),
     position: 'relative'
   },
   text: {
     textAlign: 'center',
-    fontSize: 25,
+    fontSize: scale(25),
     fontFamily: 'VT323'
   },
   closeModalButton: {
-    height: 30,
-    width: 30,
-    borderRadius: 10,
+    height: scale(26),
+    width: scale(26),
+    borderRadius: scale(8),
     borderColor: 'black',
     borderWidth: 2,
     padding: 0,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 10,
+    marginLeft: scale(10),
     position: 'absolute',
     top: 0,
     right: 0,

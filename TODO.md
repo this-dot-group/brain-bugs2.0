@@ -19,12 +19,16 @@ Josh:
 Tia: 
 - [x] Use font scaling library
   - build for standard device, will scale on others
+    - [ ] join existing game
+    - [ ] join private game
+    - [ ] everything after lobby screen (except game screen)
 - [x] Checking for # of characters based on above, eliminate questions and answers based on that
+  - TEST: how do the changes in gameInfoReducer affect maxing out a category?
+  - TEST: Can we test categoryExpired state in fetchAndFormatQuestionObjects?
 - [x] Fix right side answer alignment
 - [x] Fix right side submit btn alignment
 - [ ] BUG: not sure rematch works anymore?
-- [ ] Test out chat
-- [ ] Can we test categoryExpired state in fetchAndFormatQuestionObjects?
+- [ ] TEST: chat
 - [ ] Limit username input char #
 - [ ] Disable all buttons between questions
 - [ ] If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
