@@ -19,14 +19,16 @@ Josh:
 Tia: 
 - [ ] Checking for # of characters to decide font size (or try adjustsFontSizeToFit on <Text>)
   - See config for `Dimensions`
-- [ ] Fix right side answer alignment
-
+- [x] Fix right side answer alignment
+- [x] Fix right side submit btn alignment
 - [ ] BUG: not sure rematch works anymore?
 - [ ] Test out chat
+- [ ] Limit username input char #
  
 - [ ] Disable all buttons between questions
 - [ ] If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
- 
+ answers: 42 characters
+ question: 90 characters
 
  Ideas
 - [ ] Breakpoints for different device sizes, and rejecting questions based on nmber of characters in answers
