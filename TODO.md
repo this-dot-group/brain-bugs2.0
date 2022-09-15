@@ -21,17 +21,17 @@ Tia:
   - build for standard device, will scale on others
     - [ ] join existing game
     - [ ] join private game
-    - [ ] everything after lobby screen (except game screen)
+    - [ ] check everything after lobby screen (except game screen)
+    - [ ] TEST in other sim devices
 - [x] Checking for # of characters based on above, eliminate questions and answers based on that
-  - TEST: how do the changes in gameInfoReducer affect maxing out a category?
-  - TEST: Can we test categoryExpired state in fetchAndFormatQuestionObjects?
+  - [ ] call with numQuestions first, deficit on subsequent calls
 - [x] Fix right side answer alignment
 - [x] Fix right side submit btn alignment
-- [ ] BUG: not sure rematch works anymore?
-- [ ] TEST: chat
 - [x] Limit username input char #
 - [x] Disable all buttons between questions
 - [x] If you click an answer and submit after the time has run out, it will lock in that answer index for the next question (disable answer pressables and hide submit button after its been used)
+- [ ] BUG: not sure rematch works anymore?
+- [ ] TEST: chat
 
 
  Ideas
