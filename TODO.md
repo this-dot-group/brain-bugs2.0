@@ -29,9 +29,9 @@ Tia:
 - [x] Fix right side submit btn alignment
 - [ ] BUG: not sure rematch works anymore?
 - [ ] TEST: chat
-- [ ] Limit username input char #
-- [ ] Disable all buttons between questions
-- [ ] If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
+- [x] Limit username input char #
+- [x] Disable all buttons between questions
+- [x] If you click an answer and submit after the time has run out, it will lock in that answer index for the next question (disable answer pressables and hide submit button after its been used)
 
 
  Ideas

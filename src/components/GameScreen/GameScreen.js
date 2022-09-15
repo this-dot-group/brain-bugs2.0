@@ -372,7 +372,7 @@ function GameScreen(props) {
                   style={chooseColor(ansObjForRendering[0].index)}
 
                   key={ansObjForRendering[0].index}
-                  disabled={submitted >= 0}>
+                  disabled={displayAnswer}>
                   <Text
                     style={styles.answerText}>
                     {he.decode(ansObjForRendering[0].answer)}
@@ -436,7 +436,7 @@ function GameScreen(props) {
                   style={chooseColor(ansObjForRendering[1].index)}
 
                   key={ansObjForRendering[1].index}
-                  disabled={submitted >= 0}>
+                  disabled={displayAnswer}>
                   <Text
                     style={styles.answerText}>
                     {he.decode(ansObjForRendering[1].answer)}
@@ -452,7 +452,7 @@ function GameScreen(props) {
           <View
             style={styles.middleRowView}
           >
-            {(selected === 0 || selected === 2) 
+            {(selected === 0 || selected === 2) && submitted === -1 
               ?  <View style={styles.submitButtonView}>
                   <PixelButton buttonStyle={{ width: scale(70), height: scale(50) }}>
                     <Pressable
@@ -460,6 +460,7 @@ function GameScreen(props) {
                         handleAnsPress(formattedQuestionInfo.answers[selected], selected)
                       }}
                       style={styles.submitButton}
+                      disabled={displayAnswer}
                     >
                       <Text
                         style={styles.submitText}>
@@ -486,7 +487,7 @@ function GameScreen(props) {
               
         
 
-            {(selected === 1 || selected === 3 ) 
+            {(selected === 1 || selected === 3) && submitted === -1 
               ?  <View style={styles.submitButtonView}>
                 <PixelButton buttonStyle={{ width: scale(70), height: scale(50) }}>
                   <Pressable
@@ -494,6 +495,7 @@ function GameScreen(props) {
                       handleAnsPress(formattedQuestionInfo.answers[selected], selected)
                     }}
                     style={styles.submitButton}
+                    disabled={displayAnswer}
                   >
                     <Text
                       style={styles.submitText}>
@@ -531,7 +533,7 @@ function GameScreen(props) {
                     style={chooseColor(ansObjForRendering[2].index)}
 
                     key={ansObjForRendering[2].index}
-                    disabled={submitted >= 0}>
+                    disabled={displayAnswer}>
                     <Text
                       style={styles.answerText}>
                       {he.decode(ansObjForRendering[2].answer)}
@@ -563,7 +565,7 @@ function GameScreen(props) {
                     style={chooseColor(ansObjForRendering[3].index)}
 
                     key={ansObjForRendering[3].index}
-                    disabled={submitted >= 0}>
+                    disabled={displayAnswer}>
                     <Text
                       style={styles.answerText}>
                       {he.decode(ansObjForRendering[3].answer)}
