@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet, View, Text } from 'react-native';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const getStyles = (
   buttonStyle,
@@ -86,14 +87,15 @@ function PixelButton({ onPress, children, buttonStyle = {}, textStyle = {}, vari
     buttonStyle = {
       backgroundColor: 'green',
       borderColor: 'green',
-      width: 50,
-      height: 50,
+      width: scale(40),
+      height: scale(40),
       ...buttonStyle
     }
     textStyle = {
       color: 'white',
       fontWeight: 'bold',
-      fontSize: 20,
+      fontFamily: 'DotGothic',
+      fontSize: scale(16),
       ...textStyle
     }
   }

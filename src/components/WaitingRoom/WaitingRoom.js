@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 
   alertText: {
     fontFamily: 'DotGothic',
-    fontSize: 20,
+    fontSize: scale(18),
     color: 'red',
     alignSelf: 'flex-end',
     marginRight: 10
