@@ -1,5 +1,6 @@
 import React from 'react';
 import { KeyboardAvoidingView, StyleSheet, Platform } from 'react-native';
+
 const getStyles = style => StyleSheet.create({
   container: {
     flex: 1,
@@ -7,11 +8,10 @@ const getStyles = style => StyleSheet.create({
   }
 });
 
-const keyboardVerticalOffset = Platform.OS === 'ios' ? 70 : 0
-
 const KeyboardAvoidingComponent = (props) => {
+  const { children, style, offset } = props;
 
-  const { children, style } = props;
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? offset ?? 70 : 0;
 
   const styles = getStyles(style)
 

@@ -270,24 +270,10 @@ const WaitingRoom = (props) => {
         
         </View>
 
-        <Modal
-          transparent={true}
+        <HowToPlayModal 
           visible={modalVisible}
-          supportedOrientations={['landscape']}
-        >
-          <View
-            style={styles.modalView}>
-            <HowToPlayModal />
-            <Pressable
-              style={styles.HowToPlayModalButton}
-              onPress={() => {
-                setModalVisible(!modalVisible)
-              }}
-            >
-              <Text>Hide</Text>
-            </Pressable>
-          </View>
-        </Modal>      
+          setVisible={setModalVisible}
+        />
 
         {backToLobby && <Redirect to='/lobby' />}
         

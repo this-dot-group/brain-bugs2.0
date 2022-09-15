@@ -32,7 +32,8 @@ export const newSound = (sound, name) => {
 
 export const playSound = soundName => {
   return async (_dispatch, getState) => {
-    const { soundsReducer } = getState();
+    const { soundsReducer, isMuted } = getState();
+    if(isMuted) return;
     try {
       await soundsReducer[soundName].replayAsync();
     } catch (e) {

@@ -10,11 +10,11 @@ Josh:
 - [ ] LAYOUT: Chat
   - [ ] Scroll while keyboard is active
   - [ ] Move the bottom of the convo up when activated
-- [ ] Make sure you can see input on home when typing
+- [x] Make sure you can see input on home when typing
 
 - [ ] Feedback to user on category selection (loading circle until categories load in?)
   - [ ] React Native Dropdown Picker https://hossein-zare.github.io/react-native-dropdown-picker-website/docs/advanced/loading
-- [ ] How To Play Modal
+- [x] How To Play Modal
 
 Tia: 
 - [x] Use font scaling library
@@ -48,7 +48,8 @@ Tia:
  - Maybe this is caused by expo go
  - If a pivate game is cancelled after other player has already entered code but not pressed go, it appears that the game is still there
  - Show Go not working on start modal on lobby screen on iphone for two player games
-
+- Error wth leaving waiting room screen
+- Seems that game is not cancelled when one player leaves the countdown screen
 
 
 ## Code / Fit & finish
@@ -94,6 +95,9 @@ Tia:
     - gameplay: hourglass icon
     - game end, rematch request: "Rematch" changes to "Requesting..." 
     - if start game options are still loading: ____________
+- Dropdown buttons should be taller or wider for longer category titles
+- Trophy is not a consistent size
+- Issue with Sounds - I think when it starts on mute
 
 ## Improvement ideas
 * Single player fake opponent scoring (right now they get it right 50% of time, random # for points)

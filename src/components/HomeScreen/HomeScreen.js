@@ -5,20 +5,17 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-native';
 import socketIO from 'socket.io-client';
 
+// modular styles
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import MuteButton from '../MuteButton/MuteButton';
-import { PixelButton } from '../Shared';
+import { PixelButton, KeyboardAvoidingComponent, Hider } from '../Shared';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-
-
-// modular styles
-import { Buttons, Images, Views, Typography, Colors } from '../../styles/'
+import { Views } from '../../styles/';
 import { newSocket } from '../../store/socketReducer.js';
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer';
 import { playSound } from '../../store/soundsReducer';
 import { newUsername, newGameCode, newSocketId, newToken } from '../../store/userReducer.js';
 import { EXPO_LOCAL_URL } from '../../../env'
-import { StyledInput } from '../Shared';
 
 
 const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
@@ -60,7 +57,13 @@ const styles = StyleSheet.create({
 
   // USERNAME INPUT
   input: {
-    width: '30%',
+    height: '100%',
+    flex: 1,
+    fontFamily: 'DotGothic',
+    fontSize: scale(16),
+    paddingLeft: 8,
+    flexDirection: 'row',
+    paddingRight: 0
   },
   innerText: {
     fontFamily: 'DotGothic',
@@ -119,27 +122,34 @@ function Homescreen(props) {
         style={styles.logoImg} />
       <Text style={styles.logoText}>BRAIN BUGS</Text>  
 
+
+    <KeyboardAvoidingComponent
+      offset={0}
+      style={{ backgroundColor: 'transparent' }}
+    >
       <View style={styles.inputNestedRowView}>
 
-        <PixelButton>
+        <PixelButton buttonStyle={{width: 300, flexDirection: 'row'}}>
           <TextInput
-            style={{height: '100%', width: '100%', textAlign: 'center', fontFamily: 'DotGothic', fontSize: scale(16)}}
+            style={styles.input}
             placeholder={'Enter username'}
             maxLength={15}
             onChangeText={value => handleUsernameChange(value)}
           />
         </PixelButton>
 
-        {validUsername &&
-        <PixelButton buttonStyle={{ marginLeft: scale(16), width: scale(60)}}>
-          <Pressable style={styles.goButton} onPress={handleGo}>
-            <Text style={styles.innerText}>Go!</Text>
-          </Pressable>
-        </PixelButton>
-        }
-       
+        <Hider
+          show={validUsername}
+          style={{ transform: [{translateX: 8 }], zIndex: 1, position: 'relative' }}
+        >
+          <PixelButton buttonStyle={{ width: scale(70) }}>
+            <Pressable onPress={handleGo}>
+              <Text style={styles.innerText}>Go!</Text>
+            </Pressable>
+          </PixelButton>
+        </Hider>
       </View>
-
+      </KeyboardAvoidingComponent>
 
       <View style={styles.bottomNestedRowView}>
         <PixelButton buttonStyle={{width: scale(120)}}>
@@ -154,25 +164,10 @@ function Homescreen(props) {
           </Pressable>
         </PixelButton>
 
-        <Modal
-          transparent={true}
+        <HowToPlayModal
           visible={modalVisible}
-          supportedOrientations={['landscape']}
-        >
-          <View
-            style={styles.modalView}>
-            <HowToPlayModal />
-            <Pressable
-              style={styles.howToPlayModalButton}
-              onPress={() => {
-                props.playSound('click')
-                setModalVisible(!modalVisible)
-              }}
-            >
-              <Text>Hide</Text>
-            </Pressable>
-          </View>
-        </Modal>
+          setVisible={setModalVisible}
+        />
 
         <View style={styles.muteIconWrapper}>
           <MuteButton/>
