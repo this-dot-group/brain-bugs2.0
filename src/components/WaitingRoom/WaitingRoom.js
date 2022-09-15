@@ -179,14 +179,16 @@ const WaitingRoom = (props) => {
           gamePhase='waiting_room' />
 
         <View style={styles.topRowView}>
-          <PixelButton buttonStyle={{width: scale(120)}}>
-            <Pressable
-              onPress={cancelGame}
-              style={{height: '100%', width: '100%'}}
-            >
-              <Text style={styles.innerText}>Cancel Game</Text>
-            </Pressable> 
-          </PixelButton>
+          {!showNoMoreQuestionsOptions && (
+            <PixelButton buttonStyle={{width: scale(120)}}>
+              <Pressable
+                onPress={cancelGame}
+                style={{height: '100%', width: '100%'}}
+              >
+                <Text style={styles.innerText}>Cancel Game</Text>
+              </Pressable> 
+            </PixelButton>
+          )}
 
           {props.publicOrPrivate === 'private' && (
             <PixelButton>
@@ -225,19 +227,46 @@ const WaitingRoom = (props) => {
         <Spinner />
 
         <View style={styles.bottomRowView}>
-          <PixelButton buttonStyle={{width: scale(120)}}>
-            <Pressable
-                onPress={() => {
-                  setModalVisible(true);
-                }}
+          {!showNoMoreQuestionsOptions && (
+            <PixelButton buttonStyle={{width: scale(120)}}>
+              <Pressable
+                  onPress={() => {
+                    setModalVisible(true);
+                  }}
+                  style={{height: '100%', width: '100%'}}
+              >
+                <Text style={styles.innerText}>How To Play</Text>
+              </Pressable>  
+           </PixelButton>
+          )}
+
+        {showNoMoreQuestionsOptions && 
+          <View style={styles.bottomRowView}>
+            <Text style={styles.innerText}>You have played all the questions in this category!</Text>
+
+            <PixelButton buttonStyle={{width: scale(150), height: scale(60)}}>
+              <Pressable
                 style={{height: '100%', width: '100%'}}
-            >
-              <Text style={styles.innerText}>How To Play</Text>
-            </Pressable>  
+                onPress={resetGameToken}
+              >
+                <Text style={styles.innerText}>Play this category, repeat questions</Text>
+              </Pressable> 
+            </PixelButton>
+
+            <PixelButton buttonStyle={{width: scale(120), height: scale(60), marginRight: scale(22)}}>
+              <Pressable
+                style={{height: '100%', width: '100%'}}
+                onPress={() => setBackToLobby(true)}
+              >
+                <Text style={styles.innerText}>Back to lobby, new category</Text>
+              </Pressable>
           </PixelButton>
-
-
-          <MuteButton/>
+          </View>
+        }
+  
+          <View style={{marginTop: 'auto', marginBottom: 'auto'}}>
+            <MuteButton />
+          </View>
         
         </View>
 
@@ -258,28 +287,7 @@ const WaitingRoom = (props) => {
               <Text>Hide</Text>
             </Pressable>
           </View>
-        </Modal>
-
-
-        {/* TODO: sim below scenario to see styling */}
-        {showNoMoreQuestionsOptions && 
-          <View>
-            <Text>You have played all the questions in this category!</Text>
-            <Pressable
-              style={styles.gameCodeCopyButton}
-              onPress={resetGameToken}
-            >
-              <Text>Play this category with repeated questions</Text>
-            </Pressable>
-            <Pressable
-              style={styles.gameCodeCopyButton}
-              onPress={() => setBackToLobby(true)}
-            >
-              <Text>Go back to lobby to choose a new category</Text>
-            </Pressable>
-
-          </View>
-        }
+        </Modal>      
 
         {backToLobby && <Redirect to='/lobby' />}
         
