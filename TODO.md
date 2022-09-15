@@ -17,6 +17,7 @@ Josh:
 - [x] How To Play Modal
 
 Tia: 
+ESLINT!
 - [x] Use font scaling library
   - build for standard device, will scale on others
     - [ ] join existing game
