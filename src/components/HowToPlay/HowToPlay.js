@@ -99,7 +99,7 @@ function HowToPlay(props) {
         <PixelButton buttonStyle={{width: 150}}>
           <Pressable
             onPress={() => {
-              props.playSound('click')
+              playSound('click')
               setModalVisible(true);
             }}
           >
@@ -107,25 +107,11 @@ function HowToPlay(props) {
           </Pressable>
         </PixelButton>
 
-        <Modal
-          transparent={true}
+        <HowToPlayModal
           visible={modalVisible}
-          supportedOrientations={['landscape']}
-        >
-          <View
-            style={styles.modalView}>
-            <HowToPlayModal />
-            <Pressable
-              style={styles.howToPlayModalButton}
-              onPress={() => {
-                playSound('click')
-                setModalVisible(!modalVisible)
-              }}
-            >
-              <Text>Hide</Text>
-            </Pressable>
-          </View>
-        </Modal>
+          setVisible={setModalVisible}
+        />
+
         <MuteButton />
       </View>
       

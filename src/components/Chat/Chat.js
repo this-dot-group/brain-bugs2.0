@@ -2,8 +2,8 @@ import { View, Text, StyleSheet, ScrollView, Keyboard } from 'react-native';
 import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Chat as ChatStyles } from '../../styles';
-import KeyboardAvoidingComponent from './KeyboardAvoiding';
-import { TitleBar, PixelButton, StyledInput } from '../Shared';
+// import  from '../Shared';
+import { TitleBar, PixelButton, StyledInput, KeyboardAvoidingComponent } from '../Shared';
 
 const styles = StyleSheet.create({
   root: {
@@ -68,7 +68,7 @@ function Chat({ setShowChat, socket, socketId, gameCode, user, setUnseenMessages
   }
 
   return (
-    <View style={styles.root}     >
+    <View style={styles.root}>
       <TitleBar
         cb={hideModal}
       />
@@ -125,7 +125,9 @@ function Chat({ setShowChat, socket, socketId, gameCode, user, setUnseenMessages
               buttonStyle={{ width: 100}}
               onPress={sendMessage}
             >
-              Send
+              <Text>
+                Send
+              </Text>
             </PixelButton>
           </ScrollView>
         </KeyboardAvoidingComponent>
