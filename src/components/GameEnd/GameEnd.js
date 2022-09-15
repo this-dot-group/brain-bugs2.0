@@ -11,7 +11,7 @@ import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import { PixelButton, GenericModal } from '../Shared';
 import MuteButton from '../MuteButton/MuteButton';
 import { windowHeight } from '../../../config';
-
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   root: {
@@ -37,17 +37,17 @@ const styles = StyleSheet.create({
   },
   score: {
     alignItems: 'center',
-    marginHorizontal: 20,
+    marginHorizontal: scale(20),
     position: 'relative',
-    paddingBottom: 70
+    paddingBottom: scale(70)
   },
   scoreText: {
     fontFamily: 'VT323',
-    fontSize: 40,
+    fontSize: scale(40),
   },
   trophy: {
-    height: 60,
-    width: 60,
+    height: scale(55),
+    width: scale(55),
     position: 'absolute',
     bottom: 0
   },
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
   innerText: {
     fontFamily: 'DotGothic',
-    fontSize: 16,
+    fontSize: scale(16),
     marginTop: 'auto',
     marginBottom: 'auto',
     textAlign: 'center'
@@ -353,7 +353,7 @@ function GameEnd(props) {
         </View>
       </View>
       <View style={styles.buttonRow}>
-        <PixelButton>
+        <PixelButton buttonStyle={{width: scale(120)}}>
           <Pressable
             onPress={leaveRoomAndGoToLobby}
             style={{height: '100%', width: '100%'}}

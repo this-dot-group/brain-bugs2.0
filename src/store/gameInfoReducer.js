@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { EXPO_LOCAL_URL } from '../../env'
+import he from 'he';
 
 export default (state = {}, action) => {
 
   const { type, payload } = action;
-  // console.log(state);
  
   switch (type) {
 
@@ -87,16 +87,56 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired)
   return async (dispatch, getState) => {
     try {
       const { userReducer: { token } } = getState();
-      const response = await axios.get(`http://${EXPO_LOCAL_URL}:3000/questions/${id}/${numQuestions}/${tokenForRematch || token}`);
-      // console.log(response.data)
-      if(!response.data || !response.data.length) {
-        categoryExpired();
-        return;
+
+      let origResponse;
+
+      async function fetchAndFormatQuestionObjects() {
+
+        const response = await axios.get(`http://${EXPO_LOCAL_URL}:3000/questions/${id}/${numQuestions + 10}/${tokenForRematch || token}`)
+
+        if(!response.data || !response.data.length) {
+          categoryExpired();
+          return;
+        }
+
+        origResponse = response
+
+        // filter out objects with questions and correct answers that have too many characters
+        const withoutLongQuestions = response.data.filter(obj => he.decode(obj.question).length <= 80)
+        const formattedData = withoutLongQuestions.filter(obj => he.decode(obj.correct_answer).length <= 38)
+
+        // filter out objects with incorrect answers that have too many characters
+        for (var i = formattedData.length - 1; i >= 0; --i) {
+          formattedData[i].incorrect_answers.forEach(ans => {
+              if(he.decode(ans).length > 42){formattedData.splice(i, 1)}
+            })
+          }
+
+        if(formattedData.length < numQuestions) {
+          fetchAndFormatQuestionObjects()
+        }
+
+        let correctNumQuestions;
+        
+        if(formattedData.length > numQuestions){
+          const howManyToSlice = formattedData.length - numQuestions
+          return correctNumQuestions = formattedData.slice(howManyToSlice)
+        } else {
+          return formattedData
+        } 
       }
+
+      const data = await fetchAndFormatQuestionObjects();
+
       dispatch({
         type: 'GET_QUESTIONS',
-        payload: response.data,
+        payload: data,
       });
+
+      // need to return the original response here so the catch block has access to clean
+      //  e.response.data, since we're accessing and manipulating it above
+      return origResponse
+
     } catch(e) {
       if(e.response.data === 'Invalid status code: 4') {
         console.log(e.response.data);

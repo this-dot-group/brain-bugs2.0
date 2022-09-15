@@ -17,16 +17,23 @@ Josh:
 - [x] How To Play Modal
 
 Tia: 
-- [ ] Checking for # of characters to decide font size (or try adjustsFontSizeToFit on <Text>)
-  - See config for `Dimensions`
-- [ ] Fix right side answer alignment
-
+ESLINT!
+- [x] Use font scaling library
+  - build for standard device, will scale on others
+    - [ ] join existing game
+    - [ ] join private game
+    - [ ] check everything after lobby screen (except game screen)
+    - [ ] TEST in other sim devices
+- [x] Checking for # of characters based on above, eliminate questions and answers based on that
+  - [ ] call with numQuestions first, deficit on subsequent calls
+- [x] Fix right side answer alignment
+- [x] Fix right side submit btn alignment
+- [x] Limit username input char #
+- [x] Disable all buttons between questions
+- [x] If you click an answer and submit after the time has run out, it will lock in that answer index for the next question (disable answer pressables and hide submit button after its been used)
 - [ ] BUG: not sure rematch works anymore?
-- [ ] Test out chat
- 
-- [ ] Disable all buttons between questions
-- [ ] If you click an answer and submit after the time has run out, it will lock in that answer index for the next question
- 
+- [ ] TEST: chat
+
 
  Ideas
 - [ ] Breakpoints for different device sizes, and rejecting questions based on nmber of characters in answers

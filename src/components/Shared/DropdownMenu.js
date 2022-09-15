@@ -3,17 +3,18 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { gray } from '../../styles/colors';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
-    fontSize: 30,
+    fontSize: scale(28),
     fontFamily: 'VT323'
   },
   item: {
     alignSelf: 'center',
     width: '80%',
-    marginTop: 8
+    marginTop: scale(4)
   },
 });
 

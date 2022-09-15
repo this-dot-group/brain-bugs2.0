@@ -9,8 +9,8 @@ import socketIO from 'socket.io-client';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import MuteButton from '../MuteButton/MuteButton';
 import { PixelButton, KeyboardAvoidingComponent, Hider } from '../Shared';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { Views } from '../../styles/';
-
 import { newSocket } from '../../store/socketReducer.js';
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer';
 import { playSound } from '../../store/soundsReducer';
@@ -34,13 +34,13 @@ const styles = StyleSheet.create({
   },
   // BIG IMAGE
   logoImg: {
-    width: 120,
-    height: 120,
+    width: scale(100),
+    height: scale(100),
   },
   // NAME TEXT
   logoText:{
     fontFamily: 'DotGothic',
-    fontSize: 60
+    fontSize: scale(54)
   },
   // WRAPS USERNAME ROW
   inputNestedRowView: {
@@ -60,14 +60,14 @@ const styles = StyleSheet.create({
     height: '100%',
     flex: 1,
     fontFamily: 'DotGothic',
-    fontSize: 16,
+    fontSize: scale(16),
     paddingLeft: 8,
     flexDirection: 'row',
     paddingRight: 0
   },
   innerText: {
     fontFamily: 'DotGothic',
-    fontSize: 16,
+    fontSize: scale(14),
     marginTop: 'auto',
     marginBottom: 'auto',
     textAlign: 'center'
@@ -122,36 +122,37 @@ function Homescreen(props) {
         style={styles.logoImg} />
       <Text style={styles.logoText}>BRAIN BUGS</Text>  
 
-      <KeyboardAvoidingComponent
-        offset={0}
-        style={{ backgroundColor: 'transparent' }}
-      >
-        <View style={styles.inputNestedRowView}>
-          <PixelButton
-            buttonStyle={{width: 300, flexDirection: 'row'}}
-          >
-            <TextInput
-              style={styles.input}
-              placeholder={'username'}
-              onChangeText={value => handleUsernameChange(value)}
-            />
-            <Hider
-              show={validUsername}
-              style={{ transform: [{translateX: 8 }], zIndex: 1, position: 'relative' }}
-            >
-              <PixelButton buttonStyle={{ width: 80 }}>
-                <Pressable onPress={handleGo}>
-                  <Text style={styles.innerText}>Go!</Text>
-                </Pressable>
-              </PixelButton>
-            </Hider>
+
+    <KeyboardAvoidingComponent
+      offset={0}
+      style={{ backgroundColor: 'transparent' }}
+    >
+      <View style={styles.inputNestedRowView}>
+
+        <PixelButton buttonStyle={{width: 300, flexDirection: 'row'}}>
+          <TextInput
+            style={styles.input}
+            placeholder={'Enter username'}
+            maxLength={15}
+            onChangeText={value => handleUsernameChange(value)}
+          />
+        </PixelButton>
+
+        <Hider
+          show={validUsername}
+          style={{ transform: [{translateX: 8 }], zIndex: 1, position: 'relative' }}
+        >
+          <PixelButton buttonStyle={{ width: scale(70) }}>
+            <Pressable onPress={handleGo}>
+              <Text style={styles.innerText}>Go!</Text>
+            </Pressable>
           </PixelButton>
-        </View>
+        </Hider>
+      </View>
       </KeyboardAvoidingComponent>
 
-
       <View style={styles.bottomNestedRowView}>
-        <PixelButton buttonStyle={{width: 150}}>
+        <PixelButton buttonStyle={{width: scale(120)}}>
           <Pressable
             onPress={() => {
               props.playSound('click')
