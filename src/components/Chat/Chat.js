@@ -1,8 +1,7 @@
-import { View, Text, StyleSheet, ScrollView, Keyboard } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Keyboard, Pressable } from 'react-native';
 import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Chat as ChatStyles } from '../../styles';
-// import  from '../Shared';
 import { TitleBar, PixelButton, StyledInput, KeyboardAvoidingComponent } from '../Shared';
 
 const styles = StyleSheet.create({
@@ -14,6 +13,7 @@ const styles = StyleSheet.create({
   content: {
     position: 'relative',
     flex: 1,
+    paddingTop: 10,
     paddingBottom: 50,
     height: '100%'
   },
@@ -28,6 +28,15 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     marginRight: 10,
     backgroundColor: 'white'
+  },
+  button: {
+    height: '100%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonText: {
+    fontFamily: 'DotGothic'
   }
 })
 
@@ -95,7 +104,6 @@ function Chat({ setShowChat, socket, socketId, gameCode, user, setUnseenMessages
                     : {...styles.messages, ...styles.opponentMessages}
                 }
               >{message}</Text>
-
             )}
           </KeyboardAvoidingComponent>
         </ScrollView>
@@ -122,12 +130,13 @@ function Chat({ setShowChat, socket, socketId, gameCode, user, setUnseenMessages
               style={styles.input}
             />
             <PixelButton
-              buttonStyle={{ width: 100}}
-              onPress={sendMessage}
+              buttonStyle={{ width: 100 }}
             >
-              <Text>
-                Send
-              </Text>
+              <Pressable onPress={sendMessage} style={styles.button}>
+                <Text style={styles.buttonText}>
+                  Send
+                </Text>
+              </Pressable>
             </PixelButton>
           </ScrollView>
         </KeyboardAvoidingComponent>

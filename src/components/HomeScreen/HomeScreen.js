@@ -84,18 +84,10 @@ function Homescreen(props) {
 
   useEffect(() => {
     props.newSocket(socket)
+    props.newSocketId(socket.id)
     props.newFakeOpponent(fakeOpponentSocket);
-    socket.on('shareId', setSocketId)
     props.newToken();
-
-    return () => socket.off('shareId', setSocketId)
-
   }, [])
-
-  const setSocketId = id => {
-    console.log('in setSocketID', id)
-    props.newSocketId(id);
-  }
 
   const handleUsernameChange = (username) => {
 
