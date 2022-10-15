@@ -353,7 +353,7 @@ function GameEnd(props) {
         </View>
       </View>
       <View style={styles.buttonRow}>
-        <PixelButton buttonStyle={{width: scale(120)}}>
+        <PixelButton>
           <Pressable
             onPress={leaveRoomAndGoToLobby}
             style={{height: '100%', width: '100%'}}
