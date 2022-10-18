@@ -25,7 +25,7 @@ ESLINT!
     - [ ] check everything after lobby screen (except game screen)
     - [ ] TEST in other sim devices
 - [x] Checking for # of characters based on above, eliminate questions and answers based on that
-  - [ ] call with numQuestions first, deficit on subsequent calls
+  - [x] call with numQuestions first, deficit on subsequent calls
 - [x] Fix right side answer alignment
 - [x] Fix right side submit btn alignment
 - [x] Limit username input char #

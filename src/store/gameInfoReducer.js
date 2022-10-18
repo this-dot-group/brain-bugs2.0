@@ -90,9 +90,15 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired)
 
       let origResponse;
 
-      async function fetchAndFormatQuestionObjects() {
+      // TODO: read through the below re pushing to formattedData array. should this work??
 
-        const response = await axios.get(`http://${EXPO_LOCAL_URL}:3000/questions/${id}/${numQuestions + 10}/${tokenForRematch || token}`)
+      let formattedData = []
+
+      async function fetchAndFormatQuestionObjects(number) {
+
+        console.log("number in beginning:", number)
+
+        const response = await axios.get(`http://${EXPO_LOCAL_URL}:3000/questions/${id}/${number}/${tokenForRematch || token}`)
 
         if(!response.data || !response.data.length) {
           categoryExpired();
@@ -103,38 +109,42 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired)
 
         // filter out objects with questions and correct answers that have too many characters
         const withoutLongQuestions = response.data.filter(obj => he.decode(obj.question).length <= 80)
-        const formattedData = withoutLongQuestions.filter(obj => he.decode(obj.correct_answer).length <= 38)
+
+        console.log("withoutLongQuestions 1:", withoutLongQuestions.length)
+
+        let withoutLongQsAndAs = withoutLongQuestions.filter(obj => he.decode(obj.correct_answer).length <= 38)
+
+        console.log("withoutLongQsAndAs 1:", withoutLongQsAndAs.length)
 
         // filter out objects with incorrect answers that have too many characters
-        for (var i = formattedData.length - 1; i >= 0; --i) {
-          formattedData[i].incorrect_answers.forEach(ans => {
-              if(he.decode(ans).length > 42){formattedData.splice(i, 1)}
+        for (var i = withoutLongQsAndAs.length - 1; i >= 0; --i) {
+          withoutLongQsAndAs[i].incorrect_answers.forEach(ans => {
+              if(he.decode(ans).length > 42){withoutLongQsAndAs.splice(i, 1)}
             })
           }
 
-        if(formattedData.length < numQuestions) {
-          fetchAndFormatQuestionObjects()
-        }
+        console.log("withoutLongQsAndAs 2:", withoutLongQsAndAs.length)
 
-        let correctNumQuestions;
-        
-        if(formattedData.length > numQuestions){
-          const howManyToSlice = formattedData.length - numQuestions
-          return correctNumQuestions = formattedData.slice(howManyToSlice)
-        } else {
-          return formattedData
-        } 
+        withoutLongQsAndAs.forEach(obj => formattedData.push(obj))
+
+        if(withoutLongQsAndAs.length < number) {
+          const newNumToFetch = number - withoutLongQsAndAs.length
+          await fetchAndFormatQuestionObjects(newNumToFetch)
+        }   
       }
 
-      const data = await fetchAndFormatQuestionObjects();
+
+      await fetchAndFormatQuestionObjects(numQuestions)
+
+
+      console.log("formattedData after fn:", formattedData.length)
 
       dispatch({
         type: 'GET_QUESTIONS',
-        payload: data,
+        payload: formattedData,
       });
 
-      // need to return the original response here so the catch block has access to clean
-      //  e.response.data, since we're accessing and manipulating it above
+      // need to return the original response here so the catch block has access to clean e.response.data, since we're accessing and manipulating it above
       return origResponse
 
     } catch(e) {
