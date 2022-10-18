@@ -470,7 +470,7 @@ function GameScreen(props) {
                   </PixelButton>
                   </View>
               : <View style={styles.submitButtonView}>
-                  {waiting.boolean === true && displayAnswer !== true && (selected === 1 || selected === 3) &&
+                  {waiting.boolean === true && displayAnswer !== true && (selected === 0 || selected === 2) &&
                   <Text style={styles.waitingText}>
                       Waiting for other player...
                     </Text>
@@ -505,7 +505,7 @@ function GameScreen(props) {
                 </PixelButton>
                 </View>
               : <View style={styles.submitButtonView}>
-                  {waiting.boolean === true && displayAnswer !== true && (selected === 0 || selected === 2) &&
+                  {waiting.boolean === true && displayAnswer !== true && (selected === 1 || selected === 3) &&
                   <Text style={styles.waitingText}>
                       Waiting for other player...
                     </Text>

@@ -31,8 +31,9 @@ ESLINT!
 - [x] Limit username input char #
 - [x] Disable all buttons between questions
 - [x] If you click an answer and submit after the time has run out, it will lock in that answer index for the next question (disable answer pressables and hide submit button after its been used)
-- [ ] BUG: not sure rematch works anymore?
-- [ ] TEST: chat
+- [x] TEST: chat
+  - [ ] BUG: on android chat bubbles show up on same side
+- [x] UPGRADE SDK to 44
 
 
  Ideas
