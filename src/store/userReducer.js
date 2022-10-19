@@ -66,7 +66,7 @@ const _getToken = async endpoint => {
     const { data: token } = await axios.get(`http://${EXPO_LOCAL_URL}:3000/${endpoint}`);
     return token;
   } catch(e) {
-    console.log(e);
+    console.error(e);
   }
 }
 

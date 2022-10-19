@@ -11,21 +11,16 @@ export default (state = {}, action) => {
   case 'NEW_GAME':
     return payload;
   case 'NEW_CATEGORY':
-    // console.log('category in reducer',payload);
     return {...state, category: payload };
   case 'NUM_PLAYERS':
-    // console.log('num players in reducer',payload);
     return {...state, numPlayers: payload };
   case 'NUM_QUESTIONS':
-    // console.log('num questions in reducer',payload);
     return {...state, numQuestions: payload};
   case 'PUBLIC_OR_PRIVATE':
-    // console.log('public OR private in reducer',payload);
     return {...state, publicOrPrivate: payload};
   case 'PUSH_TOKEN_ALERT_INTERACTION':
     return {...state, pushTokenAlertInteraction: payload}
   case 'GAME_MAKER_PUSH_TOKEN':
-    // console.log('gameMakerPushToken in reducer',payload);
     return {...state, gameMakerPushToken: payload};
   case 'GET_QUESTIONS':
     return {...state, liveGameQuestions: payload};
@@ -90,13 +85,9 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired)
 
       let origResponse;
 
-      // TODO: read through the below re pushing to formattedData array. should this work??
-
       let formattedData = []
 
       async function fetchAndFormatQuestionObjects(number) {
-
-        console.log("number in beginning:", number)
 
         const response = await axios.get(`http://${EXPO_LOCAL_URL}:3000/questions/${id}/${number}/${tokenForRematch || token}`)
 
@@ -110,11 +101,7 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired)
         // filter out objects with questions and correct answers that have too many characters
         const withoutLongQuestions = response.data.filter(obj => he.decode(obj.question).length <= 80)
 
-        console.log("withoutLongQuestions 1:", withoutLongQuestions.length)
-
         let withoutLongQsAndAs = withoutLongQuestions.filter(obj => he.decode(obj.correct_answer).length <= 38)
-
-        console.log("withoutLongQsAndAs 1:", withoutLongQsAndAs.length)
 
         // filter out objects with incorrect answers that have too many characters
         for (var i = withoutLongQsAndAs.length - 1; i >= 0; --i) {
@@ -122,8 +109,6 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired)
               if(he.decode(ans).length > 42){withoutLongQsAndAs.splice(i, 1)}
             })
           }
-
-        console.log("withoutLongQsAndAs 2:", withoutLongQsAndAs.length)
 
         withoutLongQsAndAs.forEach(obj => formattedData.push(obj))
 
@@ -136,9 +121,6 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired)
 
       await fetchAndFormatQuestionObjects(numQuestions)
 
-
-      console.log("formattedData after fn:", formattedData.length)
-
       dispatch({
         type: 'GET_QUESTIONS',
         payload: formattedData,
@@ -149,7 +131,7 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired)
 
     } catch(e) {
       if(e.response.data === 'Invalid status code: 4') {
-        console.log(e.response.data);
+        console.error(e.response.data);
         categoryExpired();
       }
     }
