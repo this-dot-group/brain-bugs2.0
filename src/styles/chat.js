@@ -1,26 +1,3 @@
-export const messagesContainer = {
-  maxHeight: '100%',
-  overflow: 'scroll',
-  width: '100%',
-}
-
-export const messages = {
-  alignSelf: 'flex-end',
-  backgroundColor: 'green',
-  color: '#fff',
-  borderRadius: 10,
-  paddingHorizontal: 8,
-  paddingVertical: 2,
-  overflow: 'hidden',
-  marginBottom: 2,
-  fontSize: 18,
-}
-
-export const opponentMessages = {
-  alignSelf: 'flex-start',
-  backgroundColor: 'blue',
-}
-
 export const badge = {
   backgroundColor: 'red',
   position: 'absolute',
