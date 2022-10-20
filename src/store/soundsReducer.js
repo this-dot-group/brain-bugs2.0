@@ -37,7 +37,7 @@ export const playSound = soundName => {
     try {
       await soundsReducer[soundName].replayAsync();
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   }
 }
@@ -51,7 +51,7 @@ export const toggleMute = () => {
       }
       dispatch({type: 'TOGGLE_MUTE'})
     } catch(e) {
-      console.log(e)
+      console.error(e)
     }
   }
 }

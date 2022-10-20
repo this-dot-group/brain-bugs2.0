@@ -7,38 +7,27 @@
 
 
 Josh:  
-- [ ] LAYOUT: Chat
-  - [ ] Scroll while keyboard is active
-  - [ ] Move the bottom of the convo up when activated
-- [x] Make sure you can see input on home when typing
-
+- [ ] Check how chat works when requesting a rematch. Maybe rematch request can show up in chat?
+- [ ] Background color of answer option buttons doesnt extend all the way to edges of pixel button
 - [ ] Feedback to user on category selection (loading circle until categories load in?)
   - [ ] React Native Dropdown Picker https://hossein-zare.github.io/react-native-dropdown-picker-website/docs/advanced/loading
-- [x] How To Play Modal
+- [ ] Error wth leaving waiting room screen. Game created, other person joins game, goes to Countdown screen with a Quit button, if one user presses Quit it trips out for other user. If we get rid of Quit, we should have the alert for if the opponent leaves the game during the countdown. Check into this as its implemented in game play, can bring it over. 
+
 
 Tia: 
 ESLINT!
 - [x] Use font scaling library
+  - [ ] Maybe make breakpoints instead for a few common devices and use that to hard code styling (can change sim devices)
   - build for standard device, will scale on others
     - [ ] join existing game
     - [ ] join private game
     - [ ] check everything after lobby screen (except game screen)
-    - [ ] TEST in other sim devices
-- [x] Checking for # of characters based on above, eliminate questions and answers based on that
-  - [ ] call with numQuestions first, deficit on subsequent calls
-- [x] Fix right side answer alignment
-- [x] Fix right side submit btn alignment
-- [x] Limit username input char #
-- [x] Disable all buttons between questions
-- [x] If you click an answer and submit after the time has run out, it will lock in that answer index for the next question (disable answer pressables and hide submit button after its been used)
-- [ ] BUG: not sure rematch works anymore?
-- [ ] TEST: chat
+- [ ] BUG? started game on sim, joined on phone, phone went to waiting room 2 (what is the condition to go to waiting room 2?)
 
 
  Ideas
-- [ ] Breakpoints for different device sizes, and rejecting questions based on nmber of characters in answers
 - [ ] Expanding the question when you click 
-- [ ] Looking into how responsive font sizing on different devices
+
 
 - [ ] need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.
  
@@ -48,9 +37,6 @@ ESLINT!
 - App seems to load in portrait before switching to landscape, looks glitchy
  - Maybe this is caused by expo go
  - If a pivate game is cancelled after other player has already entered code but not pressed go, it appears that the game is still there
- - Show Go not working on start modal on lobby screen on iphone for two player games
-- Error wth leaving waiting room screen
-- Seems that game is not cancelled when one player leaves the countdown screen
 
 
 ## Code / Fit & finish
@@ -70,7 +56,6 @@ ESLINT!
  
 - Content for all pages, such as how to play instructions, content for alerts
 - Responsive font size for answer pressables and question on GameScreen
- - Longer questions are cut off on iPhone
 - Logo/img/etc
 - if you dont answer a question, when the correct answer moment occurs it looks like you answered correctly (because no other option is selected)
 - improve selected/submitted feedback (raining down smileys/sads)
@@ -88,12 +73,9 @@ ESLINT!
         }
       ]
     ],
-- Look into how to have android keyboard within app, if possible
-  ** not sure if i can make the keyboard smaller. but it seems what happens is the TextInput itself gets much taller, taking up the rest of the screen. If the TextInout stayed its normal size, it would show the rest of the stuff too. textinput stays the same size when youre in portrait mode.
-  ** lets revisit this when we sort out layout and styling? might uncover some issues or insight in that process
 - Feedback patterns to user while waiting for opponent response
     - waiting room screen: loading spinner
-    - gameplay: hourglass icon
+    - gameplay: Waiting for other user... text
     - game end, rematch request: "Rematch" changes to "Requesting..." 
     - if start game options are still loading: ____________
 - Dropdown buttons should be taller or wider for longer category titles

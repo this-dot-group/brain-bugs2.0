@@ -138,16 +138,16 @@ function Homescreen(props) {
           />
         </PixelButton>
 
-        <Hider
+        {/* <Hider
           show={validUsername}
           style={{ transform: [{translateX: 8 }], zIndex: 1, position: 'relative' }}
-        >
-          <PixelButton buttonStyle={{ width: scale(70) }}>
-            <Pressable onPress={handleGo}>
+        > */}
+          <PixelButton buttonStyle={{ width: scale(70), marginLeft: scale(10), backgroundColor: validUsername ? 'rgba(128,128,128,0)' : 'rgba(128,128,128,0.4)', borderColor: validUsername ? 'black' : 'rgba(128,128,128,0.2)' }}>
+            <Pressable onPress={handleGo} disabled={!validUsername}>
               <Text style={styles.innerText}>Go!</Text>
             </Pressable>
           </PixelButton>
-        </Hider>
+        {/* </Hider> */}
       </View>
       </KeyboardAvoidingComponent>
 
