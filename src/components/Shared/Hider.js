@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, } from 'react';
 import { Animated } from 'react-native';
 
-function Hider({ children, show, style = {} }) {
+function Hider(props) {
+  const { children, show, style = {} } = props
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -15,6 +16,7 @@ function Hider({ children, show, style = {} }) {
   return (
     <Animated.View
       pointerEvents={show ? 'auto' : 'none'}
+      {...props}
       style={{...style, opacity: fadeAnim }}
     >
       {children}

@@ -7,13 +7,13 @@ const styles = StyleSheet.create({
   badgeText: Chat.badgeText
 })
 
-function Badge({ children }) {
+function Badge({ number }) {
   return (
     <View
       style={styles.badge}
     >
       <Text style={styles.badgeText}>
-        {children}
+        {number}
       </Text>
     </View>
   )

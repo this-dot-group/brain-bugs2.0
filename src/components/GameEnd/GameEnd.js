@@ -6,12 +6,10 @@ import { numQuestions, newCategory, publicOrPrivate, getQuestions, resetQuestion
 import { newOpponent } from '../../store/userReducer';
 import { playSound } from '../../store/soundsReducer'
 import Chat from '../Chat/Chat';
-import Badge from '../Chat/Badge';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
-import { PixelButton, GenericModal } from '../Shared';
+import { PixelButton } from '../Shared';
 import MuteButton from '../MuteButton/MuteButton';
-import { windowHeight } from '../../../config';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { scale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   root: {
@@ -73,9 +71,6 @@ const styles = StyleSheet.create({
   endButton : {
     marginLeft: 'auto'
   },
-  chatModalStyles : {
-    height: windowHeight - 40,
-  },
   innerText: {
     fontFamily: 'DotGothic',
     fontSize: scale(16),
@@ -98,8 +93,6 @@ function GameEnd(props) {
   const [showInvitation, setShowInvitation] = useState(false);
   const [currentUserObj, setCurrentUserObj] = useState({});
   const [/* userOutcome */, setUserOutcome] = useState('');
-  const [showChat, setShowChat] = useState(false);
-  const [unseenMessages, setUnseenMessages] = useState(0);
   const [opponentLeftRoom, setOpponentLeftRoom] = useState(false);
   const [saidYesToRematch, setSaidYesToRematch] = useState(false);
   const [rematchRequested, setRematchRequested] = useState(false);
@@ -131,7 +124,6 @@ function GameEnd(props) {
     props.socket.on('opponentRematchResponse', onRematchResponse)
     props.socket.on('gameCodeForRematch', joinRematch)
     props.socket.on('redirectToHowToPlay', redirect);
-    props.socket.on('newMessage', calculateUnseenMessages);
     props.socket.on('opponentLeftRoom', createOpponentLeftRoomAlert)
 
     return () => {
@@ -139,7 +131,6 @@ function GameEnd(props) {
       props.socket.off('opponentRematchResponse', onRematchResponse)
       props.socket.off('gameCodeForRematch', joinRematch)
       props.socket.off('redirectToHowToPlay', redirect);
-      props.socket.off('newMessage', calculateUnseenMessages);
       props.socket.off('opponentLeftRoom', createOpponentLeftRoomAlert)
 
     }
@@ -160,20 +151,6 @@ function GameEnd(props) {
     // this stuff is happening to the opponent (person who said yes to rematch)
     props.newOpponent(usernames.gameMaker);
     setRoomJoin(true);
-  }
-
-  const calculateUnseenMessages = messages => {
-    if (showChat) { 
-      setUnseenMessages(0);
-      return;
-    }
-    if(!showChat) {
-      const newMessages = messages.filter(message => {
-        return !(props.socket.id.toString() in message.socketsSeen);
-      });
-      setUnseenMessages(newMessages.length);
-    }
-
   }
 
   const onRematchInvitation = () => {
@@ -272,10 +249,6 @@ function GameEnd(props) {
     leaveRoomAndGoToLobby();
   }
 
-  const handleShowChat = () => {
-    setShowChat(true)
-  };
-
   const leaveRoomAndGoToLobby = () => {
 
     props.socket.emit('leaveRoom');
@@ -363,30 +336,12 @@ function GameEnd(props) {
         </PixelButton>
 
         {!opponentLeftRoom && props.numPlayers === 2 &&
-        <View style={styles.showChatWrapper}>
-          <PixelButton>
-            <Pressable onPress={handleShowChat} style={{height: '100%', width: '100%', position: 'relative'}}>
-              <Text style={styles.innerText}>Show Chat</Text>
-            </Pressable>
-          </PixelButton>
-          {!!unseenMessages && <Badge>{unseenMessages}</Badge>}
-        </View>
+          <Chat
+            gameCode={props.gameCode}
+            user={currentUserObj}
+          />
         }
       </View>
-      <GenericModal
-        visible={showChat}
-        presentationStyle="fullScreen"
-        style={styles.chatModalStyles}
-
-      >
-        <Chat
-          setShowChat={setShowChat}
-          gameCode={props.gameCode}
-          user={currentUserObj}
-          setUnseenMessages={setUnseenMessages}
-        />
-      </GenericModal>
-
 
       {backToLobby && <Redirect to='/lobby' />}
 
