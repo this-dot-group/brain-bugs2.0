@@ -84,10 +84,20 @@ function Homescreen(props) {
 
   useEffect(() => {
     props.newSocket(socket)
+    // For some reason we need to set the socket id in two different ways
     props.newSocketId(socket.id)
     props.newFakeOpponent(fakeOpponentSocket);
     props.newToken();
+    socket.on('shareId', setSocketId);
+
+    return () => {
+      socket.off('shareId', setSocketId)
+    }
   }, [])
+
+  const setSocketId = id => {
+    props.newSocketId(id)
+  }
 
   const handleUsernameChange = (username) => {
 
@@ -103,8 +113,6 @@ function Homescreen(props) {
     await props.playSound('flute');
     setToLobby(true)
   }
-
-
 
   return (
     <View style={styles.container}>
