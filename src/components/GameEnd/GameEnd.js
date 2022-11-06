@@ -104,6 +104,8 @@ function GameEnd(props) {
   const playerTwoScore = props.location.state.finalScore.playerTwo.score;
   const token = props.location.state.finalScore.token;
 
+  const rematchText = `${props.opponent} wants a rematch! What do you think?`
+
   useEffect(() => {
     // Play sound to reward winner and punish loser
     let userObj = playerOneSocket === props.socketId ? props.location.state.finalScore.playerOne : props.location.state.finalScore.playerTwo;
@@ -250,7 +252,6 @@ function GameEnd(props) {
   }
 
   const leaveRoomAndGoToLobby = () => {
-
     props.socket.emit('leaveRoom');
     if (props.gameInfo.numPlayers === 1) {
       props.fakeOpponentSocket.emit('leaveRoom');
@@ -286,13 +287,15 @@ function GameEnd(props) {
                 </Pressable>
               </PixelButton>
             </View>
-            <Text style={styles.rematchText}>{props.opponent} wants a rematch! What do you think?</Text>
+            <Text style={styles.rematchText}>{rematchText}</Text>
           </View> :
           !opponentLeftRoom && props.numPlayers === 2 &&
           <PixelButton>
             <Pressable 
               onPress={handleRematch} 
-              style={{height: '100%', width: '100%'}}>
+              style={{height: '100%', width: '100%'}}
+              disabled={rematchRequested}
+            >
               <Text style={styles.innerText}>{rematchRequested ? `Requesting...` : `Rematch`}</Text>
             </Pressable>
           </PixelButton>
@@ -339,6 +342,10 @@ function GameEnd(props) {
           <Chat
             gameCode={props.gameCode}
             user={currentUserObj}
+            rematchPending={showInvitation}
+            handleNo={handleNo}
+            handleYes={handleYes}
+            rematchText={rematchText}
           />
         }
       </View>

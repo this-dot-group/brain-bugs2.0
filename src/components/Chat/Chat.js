@@ -82,6 +82,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,.5)',
     position: 'absolute',
     zIndex: 1,
+  },
+  yesNoButtonCont: {
+    display: 'flex',
+    marginRight: 0,
+    flexDirection: 'row',
+    alignContent: 'center',
+  },
+  gap: {
+    marginHorizontal: 10,
+    alignItems: 'center',
   }
 })
 
@@ -95,7 +105,7 @@ function Overlay ({ active }) {
   )
 }
 
-function Chat({ socket, gameCode, user }) {
+function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rematchText }) {
   const [messages, setMessages] = useState([]);
   const [currMessage, setCurrMesssage] = useState('');
   const [showChat, setShowChat] = useState(false);
@@ -161,7 +171,31 @@ function Chat({ socket, gameCode, user }) {
 
           <TitleBar
             cb={hideModal}
-          />
+          >
+            <Hider
+              show={rematchPending}
+            >
+              <View style={styles.yesNoButtonCont}>
+                <View style={styles.gap}>
+                  <Text style={styles.innerText}>{rematchText}</Text>
+                </View>
+                <View style={styles.gap}>
+                  <PixelButton buttonStyle={{width: 60, marginBottom: 10 }}>
+                    <Pressable onPress={handleYes} style={{height: '100%', width: '100%'}}>
+                      <Text style={styles.innerText}>Yes</Text>
+                    </Pressable>
+                  </PixelButton>
+                </View>
+                <View style={styles.gap}>
+                  <PixelButton buttonStyle={{width: 60}}>
+                    <Pressable onPress={handleNo} style={{height: '100%', width: '100%'}}>
+                      <Text style={styles.innerText}>No</Text>
+                    </Pressable>
+                  </PixelButton>
+                </View>
+              </View>
+            </Hider>
+          </TitleBar>
           <View style={styles.content}>
             <Overlay active={keyboardActive} />
             <ScrollView
