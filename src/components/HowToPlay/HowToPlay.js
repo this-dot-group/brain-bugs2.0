@@ -113,7 +113,7 @@ function HowToPlay(props) {
   }
 
   if (goToGame) {
-    return <Redirect to='/game' />
+    return <Redirect to='/gameplay' />
   }
 
   return (
