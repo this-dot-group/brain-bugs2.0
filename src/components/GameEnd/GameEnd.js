@@ -9,7 +9,6 @@ import Chat from '../Chat/Chat';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import { PixelButton } from '../Shared';
 import MuteButton from '../MuteButton/MuteButton';
-import { scale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   root: {
@@ -35,17 +34,17 @@ const styles = StyleSheet.create({
   },
   score: {
     alignItems: 'center',
-    marginHorizontal: scale(20),
+    marginHorizontal: 10,
     position: 'relative',
-    paddingBottom: scale(70)
+    paddingBottom: 60
   },
   scoreText: {
     fontFamily: 'VT323',
-    fontSize: scale(40),
+    fontSize: 30,
   },
   trophy: {
-    height: scale(55),
-    width: scale(55),
+    height: 40,
+    width: 40,
     position: 'absolute',
     bottom: 0
   },
@@ -73,7 +72,7 @@ const styles = StyleSheet.create({
   },
   innerText: {
     fontFamily: 'DotGothic',
-    fontSize: scale(16),
+    fontSize: 12,
     marginTop: 'auto',
     marginBottom: 'auto',
     textAlign: 'center'

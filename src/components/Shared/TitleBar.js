@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, Pressable, View, StyleSheet } from 'react-native';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import PixelButton  from './PixelButton';
 
 
@@ -10,12 +9,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent:'center',
     flexDirection: 'row',
-    marginBottom: scale(18),
+    marginBottom: 16,
     position: 'relative'
   },
   text: {
     textAlign: 'center',
-    fontSize: scale(25),
+    fontSize: 28,
     fontFamily: 'VT323'
   },
   closeModalButton: {
@@ -36,8 +35,8 @@ function TitleBar({ children, cb }) {
       <Text style={styles.text}>{children}</Text>
       <PixelButton
         buttonStyle={{
-          width: scale(36),
-          height: scale(36),
+          width: 40,
+          height: 40,
           position: 'absolute',
           top: 0,
           right: 0

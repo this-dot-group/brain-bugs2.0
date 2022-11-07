@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { TitleBar, PixelButton, StyledInput, KeyboardAvoidingComponent, Hider } from '../Shared';
 import Badge from './Badge';
 
-import { scale } from 'react-native-size-matters';
-
 const styles = StyleSheet.create({
   root: {
     flex: 1,
@@ -68,7 +66,7 @@ const styles = StyleSheet.create({
   },
   innerText: {
     fontFamily: 'DotGothic',
-    fontSize: scale(16),
+    fontSize: 12,
     marginTop: 'auto',
     marginBottom: 'auto',
     textAlign: 'center'

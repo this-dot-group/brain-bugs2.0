@@ -8,7 +8,6 @@ import Countdown from '../Countdown/Countdown';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import { QUESTION_TIME } from '../../../config';
 import { PixelButton } from '../Shared';
-import { scale, moderateScale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   container: {
@@ -73,18 +72,18 @@ const styles = StyleSheet.create({
   },
   answerText: {
     fontFamily: 'DotGothic',
-    fontSize: moderateScale(18),
+    fontSize: 16,
     textAlign: 'center',
   },
   submitText: {
     fontFamily: 'VT323',
-    fontSize: scale(20),
+    fontSize: 14,
     marginTop: 'auto',
     marginBottom: 'auto',
     textAlign: 'center'
   },
   waitingText: {
-    fontSize: scale(12),
+    fontSize: 10,
     fontStyle: 'italic',
     textAlign: 'center',
   },
@@ -94,12 +93,12 @@ const styles = StyleSheet.create({
   },
   questionText: {
     fontFamily: 'VT323',
-    fontSize: scale(35),
+    fontSize: 30,
     textAlign: 'center'
   },
   questionCountText: {
     fontFamily: 'VT323',
-    fontSize: scale(16),
+    fontSize: 14,
     textAlign: 'center'
   },
   submitButtonView: {
@@ -113,7 +112,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'DotGothic',
-    fontSize: scale(16),
+    fontSize: 12,
     textAlign: 'center',
   },
 });
@@ -363,7 +362,7 @@ function GameScreen(props) {
 
             <View style={styles.answerOptionPressables}>
               <PixelButton
-                buttonStyle={{height: scale(60), width: scale(200)}}
+                buttonStyle={{height: 70, width: 240}}
                 >
                 <Pressable
                   onPress={() => {
@@ -427,7 +426,7 @@ function GameScreen(props) {
 
             <View style={styles.answerOptionPressables}>
               <PixelButton
-              buttonStyle={{alignSelf: 'flex-end', height: scale(60), width: scale(200)}} 
+              buttonStyle={{alignSelf: 'flex-end', height: 70, width: 240}} 
               >
                 <Pressable
                   onPress={() => {
@@ -454,7 +453,7 @@ function GameScreen(props) {
           >
             {(selected === 0 || selected === 2) && submitted === -1 
               ?  <View style={styles.submitButtonView}>
-                  <PixelButton buttonStyle={{ width: scale(70), height: scale(50) }}>
+                  <PixelButton buttonStyle={{ height: 70, width: 240 }}>
                     <Pressable
                       onPress={() => {
                         handleAnsPress(formattedQuestionInfo.answers[selected], selected)
@@ -489,7 +488,7 @@ function GameScreen(props) {
 
             {(selected === 1 || selected === 3) && submitted === -1 
               ?  <View style={styles.submitButtonView}>
-                <PixelButton buttonStyle={{ width: scale(70), height: scale(50) }}>
+                <PixelButton buttonStyle={{ height: 70, width: 240 }}>
                   <Pressable
                     onPress={() => {
                       handleAnsPress(formattedQuestionInfo.answers[selected], selected)
@@ -525,7 +524,7 @@ function GameScreen(props) {
             {ansObjForRendering[2] &&
               <View style={styles.answerOptionPressables}>
                 <PixelButton
-                buttonStyle={{height: scale(60), width: scale(200)}} >
+                buttonStyle={{height: 70, width: 240}} >
                   <Pressable
                     onPress={() => {
                       setSelected(ansObjForRendering[2].index)
@@ -557,7 +556,7 @@ function GameScreen(props) {
 
             {ansObjForRendering[3] &&
               <View style={styles.answerOptionPressables}>
-                <PixelButton buttonStyle={{alignSelf: 'flex-end', height: scale(60), width: scale(200)}}>
+                <PixelButton buttonStyle={{alignSelf: 'flex-end', height: 70, width: 240}}>
                   <Pressable
                     onPress={() => {
                       setSelected(ansObjForRendering[3].index)

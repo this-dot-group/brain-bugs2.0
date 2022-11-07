@@ -7,8 +7,6 @@ import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate, pushTo
 import { newOpponent, pushNotificationToken } from '../../../store/userReducer';
 import { QUESTION_DROPDOWN_CHOICES } from '../../../../config';
 import { PixelButton, GenericModal, DropdownMenu, Hider, TitleBar } from '../../Shared';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-
 
 import he from 'he';
 import { Views } from '../../../styles'
@@ -26,11 +24,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'relative',
     zIndex: 1,
-    marginBottom: scale(24)
+    marginBottom: 40
   },
   dropDownView: {
-    height: scale(50),
-    marginBottom: scale(10)
+    height: 50,
+    marginBottom: 14
   },
   goRow: {
     flexDirection: 'row',
@@ -188,7 +186,7 @@ function StartGame(props) {
       <View style={styles.dropdowns}>
         <View style={styles.dropDownView}>
           <PixelButton
-            buttonStyle={{height: scale(36)}}>
+            buttonStyle={{height: 44}}>
             <DropdownMenu
               items={categoryList}
               title="Select a Category"
@@ -202,7 +200,7 @@ function StartGame(props) {
 
         <View style={styles.dropDownView}>
           <PixelButton
-            buttonStyle={{height: scale(36)}}>
+            buttonStyle={{height: 44}}>
             <DropdownMenu
               items={QUESTION_DROPDOWN_CHOICES}
               title="Number of Questions"
@@ -216,7 +214,7 @@ function StartGame(props) {
 
         <View style={styles.dropDownView}>
           <PixelButton
-            buttonStyle={{height: scale(36)}}>
+            buttonStyle={{height: 44}}>
             <DropdownMenu
               items={[
                 { label: 'Single Player', value: 1 },

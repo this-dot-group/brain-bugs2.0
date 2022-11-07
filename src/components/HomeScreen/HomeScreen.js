@@ -9,7 +9,6 @@ import socketIO from 'socket.io-client';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import MuteButton from '../MuteButton/MuteButton';
 import { PixelButton, KeyboardAvoidingComponent, Hider } from '../Shared';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { Views } from '../../styles/';
 import { newSocket } from '../../store/socketReducer.js';
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer';
@@ -34,18 +33,19 @@ const styles = StyleSheet.create({
   },
   // BIG IMAGE
   logoImg: {
-    width: scale(100),
-    height: scale(100),
+    width: 120,
+    height: 120,
   },
   // NAME TEXT
   logoText:{
     fontFamily: 'DotGothic',
-    fontSize: scale(54)
+    fontSize: 54
   },
   // WRAPS USERNAME ROW
   inputNestedRowView: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 10
   },
   // WRAPS HOWTOPLAY MODAL ROW
   bottomNestedRowView: {
@@ -60,14 +60,14 @@ const styles = StyleSheet.create({
     height: '100%',
     flex: 1,
     fontFamily: 'DotGothic',
-    fontSize: scale(16),
+    fontSize: 14,
     paddingLeft: 8,
     flexDirection: 'row',
     paddingRight: 0
   },
   innerText: {
     fontFamily: 'DotGothic',
-    fontSize: scale(14),
+    fontSize: 14,
     marginTop: 'auto',
     marginBottom: 'auto',
     textAlign: 'center'
@@ -138,21 +138,16 @@ function Homescreen(props) {
           />
         </PixelButton>
 
-        {/* <Hider
-          show={validUsername}
-          style={{ transform: [{translateX: 8 }], zIndex: 1, position: 'relative' }}
-        > */}
-          <PixelButton buttonStyle={{ width: scale(70), marginLeft: scale(10), backgroundColor: validUsername ? 'rgba(128,128,128,0)' : 'rgba(128,128,128,0.4)', borderColor: validUsername ? 'black' : 'rgba(128,128,128,0.2)' }}>
-            <Pressable onPress={handleGo} disabled={!validUsername}>
-              <Text style={styles.innerText}>Go!</Text>
-            </Pressable>
-          </PixelButton>
-        {/* </Hider> */}
+        <PixelButton buttonStyle={{ width: 70, marginLeft: 16, backgroundColor: validUsername ? 'rgba(128,128,128,0)' : 'rgba(128,128,128,0.4)', borderColor: validUsername ? 'black' : 'rgba(128,128,128,0.2)' }}>
+          <Pressable onPress={handleGo} disabled={!validUsername}>
+            <Text style={styles.innerText}>Go!</Text>
+          </Pressable>
+        </PixelButton>
       </View>
       </KeyboardAvoidingComponent>
 
       <View style={styles.bottomNestedRowView}>
-        <PixelButton buttonStyle={{width: scale(120)}}>
+        <PixelButton buttonStyle={{width: 120}}>
           <Pressable
             onPress={() => {
               props.playSound('click')

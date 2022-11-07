@@ -14,7 +14,6 @@ import { Views } from '../../styles';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
 import { PixelButton, Spinner } from '../Shared';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,21 +39,21 @@ const styles = StyleSheet.create({
 
   alertText: {
     fontFamily: 'DotGothic',
-    fontSize: scale(18),
+    fontSize: 16,
     color: 'red',
     alignSelf: 'flex-end',
     marginRight: 10
   },
   innerText: {
     fontFamily: 'DotGothic',
-    fontSize: scale(14),
+    fontSize: 16,
     marginTop: 'auto',
     marginBottom: 'auto',
     textAlign: 'center'
   },
   waitingText: {
     fontFamily: 'DotGothic',
-    fontSize: scale(18),
+    fontSize: 20,
     textAlign: 'center'
   },
   modalView: {
@@ -180,7 +179,7 @@ const WaitingRoom = (props) => {
 
         <View style={styles.topRowView}>
           {!showNoMoreQuestionsOptions && (
-            <PixelButton buttonStyle={{width: scale(120)}}>
+            <PixelButton buttonStyle={{width: 140}}>
               <Pressable
                 onPress={cancelGame}
                 style={{height: '100%', width: '100%'}}
@@ -228,7 +227,7 @@ const WaitingRoom = (props) => {
 
         <View style={styles.bottomRowView}>
           {!showNoMoreQuestionsOptions && (
-            <PixelButton buttonStyle={{width: scale(120)}}>
+            <PixelButton buttonStyle={{width: 140}}>
               <Pressable
                   onPress={() => {
                     setModalVisible(true);
@@ -244,7 +243,7 @@ const WaitingRoom = (props) => {
           <View style={styles.bottomRowView}>
             <Text style={styles.innerText}>You have played all the questions in this category!</Text>
 
-            <PixelButton buttonStyle={{width: scale(150), height: scale(60)}}>
+            <PixelButton buttonStyle={{width: 160, height: 62}}>
               <Pressable
                 style={{height: '100%', width: '100%'}}
                 onPress={resetGameToken}
@@ -253,7 +252,7 @@ const WaitingRoom = (props) => {
               </Pressable> 
             </PixelButton>
 
-            <PixelButton buttonStyle={{width: scale(120), height: scale(60), marginRight: scale(22)}}>
+            <PixelButton buttonStyle={{width: 122, height: 62, marginRight: 24}}>
               <Pressable
                 style={{height: '100%', width: '100%'}}
                 onPress={() => setBackToLobby(true)}
