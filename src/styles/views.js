@@ -7,24 +7,18 @@ export const viewContainer = {
 };
 
 export const modalView = {
-  margin: 20,
   backgroundColor: 'white',
   borderRadius: 20,
-  padding: 15,
+  borderWidth: 2,
+  padding: 10,
   alignItems: 'stretch',
-  shadowColor: '#000',
-  shadowOffset: {
-    width: 0,
-    height: 2,
-  },
-  shadowOpacity: 0.25,
-  shadowRadius: 3.84,
-  elevation: 5,
-  display: "flex",
-  flexDirection: "column",
-  alignSelf: "center",
-  width: "95%",
-  height: "80%"
+  display: 'flex',
+  flexDirection: 'column',
+  marginTop: 'auto',
+  marginBottom: 'auto',
+  alignSelf: 'center',
+  width: '95%',
+  height: '95%'
 };
 
 export const dropDownView = {

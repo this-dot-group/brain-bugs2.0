@@ -12,14 +12,14 @@ import { playSound } from '../../store/soundsReducer'
 import PixelButton from '../Shared/PixelButton'
 
 const styles = StyleSheet.create({
-  root: {
+  container: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
     height: '100%',
-    paddingVertical: 60,
-    paddingHorizontal: 60,
+    paddingVertical: 30,
+    paddingHorizontal: 30,
   },
   muteButton: {
     alignSelf: 'flex-end',
@@ -103,7 +103,7 @@ function StartScreen(props) {
   }
 
   return (
-    <View style={styles.root}>
+    <View style={styles.container}>
       <Text style={styles.greeting}> WELCOME {props.userName.toUpperCase()}! </Text>
 
       <PixelButton buttonStyle={{marginBottom: 24}}>

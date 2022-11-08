@@ -96,7 +96,7 @@ function HowToPlay(props) {
       </View>
 
       <View style={styles.bottomRow}>
-        <PixelButton buttonStyle={{width: 150}}>
+        <PixelButton buttonStyle={{width: 100}}>
           <Pressable
             onPress={() => {
               playSound('click')

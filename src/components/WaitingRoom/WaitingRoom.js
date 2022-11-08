@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   innerText: {
     fontFamily: 'DotGothic',
-    fontSize: 16,
+    fontSize: 14,
     marginTop: 'auto',
     marginBottom: 'auto',
     textAlign: 'center'
@@ -179,7 +179,7 @@ const WaitingRoom = (props) => {
 
         <View style={styles.topRowView}>
           {!showNoMoreQuestionsOptions && (
-            <PixelButton buttonStyle={{width: 140}}>
+            <PixelButton buttonStyle={{width: 100}}>
               <Pressable
                 onPress={cancelGame}
                 style={{height: '100%', width: '100%'}}
@@ -227,7 +227,7 @@ const WaitingRoom = (props) => {
 
         <View style={styles.bottomRowView}>
           {!showNoMoreQuestionsOptions && (
-            <PixelButton buttonStyle={{width: 140}}>
+            <PixelButton buttonStyle={{width: 100}}>
               <Pressable
                   onPress={() => {
                     setModalVisible(true);

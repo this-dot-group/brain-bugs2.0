@@ -4,17 +4,9 @@ import { Modal, StyleSheet, View, ScrollView } from 'react-native';
 import { Views } from '../../styles';
 
 const getStyles = style =>  StyleSheet.create({
-  root: {height: '100%', flex: 1},
-  view: {
+  modalView: {
     ...Views.modalView,
     ...style
-  },
-  scrollView: {
-    flex: 1,
-    height: '100%'
-  },
-  safeView: {
-    flex: 1
   },
 });
 
@@ -32,12 +24,12 @@ function GenericModal(props) {
       {...props}
     >
       <ScrollView
-        style={styles.scrollView}
+        contentContainerStyle={{flexGrow: 1}}
         keyboardShouldPersistTaps="handled"
-      >
-        <View
-          style={styles.view}
         >
+        <View
+          style={styles.modalView}
+          >
           {children}
         </View>
       </ScrollView>

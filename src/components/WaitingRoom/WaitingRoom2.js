@@ -94,7 +94,7 @@ const WaitingRoom2 = (props) => {
       />
 
         <View style={styles.topRowView}>
-          <PixelButton buttonStyle={{width: 140}}>
+          <PixelButton buttonStyle={{width: 100}}>
             <Pressable
               onPress={() => {
                 setModalVisible(true);
@@ -113,7 +113,7 @@ const WaitingRoom2 = (props) => {
         <Spinner />
 
         <View style={styles.bottomRowView}>
-          <PixelButton buttonStyle={{width: 140}}>
+          <PixelButton buttonStyle={{width: 100}}>
             <Pressable
               onPress={cancelGame}
               style={{height: '100%', width: '100%'}}

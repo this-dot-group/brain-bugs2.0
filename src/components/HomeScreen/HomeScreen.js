@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-native';
 import socketIO from 'socket.io-client';
 
-// modular styles
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import MuteButton from '../MuteButton/MuteButton';
 import { PixelButton, KeyboardAvoidingComponent, Hider } from '../Shared';
@@ -25,34 +24,34 @@ const styles = StyleSheet.create({
   // CONTAINER VIEW
   container: {
     flex: 1,
-    paddingTop: 40,
-    paddingBottom: 40,
+    paddingTop: 30,
+    paddingBottom: 30,
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   // BIG IMAGE
   logoImg: {
-    width: 120,
-    height: 120,
+    width: 100,
+    height: 100,
   },
   // NAME TEXT
   logoText:{
     fontFamily: 'DotGothic',
-    fontSize: 54
+    fontSize: 54,
+    margin: 10
   },
   // WRAPS USERNAME ROW
   inputNestedRowView: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10
   },
   // WRAPS HOWTOPLAY MODAL ROW
   bottomNestedRowView: {
     flexDirection: 'row',
     width: '90%',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
 
   // USERNAME INPUT
@@ -63,7 +62,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingLeft: 8,
     flexDirection: 'row',
-    paddingRight: 0
   },
   innerText: {
     fontFamily: 'DotGothic',
@@ -71,9 +69,6 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     marginBottom: 'auto',
     textAlign: 'center'
-  },
-  modalView: {
-    ...Views.modalView,
   }
 })
 
@@ -120,8 +115,8 @@ function Homescreen(props) {
       <Image
         source={require('../../images/BRAIN_BUG1.png')}
         style={styles.logoImg} />
+      
       <Text style={styles.logoText}>BRAIN BUGS</Text>  
-
 
     <KeyboardAvoidingComponent
       offset={0}
@@ -147,7 +142,7 @@ function Homescreen(props) {
       </KeyboardAvoidingComponent>
 
       <View style={styles.bottomNestedRowView}>
-        <PixelButton buttonStyle={{width: 120}}>
+        <PixelButton buttonStyle={{width: 100}}>
           <Pressable
             onPress={() => {
               props.playSound('click')
@@ -164,7 +159,7 @@ function Homescreen(props) {
           setVisible={setModalVisible}
         />
 
-        <View style={styles.muteIconWrapper}>
+        <View>
           <MuteButton/>
         </View>
      

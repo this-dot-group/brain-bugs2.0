@@ -362,7 +362,7 @@ function GameScreen(props) {
 
             <View style={styles.answerOptionPressables}>
               <PixelButton
-                buttonStyle={{height: 70, width: 240}}
+                buttonStyle={{height: 70, width: 220}}
                 >
                 <Pressable
                   onPress={() => {
@@ -426,7 +426,7 @@ function GameScreen(props) {
 
             <View style={styles.answerOptionPressables}>
               <PixelButton
-              buttonStyle={{alignSelf: 'flex-end', height: 70, width: 240}} 
+              buttonStyle={{alignSelf: 'flex-end', height: 70, width: 220}} 
               >
                 <Pressable
                   onPress={() => {
@@ -453,7 +453,7 @@ function GameScreen(props) {
           >
             {(selected === 0 || selected === 2) && submitted === -1 
               ?  <View style={styles.submitButtonView}>
-                  <PixelButton buttonStyle={{ height: 70, width: 240 }}>
+                  <PixelButton buttonStyle={{ height: 60, width: 80 }}>
                     <Pressable
                       onPress={() => {
                         handleAnsPress(formattedQuestionInfo.answers[selected], selected)
@@ -488,7 +488,7 @@ function GameScreen(props) {
 
             {(selected === 1 || selected === 3) && submitted === -1 
               ?  <View style={styles.submitButtonView}>
-                <PixelButton buttonStyle={{ height: 70, width: 240 }}>
+                <PixelButton buttonStyle={{ height: 60, width: 80 }}>
                   <Pressable
                     onPress={() => {
                       handleAnsPress(formattedQuestionInfo.answers[selected], selected)
@@ -524,7 +524,7 @@ function GameScreen(props) {
             {ansObjForRendering[2] &&
               <View style={styles.answerOptionPressables}>
                 <PixelButton
-                buttonStyle={{height: 70, width: 240}} >
+                buttonStyle={{height: 70, width: 220}} >
                   <Pressable
                     onPress={() => {
                       setSelected(ansObjForRendering[2].index)
@@ -556,7 +556,7 @@ function GameScreen(props) {
 
             {ansObjForRendering[3] &&
               <View style={styles.answerOptionPressables}>
-                <PixelButton buttonStyle={{alignSelf: 'flex-end', height: 70, width: 240}}>
+                <PixelButton buttonStyle={{alignSelf: 'flex-end', height: 70, width: 220}}>
                   <Pressable
                     onPress={() => {
                       setSelected(ansObjForRendering[3].index)

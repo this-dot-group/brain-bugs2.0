@@ -19,16 +19,14 @@ import Constants from 'expo-constants';
 const styles = StyleSheet.create({
   dropdowns: {
     display: 'flex',
-    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
     zIndex: 1,
-    marginBottom: 40
   },
   dropDownView: {
     height: 50,
-    marginBottom: 14
+    marginBottom: 14,
   },
   goRow: {
     flexDirection: 'row',
