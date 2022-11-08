@@ -39,7 +39,9 @@ function JoinGame(props) {
             onPress={() => {
               props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username, gameObj.gameMakerPushToken]);
 
-              setRedirectToWaitingRoom2(true);
+              if(gameObj.gameMakerPushToken !== null){
+                setRedirectToWaitingRoom2(true);
+              }
             }}
             style={{height: '100%', width: '100%'}}
           >
