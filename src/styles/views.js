@@ -26,3 +26,7 @@ export const dropDownView = {
   borderColor: 'black'
 };
 
+export const standardPixelButton = {
+  width: 100
+}
+

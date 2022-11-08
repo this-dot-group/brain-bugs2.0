@@ -141,7 +141,7 @@ function Chat({ socket, gameCode, user }) {
   return (
     <>
       <View style={styles.showChatWrapper}>
-        <PixelButton>
+        <PixelButton buttonStyle={{width: 100}}>
           <Pressable onPress={showModal} style={{height: '100%', width: '100%', position: 'relative'}}>
             <Text style={styles.innerText}>Show Chat</Text>
           </Pressable>

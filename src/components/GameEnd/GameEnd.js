@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   rematchText: {
     fontFamily: 'VT323',
-    fontSize: 30,
+    fontSize: 20,
   }
 })
 
@@ -288,7 +288,7 @@ function GameEnd(props) {
             <Text style={styles.rematchText}>{props.opponent} wants a rematch! What do you think?</Text>
           </View> :
           !opponentLeftRoom && props.numPlayers === 2 &&
-          <PixelButton>
+          <PixelButton buttonStyle={{width: 100}}>
             <Pressable 
               onPress={handleRematch} 
               style={{height: '100%', width: '100%'}}>
@@ -325,7 +325,7 @@ function GameEnd(props) {
         </View>
       </View>
       <View style={styles.buttonRow}>
-        <PixelButton>
+        <PixelButton buttonStyle={{width: 100}}>
           <Pressable
             onPress={leaveRoomAndGoToLobby}
             style={{height: '100%', width: '100%'}}

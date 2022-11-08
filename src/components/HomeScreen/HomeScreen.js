@@ -142,7 +142,7 @@ function Homescreen(props) {
       </KeyboardAvoidingComponent>
 
       <View style={styles.bottomNestedRowView}>
-        <PixelButton buttonStyle={{width: 100}}>
+        <PixelButton buttonStyle={{ width: 100}}>
           <Pressable
             onPress={() => {
               props.playSound('click')
