@@ -7,7 +7,7 @@
 
 
 Josh:  
-- [ ] Check how chat works when requesting a rematch. Maybe rematch request can show up in chat?
+- [x] Check how chat works when requesting a rematch. Maybe rematch request can show up in chat?
 - [ ] Background color of answer option buttons doesnt extend all the way to edges of pixel button
 - [x] Feedback to user on category selection (loading circle until categories load in?)
   - [x] React Native Dropdown Picker https://hossein-zare.github.io/react-native-dropdown-picker-website/docs/advanced/loading
