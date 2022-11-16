@@ -7,10 +7,11 @@
 
 
 Josh:  
-- [ ] Background color of answer option buttons doesnt extend all the way to edges of pixel button
+- [x] Background color of answer option buttons doesnt extend all the way to edges of pixel button
 - [ ] Manual testing for bugs, possible issues with component mounting
-NEW 11/6:
-- [ ] Remember username in local storage
+- [x] Remember username in local storage
+New 11/15
+- [ ] There is always an 'x' for the opponent in single player, even when the opponent get the answer right/their score increases
 
 Tia: 
 - [ ] ESLINT!
