@@ -18,6 +18,7 @@ New 11/15
   - make some shared components/variables
     - answer buttons
     - fonts
+    - trophy/score section
   - Delete unused things
    - hourglass gif
    - Emoji.js
