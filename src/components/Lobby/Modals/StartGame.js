@@ -128,7 +128,6 @@ function StartGame(props) {
   }
 
   useEffect(() => {
-
     (async () => {
       try {
         const categories = await axios.get(`http://${EXPO_LOCAL_URL}:3000/categories`);
@@ -192,7 +191,8 @@ function StartGame(props) {
                 props.newCategory({ name: item.label, id: item.value });
               }}
               selected={props.gameInfo.category?.id || null}
-              />
+              loading={categoryList.length === 0}
+            />
           </PixelButton>
         </View>
 

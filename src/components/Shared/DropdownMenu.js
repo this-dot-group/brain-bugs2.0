@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { gray } from '../../styles/colors';
+import Spinner from './Spinner';
+
 
 const styles = StyleSheet.create({
   title: {
@@ -17,7 +19,8 @@ const styles = StyleSheet.create({
   },
 });
 
-function DropdownMenu({ items, selected, cb, title }) {
+function DropdownMenu(props) {
+  const { items, selected, cb, title, loading } = props;
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState(value || null)
 
@@ -52,6 +55,8 @@ function DropdownMenu({ items, selected, cb, title }) {
         supportedOrientations: ['landscape'],
         animationType: 'slide',
       }}
+      loading={loading || false}
+      ActivityIndicatorComponent={Spinner}
     />
   );
 }

@@ -7,15 +7,14 @@
 
 
 Josh:  
-- [ ] Check how chat works when requesting a rematch. Maybe rematch request can show up in chat?
 - [ ] Background color of answer option buttons doesnt extend all the way to edges of pixel button
-- [ ] Feedback to user on category selection (loading circle until categories load in?)
-  - [ ] React Native Dropdown Picker https://hossein-zare.github.io/react-native-dropdown-picker-website/docs/advanced/loading
-- [ ] Error wth leaving waiting room screen. Game created, other person joins game, goes to Countdown screen with a Quit button, if one user presses Quit it trips out for other user. If we get rid of Quit, we should have the alert for if the opponent leaves the game during the countdown. Check into this as its implemented in game play, can bring it over. 
-
+- [ ] Manual testing for bugs, possible issues with component mounting
+NEW 11/6:
+- [ ] Remember username in local storage
 
 Tia: 
-ESLINT!
+- [ ] ESLINT!
+- [ ] Resource re react native local storage
 - same font size for every device
   - 14 normal
   - 12/11 small
@@ -34,10 +33,9 @@ ESLINT!
 - [ ] BUG? started game on sim, joined on phone, phone went to waiting room 2 (what is the condition to go to waiting room 2?) **couldnt repro**
 
 
+
+
  Ideas
-- [ ] Expanding the question when you click 
-
-
 - [ ] need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.
  
 
@@ -64,7 +62,6 @@ ESLINT!
  - Trophy Icon animation
  
 - Content for all pages, such as how to play instructions, content for alerts
-- Responsive font size for answer pressables and question on GameScreen
 - Logo/img/etc
 - if you dont answer a question, when the correct answer moment occurs it looks like you answered correctly (because no other option is selected)
 - improve selected/submitted feedback (raining down smileys/sads)
