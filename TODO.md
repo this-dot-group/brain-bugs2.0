@@ -11,7 +11,17 @@ Josh:
 - [ ] Manual testing for bugs, possible issues with component mounting
 - [x] Remember username in local storage
 New 11/15
-- [ ] There is always an 'x' for the opponent in single player, even when the opponent get the answer right/their score increases
+- [x] There is always an 'x' for the opponent in single player, even when the opponent get the answer right/their score increases
+- [x] give trophies same style
+- [x] add spinner to loading screen for waiting for rematch
+- code improvements
+  - make some shared components/variables
+    - answer buttons
+    - fonts
+  - Delete unused things
+   - hourglass gif
+   - Emoji.js
+
 
 Tia: 
 - [ ] ESLINT!

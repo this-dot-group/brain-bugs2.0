@@ -173,11 +173,13 @@ function GameScreen(props) {
   }
 
   const fakeOpponentSubmit = () => {
+    // gets question right 50% of the time and scores a random amount
+    const points = Math.floor(Math.random() * 2) * (Math.floor(Math.random() * QUESTION_TIME) + 1);
     props.fakeOpponentSocket.emit('userAnsweredinGame',
       {
         username: props.opponent,
-        // gets question right 50% of the time and scores a random amount
-        points: Math.floor(Math.random() * 2) * (Math.floor(Math.random() * QUESTION_TIME) + 1),
+        points,
+        correct: !!points
       }
     )
   }
