@@ -31,3 +31,78 @@ export const countdownText = {
   color: "red",
   textAlign: 'center',
 };
+
+////// BIG HEADING /////////////
+////// - logo text /////////////
+////// - welcome greeting //////
+
+const headingTextBase = {
+  fontFamily: 'DotGothic',
+  margin: 10
+}
+
+export const smHeadingText = {
+  ...headingTextBase,
+  fontSize: 54,
+}
+
+export const mdHeadingText = {
+  ...headingTextBase,
+  fontSize: 64, // ?
+}
+
+export const lgHeadingText = {
+  ...headingTextBase,
+  fontSize: 74, // ?
+}
+
+////// INNER TEXT //////////////
+////// - how to play btn ///////
+
+const innerTextBase = {
+  fontFamily: 'DotGothic',
+  marginTop: 'auto',
+  marginBottom: 'auto',
+  textAlign: 'center'
+}
+
+export const smInnerText = {
+  ...innerTextBase,
+  fontSize: 14
+}
+
+export const mdInnerText = {
+  ...innerTextBase,
+  fontSize: 24 // ? need to test
+}
+
+export const lgInnerText = {
+  ...innerTextBase,
+  fontSize: 34 // ? need to test
+}
+
+////// INPUT TEXT //////////////
+////// - input placeholder /////
+
+const inputTextBase = {
+  height: '100%',
+  flex: 1,
+  fontFamily: 'DotGothic',
+  paddingLeft: 8,
+  flexDirection: 'row',
+}
+
+export const smInputText = {
+  ...inputTextBase,
+  fontSize: 14,
+}
+
+export const mdInputText = {
+  ...inputTextBase,
+  fontSize: 24 // ?
+}
+
+export const lgInputText = {
+  ...inputTextBase,
+  fontSize: 34 // ?
+}

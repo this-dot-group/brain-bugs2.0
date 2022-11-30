@@ -9,6 +9,7 @@ import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import MuteButton from '../MuteButton/MuteButton';
 import { PixelButton, KeyboardAvoidingComponent, Hider } from '../Shared';
 import { Views } from '../../styles/';
+import { Typography } from '../../styles/'
 import { newSocket } from '../../store/socketReducer.js';
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer';
 import { playSound } from '../../store/soundsReducer';
@@ -20,77 +21,63 @@ const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 const fakeOpponentSocket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 
 
-const styles = StyleSheet.create({
-  // CONTAINER VIEW
-  container: {
-    flex: 1,
-    paddingTop: 30,
-    paddingBottom: 30,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  // BIG IMAGE
-  logoImg: {
-    width: 100,
-    height: 100,
-  },
-  // NAME TEXT
-  logoText:{
-    fontFamily: 'DotGothic',
-    fontSize: 54,
-    margin: 10
-  },
-  // WRAPS USERNAME ROW
-  inputNestedRowView: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  // WRAPS HOWTOPLAY MODAL ROW
-  bottomNestedRowView: {
-    flexDirection: 'row',
-    width: '90%',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
 
-  // USERNAME INPUT
-  input: {
-    height: '100%',
-    flex: 1,
-    fontFamily: 'DotGothic',
-    fontSize: 14,
-    paddingLeft: 8,
-    flexDirection: 'row',
-  },
-  innerText: {
-    fontFamily: 'DotGothic',
-    fontSize: 14,
-    marginTop: 'auto',
-    marginBottom: 'auto',
-    textAlign: 'center'
-  }
-})
 
 function Homescreen(props) {
   const [modalVisible, setModalVisible] = useState(false)
   const [validUsername, setValidUsername] = useState(false);
   const [toLobby, setToLobby] = useState(false);
-  const { width, height } = Dimensions.get('window');
-  console.log('width in App:', width)
-  console.log('height in App:', height)
+  const { width, height } = Dimensions.get('window');  
+  console.log('width in HomeScreen:', props.screenDeviceWidth)
 
-    // width - 667
-  // height - 375
-  // (recognized its in landscape mode)
-  // TODO: width / fontSize = ratioNum
-  // How to Play btn on HomeScreen: 667 / 14 = 47.64 (how to play and go btns, input placeholder innerText)
-  // Brain Bugs on HomeScreen: 667 / 54 = 12.35 (big logoText)
-  // Welcome greeting on LobbyScreen 667 / 54 = 12.35 (big heading text)
-  // LobbyScreen dropdown inner text 667 / 16 = 41.69 (dropdown inputs)
+  const styles = StyleSheet.create({
+    // CONTAINER VIEW
+    container: {
+      flex: 1,
+      paddingTop: 30,
+      paddingBottom: 30,
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    // BIG IMAGE
+    logoImg: {
+      width: 100,
+      height: 100,
+    },
+    // NAME TEXT
+    logoText: (width) => {
+      if(width < 700) return Typography.smHeadingText
+      if(width >= 700 && width <= 900) return Typography.mdHeadingText
+      if(width > 900) return Typography.lgHeadingText
+    },
+    // WRAPS USERNAME ROW
+    inputNestedRowView: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    // WRAPS HOWTOPLAY MODAL ROW
+    bottomNestedRowView: {
+      flexDirection: 'row',
+      width: '90%',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    // USERNAME INPUT
+    input: (width) => {
+      if(width < 700) return Typography.smInputText
+      if(width >= 700 && width <= 900) return Typography.mdInputText
+      if(width > 900) return Typography.lgInputText
+    },
+    innerText: (width) => {
+      if(width < 700) return Typography.smInnerText
+      if(width >= 700 && width <= 900) return Typography.mdInnerText
+      if(width > 900) return Typography.lgInnerText
+    }
+  })
+
 
   useEffect(() => {
-    console.log("1 deviceWidth:", props.screenDeviceWidth)
     // set user device width in state so we can use for responsive font sizing
     props.deviceWidth(width)
     props.newSocket(socket)
@@ -98,10 +85,7 @@ function Homescreen(props) {
     props.newSocketId(socket.id)
     props.newFakeOpponent(fakeOpponentSocket);
     props.newToken();
-    console.log("2 deviceWidth:", props.screenDeviceWidth)
-
     socket.on('shareId', setSocketId);
-
     return () => {
       socket.off('shareId', setSocketId)
     }
@@ -133,7 +117,7 @@ function Homescreen(props) {
         source={require('../../images/BRAIN_BUG1.png')}
         style={styles.logoImg} />
       
-      <Text style={styles.logoText}>BRAIN BUGS</Text>  
+      <Text style={styles.logoText(props.screenDeviceWidth)}>BRAIN BUGS</Text>  
 
     <KeyboardAvoidingComponent
       offset={0}
@@ -143,7 +127,7 @@ function Homescreen(props) {
 
         <PixelButton buttonStyle={{width: 300, flexDirection: 'row'}}>
           <TextInput
-            style={styles.input}
+            style={styles.input(props.screenDeviceWidth)}
             placeholder={'Enter username'}
             maxLength={15}
             onChangeText={value => handleUsernameChange(value)}
@@ -167,7 +151,7 @@ function Homescreen(props) {
             }}
             style={{height: '100%', width: '100%'}}
           >
-            <Text style={styles.innerText}>How To Play</Text>
+            <Text style={styles.innerText(props.screenDeviceWidth)}>How To Play</Text>
           </Pressable>
         </PixelButton>
 
