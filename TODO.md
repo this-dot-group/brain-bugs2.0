@@ -13,8 +13,8 @@ NEW 11/6:
 - [ ] Remember username in local storage
 
 Tia: 
-- [ ] ESLINT!
-- [ ] Resource re react native local storage
+- [x] ESLINT!
+- [x] Resource re react native local storage
 - same font size for every device
   - 14 normal
   - 12/11 small

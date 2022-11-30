@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TextInput, StyleSheet, Modal, Pressable } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Modal, Pressable, Dimensions } from 'react-native'
 import { Image } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-native';
@@ -12,7 +12,7 @@ import { Views } from '../../styles/';
 import { newSocket } from '../../store/socketReducer.js';
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer';
 import { playSound } from '../../store/soundsReducer';
-import { newUsername, newGameCode, newSocketId, newToken } from '../../store/userReducer.js';
+import { newUsername, newGameCode, newSocketId, newToken, deviceWidth } from '../../store/userReducer.js';
 import { EXPO_LOCAL_URL } from '../../../env'
 
 
@@ -76,13 +76,30 @@ function Homescreen(props) {
   const [modalVisible, setModalVisible] = useState(false)
   const [validUsername, setValidUsername] = useState(false);
   const [toLobby, setToLobby] = useState(false);
+  const { width, height } = Dimensions.get('window');
+  console.log('width in App:', width)
+  console.log('height in App:', height)
+
+    // width - 667
+  // height - 375
+  // (recognized its in landscape mode)
+  // TODO: width / fontSize = ratioNum
+  // How to Play btn on HomeScreen: 667 / 14 = 47.64 (how to play and go btns, input placeholder innerText)
+  // Brain Bugs on HomeScreen: 667 / 54 = 12.35 (big logoText)
+  // Welcome greeting on LobbyScreen 667 / 54 = 12.35 (big heading text)
+  // LobbyScreen dropdown inner text 667 / 16 = 41.69 (dropdown inputs)
 
   useEffect(() => {
+    console.log("1 deviceWidth:", props.screenDeviceWidth)
+    // set user device width in state so we can use for responsive font sizing
+    props.deviceWidth(width)
     props.newSocket(socket)
     // For some reason we need to set the socket id in two different ways
     props.newSocketId(socket.id)
     props.newFakeOpponent(fakeOpponentSocket);
     props.newToken();
+    console.log("2 deviceWidth:", props.screenDeviceWidth)
+
     socket.on('shareId', setSocketId);
 
     return () => {
@@ -174,9 +191,12 @@ function Homescreen(props) {
   )
 }
 
-const mapDispatchToProps = { newUsername, newSocket, newGameCode, newFakeOpponent, playSound, newSocketId, newToken }
+const mapStateToProps = (state) => {
+  return {
+    screenDeviceWidth: state.userReducer.deviceWidth
+  }
+}
 
+const mapDispatchToProps = { newUsername, newSocket, newGameCode, newFakeOpponent, playSound, newSocketId, newToken, deviceWidth }
 
-// null is currently a placeholder for mapStateToProps
-
-export default connect(null, mapDispatchToProps)(Homescreen);
+export default connect(mapStateToProps, mapDispatchToProps)(Homescreen);
