@@ -41,19 +41,19 @@ const headingTextBase = {
   margin: 4,
 }
 
-export const smHeadingText = {
-  ...headingTextBase,
-  fontSize: 50,
-}
-
-export const mdHeadingText = {
-  ...headingTextBase,
-  fontSize: 64, // ?
-}
-
-export const lgHeadingText = {
-  ...headingTextBase,
-  fontSize: 74, // ?
+export const headingText = {
+  small: {
+   ...headingTextBase,
+      fontSize: 50
+  },
+  medium: {
+    ...headingTextBase,
+    fontSize: 60  
+  },
+  large: {
+    ...headingTextBase,
+    fontSize: 70  
+  }
 }
 
 ////// INNER TEXT //////////////
@@ -66,19 +66,19 @@ const innerTextBase = {
   textAlign: 'center'
 }
 
-export const smInnerText = {
-  ...innerTextBase,
-  fontSize: 14
-}
-
-export const mdInnerText = {
-  ...innerTextBase,
-  fontSize: 24 // ? need to test
-}
-
-export const lgInnerText = {
-  ...innerTextBase,
-  fontSize: 34 // ? need to test
+export const innerText = {
+  small: {
+    ...innerTextBase,
+    fontSize: 14
+  },
+  medium: {
+    ...innerTextBase,
+    fontSize: 24 //?
+  },
+  large: {
+    ...innerTextBase,
+    fontSize: 34 // ? need to test
+  }
 }
 
 ////// INPUT TEXT //////////////
@@ -92,17 +92,17 @@ const inputTextBase = {
   flexDirection: 'row',
 }
 
-export const smInputText = {
-  ...inputTextBase,
-  fontSize: 14,
-}
-
-export const mdInputText = {
-  ...inputTextBase,
-  fontSize: 24 // ?
-}
-
-export const lgInputText = {
-  ...inputTextBase,
-  fontSize: 34 // ?
+export const inputText = {
+  small: {
+    ...inputTextBase,
+    fontSize: 14
+  },
+  medium: {
+    ...inputTextBase,
+    fontSize: 24 // ?
+  },
+  large: {
+    ...inputTextBase,
+    fontSize: 34 // ?
+  }
 }

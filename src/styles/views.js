@@ -26,4 +26,13 @@ export const dropDownView = {
   borderColor: 'black'
 };
 
+export const homeScreenContainer = {
+  flex: 1,
+  paddingTop: 30,
+  paddingBottom: 30,
+  width: '100%',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+}
+
 
