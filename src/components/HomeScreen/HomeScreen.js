@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { View, Text, TextInput, StyleSheet, Modal, Pressable } from 'react-native'
 import { Image } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-native';
 import socketIO from 'socket.io-client';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // modular styles
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
@@ -80,7 +81,22 @@ const styles = StyleSheet.create({
 function Homescreen(props) {
   const [modalVisible, setModalVisible] = useState(false)
   const [validUsername, setValidUsername] = useState(false);
+  const [username, setUsername] = useState('')
   const [toLobby, setToLobby] = useState(false);
+
+
+  const getUsername = async () => {
+    try {
+      const localUsername = await AsyncStorage.getItem('username')
+      if (localUsername !== null) {
+        props.newUsername(localUsername);
+        setValidUsername(true);
+        setUsername(localUsername);
+      }
+    } catch(e) {
+      console.error(e)
+    }
+  }
 
   useEffect(() => {
     props.newSocket(socket)
@@ -89,6 +105,8 @@ function Homescreen(props) {
     props.newFakeOpponent(fakeOpponentSocket);
     props.newToken();
     socket.on('shareId', setSocketId);
+
+    getUsername()
 
     return () => {
       socket.off('shareId', setSocketId)
@@ -100,6 +118,7 @@ function Homescreen(props) {
   }
 
   const handleUsernameChange = (username) => {
+    setUsername(username)
 
     if (username) {
       props.newUsername(username)
@@ -135,6 +154,7 @@ function Homescreen(props) {
             placeholder={'Enter username'}
             maxLength={15}
             onChangeText={value => handleUsernameChange(value)}
+            value={username}
           />
         </PixelButton>
 

@@ -50,27 +50,6 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 2,
   },
-  selectedAnswer: {
-    justifyContent: 'center',
-    height: '100%',
-    width: '100%',
-    padding: 2,
-    backgroundColor: '#C0C0C0'
-  },
-  submittedAnswer: {
-    justifyContent: 'center',
-    height: '100%',
-    width: '100%',
-    padding: 2,
-    backgroundColor: '#8A8787'
-  },
-  correctAnswer: {
-    justifyContent: 'center',
-    height: '100%',
-    width: '100%',
-    padding: 2,
-    backgroundColor: '#ADD8E6'
-  },
   answerText: {
     fontFamily: 'DotGothic',
     fontSize: moderateScale(18),
@@ -117,6 +96,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+const buttonStyle = {
+  alignSelf: 'flex-end',
+  height: scale(60),
+  width: scale(200)
+}
 
 
 function GameScreen(props) {
@@ -188,11 +173,13 @@ function GameScreen(props) {
   }
 
   const fakeOpponentSubmit = () => {
+    // gets question right 50% of the time and scores a random amount
+    const points = Math.floor(Math.random() * 2) * (Math.floor(Math.random() * QUESTION_TIME) + 1);
     props.fakeOpponentSocket.emit('userAnsweredinGame',
       {
         username: props.opponent,
-        // gets question right 50% of the time and scores a random amount
-        points: Math.floor(Math.random() * 2) * (Math.floor(Math.random() * QUESTION_TIME) + 1),
+        points,
+        correct: !!points
       }
     )
   }
@@ -240,8 +227,6 @@ function GameScreen(props) {
     }
 
     const questionHandler = questionObj => {
-
-      // console.log(questionObj)
 
       if(!totalQuestions) {
         setTotalQuestions(questionObj.numQuestions);
@@ -331,16 +316,18 @@ function GameScreen(props) {
   }, [formattedQuestionInfo])
 
   const chooseColor = (i) => {
+    const styles = { ...buttonStyle };
 
-    let color = i === selected ? styles.selectedAnswer : styles.nonSelectedAnswer;
-
+    if (i === selected) {
+      styles.backgroundColor = '#C0C0C0'
+    }
     if (i === submitted) {
-      color = styles.submittedAnswer
+      styles.backgroundColor = '#8A8787'
     }
     if (i === correctIndex && displayAnswer) {
-      color = styles.correctAnswer;
+      styles.backgroundColor = '#ADD8E6'
     }
-    return color;
+    return styles;
   }
 
 
@@ -363,13 +350,13 @@ function GameScreen(props) {
 
             <View style={styles.answerOptionPressables}>
               <PixelButton
-                buttonStyle={{height: scale(60), width: scale(200)}}
-                >
+                buttonStyle={chooseColor(ansObjForRendering[0].index)}
+              >
                 <Pressable
                   onPress={() => {
                     setSelected(ansObjForRendering[0].index)
                   }}
-                  style={chooseColor(ansObjForRendering[0].index)}
+                  style={styles.nonSelectedAnswer}
 
                   key={ansObjForRendering[0].index}
                   disabled={displayAnswer}>
@@ -427,13 +414,13 @@ function GameScreen(props) {
 
             <View style={styles.answerOptionPressables}>
               <PixelButton
-              buttonStyle={{alignSelf: 'flex-end', height: scale(60), width: scale(200)}} 
+                buttonStyle={chooseColor(ansObjForRendering[1].index)} 
               >
                 <Pressable
                   onPress={() => {
                     setSelected(ansObjForRendering[1].index)
                   }}
-                  style={chooseColor(ansObjForRendering[1].index)}
+                  style={styles.nonSelectedAnswer}
 
                   key={ansObjForRendering[1].index}
                   disabled={displayAnswer}>
@@ -525,12 +512,12 @@ function GameScreen(props) {
             {ansObjForRendering[2] &&
               <View style={styles.answerOptionPressables}>
                 <PixelButton
-                buttonStyle={{height: scale(60), width: scale(200)}} >
+                  buttonStyle={chooseColor(ansObjForRendering[2].index)} >
                   <Pressable
                     onPress={() => {
                       setSelected(ansObjForRendering[2].index)
                     }}
-                    style={chooseColor(ansObjForRendering[2].index)}
+                    style={styles.nonSelectedAnswer}
 
                     key={ansObjForRendering[2].index}
                     disabled={displayAnswer}>
@@ -557,12 +544,12 @@ function GameScreen(props) {
 
             {ansObjForRendering[3] &&
               <View style={styles.answerOptionPressables}>
-                <PixelButton buttonStyle={{alignSelf: 'flex-end', height: scale(60), width: scale(200)}}>
+                <PixelButton buttonStyle={chooseColor(ansObjForRendering[3].index)}>
                   <Pressable
                     onPress={() => {
                       setSelected(ansObjForRendering[3].index)
                     }}
-                    style={chooseColor(ansObjForRendering[3].index)}
+                    style={styles.nonSelectedAnswer}
 
                     key={ansObjForRendering[3].index}
                     disabled={displayAnswer}>

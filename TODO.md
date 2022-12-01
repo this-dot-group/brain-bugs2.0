@@ -7,10 +7,22 @@
 
 
 Josh:  
-- [ ] Background color of answer option buttons doesnt extend all the way to edges of pixel button
+- [x] Background color of answer option buttons doesnt extend all the way to edges of pixel button
 - [ ] Manual testing for bugs, possible issues with component mounting
-NEW 11/6:
-- [ ] Remember username in local storage
+- [x] Remember username in local storage
+New 11/15
+- [x] There is always an 'x' for the opponent in single player, even when the opponent get the answer right/their score increases
+- [x] give trophies same style
+- [x] add spinner to loading screen for waiting for rematch
+- code improvements
+  - make some shared components/variables
+    - answer buttons
+    - fonts
+    - trophy/score section
+  - Delete unused things
+   - hourglass gif
+   - Emoji.js
+
 
 Tia: 
 - [ ] ESLINT!
