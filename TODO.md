@@ -7,17 +7,16 @@
 
 
 Josh:  
-- [x] Background color of answer option buttons doesnt extend all the way to edges of pixel button
 - [ ] Manual testing for bugs, possible issues with component mounting
-- [x] Remember username in local storage
-New 11/15
-- [x] There is always an 'x' for the opponent in single player, even when the opponent get the answer right/their score increases
-- [x] give trophies same style
-- [x] add spinner to loading screen for waiting for rematch
+- [ ] Update expo sdk to at least 45
+- [ ] Trophy Icon animation
+- [ ] Revisit Colors
+
+For Future
 - code improvements
+  - destructure props
   - make some shared components/variables
     - answer buttons
-    - fonts
     - trophy/score section
   - Delete unused things
    - hourglass gif
@@ -25,8 +24,6 @@ New 11/15
 
 
 Tia: 
-- [ ] ESLINT!
-- [ ] Resource re react native local storage
 - [ ] Responsive layout sizing
   - [ ] Make breakpoints instead for a few common devices and use that to hard code styling (can change sim devices)
   - build for standard device, will scale on others
@@ -40,7 +37,7 @@ Tia:
 - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
 - App seems to load in portrait before switching to landscape, looks glitchy
  - Maybe this is caused by expo go
- - If a pivate game is cancelled after other player has already entered code but not pressed go, it appears that the game is still there
+ - If a private game is cancelled after other player has already entered code but not pressed go, it appears that the game is still there
 
 
 ## Code / Fit & finish
@@ -56,7 +53,7 @@ Tia:
  - Bug crawling in background - homescreen, endscreen
  - Feedback copying private game code
  - Bounce or something on pixel button
- - Trophy Icon animation
+ 
  
 - Content for all pages, such as how to play instructions, content for alerts
 - Logo/img/etc
@@ -147,62 +144,3 @@ Tia:
 Co-authored-by: Tia Low <lowtia@gmail.com>
 Co-authored-by: Chris Hamersly <christopherhamersly@gmail.com>
 Co-authored-by: Josh Williams <joshuasrwilliams@gmail.com>
-
-Add to `.eslintrc.json`:
-```
-{
-  "env": {
-    "browser": true,
-    "node": true,
-    "commonjs": true,
-    "jest": true,
-    "es6": true
-  },
-  "globals": {
-    "fail": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "sourceType": "module",
-    "ecmaVersion": 2018,
-    "ecmaFeatures": {
-      "jsx": true,
-      "modules": true
-    }
-  },
-  // "ecmaFeatures": {
-  //   "jsx": true
-  // },
-  "rules": {
-    "no-console": "off",
-    "indent": [
-      "error",
-      2
-    ],
-    "quotes": [
-      "error",
-      "single",
-      {
-        "allowTemplateLiterals": true
-      }
-    ],
-    "no-unused-vars": [
-      1,
-      {
-        "vars": "local",
-        "args": "none"
-      }
-    ],
-    // "no-undef": "error",
-    "react/prop-types": "off"
-    // [
-    //   "enabled",
-    //    { "ignore":"ignore", "customValidators": "customValidator" }
-    //  ]
-  }
-}
-```
