@@ -30,7 +30,16 @@ function Homescreen(props) {
   const [toLobby, setToLobby] = useState(false);
   const [ready, setReady] = useState(false);
   const { width, height } = Dimensions.get('window');  
-  const { deviceWidth, newSocket, newSocketId, newFakeOpponent  } = props;
+  const { 
+    deviceWidth, 
+    newSocket, 
+    newSocketId, 
+    newFakeOpponent, 
+    newToken, 
+    newUsername, 
+    screenDeviceWidth, 
+    playSound 
+  } = props;
 
   useEffect(() => {
     // set user device width in global state so we can use for responsive styling in other components
@@ -41,7 +50,7 @@ function Homescreen(props) {
     // For some reason we need to set the socket id in two different ways
     newSocketId(socket.id)
     newFakeOpponent(fakeOpponentSocket);
-    props.newToken();
+    newToken();
     setReady(true);
     socket.on('shareId', setSocketId);
     return () => {
@@ -50,35 +59,34 @@ function Homescreen(props) {
   }, [])
 
   const styles = StyleSheet.create({
-    // CONTAINER VIEW
     container: {
       ...Views.homeScreenContainer
     },
     logoImg: {
-      ...Images.logoImg[props.screenDeviceWidth]
+      ...Images.logoImg[screenDeviceWidth]
     },
     logoText: {
-      ...Typography.headingText[props.screenDeviceWidth]
+      ...Typography.headingText[screenDeviceWidth]
     },
-    // USERNAME INPUT
+    // username input
     input: {
-      ...Typography.inputText[props.screenDeviceWidth]
+      ...Typography.inputText[screenDeviceWidth]
     },
+    // how to play and go btns
     innerText: {
-      ...Typography.innerText[props.screenDeviceWidth]
+      ...Typography.innerText[screenDeviceWidth]
     },
-    // WRAPS LOGO IMG AND TEXT
     logoTextRowView: {
       flexDirection: 'column',
       alignItems: 'center',
       marginTop: 10,
     },
-    // WRAPS USERNAME ROW
+    // wraps username row
     inputNestedRowView: {
       flexDirection: 'row',
       alignItems: 'center',
     },
-    // WRAPS HOWTOPLAY MODAL ROW
+    // wraps how to play modal row
     bottomNestedRowView: {
       flexDirection: 'row',
       width: '90%',
@@ -88,12 +96,12 @@ function Homescreen(props) {
   })
 
   const setSocketId = id => {
-    props.newSocketId(id)
+    newSocketId(id)
   }
 
   const handleUsernameChange = (username) => {
     if (username) {
-      props.newUsername(username)
+      newUsername(username)
       setValidUsername(true);
     } else {
       setValidUsername(false);
@@ -101,7 +109,7 @@ function Homescreen(props) {
   }
 
   const handleGo = async () => {
-    await props.playSound('flute');
+    await playSound('flute');
     setToLobby(true)
   }
 
@@ -148,7 +156,7 @@ function Homescreen(props) {
         <PixelButton buttonStyle={{ width: 100}}>
           <Pressable
             onPress={() => {
-              props.playSound('click')
+              playSound('click')
               setModalVisible(true);
             }}
             style={{height: '100%', width: '100%'}}
