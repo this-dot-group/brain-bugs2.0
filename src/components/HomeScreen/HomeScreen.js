@@ -4,7 +4,7 @@ import { Image } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-native';
 import socketIO from 'socket.io-client';
-
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import MuteButton from '../MuteButton/MuteButton';
 import { PixelButton, KeyboardAvoidingComponent, Hider } from '../Shared';
@@ -27,8 +27,9 @@ function Homescreen(props) {
   const [modalVisible, setModalVisible] = useState(false)
   const [validUsername, setValidUsername] = useState(false);
   const [toLobby, setToLobby] = useState(false);
+  const [ready, setReady] = useState(false);
   const { width, height } = Dimensions.get('window');  
-  console.log('width in HomeScreen:', props.screenDeviceWidth)
+  console.log('width in HomeScreen:', width)
 
   const styles = StyleSheet.create({
     // CONTAINER VIEW
@@ -85,6 +86,7 @@ function Homescreen(props) {
     props.newSocketId(socket.id)
     props.newFakeOpponent(fakeOpponentSocket);
     props.newToken();
+    setReady(true);
     socket.on('shareId', setSocketId);
     return () => {
       socket.off('shareId', setSocketId)
@@ -108,6 +110,12 @@ function Homescreen(props) {
   const handleGo = async () => {
     await props.playSound('flute');
     setToLobby(true)
+  }
+
+  if (!ready) {
+    return (
+      <LoadingScreen/>
+    );
   }
 
   return (
