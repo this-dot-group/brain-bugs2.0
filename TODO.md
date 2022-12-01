@@ -13,23 +13,9 @@ NEW 11/6:
 - [ ] Remember username in local storage
 
 Tia: 
-- [x] ESLINT!
-- [x] Resource re react native local storage
-- same font size for every device
-  - 14 normal
-  - 12/11 small
-  - 16 headers
-- (could check for device fontScale using PixelRatio and multiply by that accordingly)
-- should have responsive layout instead, which means maybe responsive margins and padding etc
-- check how responsive layouts look on dif devices, maybe breakpoints for that (or build for smallest device, and things will expand without issue?)
-- test on largest and smallest and everything else in between will work itself out iPhone pro max and an iPhone SE
-
-- [x] Removed font scale library
-  - [ ] Maybe make breakpoints instead for a few common devices and use that to hard code styling (can change sim devices)
-  - build for standard device, will scale on others
-    - [ ] join existing game
-    - [ ] join private game
-    - [ ] check everything after lobby screen (except game screen)
+TODO: left on HomeScreen, tested out the small sizes for the new way of sizing on innerText, logoText, etc
+TODO: need to test out med and large devices, and then move forward from HomeScreen
+- [ ] Responsive sizing
 - [ ] BUG? started game on sim, joined on phone, phone went to waiting room 2 (what is the condition to go to waiting room 2?) **couldnt repro**
 
 
