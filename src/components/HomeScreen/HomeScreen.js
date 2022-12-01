@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { View, Text, TextInput, StyleSheet, Modal, Pressable, Dimensions } from 'react-native'
 import { Image } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-native';
 import socketIO from 'socket.io-client';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
@@ -27,6 +28,7 @@ const fakeOpponentSocket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 function Homescreen(props) {
   const [modalVisible, setModalVisible] = useState(false)
   const [validUsername, setValidUsername] = useState(false);
+  const [username, setUsername] = useState('')
   const [toLobby, setToLobby] = useState(false);
   const [ready, setReady] = useState(false);
   const { width, height } = Dimensions.get('window');  
@@ -41,6 +43,20 @@ function Homescreen(props) {
     playSound 
   } = props;
 
+
+  const getUsername = async () => {
+    try {
+      const localUsername = await AsyncStorage.getItem('username')
+      if (localUsername !== null) {
+        newUsername(localUsername);
+        setValidUsername(true);
+        setUsername(localUsername);
+      }
+    } catch(e) {
+      console.error(e)
+    }
+  }
+
   useEffect(() => {
     // set user device width in global state so we can use for responsive styling in other components
     if(width < 700) deviceWidth("small")
@@ -53,6 +69,7 @@ function Homescreen(props) {
     newToken();
     setReady(true);
     socket.on('shareId', setSocketId);
+    getUsername()
     return () => {
       socket.off('shareId', setSocketId)
     }
@@ -100,6 +117,7 @@ function Homescreen(props) {
   }
 
   const handleUsernameChange = (username) => {
+    setUsername(username)
     if (username) {
       newUsername(username)
       setValidUsername(true);
@@ -121,7 +139,6 @@ function Homescreen(props) {
 
   return (
     <View style={styles.container}>
-
       <View style={styles.logoTextRowView}>
         <Image
           source={require('../../images/BRAIN_BUG1.png')}
@@ -140,6 +157,7 @@ function Homescreen(props) {
                 placeholder={'Enter username'}
                 maxLength={15}
                 onChangeText={value => handleUsernameChange(value)}
+                value={username}
               />
             </PixelButton>
 

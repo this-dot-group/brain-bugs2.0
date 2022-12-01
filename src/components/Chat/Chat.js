@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginBottom: 2,
     fontSize: 18,
+    maxWidth: '50%'
   },
   opponentMessages : {
     alignSelf: 'flex-start',
@@ -36,8 +37,6 @@ const styles = StyleSheet.create({
   content: {
     position: 'relative',
     flex: 1,
-    marginTop: 6,
-    paddingTop: 10,
     paddingBottom: 50,
     height: '100%',
     backgroundColor: 'white'
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
   form: {
     flexDirection: 'row',
     width: '100%',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     height: '100%',
     zIndex: 4
   },
@@ -54,6 +53,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     backgroundColor: 'white',
     zIndex: 2,
+    width: '80%'
   },
   button: {
     height: '100%',
@@ -169,6 +169,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
 
           <TitleBar
             cb={hideModal}
+            style={{ marginBottom: 0 }}
           >
             <Hider
               show={rematchPending}
@@ -222,7 +223,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
               </View>
             </ScrollView>
             <KeyboardAvoidingComponent
-              keyboardVerticalOffset={70}
+              keyboardVerticalOffset={95}
               style={{
                 position:'absolute',
                 bottom: 0,

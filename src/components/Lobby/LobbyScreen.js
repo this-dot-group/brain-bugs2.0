@@ -10,6 +10,7 @@ import { newOpponent, newGameCode } from '../../store/userReducer';
 import { newGame } from '../../store/gameInfoReducer';
 import { playSound } from '../../store/soundsReducer'
 import PixelButton from '../Shared/PixelButton'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
   container: {
@@ -48,7 +49,17 @@ function StartScreen(props) {
 
   const createGameCode = () => Math.floor(Math.random() * 100000).toString().padStart(5, '0');
 
+  const storeUsername = async () => {
+    try {
+      await AsyncStorage.setItem('username', props.userName);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   useEffect(() => {
+    storeUsername();
+
     // reset game so no info from previous games carries over
     props.newGame({});
 

@@ -3,14 +3,15 @@ import { Text, Pressable, View, StyleSheet } from 'react-native';
 import PixelButton  from './PixelButton';
 
 
-const styles = StyleSheet.create({
+const makeStyles = (style) => StyleSheet.create({
   root: {
     display: 'flex',
     alignItems: 'center',
     justifyContent:'center',
     flexDirection: 'row',
     marginBottom: 16,
-    position: 'relative'
+    position: 'relative',
+    ...style
   },
   text: {
     textAlign: 'center',
@@ -29,7 +30,8 @@ const styles = StyleSheet.create({
   }
 });
 
-function TitleBar({ children, cb }) {
+function TitleBar({ children, cb, style }) {
+  const styles = makeStyles(style)
   return (
     <View style={styles.root}>
       <Text style={styles.text}>{children}</Text>

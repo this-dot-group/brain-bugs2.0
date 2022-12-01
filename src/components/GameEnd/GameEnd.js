@@ -309,7 +309,7 @@ function GameEnd(props) {
             {playerOneScore > playerTwoScore && 
               <Image
                 source={require('../../../assets/trophy.png')}
-                style={{ height: 30, width: 30 }}
+                style={styles.trophy}
               />
             }
           </View>
