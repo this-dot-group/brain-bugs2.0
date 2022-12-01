@@ -41,16 +41,37 @@ function Homescreen(props) {
       alignItems: 'center',
       justifyContent: 'space-between',
     },
-    // BIG IMAGE
-    logoImg: {
-      width: 100,
-      height: 100,
+    logoImg: (width) => {
+      if(width < 700) {
+        return {
+          height: 80,
+          width: 80,
+        }
+      }
+      if(width >= 700 && width <= 900) {
+        return {
+          height: 100,
+          width: 100
+        }
+      }
+      if(width > 900) {
+        return {
+          height: 100,
+          width: 100
+        }
+      }
     },
     // NAME TEXT
     logoText: (width) => {
       if(width < 700) return Typography.smHeadingText
       if(width >= 700 && width <= 900) return Typography.mdHeadingText
       if(width > 900) return Typography.lgHeadingText
+    },
+    // WRAPS LOGO IMG AND TEXT
+    logoTextRowView: {
+      flexDirection: 'column',
+      alignItems: 'center',
+      marginTop: 10,
     },
     // WRAPS USERNAME ROW
     inputNestedRowView: {
@@ -120,35 +141,40 @@ function Homescreen(props) {
 
   return (
     <View style={styles.container}>
-      
-      <Image
-        source={require('../../images/BRAIN_BUG1.png')}
-        style={styles.logoImg} />
-      
-      <Text style={styles.logoText(props.screenDeviceWidth)}>BRAIN BUGS</Text>  
 
-    <KeyboardAvoidingComponent
-      offset={0}
-      style={{ backgroundColor: 'transparent' }}
-    >
-      <View style={styles.inputNestedRowView}>
+      <View style={styles.logoTextRowView}>
+        <Image
+          source={require('../../images/BRAIN_BUG1.png')}
+          style={styles.logoImg(props.screenDeviceWidth)} />
+        <Text style={styles.logoText(props.screenDeviceWidth)}>BRAIN BUGS</Text> 
 
-        <PixelButton buttonStyle={{width: 300, flexDirection: 'row'}}>
-          <TextInput
-            style={styles.input(props.screenDeviceWidth)}
-            placeholder={'Enter username'}
-            maxLength={15}
-            onChangeText={value => handleUsernameChange(value)}
-          />
-        </PixelButton>
+        <KeyboardAvoidingComponent
+          offset={0}
+          style={{ backgroundColor: 'transparent', flex: 0 }}
+        >
+          <View style={styles.inputNestedRowView}>
 
-        <PixelButton buttonStyle={{ width: 70, marginLeft: 16, backgroundColor: validUsername ? 'rgba(128,128,128,0)' : 'rgba(128,128,128,0.4)', borderColor: validUsername ? 'black' : 'rgba(128,128,128,0.2)' }}>
-          <Pressable onPress={handleGo} disabled={!validUsername}>
-            <Text style={styles.innerText}>Go!</Text>
-          </Pressable>
-        </PixelButton>
+            <PixelButton buttonStyle={{width: 300, flexDirection: 'row'}}>
+              <TextInput
+                style={styles.input(props.screenDeviceWidth)}
+                placeholder={'Enter username'}
+                maxLength={15}
+                onChangeText={value => handleUsernameChange(value)}
+              />
+            </PixelButton>
+
+            <PixelButton buttonStyle={{ width: 70, marginLeft: 16, backgroundColor: validUsername ? 'rgba(128,128,128,0)' : 'rgba(128,128,128,0.4)', borderColor: validUsername ? 'black' : 'rgba(128,128,128,0.2)' }}>
+              <Pressable onPress={handleGo} disabled={!validUsername}>
+                <Text style={styles.innerText}>Go!</Text>
+              </Pressable>
+            </PixelButton>
+          </View>
+        </KeyboardAvoidingComponent>
       </View>
-      </KeyboardAvoidingComponent>
+      
+       
+
+    
 
       <View style={styles.bottomNestedRowView}>
         <PixelButton buttonStyle={{ width: 100}}>

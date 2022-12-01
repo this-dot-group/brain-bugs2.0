@@ -38,12 +38,12 @@ export const countdownText = {
 
 const headingTextBase = {
   fontFamily: 'DotGothic',
-  margin: 10
+  margin: 4,
 }
 
 export const smHeadingText = {
   ...headingTextBase,
-  fontSize: 54,
+  fontSize: 50,
 }
 
 export const mdHeadingText = {
