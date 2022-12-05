@@ -11,6 +11,8 @@ Josh:
 - [ ] Update expo sdk to at least 45
 - [ ] Trophy Icon animation
 - [ ] Revisit Colors
+- New:
+ - [ ] Bug with user going back to home screen when clicking on push notification - maybe has something to do with changes for app state tracker on waiting room screen recently made
 
 For Future
 - code improvements
