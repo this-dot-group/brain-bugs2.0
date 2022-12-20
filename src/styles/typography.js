@@ -58,6 +58,7 @@ export const headingText = {
 
 ////// INNER TEXT //////////////
 ////// - how to play btn ///////
+////// - go btn ////////////////
 
 const innerTextBase = {
   fontFamily: 'DotGothic',
@@ -73,11 +74,11 @@ export const innerText = {
   },
   medium: {
     ...innerTextBase,
-    fontSize: 24 //?
+    fontSize: 22
   },
   large: {
     ...innerTextBase,
-    fontSize: 34 // ? need to test
+    fontSize: 24 // ? need to test
   }
 }
 
@@ -99,10 +100,10 @@ export const inputText = {
   },
   medium: {
     ...inputTextBase,
-    fontSize: 24 // ?
+    fontSize: 22
   },
   large: {
     ...inputTextBase,
-    fontSize: 34 // ?
+    fontSize: 24
   }
 }

@@ -1,3 +1,19 @@
+////// HOW TO PLAY BTN WIDTH //////////////
+////// - how to play btn ///////
+
+export const howToPlayBtn = {
+  small: {
+    width: 100
+  },
+  medium: {
+    width: 160
+  },
+  large: {
+    width: 180
+  }
+}
+
+
 export const openButton = {
   backgroundColor: '#F194FF',
   borderRadius: 20,

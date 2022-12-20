@@ -11,9 +11,7 @@ import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import MuteButton from '../MuteButton/MuteButton';
 import { PixelButton, KeyboardAvoidingComponent, Hider } from '../Shared';
 
-import { Views } from '../../styles/';
-import { Typography } from '../../styles/';
-import { Images } from '../../styles/';
+import { Buttons, Views, Typography, Images } from '../../styles/';
 
 import { newSocket } from '../../store/socketReducer.js';
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer';
@@ -93,6 +91,9 @@ function Homescreen(props) {
     innerText: {
       ...Typography.innerText[screenDeviceWidth]
     },
+    howToPlayBtn: {
+      ...Buttons.howToPlayBtn[screenDeviceWidth]
+    },
     logoTextRowView: {
       flexDirection: 'column',
       alignItems: 'center',
@@ -171,7 +172,7 @@ function Homescreen(props) {
       </View>
       
       <View style={styles.bottomNestedRowView}>
-        <PixelButton buttonStyle={{ width: 100}}>
+        <PixelButton buttonStyle={styles.howToPlayBtn}>
           <Pressable
             onPress={() => {
               playSound('click')

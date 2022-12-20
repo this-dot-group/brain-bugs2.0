@@ -4,11 +4,11 @@ export const logoImg = {
     width: 80,
   },
   medium: {
-    height: 100,
-    width: 100,
+    height: 120,
+    width: 120,
   },
   large: {
-    height: 100,
-    width: 100,
+    height: 140,
+    width: 140,
   }
 };
