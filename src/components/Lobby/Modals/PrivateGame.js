@@ -54,12 +54,10 @@ function PrivateGame(props) {
   }, [])
 
   const handleChange = (value) => {
-
     // value is the user-entered game code 
     setGameCode(value);
 
     if (value.length === 5) {
-
       if (!validGamecodes.includes(value)) {
         setError(true);
         setTimeout(() => {
@@ -68,11 +66,8 @@ function PrivateGame(props) {
       } else {
         setShowGo(true)
       }
-
     }
   }
-
-
 
   return (
     <GenericModal
