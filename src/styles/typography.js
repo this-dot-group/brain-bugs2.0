@@ -63,11 +63,11 @@ export const headingTwoText = {
   },
   medium: {
     ...headingTextBase,
-    fontSize: 38  
+    fontSize: 34  
   },
   large: {
     ...headingTextBase,
-    fontSize: 48  
+    fontSize: 44
   }
 }
 
