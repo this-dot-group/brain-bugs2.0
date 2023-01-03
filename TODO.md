@@ -26,7 +26,8 @@ For Future
 
 
 Tia: 
-TODO: merge josh's work, check lobby stuff with 2p
+TODO: waiting room 2 styling (sim push notif)
+TODO: styling of "you have played all questions in category" in waiting room
 TODO: fix PixelButton (how to play btn) right side border
   - changing it from buttonStyle={{width: 100}} to buttonStyle={styles.buttonStyle} makes it go wonky
 TODO: check styles of available games in Join Game Modal (once i can create game from phone)
