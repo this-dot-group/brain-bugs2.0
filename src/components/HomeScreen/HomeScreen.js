@@ -94,6 +94,9 @@ function Homescreen(props) {
     howToPlayBtn: {
       ...Buttons.howToPlayBtn[screenDeviceWidth]
     },
+    goBtn: {
+
+    },
     logoTextRowView: {
       flexDirection: 'column',
       alignItems: 'center',
@@ -154,7 +157,7 @@ function Homescreen(props) {
         >
           <View style={styles.inputNestedRowView}>
 
-            <PixelButton buttonStyle={{width: 300, flexDirection: 'row'}}>
+            <PixelButton buttonStyle={{width: 300, height: 46, flexDirection: 'row'}}>
               <TextInput
                 style={styles.input}
                 placeholder={'Enter username'}
@@ -164,7 +167,7 @@ function Homescreen(props) {
               />
             </PixelButton>
 
-            <PixelButton buttonStyle={{ width: 70, marginLeft: 16, backgroundColor: validUsername ? 'rgba(128,128,128,0)' : 'rgba(128,128,128,0.4)', borderColor: validUsername ? 'black' : 'rgba(128,128,128,0.2)' }}>
+            <PixelButton buttonStyle={{ width: 70, height: 46, marginLeft: 16, backgroundColor: validUsername ? 'rgba(128,128,128,0)' : 'rgba(128,128,128,0.4)', borderColor: validUsername ? 'black' : 'rgba(128,128,128,0.2)' }}>
               <Pressable onPress={handleGo} disabled={!validUsername}>
                 <Text style={styles.innerText}>Go!</Text>
               </Pressable>

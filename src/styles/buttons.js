@@ -3,13 +3,16 @@
 
 export const howToPlayBtn = {
   small: {
-    width: 100
+    width: 100,
+    height: 40
   },
   medium: {
-    width: 160
+    width: 160,
+    height: 46
   },
   large: {
-    width: 180
+    width: 170,
+    height: 46
   }
 }
 
