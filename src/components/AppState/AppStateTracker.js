@@ -33,7 +33,7 @@ function AppStateTracker(props) {
 
 
   useEffect(() => {
-    AppState.addEventListener('change', handleAppStateChange);
+    const subscription = AppState.addEventListener('change', handleAppStateChange);
 
     // initial set to "active" state, listener will take care of changes
     console.log('inAppStateTracker useEffect:', AppState.currentState)
@@ -46,7 +46,7 @@ function AppStateTracker(props) {
     props.socket.emit('appStateUpdate', appStateGameCode)
 
     return () => {
-      AppState.removeEventListener('change', handleAppStateChange);
+      subscription.remove();
     };
 
   }, [])
