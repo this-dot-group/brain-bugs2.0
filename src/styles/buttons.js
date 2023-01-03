@@ -13,6 +13,27 @@ export const howToPlayBtn = {
   }
 }
 
+////// LOBBY OPTION BTN WIDTH /////
+////// - lobby screen options /////
+
+export const lobbyOptionBtns = {
+  small: {
+    width: 240,
+    height: 46,
+    marginBottom: 24
+  },
+  medium: {
+    width: 300,
+    height: 54,
+    marginBottom: 30,
+  },
+  large: {
+    width: 340,
+    height: 54,
+    marginBottom: 30
+  }
+}
+
 
 export const openButton = {
   backgroundColor: '#F194FF',

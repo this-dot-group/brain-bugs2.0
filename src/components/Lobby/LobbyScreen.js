@@ -11,35 +11,7 @@ import { newGame } from '../../store/gameInfoReducer';
 import { playSound } from '../../store/soundsReducer'
 import PixelButton from '../Shared/PixelButton'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    paddingVertical: 30,
-    paddingHorizontal: 30,
-  },
-  muteButton: {
-    alignSelf: 'flex-end',
-    marginBottom: 0,
-    marginTop: 'auto'
-  },
-  greeting: {
-    fontFamily: 'VT323',
-    marginBottom: 20,
-    fontSize: 54
-  },
-  innerText: {
-    fontFamily: 'DotGothic',
-    fontSize: 16,
-    marginTop: 'auto',
-    marginBottom: 'auto',
-    textAlign: 'center'
-  }
-})
+import { Buttons, Typography } from '../../styles';
 
 function StartScreen(props) {
   const [modalVisible, setModalVisible] = useState(null);
@@ -48,7 +20,7 @@ function StartScreen(props) {
   const [roomJoin, setRoomJoin] = useState(false);
 
   const {
-    deviceWidth,
+    screenDeviceWidth,
     userName,
     socket,
     newGame,
@@ -56,6 +28,36 @@ function StartScreen(props) {
     newOpponent,
     playSound
   } = props;
+
+  console.log('deviceWidth in Lobby:', screenDeviceWidth)
+
+  const styles = StyleSheet.create({
+    container: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+      height: '100%',
+      paddingVertical: 30,
+      paddingHorizontal: 30,
+    },
+    muteButton: {
+      alignSelf: 'flex-end',
+      marginBottom: 0,
+      marginTop: 'auto'
+    },
+    greeting: {
+      ...Typography.headingOneText[screenDeviceWidth],
+      marginBottom: 20,
+    },
+    optionBtns: {
+      ...Buttons.lobbyOptionBtns[screenDeviceWidth]
+
+    },
+    innerText: {
+      ...Typography.innerText[screenDeviceWidth],
+    }
+  })
 
   const createGameCode = () => Math.floor(Math.random() * 100000).toString().padStart(5, '0');
 
@@ -127,7 +129,7 @@ function StartScreen(props) {
     <View style={styles.container}>
       <Text style={styles.greeting}> WELCOME {userName.toUpperCase()}! </Text>
 
-      <PixelButton buttonStyle={{marginBottom: 24}}>
+      <PixelButton buttonStyle={styles.optionBtns}>
         <Pressable
           onPress={() => handleModalChange('start')}
           style={{height: '100%', width: '100%'}}
@@ -141,7 +143,7 @@ function StartScreen(props) {
         modalVisible={modalVisible}
       />
 
-      <PixelButton buttonStyle={{marginBottom: 24}}>
+      <PixelButton buttonStyle={styles.optionBtns}>
         <Pressable
           onPress={() => handleModalChange('join')}
           style={{height: '100%', width: '100%'}}
@@ -155,7 +157,7 @@ function StartScreen(props) {
         gamesWaiting={gamesWaiting}
       />
 
-      <PixelButton>
+      <PixelButton buttonStyle={styles.optionBtns}>
         <Pressable
           onPress={() => handleModalChange('private')}
           style={{height: '100%', width: '100%'}}

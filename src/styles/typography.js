@@ -44,7 +44,7 @@ const headingTextBase = {
 export const headingOneText = {
   small: {
    ...headingTextBase,
-      fontSize: 50
+      fontSize: 50,
   },
   medium: {
     ...headingTextBase,
