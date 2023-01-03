@@ -47,11 +47,21 @@ function StartScreen(props) {
   const [gamesWaiting, setGamesWaiting] = useState([])
   const [roomJoin, setRoomJoin] = useState(false);
 
+  const {
+    deviceWidth,
+    userName,
+    socket,
+    newGame,
+    newGameCode,
+    newOpponent,
+    playSound
+  } = props;
+
   const createGameCode = () => Math.floor(Math.random() * 100000).toString().padStart(5, '0');
 
   const storeUsername = async () => {
     try {
-      await AsyncStorage.setItem('username', props.userName);
+      await AsyncStorage.setItem('username', userName);
     } catch (e) {
       console.error(e);
     }
@@ -61,12 +71,12 @@ function StartScreen(props) {
     storeUsername();
 
     // reset game so no info from previous games carries over
-    props.newGame({});
+    newGame({});
 
     // maybe make a new game code each time coming here
-    props.newGameCode(createGameCode());
+    newGameCode(createGameCode());
 
-    props.socket.emit('inJoinGame', null)
+    socket.emit('inJoinGame', null)
 
     const receiveAvailableGames = allGames => {
 
@@ -89,33 +99,33 @@ function StartScreen(props) {
       }
       setGamesWaiting(filteredGames)
     }
-    props.socket.on('sendAvailGameInfo', receiveAvailableGames);
+    socket.on('sendAvailGameInfo', receiveAvailableGames);
 
     /**
      * redirectToHowToPlay is only listened to in the case of a PRIVATE game 
      * 
      */
     const redirect = (usernames) => {
-      props.newOpponent(usernames.gameMaker);
+      newOpponent(usernames.gameMaker);
       setRoomJoin(true);
     }
 
-    props.socket.on('redirectToHowToPlay', redirect);
+    socket.on('redirectToHowToPlay', redirect);
 
     return () => {
-      props.socket.off('sendAvailGameInfo', receiveAvailableGames);
-      props.socket.off('redirectToHowToPlay', redirect);
+      socket.off('sendAvailGameInfo', receiveAvailableGames);
+      socket.off('redirectToHowToPlay', redirect);
     }
   }, []);
 
   const handleModalChange = (modalVisible) => {
-    props.playSound('click')
+    playSound('click')
     setModalVisible(modalVisible)
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.greeting}> WELCOME {props.userName.toUpperCase()}! </Text>
+      <Text style={styles.greeting}> WELCOME {userName.toUpperCase()}! </Text>
 
       <PixelButton buttonStyle={{marginBottom: 24}}>
         <Pressable
@@ -173,7 +183,8 @@ function StartScreen(props) {
 const mapStateToProps = (state) => {
   return {
     userName: state.userReducer.username,
-    socket: state.socketReducer
+    socket: state.socketReducer,
+    screenDeviceWidth: state.userReducer.deviceWidth
   }
 }
 const mapDispatchToProps = { newOpponent, newGame, newGameCode, playSound }
