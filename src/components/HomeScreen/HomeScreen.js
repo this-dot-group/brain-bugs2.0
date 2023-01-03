@@ -81,7 +81,7 @@ function Homescreen(props) {
       ...Images.logoImg[screenDeviceWidth]
     },
     logoText: {
-      ...Typography.headingText[screenDeviceWidth]
+      ...Typography.headingOneText[screenDeviceWidth]
     },
     // username input
     input: {
@@ -131,6 +131,8 @@ function Homescreen(props) {
     await playSound('flute');
     setToLobby(true)
   }
+
+  console.log('HomeScreen screenWidth: ', screenDeviceWidth)
 
   if (!ready) {
     return (
@@ -187,6 +189,7 @@ function Homescreen(props) {
         <HowToPlayModal
           visible={modalVisible}
           setVisible={setModalVisible}
+          deviceSize={screenDeviceWidth}
         />
 
         <View>

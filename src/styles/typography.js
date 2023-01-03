@@ -32,7 +32,7 @@ export const countdownText = {
   textAlign: 'center',
 };
 
-////// BIG HEADING /////////////
+////// HEADING ONE /////////////
 ////// - logo text /////////////
 ////// - welcome greeting //////
 
@@ -41,7 +41,7 @@ const headingTextBase = {
   margin: 4,
 }
 
-export const headingText = {
+export const headingOneText = {
   small: {
    ...headingTextBase,
       fontSize: 50
@@ -53,6 +53,25 @@ export const headingText = {
   large: {
     ...headingTextBase,
     fontSize: 70  
+  }
+}
+
+////// HEADING TWO /////////////
+////// - logo text /////////////
+////// - welcome greeting //////
+
+export const headingTwoText = {
+  small: {
+   ...headingTextBase,
+      fontSize: 28
+  },
+  medium: {
+    ...headingTextBase,
+    fontSize: 38  
+  },
+  large: {
+    ...headingTextBase,
+    fontSize: 48  
   }
 }
 
@@ -105,5 +124,30 @@ export const inputText = {
   large: {
     ...inputTextBase,
     fontSize: 24
+  }
+}
+
+////// NORMAL TEXT //////////////////////
+////// - how to play modal bullet pts ///
+
+const normalTextBase = {
+  fontFamily: 'DotGothic',
+}
+
+export const normalText = {
+  small: {
+    ...normalTextBase,
+    fontSize: 18,
+    paddingVertical: 6,
+  },
+  medium: {
+    ...normalTextBase,
+    fontSize: 22,
+    paddingVertical: 8,
+  },
+  large: {
+    ...normalTextBase,
+    fontSize: 24,
+    paddingVertical: 10,
   }
 }

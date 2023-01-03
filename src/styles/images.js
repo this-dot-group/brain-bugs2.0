@@ -12,3 +12,21 @@ export const logoImg = {
     width: 140,
   }
 };
+
+export const bugBulletPoints = {
+  small: {
+    width: 20,
+    height: 20,
+    marginRight: 10
+  },
+  medium: {
+    width: 30,
+    height: 30,
+    marginRight: 15
+  },
+  large: {
+    width: 40,
+    height: 40,
+    marginRight: 20
+  }
+}
