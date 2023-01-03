@@ -9,40 +9,41 @@ import { QUESTION_DROPDOWN_CHOICES } from '../../../../config';
 import { PixelButton, GenericModal, DropdownMenu, Hider, TitleBar } from '../../Shared';
 
 import he from 'he';
-import { Views } from '../../../styles'
+import { Buttons } from '../../../styles'
 import { EXPO_LOCAL_URL } from '../../../../env'
 
 import axios from 'axios';
 import Constants from 'expo-constants';
 
-
-const styles = StyleSheet.create({
-  dropdowns: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-    zIndex: 1,
-  },
-  dropDownView: {
-    height: 50,
-    marginBottom: 14,
-  },
-  goRow: {
-    flexDirection: 'row',
-    alignSelf: 'flex-end',
-    paddingHorizontal: 30,
-    position: 'absolute',
-    bottom: 20,
-    zIndex: 1
-  },
-})
-
-
 function StartGame(props) {
   const [categoryList, setCategoryList] = useState([]);
   const [numPlayers, setNumPlayers] = useState(1);
   const [showGo, setShowGo] = useState(false);
+
+  const styles = StyleSheet.create({
+    dropdowns: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'relative',
+      zIndex: 1,
+      height: '80%'
+    },
+    optionBtns: {
+      ...Buttons.listOptionBtns[props.screenDeviceWidth]
+    },
+    dropDownView: {
+      ...Buttons.dropdownBtns[props.screenDeviceWidth]
+    },
+    goRow: {
+      flexDirection: 'row',
+      alignSelf: 'flex-end',
+      paddingHorizontal: 30,
+      position: 'absolute',
+      bottom: 20,
+      zIndex: 1
+    },
+  })
 
   const validPushToken = (pushToken) => {
     Alert.alert(
@@ -176,17 +177,19 @@ function StartGame(props) {
     <GenericModal visible={props.modalVisible === 'start'}>
       <TitleBar
         cb={() => props.setModalVisible(null)}
+        deviceSize={props.screenDeviceWidth}
       >
-        Start a game here!!
-      </TitleBar>
+        Create a Game
+        </TitleBar>
 
       <View style={styles.dropdowns}>
         <View style={styles.dropDownView}>
           <PixelButton
-            buttonStyle={{height: 44}}>
+            buttonStyle={styles.optionBtns}>
             <DropdownMenu
               items={categoryList}
               title="Select a Category"
+              screenDeviceWidth={props.screenDeviceWidth}
               cb={(item) => {
                 props.newCategory({ name: item.label, id: item.value });
               }}
@@ -198,10 +201,11 @@ function StartGame(props) {
 
         <View style={styles.dropDownView}>
           <PixelButton
-            buttonStyle={{height: 44}}>
+            buttonStyle={styles.optionBtns}>
             <DropdownMenu
               items={QUESTION_DROPDOWN_CHOICES}
               title="Number of Questions"
+              screenDeviceWidth={props.screenDeviceWidth}
               cb={(item) => {
                 props.numQuestions(item.value);
               }}
@@ -212,13 +216,14 @@ function StartGame(props) {
 
         <View style={styles.dropDownView}>
           <PixelButton
-            buttonStyle={{height: 44}}>
+            buttonStyle={styles.optionBtns}>
             <DropdownMenu
               items={[
-                { label: 'Single Player', value: 1 },
-                { label: 'Two Players', value: 2 }
+                { label: 'Single player', value: 1 },
+                { label: 'Two players', value: 2 }
               ]}
               title='Number of Players'
+              screenDeviceWidth={props.screenDeviceWidth}
               cb={item => {
                 props.numPlayers(item.value);
                 setNumPlayers(item.value);
@@ -230,13 +235,14 @@ function StartGame(props) {
 
         {numPlayers === 2 && (
           <View style={styles.dropDownView}>
-            <PixelButton>
+            <PixelButton buttonStyle={styles.optionBtns}>
               <DropdownMenu
                 items={[
-                  { label: 'Public Game', value: 'public' },
-                  { label: 'Private Game', value: 'private' }
+                  { label: 'Public game', value: 'public' },
+                  { label: 'Private game', value: 'private' }
                 ]}
                 title='Public / Private Game'
+                screenDeviceWidth={props.screenDeviceWidth}
                 cb={item => {
                   props.publicOrPrivate(item.value);
                   props.pushNotificationUserToken === undefined 
@@ -272,6 +278,7 @@ const mapStateToProps = (state) => {
     gameCode: state.userReducer.gameCode,
     pushNotificationUserToken: state.userReducer.pushNotificationUserToken,
     gameInfo: state.gameInfoReducer,
+    screenDeviceWidth: state.userReducer.deviceWidth
   }
 }
 const mapDispatchToProps = {

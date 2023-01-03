@@ -75,6 +75,24 @@ export const headingTwoText = {
   }
 }
 
+////// HEADING THREE /////////////
+////// - dropdown title text /////
+
+export const headingThreeText = {
+  small: {
+   ...headingTextBase,
+      fontSize: 32
+  },
+  medium: {
+    ...headingTextBase,
+    fontSize: 38  
+  },
+  large: {
+    ...headingTextBase,
+    fontSize: 42 
+  }
+}
+
 ////// INNER TEXT //////////////
 ////// - how to play btn ///////
 ////// - go btn ////////////////
@@ -89,7 +107,7 @@ const innerTextBase = {
 export const innerText = {
   small: {
     ...innerTextBase,
-    fontSize: 14
+    fontSize: 18
   },
   medium: {
     ...innerTextBase,
@@ -115,7 +133,7 @@ const inputTextBase = {
 export const inputText = {
   small: {
     ...inputTextBase,
-    fontSize: 14
+    fontSize: 18
   },
   medium: {
     ...inputTextBase,

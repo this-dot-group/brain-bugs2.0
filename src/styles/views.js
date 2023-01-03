@@ -26,6 +26,29 @@ export const dropDownView = {
   borderColor: 'black'
 };
 
+/// DROPDOWN LIST OPTION CONTAINER //
+//// - start game option lists //////
+
+const baseDropdownItemView = {
+  alignSelf: 'center',
+  width: '80%',
+}
+
+export const dropdownItemView = {
+  small: {
+    ...baseDropdownItemView,
+    height: 40
+  },
+  medium: {
+    ...baseDropdownItemView,
+    height: 50
+  },
+  large: {
+    ...baseDropdownItemView,
+    height: 60
+  }
+}
+
 export const homeScreenContainer = {
   flex: 1,
   paddingTop: 30,

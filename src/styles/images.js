@@ -8,8 +8,8 @@ export const logoImg = {
     width: 120,
   },
   large: {
-    height: 140,
-    width: 140,
+    height: 130,
+    width: 130,
   }
 };
 

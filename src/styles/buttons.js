@@ -3,7 +3,7 @@
 
 export const howToPlayBtn = {
   small: {
-    width: 100,
+    width: 120,
     height: 40
   },
   medium: {
@@ -16,10 +16,11 @@ export const howToPlayBtn = {
   }
 }
 
-////// LOBBY OPTION BTN WIDTH /////
+////// LIST OPTION BTN WIDTH /////
 ////// - lobby screen options /////
+////// - start game options ///////
 
-export const lobbyOptionBtns = {
+export const listOptionBtns = {
   small: {
     width: 240,
     height: 46,
@@ -34,6 +35,24 @@ export const lobbyOptionBtns = {
     width: 340,
     height: 54,
     marginBottom: 30
+  }
+}
+
+/// START GAME OPTION BTN VIEW //
+//// - wraps option dropdowns ///
+
+export const dropdownBtns = {
+  small: {
+    height: 50,
+    marginBottom: 14,
+  },
+  medium: {
+    height: 50,
+    marginBottom: 24,
+  },
+  large: {
+    height: 50,
+    marginBottom: 26,
   }
 }
 

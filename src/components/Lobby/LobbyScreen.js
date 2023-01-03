@@ -15,7 +15,6 @@ import { Buttons, Typography } from '../../styles';
 
 function StartScreen(props) {
   const [modalVisible, setModalVisible] = useState(null);
-
   const [gamesWaiting, setGamesWaiting] = useState([])
   const [roomJoin, setRoomJoin] = useState(false);
 
@@ -28,8 +27,6 @@ function StartScreen(props) {
     newOpponent,
     playSound
   } = props;
-
-  console.log('deviceWidth in Lobby:', screenDeviceWidth)
 
   const styles = StyleSheet.create({
     container: {
@@ -51,8 +48,7 @@ function StartScreen(props) {
       marginBottom: 20,
     },
     optionBtns: {
-      ...Buttons.lobbyOptionBtns[screenDeviceWidth]
-
+      ...Buttons.listOptionBtns[screenDeviceWidth]
     },
     innerText: {
       ...Typography.innerText[screenDeviceWidth],

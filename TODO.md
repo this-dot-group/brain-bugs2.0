@@ -24,11 +24,9 @@ For Future
 
 
 Tia: 
-TODO: left on HomeScreen, tested out the small sizes for the new way of sizing on innerText, logoText, etc
-TODO: need to test out med and large devices, and then move forward from HomeScreen
+TODO: finished Lobby -> Start a Game pressable and all options. Need to move on to Join Existing Game and all its options 
 TODO: fix PixelButton (how to play btn) right side border
   - changing it from buttonStyle={{width: 100}} to buttonStyle={styles.buttonStyle} makes it go wonky
-- [ ] Responsive sizing
 - [ ] BUG? started game on sim, joined on phone, phone went to waiting room 2 (what is the condition to go to waiting room 2?) **couldnt repro**
 
 
