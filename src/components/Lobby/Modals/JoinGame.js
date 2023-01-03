@@ -4,20 +4,17 @@ import { Redirect } from 'react-router-native'
 import { newOpponent } from '../../../store/userReducer';
 import { connect } from 'react-redux';
 import { GenericModal, PixelButton, TitleBar } from '../../Shared';
-
-const styles = StyleSheet.create({
-  innerText: {
-    fontFamily: 'DotGothic',
-    marginTop: 'auto',
-    marginBottom: 'auto',
-    textAlign: 'center'
-  }
-})
+import { Typography } from '../../../styles';
 
 function JoinGame(props) {
 
   const [ redirectToWaitingRoom2, setRedirectToWaitingRoom2 ] = useState(false)
 
+  const styles = StyleSheet.create({
+    innerText: {
+      ...Typography.innerText[props.screenDeviceWidth]
+    }
+  })
 
   return (
     <GenericModal
@@ -25,8 +22,9 @@ function JoinGame(props) {
     >
       <TitleBar
         cb={() => props.setModalVisible(null)}
+        deviceSize={props.screenDeviceWidth}
       >
-        JOIN a game here!!
+        Join a Game
       </TitleBar>
   
       {props.gamesWaiting.map((gameObj, i) =>
@@ -65,6 +63,7 @@ const mapStateToProps = (state) => {
   return {
     socket: state.socketReducer,
     username: state.userReducer.username,
+    screenDeviceWidth: state.userReducer.deviceWidth
   }
 }
 
