@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Platform, View, StyleSheet, Alert, Pressable, Text } from 'react-native'
 import * as Notifications from 'expo-notifications';
+import * as Device from 'expo-device';
 import { Link } from 'react-router-native';
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate, pushTokenAlertInteraction, gameMakerPushToken } from '../../../store/gameInfoReducer';
 import { newOpponent, pushNotificationToken } from '../../../store/userReducer';
@@ -97,7 +98,7 @@ function StartGame(props) {
 
   async function registerForPushNotificationsAsync() {
     let pushToken;
-    if(Constants.isDevice) {
+    if(Device.isDevice) {
       const { status: existingStatus } = await Notifications.getPermissionsAsync();
       let finalStatus = existingStatus;
       if (existingStatus !== 'granted') {
