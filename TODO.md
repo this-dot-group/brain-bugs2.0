@@ -28,6 +28,9 @@ TODO: finished Lobby -> Start a Game pressable and all options. Need to move on 
 TODO: fix PixelButton (how to play btn) right side border
   - changing it from buttonStyle={{width: 100}} to buttonStyle={styles.buttonStyle} makes it go wonky
 TODO: check styles of available games in Join Game Modal (once i can create game from phone)
+TODO: go buttons on private game, start game
+- style consistency
+  - all headings in caps?
 - [ ] BUG? started game on sim, joined on phone, phone went to waiting room 2 (what is the condition to go to waiting room 2?) **couldnt repro**
 
 

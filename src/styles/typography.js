@@ -4,10 +4,6 @@ export const input = {
   padding: 4
 };
 
-export const alertText = {
-  color: 'red',
-};
-
 export const answerText = {
   fontSize: 20,
   textAlign: 'center',
@@ -32,9 +28,9 @@ export const countdownText = {
   textAlign: 'center',
 };
 
-////// HEADING ONE /////////////
-////// - logo text /////////////
-////// - welcome greeting //////
+////// HEADING ONE 
+////// - logo text 
+////// - welcome greeting 
 
 const headingTextBase = {
   fontFamily: 'DotGothic',
@@ -56,9 +52,9 @@ export const headingOneText = {
   }
 }
 
-////// HEADING TWO /////////////
-////// - logo text /////////////
-////// - welcome greeting //////
+////// HEADING TWO 
+////// - logo text 
+////// - welcome greeting 
 
 export const headingTwoText = {
   small: {
@@ -75,8 +71,8 @@ export const headingTwoText = {
   }
 }
 
-////// HEADING THREE /////////////
-////// - dropdown title text /////
+////// HEADING THREE 
+////// - dropdown title text 
 
 export const headingThreeText = {
   small: {
@@ -93,9 +89,9 @@ export const headingThreeText = {
   }
 }
 
-////// INNER TEXT //////////////
-////// - how to play btn ///////
-////// - go btn ////////////////
+////// INNER TEXT 
+////// - how to play btn 
+////// - go btn 
 
 const innerTextBase = {
   fontFamily: 'DotGothic',
@@ -115,12 +111,12 @@ export const innerText = {
   },
   large: {
     ...innerTextBase,
-    fontSize: 24 // ? need to test
+    fontSize: 24
   }
 }
 
-////// INPUT TEXT //////////////
-////// - input placeholder /////
+////// INPUT TEXT 
+////// - input placeholder 
 
 const inputTextBase = {
   height: '100%',
@@ -145,8 +141,8 @@ export const inputText = {
   }
 }
 
-////// NORMAL TEXT //////////////////////
-////// - how to play modal bullet pts ///
+////// NORMAL TEXT 
+////// - how to play modal bullet pts 
 
 const normalTextBase = {
   fontFamily: 'DotGothic',
@@ -167,5 +163,29 @@ export const normalText = {
     ...normalTextBase,
     fontSize: 24,
     paddingVertical: 10,
+  }
+}
+
+////// ALERT TEXT 
+////// - invalid code alert on private game screen 
+
+const alertTextBase = {
+  color: 'red',
+  fontFamily: 'DotGothic',
+  textAlign: 'center'
+}
+
+export const alertText = {
+  small: {
+    ...alertTextBase,
+    fontSize: 18
+  },
+  medium: {
+    ...alertTextBase,
+    fontSize: 22
+  },
+  large: {
+    ...alertTextBase,
+    fontSize: 24
   }
 }
