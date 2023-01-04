@@ -1,11 +1,3 @@
-export const viewContainer = {
-  backgroundColor: '#F0DEB6', 
-  width: '100%', 
-  height: '100%', 
-  alignItems: 'center', 
-  justifyContent: 'center'
-};
-
 export const modalView = {
   backgroundColor: 'white',
   borderRadius: 20,
@@ -19,11 +11,6 @@ export const modalView = {
   alignSelf: 'center',
   width: '95%',
   height: '95%'
-};
-
-export const dropDownView = {
-  height: 60,
-  borderColor: 'black'
 };
 
 /// DROPDOWN LIST OPTION CONTAINER //
