@@ -1,13 +1,3 @@
-import { red } from "./colors";
-
-export const input = {
-  padding: 4
-};
-
-export const categoryText = {
-  fontSize: 15,
-};
-
 const countdownTextBase = {
   color: 'red',
   textAlign: 'center',
