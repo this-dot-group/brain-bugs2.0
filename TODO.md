@@ -26,8 +26,8 @@ For Future
 
 
 Tia: 
-TODO: How to play screen responsive style
 TODO: check gameplay elements on lg device
+TODO: How to play screen responsive style
 TODO: waiting room 2 styling (sim push notif)
 TODO: styling of "you have played all questions in category" in waiting room
 TODO: fix PixelButton (how to play btn) right side border
@@ -36,6 +36,7 @@ TODO: fix PixelButton (how to play btn) right side border
   - something to do with useStyles? it can be exact same style props but when they go from directly on element to within stylesheet, it bungs up
 TODO: go buttons on private game, start game
 TODO: recalculate answer option and questions allowed character amounts, will depend on device size
+TODO: double check that correct device width is being set to userReducer (sometimes in sim it records device width before it rotates to landscape, making it always "small")
 TODO: put preferred colors in color file to use
 - style consistency
   - all headings in caps?

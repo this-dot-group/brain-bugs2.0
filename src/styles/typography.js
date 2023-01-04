@@ -272,7 +272,7 @@ export const questionText = {
   },
   large: {
     ...qTextBase,
-    fontSize: 32,
+    fontSize: 34,
   }
 }
 
@@ -319,7 +319,7 @@ export const scoreText = {
   },
   large: {
     ...scoreTextBase,
-    fontSize: 17,
+    fontSize: 19,
   }
 }
 
