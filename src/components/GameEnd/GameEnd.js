@@ -7,6 +7,7 @@ import { newOpponent } from '../../store/userReducer';
 import { playSound } from '../../store/soundsReducer'
 import Chat from '../Chat/Chat';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
+import Trophy from './Trophy';
 import { PixelButton } from '../Shared';
 import MuteButton from '../MuteButton/MuteButton';
 import { Buttons, Images, Typography } from '../../styles';
@@ -301,22 +302,12 @@ function GameEnd(props) {
           <View style={styles.score}>
             <Text style={styles.scoreText}>{playerOneName}</Text>
             <Text style={styles.scoreText}>{playerOneScore}</Text>
-            {playerOneScore > playerTwoScore && 
-              <Image
-                source={require('../../../assets/trophy.png')}
-                style={styles.trophy}
-              />
-            }
+            {playerOneScore > playerTwoScore && <Trophy />}
           </View>
           <View style={styles.score}>
             <Text style={styles.scoreText}>{playerTwoName}</Text>
             <Text style={styles.scoreText}>{playerTwoScore}</Text>
-            {playerTwoScore > playerOneScore && 
-              <Image
-                source={require('../../../assets/trophy.png')}
-                style={styles.trophy}
-              />
-            }
+            {playerTwoScore > playerOneScore && <Trophy />}
           </View>
         </View>
         <View style={styles.scoreRow}>
