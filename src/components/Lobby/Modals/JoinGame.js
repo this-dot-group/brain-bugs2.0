@@ -13,6 +13,9 @@ function JoinGame(props) {
   const styles = StyleSheet.create({
     innerText: {
       ...Typography.innerText[props.screenDeviceWidth]
+    },
+    smallInnerText: {
+      ...Typography.smallInnerText[props.screenDeviceWidth]
     }
   })
 
@@ -43,7 +46,7 @@ function JoinGame(props) {
             }}
             style={{height: '100%', width: '100%'}}
           >
-            <Text style={styles.innerText}>
+            <Text style={styles.smallInnerText}>
               {gameObj.player} is waiting to play {gameObj.category}
             </Text>
           </Pressable>

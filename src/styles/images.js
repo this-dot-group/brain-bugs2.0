@@ -30,3 +30,26 @@ export const bugBulletPoints = {
     marginRight: 20
   }
 }
+
+const trophyBase = {
+  position: 'absolute',
+  bottom: 0
+}
+
+export const gameEndTrophy = {
+  small: {
+    ...trophyBase,
+    height: 50,
+    width: 50
+  },
+  medium: {
+    ...trophyBase,
+    height: 56,
+    width: 56
+  },
+  large: {   
+    ...trophyBase,
+    height: 60,
+    width: 60
+  }
+}

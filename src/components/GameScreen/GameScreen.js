@@ -8,106 +8,9 @@ import Countdown from '../Countdown/Countdown';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import { QUESTION_TIME } from '../../../config';
 import { PixelButton } from '../Shared';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 30,
-    paddingLeft: 30,
-    paddingRight: 30,
-    paddingBottom: 30,
-    width: '100%',
-  },
-  topRowView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    height: '25%',
-    alignItems: 'center',
-  },
-  middleRowView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    height: '50%',
-    alignItems: 'center',
-  },
-  bottomRowView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    height: '25%',
-    alignItems: 'center'
-  },
-  answerOptionPressables: {
-    width: '28%',
-    height: '80%',
-  },
-  nonSelectedAnswer: {
-    justifyContent: 'center',
-    height: '100%',
-    width: '100%',
-    padding: 2,
-  },
-  answerText: {
-    fontFamily: 'DotGothic',
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  submitText: {
-    fontFamily: 'VT323',
-    fontSize: 14,
-    marginTop: 'auto',
-    marginBottom: 'auto',
-    textAlign: 'center',
-  },
-  waitingText: {
-    fontSize: 10,
-    fontStyle: 'italic',
-    textAlign: 'center',
-  },
-  questionTextArea: {
-    padding: 10,
-    width: '70%',
-  },
-  questionText: {
-    fontFamily: 'VT323',
-    fontSize: 30,
-    textAlign: 'center'
-  },
-  questionCountText: {
-    fontFamily: 'VT323',
-    fontSize: 14,
-    textAlign: 'center'
-  },
-  submitButtonLeftView: {
-    width: '10%',
-  },
-  submitButtonRightView: {
-    width: '10%',
-    alignItems: 'flex-end'
-  },
-  submitButton: {
-    padding: 2,
-    backgroundColor: 'white',
-    height: '100%',
-    width: '100%',
-  },
-  text: {
-    fontFamily: 'DotGothic',
-    fontSize: 12,
-    textAlign: 'center',
-  },
-});
-
-const buttonStyle = {
-  height: 70,
-  width: 220
-}
-
+import { Typography } from '../../styles';
 
 function GameScreen(props) {
-
   const [seconds, setSeconds] = useState(QUESTION_TIME * 1000);
   const [formattedQuestionInfo, setFormattedQuestionInfo] = useState({});
   const [score, setScore] = useState({});
@@ -126,6 +29,93 @@ function GameScreen(props) {
   const lastCorrect = useRef(null)
   const [backToLobby, setBackToLobby] = useState(false);
   const [goCountdown, setGoCountdown] = useState(false);
+
+  const { screenDeviceWidth } = props;
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingTop: 30,
+      paddingLeft: 30,
+      paddingRight: 30,
+      paddingBottom: 30,
+      width: '100%',
+    },
+    topRowView: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+      height: '25%',
+      alignItems: 'center',
+    },
+    middleRowView: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+      height: '50%',
+      alignItems: 'center',
+    },
+    bottomRowView: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+      height: '25%',
+      alignItems: 'center'
+    },
+    answerOptionPressables: {
+      width: '28%',
+      height: '80%',
+    },
+    nonSelectedAnswer: {
+      justifyContent: 'center',
+      height: '100%',
+      width: '100%',
+      padding: 2,
+    },
+    questionText: {
+      ...Typography.questionText[screenDeviceWidth]
+    },
+    answerText: {
+      ...Typography.answerText[screenDeviceWidth]
+    },
+    submitText: {
+      ...Typography.submitText[screenDeviceWidth]
+    },
+    waitingText: {
+      ...Typography.waitingText[screenDeviceWidth]
+    },
+    scoreText: {
+      ...Typography.scoreText[screenDeviceWidth]
+    },
+    questionCountText: {
+      ...Typography.questionCountText[screenDeviceWidth]
+    },
+    questionTextArea: {
+      padding: 10,
+      width: '70%',
+    },
+    submitButtonLeftView: {
+      width: '10%',
+    },
+    submitButtonRightView: {
+      width: '10%',
+      alignItems: 'flex-end'
+    },
+    submitButton: {
+      padding: 2,
+      backgroundColor: 'white',
+      height: '100%',
+      width: '100%',
+    },
+  });
+  
+  const buttonStyle = {
+    height: 70,
+    width: 220
+  }
+
+
+
 
 
   // the function below adds the correct answer at a random index to the array of incorrect answers, return it to save later as the answerArr
@@ -386,8 +376,8 @@ function GameScreen(props) {
               <View style={{ alignItems: 'center', marginRight: 20 }}>
                 {score.playerOne &&
                   <>
-                    <Text style={styles.text}>{score.playerOne.name}</Text>
-                    <Text style={styles.text}>{score.playerOne.score}</Text>
+                    <Text style={styles.scoreText}>{score.playerOne.name}</Text>
+                    <Text style={styles.scoreText}>{score.playerOne.score}</Text>
                   </>
                 }
               </View>
@@ -395,8 +385,8 @@ function GameScreen(props) {
               <View style={{ alignItems: 'center', marginLeft: 20 }}>
                 {score.playerOne &&
                   <>
-                    <Text style={styles.text}>{score.playerTwo.name}</Text>
-                    <Text style={styles.text}>{score.playerTwo.score}</Text>
+                    <Text style={styles.scoreText}>{score.playerTwo.name}</Text>
+                    <Text style={styles.scoreText}>{score.playerTwo.score}</Text>
                   </>
                 }
               </View>
@@ -539,6 +529,7 @@ function GameScreen(props) {
 
             {!displayAnswer &&
             <Countdown
+              deviceWidth={screenDeviceWidth}
               seconds={seconds}
               setSeconds={setSeconds}
               style={{ color: 'red' }}
@@ -599,6 +590,7 @@ const mapStateToProps = (state) => {
     socketId: state.userReducer.socketId,
     numPlayers: state.gameInfoReducer.numPlayers || 2,
     opponent: state.userReducer.opponent,
+    screenDeviceWidth: state.userReducer.deviceWidth
   }
 }
 

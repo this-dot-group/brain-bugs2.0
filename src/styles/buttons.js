@@ -56,7 +56,6 @@ export const dropdownBtns = {
   }
 }
 
-
 export const openButton = {
   backgroundColor: '#F194FF',
   borderRadius: 20,

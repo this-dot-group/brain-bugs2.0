@@ -123,7 +123,9 @@ function StartScreen(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.greeting}> WELCOME {userName.toUpperCase()}! </Text>
+      {userName && (
+        <Text style={styles.greeting}>WELCOME {userName.toUpperCase()}!</Text>
+      )}
 
       <PixelButton buttonStyle={styles.optionBtns}>
         <Pressable

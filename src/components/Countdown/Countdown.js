@@ -3,15 +3,14 @@ import { StyleSheet } from 'react-native';
 import { Text } from 'react-native';
 import { Typography } from '../../styles/'
 
+function Countdown({seconds, setSeconds, go, setGo, style, deviceWidth}) {
 
-const getStyles = (style = {}) => StyleSheet.create({
-  countdownText: {
-    ...Typography.countdownText,
-    ...style
-  },
-})
-
-function Countdown({seconds, setSeconds, go, setGo, style}) {
+  const getStyles = (style = {}) => StyleSheet.create({
+    countdownText: {
+      ...Typography.countdownText[deviceWidth],
+      ...style
+    },
+  })
 
   const styles = getStyles(style)
 

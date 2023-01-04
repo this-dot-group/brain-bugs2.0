@@ -26,12 +26,16 @@ For Future
 
 
 Tia: 
+TODO: How to play screen responsive style
+TODO: check gameplay elements on lg device
 TODO: waiting room 2 styling (sim push notif)
 TODO: styling of "you have played all questions in category" in waiting room
 TODO: fix PixelButton (how to play btn) right side border
   - changing it from buttonStyle={{width: 100}} to buttonStyle={styles.buttonStyle} makes it go wonky
-TODO: check styles of available games in Join Game Modal (once i can create game from phone)
+  - show chat btn on game end is not wonky tho
+  - something to do with useStyles? it can be exact same style props but when they go from directly on element to within stylesheet, it bungs up
 TODO: go buttons on private game, start game
+TODO: recalculate answer option and questions allowed character amounts, will depend on device size
 - style consistency
   - all headings in caps?
 - [ ] BUG? started game on sim, joined on phone, phone went to waiting room 2 (what is the condition to go to waiting room 2?) **couldnt repro**

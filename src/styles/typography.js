@@ -4,28 +4,28 @@ export const input = {
   padding: 4
 };
 
-export const answerText = {
-  fontSize: 20,
-  textAlign: 'center',
-};
-
-export const questionText = {
-  fontSize: 35,
-  textAlign: 'center',
-  marginTop: 5,
-  paddingLeft: 30,
-  paddingRight: 30
-};
-
 export const categoryText = {
   fontSize: 15,
 };
 
-export const countdownText = {
-  fontSize: 15,
-  fontWeight: "bold",
-  color: "red",
+const countdownTextBase = {
+  color: 'red',
   textAlign: 'center',
+  fontFamily: 'VT323'
+}
+export const countdownText = {
+  small: {
+    ...countdownTextBase,
+    fontSize: 24
+  },
+  medium: {
+    ...countdownTextBase,
+    fontSize: 26
+  },
+  large: {
+    ...countdownTextBase,
+    fontSize: 28
+  }
 };
 
 ////// HEADING ONE 
@@ -115,6 +115,31 @@ export const innerText = {
   }
 }
 
+////// SMALL INNER TEXT 
+////// - available game pressables
+
+const smInnerTextBase = {
+  fontFamily: 'DotGothic',
+  marginTop: 'auto',
+  marginBottom: 'auto',
+  textAlign: 'center'
+}
+
+export const smallInnerText = {
+  small: {
+    ...smInnerTextBase,
+    fontSize: 13
+  },
+  medium: {
+    ...smInnerTextBase,
+    fontSize: 14
+  },
+  large: {
+    ...smInnerTextBase,
+    fontSize: 15
+  }
+}
+
 ////// INPUT TEXT 
 ////// - input placeholder 
 
@@ -187,5 +212,169 @@ export const alertText = {
   large: {
     ...alertTextBase,
     fontSize: 24
+  }
+}
+
+////// ANSWER OPTION TEXT 
+////// - answer pressables during game play
+
+const ansTextBase = {
+  fontFamily: 'DotGothic',
+  textAlign: 'center',
+}
+
+export const answerText = {
+  small: {
+    ...ansTextBase,
+    fontSize: 16,
+  },
+  medium: {
+    ...ansTextBase,
+    fontSize: 18,
+  },
+  large: {
+    ...ansTextBase,
+    fontSize: 20,
+  }
+}
+
+////// SUBMIT TEXT 
+////// - submit btn during gameplay
+
+const submitTextBase = {
+  fontFamily: 'VT323',
+  textAlign: 'center',
+  marginTop: 'auto',
+  marginBottom: 'auto',
+}
+
+export const submitText = {
+  small: {
+    ...submitTextBase,
+    fontSize: 20,
+  },
+  medium: {
+    ...submitTextBase,
+    fontSize: 22,
+  },
+  large: {
+    ...submitTextBase,
+    fontSize: 24,
+  }
+}
+
+////// QUESTION TEXT 
+////// - question during game play
+
+const qTextBase = {
+  fontFamily: 'VT323',
+  textAlign: 'center',
+}
+
+export const questionText = {
+  small: {
+    ...qTextBase,
+    fontSize: 28,
+  },
+  medium: {
+    ...qTextBase,
+    fontSize: 30,
+  },
+  large: {
+    ...qTextBase,
+    fontSize: 32,
+  }
+}
+
+////// QUESTION COUNT TEXT 
+////// - question counter during game play
+
+const qCountTextBase = {
+  fontFamily: 'VT323',
+  textAlign: 'center',
+  paddingTop: 2
+}
+
+export const questionCountText = {
+  small: {
+    ...qCountTextBase,
+    fontSize: 14,
+  },
+  medium: {
+    ...qCountTextBase,
+    fontSize: 16,
+  },
+  large: {
+    ...qCountTextBase,
+    fontSize: 18,
+  }
+}
+
+////// USERNAME/SCORE TEXT 
+////// - during gameplay
+
+const scoreTextBase = {
+  fontFamily: 'DotGothic',
+  textAlign: 'center',
+}
+
+export const scoreText = {
+  small: {
+    ...scoreTextBase,
+    fontSize: 13,
+  },
+  medium: {
+    ...scoreTextBase,
+    fontSize: 15,
+  },
+  large: {
+    ...scoreTextBase,
+    fontSize: 17,
+  }
+}
+
+////// WAITING TEXT 
+////// - during gameplay waiting for other player alert
+
+const waitingTextBase = {
+  fontStyle: 'italic',
+  textAlign: 'center',
+}
+
+export const waitingText = {
+  small: {
+    ...waitingTextBase,
+    fontSize: 13,
+  },
+  medium: {
+    ...waitingTextBase,
+    fontSize: 15,
+  },
+  large: {
+    ...waitingTextBase,
+    fontSize: 17,
+  }
+}
+
+
+////// REMATCH TEXT 
+////// - game end, rematch request
+
+const rematchTextBase = {
+  fontFamily: 'VT323',
+}
+
+export const rematchText = {
+  small: {
+    ...rematchTextBase,
+    fontSize: 24,
+  },
+  medium: {
+    ...rematchTextBase,
+    fontSize: 26,
+  },
+  large: {
+    ...rematchTextBase,
+    fontSize: 28,
   }
 }
