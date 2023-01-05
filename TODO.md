@@ -8,9 +8,13 @@
 
 Josh:  
 - [ ] Manual testing for bugs, possible issues with component mounting
-- [ ] Update expo sdk to at least 45
-- [ ] Trophy Icon animation
+- [ ] Check on responsive sizes
 - [ ] Revisit Colors
+- [ ] Make sure it's working again
+- [ ] Animations
+ - [ ] bug on home screen
+ - [ ] buttons
+- [ ] Clean up End Screen 
 - New:
  - [ ] Bug with user going back to home screen when clicking on push notification - maybe has something to do with changes for app state tracker on waiting room screen recently made
 
@@ -31,11 +35,6 @@ TODO: How to play screen
 TODO: "you have played all questions in category" scenarios in waiting room
 TODO: waiting room 2 (simulate push notif)
 TODO: chat screen 
-TODO: fix PixelButton (how to play btn) right side border
-  - changing it from buttonStyle={{width: 100}} to buttonStyle={styles.buttonStyle} makes it go wonky
-  - show chat btn on game end is not wonky tho (neither is username input or go btn)
-  - something to do with useStyles? it can be exact same style props but when they go from directly on element to within stylesheet, it bungs up
-TODO: go buttons on private game, start game
 TODO: recalculate answer option and questions allowed character amounts, will depend on device size
 TODO: double check that correct device width is being set to userReducer (sometimes in sim it records device width before it rotates to landscape, making it always "small")
 
