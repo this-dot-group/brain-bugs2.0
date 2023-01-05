@@ -8,7 +8,6 @@ import MuteButton from '../MuteButton/MuteButton';
 
 import { Views } from '../../styles';
 import { PixelButton, Spinner } from '../Shared';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
   },
   innerText: {
     fontFamily: 'DotGothic',
-    fontSize: scale(14),
+    fontSize: 14,
     marginTop: 'auto',
     marginBottom: 'auto',
     textAlign: 'center'
@@ -95,7 +94,7 @@ const WaitingRoom2 = (props) => {
       />
 
         <View style={styles.topRowView}>
-          <PixelButton buttonStyle={{width: scale(120)}}>
+          <PixelButton buttonStyle={{width: 100}}>
             <Pressable
               onPress={() => {
                 setModalVisible(true);
@@ -114,7 +113,7 @@ const WaitingRoom2 = (props) => {
         <Spinner />
 
         <View style={styles.bottomRowView}>
-          <PixelButton buttonStyle={{width: scale(120)}}>
+          <PixelButton buttonStyle={{width: 100}}>
             <Pressable
               onPress={cancelGame}
               style={{height: '100%', width: '100%'}}

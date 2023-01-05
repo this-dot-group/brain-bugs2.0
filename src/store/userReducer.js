@@ -19,13 +19,21 @@ export default (state = {}, action) => {
     return { ...state, socketId: payload };
   case 'NEW_TOKEN':
     return { ...state, token: payload };
+  case 'DEVICE_WIDTH':
+    return { ...state, deviceWidth: payload}
   default:
     return state;
   }
 };
 
-export const newUsername = (username) => {
+export const deviceWidth = (deviceWidth) => {
+  return {
+    type: 'DEVICE_WIDTH',
+    payload: deviceWidth,
+  }
+}
 
+export const newUsername = (username) => {
   return {
     type: 'NEW_USER',
     payload: username,
@@ -40,7 +48,6 @@ export const pushNotificationToken = answer => {
 };
 
 export const newGameCode = (gameCode) => {
-
   return {
     type: 'NEW_GAME_CODE',
     payload: gameCode,

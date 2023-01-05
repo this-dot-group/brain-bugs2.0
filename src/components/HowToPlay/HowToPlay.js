@@ -148,6 +148,7 @@ function HowToPlay(props) {
         </View>
 
         <View style={styles.bottomRow}>
+          
           <PixelButton buttonStyle={{width: 150}}>
             <Pressable
               onPress={() => {
@@ -165,6 +166,7 @@ function HowToPlay(props) {
           />
 
           <MuteButton />
+
         </View>
       </View>
     </>

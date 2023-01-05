@@ -40,7 +40,6 @@ export default function App() {
     })()
   }, [])
 
-
   if (!fontsLoaded) {
     return (
       <LoadingScreen/>
@@ -85,7 +84,3 @@ export default function App() {
   );
   
 }
-
-
-
-

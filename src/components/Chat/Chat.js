@@ -3,97 +3,7 @@ import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { TitleBar, PixelButton, StyledInput, KeyboardAvoidingComponent, Hider } from '../Shared';
 import Badge from './Badge';
-
-import { scale } from 'react-native-size-matters';
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    height: '100%',
-    paddingHorizontal: 50,
-    paddingVertical: 20,
-    zIndex: 1,
-  },
-  messagesContainer: {
-    maxHeight: '100%',
-    overflow: 'scroll',
-    width: '100%',
-    backgroundColor: 'white'
-  },
-  messages: {
-    alignSelf: 'flex-end',
-    backgroundColor: 'green',
-    color: '#fff',
-    borderRadius: 10,
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    overflow: 'hidden',
-    marginBottom: 2,
-    fontSize: 18,
-    maxWidth: '50%'
-  },
-  opponentMessages : {
-    alignSelf: 'flex-start',
-    backgroundColor: 'blue',
-  },
-  content: {
-    position: 'relative',
-    flex: 1,
-    paddingBottom: 50,
-    height: '100%',
-    backgroundColor: 'white'
-  },
-  form: {
-    flexDirection: 'row',
-    width: '100%',
-    alignItems: 'flex-end',
-    height: '100%',
-    zIndex: 4
-  },
-  input: {
-    flexGrow: 1,
-    marginRight: 10,
-    backgroundColor: 'white',
-    zIndex: 2,
-    width: '80%'
-  },
-  button: {
-    height: '100%',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  buttonText: {
-    fontFamily: 'DotGothic'
-  },
-  innerText: {
-    fontFamily: 'DotGothic',
-    fontSize: scale(16),
-    marginTop: 'auto',
-    marginBottom: 'auto',
-    textAlign: 'center'
-  },
-  chatModalStyles: {
-    backgroundColor: 'black'
-  },
-  overlay: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0,0,0,.5)',
-    position: 'absolute',
-    zIndex: 1,
-  },
-  yesNoButtonCont: {
-    display: 'flex',
-    marginRight: 0,
-    flexDirection: 'row',
-    alignContent: 'center',
-  },
-  gap: {
-    marginHorizontal: 10,
-    alignItems: 'center',
-  }
-})
+import { Buttons, Typography } from '../../styles';
 
 function Overlay ({ active }) {
   return (
@@ -105,12 +15,100 @@ function Overlay ({ active }) {
   )
 }
 
-function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rematchText }) {
+function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rematchText, deviceWidth }) {
   const [messages, setMessages] = useState([]);
   const [currMessage, setCurrMesssage] = useState('');
   const [showChat, setShowChat] = useState(false);
   const [keyboardActive, setKeyboardActive] = useState(false);
   const [latestTime, setLatestTime] = useState(Date.now());
+
+  const styles = StyleSheet.create({
+    root: {
+      flex: 1,
+      height: '100%',
+      paddingHorizontal: 50,
+      paddingVertical: 20,
+      zIndex: 1,
+    },
+    messagesContainer: {
+      maxHeight: '100%',
+      overflow: 'scroll',
+      width: '100%',
+      backgroundColor: 'white'
+    },
+    messages: {
+      alignSelf: 'flex-end',
+      backgroundColor: 'green',
+      color: '#fff',
+      borderRadius: 10,
+      paddingHorizontal: 8,
+      paddingVertical: 2,
+      overflow: 'hidden',
+      marginBottom: 2,
+      fontSize: 18,
+      maxWidth: '50%'
+    },
+    opponentMessages : {
+      alignSelf: 'flex-start',
+      backgroundColor: 'blue',
+    },
+    content: {
+      position: 'relative',
+      flex: 1,
+      paddingBottom: 50,
+      height: '100%',
+      backgroundColor: 'white'
+    },
+    form: {
+      flexDirection: 'row',
+      width: '100%',
+      alignItems: 'flex-end',
+      height: '100%',
+      zIndex: 4
+    },
+    input: {
+      flexGrow: 1,
+      marginRight: 10,
+      backgroundColor: 'white',
+      zIndex: 2,
+      width: '80%'
+    },
+    button: {
+      height: '100%',
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    buttonText: {
+      fontFamily: 'DotGothic'
+    },
+    innerText: {
+      ...Typography.innerText[deviceWidth]
+    },
+    chatModalStyles: {
+      backgroundColor: 'black'
+    },
+    overlay: {
+      width: '100%',
+      height: '100%',
+      backgroundColor: 'rgba(0,0,0,.5)',
+      position: 'absolute',
+      zIndex: 1,
+    },
+    yesNoButtonCont: {
+      display: 'flex',
+      marginRight: 0,
+      flexDirection: 'row',
+      alignContent: 'center',
+    },
+    gap: {
+      marginHorizontal: 10,
+      alignItems: 'center',
+    },
+    showChatBtn: {
+      ...Buttons.howToPlayBtn[deviceWidth]
+    }
+  })
 
   const unseenMessages = useMemo(() => 
     showChat ? 0 : messages.filter(({ timeStamp }) => timeStamp > latestTime).length,
@@ -153,7 +151,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
   return (
     <>
       <View style={styles.showChatWrapper}>
-        <PixelButton>
+        <PixelButton buttonStyle={styles.showChatBtn}>
           <Pressable onPress={showModal} style={{height: '100%', width: '100%', position: 'relative'}}>
             <Text style={styles.innerText}>Show Chat</Text>
           </Pressable>

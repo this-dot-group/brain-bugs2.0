@@ -10,49 +10,56 @@ import { newOpponent, newGameCode } from '../../store/userReducer';
 import { newGame } from '../../store/gameInfoReducer';
 import { playSound } from '../../store/soundsReducer'
 import PixelButton from '../Shared/PixelButton'
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const styles = StyleSheet.create({
-  root: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    paddingVertical: 60,
-    paddingHorizontal: 60,
-  },
-  muteButton: {
-    alignSelf: 'flex-end',
-    marginBottom: 0,
-    marginTop: 'auto'
-  },
-  greeting: {
-    fontFamily: 'VT323',
-    marginBottom: 40,
-    fontSize: scale(50)
-  },
-  innerText: {
-    fontFamily: 'DotGothic',
-    fontSize: scale(14),
-    marginTop: 'auto',
-    marginBottom: 'auto',
-    textAlign: 'center'
-  }
-})
+import { Buttons, Typography } from '../../styles';
 
 function StartScreen(props) {
   const [modalVisible, setModalVisible] = useState(null);
-
   const [gamesWaiting, setGamesWaiting] = useState([])
   const [roomJoin, setRoomJoin] = useState(false);
+
+  const {
+    screenDeviceWidth,
+    userName,
+    socket,
+    newGame,
+    newGameCode,
+    newOpponent,
+    playSound
+  } = props;
+
+  const styles = StyleSheet.create({
+    container: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+      height: '100%',
+      paddingVertical: 30,
+      paddingHorizontal: 30,
+    },
+    muteButton: {
+      alignSelf: 'flex-end',
+      marginBottom: 0,
+      marginTop: 'auto'
+    },
+    greeting: {
+      ...Typography.headingOneText[screenDeviceWidth],
+      marginBottom: 20,
+    },
+    optionBtns: {
+      ...Buttons.listOptionBtns[screenDeviceWidth]
+    },
+    innerText: {
+      ...Typography.innerText[screenDeviceWidth],
+    }
+  })
 
   const createGameCode = () => Math.floor(Math.random() * 100000).toString().padStart(5, '0');
 
   const storeUsername = async () => {
     try {
-      await AsyncStorage.setItem('username', props.userName);
+      await AsyncStorage.setItem('username', userName);
     } catch (e) {
       console.error(e);
     }
@@ -62,12 +69,12 @@ function StartScreen(props) {
     storeUsername();
 
     // reset game so no info from previous games carries over
-    props.newGame({});
+    newGame({});
 
     // maybe make a new game code each time coming here
-    props.newGameCode(createGameCode());
+    newGameCode(createGameCode());
 
-    props.socket.emit('inJoinGame', null)
+    socket.emit('inJoinGame', null)
 
     const receiveAvailableGames = allGames => {
 
@@ -90,35 +97,37 @@ function StartScreen(props) {
       }
       setGamesWaiting(filteredGames)
     }
-    props.socket.on('sendAvailGameInfo', receiveAvailableGames);
+    socket.on('sendAvailGameInfo', receiveAvailableGames);
 
     /**
      * redirectToHowToPlay is only listened to in the case of a PRIVATE game 
      * 
      */
     const redirect = (usernames) => {
-      props.newOpponent(usernames.gameMaker);
+      newOpponent(usernames.gameMaker);
       setRoomJoin(true);
     }
 
-    props.socket.on('redirectToHowToPlay', redirect);
+    socket.on('redirectToHowToPlay', redirect);
 
     return () => {
-      props.socket.off('sendAvailGameInfo', receiveAvailableGames);
-      props.socket.off('redirectToHowToPlay', redirect);
+      socket.off('sendAvailGameInfo', receiveAvailableGames);
+      socket.off('redirectToHowToPlay', redirect);
     }
   }, []);
 
   const handleModalChange = (modalVisible) => {
-    props.playSound('click')
+    playSound('click')
     setModalVisible(modalVisible)
   }
 
   return (
-    <View style={styles.root}>
-      <Text style={styles.greeting}> WELCOME {props.userName.toUpperCase()}! </Text>
+    <View style={styles.container}>
+      {userName && (
+        <Text style={styles.greeting}>WELCOME {userName.toUpperCase()}!</Text>
+      )}
 
-      <PixelButton buttonStyle={{marginBottom: scale(24)}}>
+      <PixelButton buttonStyle={styles.optionBtns}>
         <Pressable
           onPress={() => handleModalChange('start')}
           style={{height: '100%', width: '100%'}}
@@ -132,7 +141,7 @@ function StartScreen(props) {
         modalVisible={modalVisible}
       />
 
-      <PixelButton buttonStyle={{marginBottom: scale(24)}}>
+      <PixelButton buttonStyle={styles.optionBtns}>
         <Pressable
           onPress={() => handleModalChange('join')}
           style={{height: '100%', width: '100%'}}
@@ -146,7 +155,7 @@ function StartScreen(props) {
         gamesWaiting={gamesWaiting}
       />
 
-      <PixelButton>
+      <PixelButton buttonStyle={styles.optionBtns}>
         <Pressable
           onPress={() => handleModalChange('private')}
           style={{height: '100%', width: '100%'}}
@@ -174,7 +183,8 @@ function StartScreen(props) {
 const mapStateToProps = (state) => {
   return {
     userName: state.userReducer.username,
-    socket: state.socketReducer
+    socket: state.socketReducer,
+    screenDeviceWidth: state.userReducer.deviceWidth
   }
 }
 const mapDispatchToProps = { newOpponent, newGame, newGameCode, playSound }

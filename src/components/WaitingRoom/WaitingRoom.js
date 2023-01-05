@@ -10,57 +10,10 @@ import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer'
 import { connect } from 'react-redux';
 import * as Notifications from 'expo-notifications';
 
-import { Views } from '../../styles';
+import { Typography, Views, Buttons } from '../../styles';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
 import { PixelButton, Spinner } from '../Shared';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 40,
-    paddingLeft: 40,
-    paddingRight: 40,
-    paddingBottom: 40,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  topRowView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-  bottomRowView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-
-  alertText: {
-    fontFamily: 'DotGothic',
-    fontSize: scale(18),
-    color: 'red',
-    alignSelf: 'flex-end',
-    marginRight: 10
-  },
-  innerText: {
-    fontFamily: 'DotGothic',
-    fontSize: scale(14),
-    marginTop: 'auto',
-    marginBottom: 'auto',
-    textAlign: 'center'
-  },
-  waitingText: {
-    fontFamily: 'DotGothic',
-    fontSize: scale(18),
-    textAlign: 'center'
-  },
-  modalView: {
-    ...Views.modalView,
-  },
-})
 
 const WaitingRoom = (props) => {
 
@@ -71,9 +24,56 @@ const WaitingRoom = (props) => {
   const [copied, setCopied] = useState(false);
   const [token, setToken] = useState('');
 
+  const {screenDeviceWidth} = props;
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingTop: 40,
+      paddingLeft: 40,
+      paddingRight: 40,
+      paddingBottom: 40,
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'space-between'
+    },
+    topRowView: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+    },
+    bottomRowView: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+    },
+    alertText: {
+      ...Typography.alertText[screenDeviceWidth],
+    },
+    innerText: {
+      ...Typography.innerText[screenDeviceWidth],
+    },
+    waitingText: {
+      ...Typography.headingTwoText[screenDeviceWidth]
+    },
+    privateWaitingText: {
+      ...Typography.normalText[screenDeviceWidth],
+      textAlign: 'center'
+    },
+    normalText: {
+      ...Typography.normalText[screenDeviceWidth]
+    },
+    modalView: {
+      ...Views.modalView,
+    },
+    howToPlayBtn: {
+      ...Buttons.howToPlayBtn[screenDeviceWidth]
+    },
+  })
+
   const handleCodeCopy = () => {
     console.log('in handleCodeCopy:', props.gameCode)
-    Clipboard.setString(props.gameCode);
+    Clipboard.setStringAsync(props.gameCode);
     setCopied(true)
     setTimeout(() => {
       setCopied(false)
@@ -180,7 +180,7 @@ const WaitingRoom = (props) => {
 
         <View style={styles.topRowView}>
           {!showNoMoreQuestionsOptions && (
-            <PixelButton buttonStyle={{width: scale(120)}}>
+            <PixelButton buttonStyle={styles.howToPlayBtn}>
               <Pressable
                 onPress={cancelGame}
                 style={{height: '100%', width: '100%'}}
@@ -191,7 +191,7 @@ const WaitingRoom = (props) => {
           )}
 
           {props.publicOrPrivate === 'private' && (
-            <PixelButton>
+            <PixelButton buttonStyle={styles.howToPlayBtn}>
               <Pressable
                 onPress={handleCodeCopy}
                 style={{height: '100%', width: '100%'}}
@@ -211,24 +211,22 @@ const WaitingRoom = (props) => {
 
         {props.publicOrPrivate === 'private' &&
           <>
-            <Text style={styles.waitingText}>
-              Give the game code to your opponent!
-              {"\n"}{"\n"}
-              Click to copy
+            <Text style={styles.privateWaitingText}>
+              Give the game code to your opponent! Click to copy. Game will start when other player joins.
             </Text>
-            
           </>
         }
 
         {props.publicOrPrivate !== 'private' &&
+        <>
           <Text style={styles.waitingText}>Waiting for 1 more player...</Text> 
+          <Spinner />
+        </>
         }
-
-        <Spinner />
 
         <View style={styles.bottomRowView}>
           {!showNoMoreQuestionsOptions && (
-            <PixelButton buttonStyle={{width: scale(120)}}>
+            <PixelButton buttonStyle={styles.howToPlayBtn}>
               <Pressable
                   onPress={() => {
                     setModalVisible(true);
@@ -244,7 +242,7 @@ const WaitingRoom = (props) => {
           <View style={styles.bottomRowView}>
             <Text style={styles.innerText}>You have played all the questions in this category!</Text>
 
-            <PixelButton buttonStyle={{width: scale(150), height: scale(60)}}>
+            <PixelButton buttonStyle={{width: 160, height: 62}}>
               <Pressable
                 style={{height: '100%', width: '100%'}}
                 onPress={resetGameToken}
@@ -253,7 +251,7 @@ const WaitingRoom = (props) => {
               </Pressable> 
             </PixelButton>
 
-            <PixelButton buttonStyle={{width: scale(120), height: scale(60), marginRight: scale(22)}}>
+            <PixelButton buttonStyle={{width: 122, height: 62, marginRight: 24}}>
               <Pressable
                 style={{height: '100%', width: '100%'}}
                 onPress={() => setBackToLobby(true)}
@@ -273,6 +271,7 @@ const WaitingRoom = (props) => {
         <HowToPlayModal 
           visible={modalVisible}
           setVisible={setModalVisible}
+          deviceSize={screenDeviceWidth}
         />
 
         {backToLobby && <Redirect to='/lobby' />}
@@ -295,8 +294,8 @@ const mapStateToProps = (state) => {
     socket: state.socketReducer,
     fakeOpponentSocket: state.fakeOpponentSocketReducer,
     publicOrPrivate: state.gameInfoReducer.publicOrPrivate,
-    fullGameInfo: state.gameInfoReducer
-
+    fullGameInfo: state.gameInfoReducer,
+    screenDeviceWidth: state.userReducer.deviceWidth
   }
 }
 const mapDispatchToProps = { newOpponent, getQuestions, newFakeOpponent, resetUserGameToken }

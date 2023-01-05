@@ -26,9 +26,19 @@ For Future
 
 
 Tia: 
-- [ ] Responsive layout sizing
-  - [ ] Make breakpoints instead for a few common devices and use that to hard code styling (can change sim devices)
-  - build for standard device, will scale on others
+Responsive styling leftovers:
+TODO: How to play screen
+TODO: "you have played all questions in category" scenarios in waiting room
+TODO: waiting room 2 (simulate push notif)
+TODO: chat screen 
+TODO: fix PixelButton (how to play btn) right side border
+  - changing it from buttonStyle={{width: 100}} to buttonStyle={styles.buttonStyle} makes it go wonky
+  - show chat btn on game end is not wonky tho (neither is username input or go btn)
+  - something to do with useStyles? it can be exact same style props but when they go from directly on element to within stylesheet, it bungs up
+TODO: go buttons on private game, start game
+TODO: recalculate answer option and questions allowed character amounts, will depend on device size
+TODO: double check that correct device width is being set to userReducer (sometimes in sim it records device width before it rotates to landscape, making it always "small")
+
 
 
  Ideas
@@ -83,6 +93,8 @@ Tia:
 - Dropdown buttons should be taller or wider for longer category titles
 - Trophy is not a consistent size
 - Issue with Sounds - I think when it starts on mute
+- style consistency
+  - for ex- all headings in caps?
 
 ## Improvement ideas
 * Single player fake opponent scoring (right now they get it right 50% of time, random # for points)

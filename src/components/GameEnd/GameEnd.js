@@ -9,83 +9,9 @@ import Chat from '../Chat/Chat';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import { PixelButton } from '../Shared';
 import MuteButton from '../MuteButton/MuteButton';
-import { scale } from 'react-native-size-matters';
-
-const styles = StyleSheet.create({
-  root: {
-    height: '100%',
-    width: '100%',
-    justifyContent: 'space-between'
-  },
-  showChatWrapper: {
-    position: 'relative'
-  },
-  scoreRows: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center'
-  },
-  scoreRow : {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  score: {
-    alignItems: 'center',
-    marginHorizontal: scale(20),
-    position: 'relative',
-    paddingBottom: scale(70)
-  },
-  scoreText: {
-    fontFamily: 'VT323',
-    fontSize: scale(40),
-  },
-  trophy: {
-    height: scale(55),
-    width: scale(55),
-    position: 'absolute',
-    bottom: 0
-  },
-  rematchInvite: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: 200,
-    alignItems: 'flex-start',
-  },
-  yesNoButtonCont: {
-    display: 'flex',
-    marginRight: 20
-
-  },
-  buttonRow: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    paddingHorizontal: 50,
-    paddingVertical: 30,
-    justifyContent: 'space-between'
-  },
-  endButton : {
-    marginLeft: 'auto'
-  },
-  innerText: {
-    fontFamily: 'DotGothic',
-    fontSize: scale(16),
-    marginTop: 'auto',
-    marginBottom: 'auto',
-    textAlign: 'center'
-  },
-  rematchText: {
-    fontFamily: 'VT323',
-    fontSize: 30,
-  }
-})
+import { Buttons, Images, Typography } from '../../styles';
 
 function GameEnd(props) {
-
   const [backToLobby, setBackToLobby] = useState(false);
   const [rematchReady, setRematchReady] = useState(false)
   const opponentSaidNoToRematch = useRef(false);
@@ -97,18 +23,86 @@ function GameEnd(props) {
   const [saidYesToRematch, setSaidYesToRematch] = useState(false);
   const [rematchRequested, setRematchRequested] = useState(false);
 
-  const playerOneName = props.location.state.finalScore.playerOne.name
-  const playerOneScore = props.location.state.finalScore.playerOne.score
-  const playerOneSocket = props.location.state.finalScore.playerOne.socket;
-  const playerTwoName = props.location.state.finalScore.playerTwo.name
-  const playerTwoScore = props.location.state.finalScore.playerTwo.score;
-  const token = props.location.state.finalScore.token;
+  const { screenDeviceWidth, location } = props;
+
+  const playerOneName = location.state.finalScore.playerOne.name
+  const playerOneScore = location.state.finalScore.playerOne.score
+  const playerOneSocket = location.state.finalScore.playerOne.socket;
+  const playerTwoName = location.state.finalScore.playerTwo.name
+  const playerTwoScore = location.state.finalScore.playerTwo.score;
+  const token = location.state.finalScore.token;
 
   const rematchText = `${props.opponent} wants a rematch! What do you think?`
 
+  const styles = StyleSheet.create({
+    root: {
+      height: '100%',
+      width: '100%',
+      justifyContent: 'space-between'
+    },
+    showChatWrapper: {
+      position: 'relative'
+    },
+    scoreRows: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      justifyContent: 'center'
+    },
+    scoreRow : {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+    },
+    score: {
+      alignItems: 'center',
+      marginHorizontal: 10,
+      position: 'relative',
+      paddingBottom: 60
+    },
+    scoreText: {
+      ...Typography.headingTwoText[screenDeviceWidth]
+    },
+    innerText: {
+      ...Typography.innerText[screenDeviceWidth]
+    },
+    rematchText: {
+      ...Typography.rematchText[screenDeviceWidth]
+    },
+    optionBtns: {
+      ...Buttons.howToPlayBtn[screenDeviceWidth]
+    },
+    trophy: {
+      ...Images.gameEndTrophy[screenDeviceWidth]
+    },
+    rematchInvite: {
+      display: 'flex',
+      flexDirection: 'row',
+      width: 200,
+      alignItems: 'flex-start',
+    },
+    yesNoButtonCont: {
+      display: 'flex',
+      marginRight: 20
+    },
+    buttonRow: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      paddingHorizontal: 50,
+      paddingVertical: 30,
+      justifyContent: 'space-between'
+    },
+    endButton : {
+      marginLeft: 'auto'
+    },
+  })
+
   useEffect(() => {
     // Play sound to reward winner and punish loser
-    let userObj = playerOneSocket === props.socketId ? props.location.state.finalScore.playerOne : props.location.state.finalScore.playerTwo;
+    let userObj = playerOneSocket === props.socketId ? location.state.finalScore.playerOne : location.state.finalScore.playerTwo;
 
     setCurrentUserObj(userObj)
 
@@ -290,7 +284,7 @@ function GameEnd(props) {
             <Text style={styles.rematchText}>{rematchText}</Text>
           </View> :
           !opponentLeftRoom && props.numPlayers === 2 &&
-          <PixelButton>
+          <PixelButton buttonStyle={styles.optionBtns}>
             <Pressable 
               onPress={handleRematch} 
               style={{height: '100%', width: '100%'}}
@@ -329,7 +323,7 @@ function GameEnd(props) {
         </View>
       </View>
       <View style={styles.buttonRow}>
-        <PixelButton>
+        <PixelButton buttonStyle={styles.optionBtns}>
           <Pressable
             onPress={leaveRoomAndGoToLobby}
             style={{height: '100%', width: '100%'}}
@@ -340,6 +334,7 @@ function GameEnd(props) {
 
         {!opponentLeftRoom && props.numPlayers === 2 &&
           <Chat
+            deviceWidth={screenDeviceWidth}
             gameCode={props.gameCode}
             user={currentUserObj}
             rematchPending={showInvitation}
@@ -370,6 +365,7 @@ const mapStateToProps = state => ({
   opponent: state.userReducer.opponent,
   username: state.userReducer.username,
   numPlayers: state.gameInfoReducer.numPlayers || 2,
+  screenDeviceWidth: state.userReducer.deviceWidth
 })
 
 const mapDispatchToProps = {

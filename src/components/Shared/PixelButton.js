@@ -1,6 +1,5 @@
 import React from 'react';
 import { Pressable, StyleSheet, View, Text } from 'react-native';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const getStyles = (
   buttonStyle,
@@ -45,7 +44,7 @@ const getStyles = (
       left: borderWidth * -2
     },
     sideBorderRight: {
-      left: width + borderWidth,
+      left: (buttonStyle.width || width) + borderWidth
     },
     backgroundColorBar: {
       width: borderWidth,
@@ -67,10 +66,10 @@ const getStyles = (
       left: borderWidth * -1,
     },
     topRightDot: {
-      left: width
+      left: buttonStyle.width || width,
     },
     bottomRightDot: {
-      left: width,
+      left: buttonStyle.width || width,
       top: sideborderheight + borderWidth,
     },
     bottomLeftDot : {
@@ -87,15 +86,15 @@ function PixelButton({ onPress, children, buttonStyle = {}, textStyle = {}, vari
     buttonStyle = {
       backgroundColor: 'green',
       borderColor: 'green',
-      width: scale(40),
-      height: scale(40),
+      width: 50,
+      height: 46,
       ...buttonStyle
     }
     textStyle = {
       color: 'white',
       fontWeight: 'bold',
       fontFamily: 'DotGothic',
-      fontSize: scale(16),
+      fontSize: 16,
       ...textStyle
     }
   }

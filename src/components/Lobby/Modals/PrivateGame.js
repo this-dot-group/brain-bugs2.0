@@ -4,30 +4,27 @@ import { Input } from 'react-native-elements';
 import { connect } from 'react-redux'
 import { newOpponent } from '../../../store/userReducer';
 import { Typography } from '../../../styles';
-import { GenericModal } from '../../Shared';
-import { PixelButton, Hider, TitleBar } from '../../Shared';
-
-const styles = StyleSheet.create({
-  alertText: {
-    ...Typography.alertText,
-  },
-  alertTextHidden: {
-    ...Typography.alertText,
-    opacity: 0
-  },
-  goRow: {
-    flexDirection: 'row',
-    alignSelf: 'flex-end',
-    paddingHorizontal: 10
-  },
-})
+import { GenericModal, PixelButton, Hider, TitleBar } from '../../Shared';
 
 function PrivateGame(props) {
-
   const [gameCode, setGameCode] = useState('');
   const [error, setError] = useState(false);
   const [validGamecodes, setValidGamecodes] = useState([]);
   const [showGo, setShowGo] = useState(false);
+
+  const styles = StyleSheet.create({
+    alertText: {
+      ...Typography.alertText[props.screenDeviceWidth],
+    },
+    goRow: {
+      flexDirection: 'row',
+      alignSelf: 'flex-end',
+      paddingHorizontal: 10
+    },
+    inputText: {
+      ...Typography.inputText[props.screenDeviceWidth]
+    }
+  })
 
 
   useEffect(() => {
@@ -57,12 +54,10 @@ function PrivateGame(props) {
   }, [])
 
   const handleChange = (value) => {
-
     // value is the user-entered game code 
     setGameCode(value);
 
     if (value.length === 5) {
-
       if (!validGamecodes.includes(value)) {
         setError(true);
         setTimeout(() => {
@@ -71,11 +66,8 @@ function PrivateGame(props) {
       } else {
         setShowGo(true)
       }
-
     }
   }
-
-
 
   return (
     <GenericModal
@@ -83,12 +75,13 @@ function PrivateGame(props) {
     >
       <TitleBar
         cb={() => props.setModalVisible(null)}
+        deviceSize={props.screenDeviceWidth}
       >
-        JOIN a private game here!!
+        Join a Private Game
       </TitleBar>
       <Input
         placeholder='Enter code'
-        style={{fontFamily: 'DotGothic', fontSize: 20}}
+        style={styles.inputText}
         onChangeText={value => handleChange(value)}
         maxLength={5}
         value={gameCode}
@@ -99,7 +92,7 @@ function PrivateGame(props) {
       <Hider
         show={error}
       >
-        <Text style={styles.alertText}>Invalid code, please try again </Text>
+        <Text style={styles.alertText}>Invalid code, please try again! </Text>
       </Hider>
 
       <View style={styles.goRow}>
@@ -123,6 +116,7 @@ const mapStateToProps = (state) => {
   return {
     socket: state.socketReducer,
     username: state.userReducer.username,
+    screenDeviceWidth: state.userReducer.deviceWidth
   }
 }
 const mapDispatchToProps = { newOpponent };
