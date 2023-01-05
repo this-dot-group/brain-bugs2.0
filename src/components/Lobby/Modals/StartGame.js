@@ -14,7 +14,6 @@ import { Buttons } from '../../../styles'
 import { EXPO_LOCAL_URL } from '../../../../env'
 
 import axios from 'axios';
-import Constants from 'expo-constants';
 
 function StartGame(props) {
   const [categoryList, setCategoryList] = useState([]);

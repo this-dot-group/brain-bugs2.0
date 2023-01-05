@@ -26,7 +26,6 @@ For Future
 
 
 Tia: 
-TODO: check gameplay elements on lg device
 TODO: How to play screen responsive style
 TODO: waiting room 2 styling (sim push notif)
 TODO: styling of "you have played all questions in category" in waiting room
@@ -38,8 +37,6 @@ TODO: go buttons on private game, start game
 TODO: recalculate answer option and questions allowed character amounts, will depend on device size
 TODO: double check that correct device width is being set to userReducer (sometimes in sim it records device width before it rotates to landscape, making it always "small")
 TODO: put preferred colors in color file to use
-- style consistency
-  - all headings in caps?
 - [ ] BUG? started game on sim, joined on phone, phone went to waiting room 2 (what is the condition to go to waiting room 2?) **couldnt repro**
 
 
@@ -95,6 +92,8 @@ TODO: put preferred colors in color file to use
 - Dropdown buttons should be taller or wider for longer category titles
 - Trophy is not a consistent size
 - Issue with Sounds - I think when it starts on mute
+- style consistency
+  - for ex- all headings in caps?
 
 ## Improvement ideas
 * Single player fake opponent scoring (right now they get it right 50% of time, random # for points)
