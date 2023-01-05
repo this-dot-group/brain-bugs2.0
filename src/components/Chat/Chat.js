@@ -104,6 +104,9 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
     gap: {
       marginHorizontal: 10,
       alignItems: 'center',
+    },
+    showChatBtn: {
+      ...Buttons.howToPlayBtn[deviceWidth]
     }
   })
 
@@ -148,7 +151,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
   return (
     <>
       <View style={styles.showChatWrapper}>
-        <PixelButton buttonStyle={{...Buttons.howToPlayBtn[deviceWidth]}}>
+        <PixelButton buttonStyle={styles.showChatBtn}>
           <Pressable onPress={showModal} style={{height: '100%', width: '100%', position: 'relative'}}>
             <Text style={styles.innerText}>Show Chat</Text>
           </Pressable>

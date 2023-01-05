@@ -44,7 +44,7 @@ const getStyles = (
       left: borderWidth * -2
     },
     sideBorderRight: {
-      left: width + borderWidth,
+      left: (buttonStyle.width || width) + borderWidth
     },
     backgroundColorBar: {
       width: borderWidth,
@@ -66,10 +66,10 @@ const getStyles = (
       left: borderWidth * -1,
     },
     topRightDot: {
-      left: width
+      left: buttonStyle.width || width,
     },
     bottomRightDot: {
-      left: width,
+      left: buttonStyle.width || width,
       top: sideborderheight + borderWidth,
     },
     bottomLeftDot : {

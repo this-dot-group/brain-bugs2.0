@@ -26,9 +26,11 @@ For Future
 
 
 Tia: 
-TODO: How to play screen responsive style
-TODO: waiting room 2 styling (sim push notif)
-TODO: styling of "you have played all questions in category" in waiting room
+Responsive styling leftovers:
+TODO: How to play screen
+TODO: "you have played all questions in category" scenarios in waiting room
+TODO: waiting room 2 (simulate push notif)
+TODO: chat screen 
 TODO: fix PixelButton (how to play btn) right side border
   - changing it from buttonStyle={{width: 100}} to buttonStyle={styles.buttonStyle} makes it go wonky
   - show chat btn on game end is not wonky tho (neither is username input or go btn)
@@ -36,8 +38,7 @@ TODO: fix PixelButton (how to play btn) right side border
 TODO: go buttons on private game, start game
 TODO: recalculate answer option and questions allowed character amounts, will depend on device size
 TODO: double check that correct device width is being set to userReducer (sometimes in sim it records device width before it rotates to landscape, making it always "small")
-TODO: put preferred colors in color file to use
-- [ ] BUG? started game on sim, joined on phone, phone went to waiting room 2 (what is the condition to go to waiting room 2?) **couldnt repro**
+
 
 
  Ideas
