@@ -1,22 +1,19 @@
 import React, { useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
 import { Animated, Easing, Image, StyleSheet } from 'react-native';
+import { Images } from '../../styles';
 
-const SIZE = 50;
 
-const styles = StyleSheet.create({
-  container: {
-    height: SIZE,
-    width: SIZE,
-  },
-  trophy: {
-    height: SIZE,
-    width: SIZE,
-    position: 'absolute',
-    bottom: 0
-  },
-})
+function Trophy({ screenDeviceWidth }) {
+  const styles = StyleSheet.create({
+    container: {
+      ...Images.trophyCont[screenDeviceWidth]
+    },
+    trophy: {
+      ...Images.gameEndTrophy[screenDeviceWidth]
+    },
+  });
 
-export default function Trophy() {
   const shakeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -49,3 +46,9 @@ export default function Trophy() {
     </Animated.View>
   )
 }
+
+const mapStateToProps = state => ({
+  screenDeviceWidth: state.userReducer.deviceWidth
+});
+
+export default connect(mapStateToProps)(Trophy);

@@ -17,7 +17,7 @@ Josh:
 - [ ] Clean up End Screen 
 - New:
  - [ ] Bug with user going back to home screen when clicking on push notification - maybe has something to do with changes for app state tracker on waiting room screen recently made
- - Something going on with chat
+ - [x] Something going on with chat
 
 For Future
 - code improvements
