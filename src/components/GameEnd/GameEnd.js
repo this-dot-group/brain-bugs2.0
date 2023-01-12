@@ -36,16 +36,12 @@ function GameEnd({
   const [roomJoin, setRoomJoin] = useState(false);
   const [showInvitation, setShowInvitation] = useState(false);
   const [currentUserObj, setCurrentUserObj] = useState({});
-  const [/* userOutcome */, setUserOutcome] = useState('');
+  const [opponentObj, setOpponentObj] = useState({});
+  const [userOutcome, setUserOutcome] = useState('');
   const [opponentLeftRoom, setOpponentLeftRoom] = useState(false);
   const [saidYesToRematch, setSaidYesToRematch] = useState(false);
   const [rematchRequested, setRematchRequested] = useState(false);
 
-  const playerOneName = location.state.finalScore.playerOne.name
-  const playerOneScore = location.state.finalScore.playerOne.score
-  const playerOneSocket = location.state.finalScore.playerOne.socket;
-  const playerTwoName = location.state.finalScore.playerTwo.name
-  const playerTwoScore = location.state.finalScore.playerTwo.score;
   const token = location.state.finalScore.token;
 
   const rematchText = `${opponent} wants a rematch! What do you think?`
@@ -106,13 +102,16 @@ function GameEnd({
 
   useEffect(() => {
     // Play sound to reward winner and punish loser
-    let userObj = playerOneSocket === socketId ? location.state.finalScore.playerOne : location.state.finalScore.playerTwo;
+    const userObj = location.state.finalScore.playerOne.socket === socketId ? location.state.finalScore.playerOne : location.state.finalScore.playerTwo;
 
-    setCurrentUserObj(userObj)
+    const oppObj = userObj.name === location.state.finalScore.playerOne.name ? location.state.finalScore.playerTwo : location.state.finalScore.playerOne;
 
-    if (playerTwoScore === playerOneScore) {
+    setCurrentUserObj(userObj);
+    setOpponentObj(oppObj);
+
+    if (oppObj.score === userObj.score) {
       setUserOutcome('tie');
-    } else if (userObj.score === Math.max(playerOneScore, playerTwoScore)) {
+    } else if (userObj.score === Math.max(userObj.score, oppObj.score)) {
       playSound('win');
       setUserOutcome('win');
     } else {
@@ -254,10 +253,18 @@ function GameEnd({
     setBackToLobby(true);
   }
 
+  if (roomJoin) return <Redirect to='/howtoplay' />;
 
-  if (roomJoin) return <Redirect to='/howtoplay' />
+  if (saidYesToRematch) return <LoadingScreen />;
 
-  if (saidYesToRematch) return <LoadingScreen />
+  if (backToLobby) return <Redirect to='/lobby' />;
+
+  if (rematchReady) return (
+    <Redirect to={{
+      pathname: '/waitingroom',
+      state: { token },
+    }} />
+  );
 
   return (
     <View style={styles.root}>
@@ -295,14 +302,14 @@ function GameEnd({
       <View style={styles.scoreRows} pointerEvents="none">
         <View style={styles.scoreRow}>
           <Score
-            name={playerOneName}
-            score={playerOneScore}
-            isWinner={playerOneScore > playerTwoScore}
+            name={opponentObj.name}
+            score={opponentObj.score}
+            isWinner={userOutcome === 'lose'}
           />
           <Score
-            name={playerTwoName}
-            score={playerTwoScore}
-            isWinner={playerTwoScore > playerOneScore}
+            name={currentUserObj.name}
+            score={currentUserObj.score}
+            isWinner={userOutcome === 'win'}
           />
         </View>
         <View style={styles.scoreRow}>
@@ -330,13 +337,6 @@ function GameEnd({
           />
         }
       </View>
-
-      {backToLobby && <Redirect to='/lobby' />}
-
-      {rematchReady && <Redirect to={{
-        pathname: '/waitingroom',
-        state: { token },
-      }} />}
     </View>
   )
 }
@@ -364,4 +364,3 @@ const mapDispatchToProps = {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameEnd);
-
