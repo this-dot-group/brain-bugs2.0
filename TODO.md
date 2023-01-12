@@ -10,13 +10,14 @@ Josh:
 - [ ] Manual testing for bugs, possible issues with component mounting
 - [ ] Check on responsive sizes
 - [ ] Revisit Colors
-- [ ] Make sure it's working again
+- [x] Make sure it's working again
 - [ ] Animations
  - [ ] bug on home screen
  - [ ] buttons
 - [ ] Clean up End Screen 
 - New:
  - [ ] Bug with user going back to home screen when clicking on push notification - maybe has something to do with changes for app state tracker on waiting room screen recently made
+ - Something going on with chat
 
 For Future
 - code improvements

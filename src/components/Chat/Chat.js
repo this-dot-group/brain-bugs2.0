@@ -3,17 +3,8 @@ import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { TitleBar, PixelButton, StyledInput, KeyboardAvoidingComponent, Hider } from '../Shared';
 import Badge from './Badge';
+import Overlay from './Overlay';
 import { Buttons, Typography } from '../../styles';
-
-function Overlay ({ active }) {
-  return (
-    <Hider
-      show={active}
-      style={styles.overlay}
-      pointerEvents='none'
-    />
-  )
-}
 
 function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rematchText, deviceWidth }) {
   const [messages, setMessages] = useState([]);
@@ -87,13 +78,6 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
     },
     chatModalStyles: {
       backgroundColor: 'black'
-    },
-    overlay: {
-      width: '100%',
-      height: '100%',
-      backgroundColor: 'rgba(0,0,0,.5)',
-      position: 'absolute',
-      zIndex: 1,
     },
     yesNoButtonCont: {
       display: 'flex',
