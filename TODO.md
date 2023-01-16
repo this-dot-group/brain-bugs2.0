@@ -12,12 +12,15 @@ Josh:
 - [ ] Revisit Colors
 - [x] Make sure it's working again
 - [ ] Animations
- - [ ] bug on home screen
+ - [x] bug on home screen
+ - [ ] Animate Title also
+ - [ ] Animation on screen transition
  - [ ] buttons
 - [ ] Clean up End Screen 
 - New:
  - [ ] Bug with user going back to home screen when clicking on push notification - maybe has something to do with changes for app state tracker on waiting room screen recently made
  - [x] Something going on with chat
+ - [ ] Loading Screen Not centered at beginning
 
 For Future
 - code improvements

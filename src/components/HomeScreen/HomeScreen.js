@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { View, Text, TextInput, StyleSheet, Modal, Pressable, Dimensions } from 'react-native'
-import { Image } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-native';
 import socketIO from 'socket.io-client';
@@ -9,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import MuteButton from '../MuteButton/MuteButton';
+import AnimatedLogo from './AnimatedLogo';
 import { PixelButton, KeyboardAvoidingComponent, Hider } from '../Shared';
 
 import { Buttons, Views, Typography, Images } from '../../styles/';
@@ -146,9 +146,9 @@ function Homescreen(props) {
   return (
     <View style={styles.container}>
       <View style={styles.logoTextRowView}>
-        <Image
-          source={require('../../images/BRAIN_BUG1.png')}
-          style={styles.logoImg} />
+        <AnimatedLogo
+          imgStyle={styles.logoImg}
+        />
         <Text style={styles.logoText}>BRAIN BUGS</Text> 
 
         <KeyboardAvoidingComponent
