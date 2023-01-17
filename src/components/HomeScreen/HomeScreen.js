@@ -148,9 +148,8 @@ function Homescreen(props) {
       <View style={styles.logoTextRowView}>
         <AnimatedLogo
           imgStyle={styles.logoImg}
+          textStyle={styles.logoText}
         />
-        <Text style={styles.logoText}>BRAIN BUGS</Text> 
-
         <KeyboardAvoidingComponent
           offset={0}
           style={{ backgroundColor: 'transparent', flex: 0 }}

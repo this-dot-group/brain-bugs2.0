@@ -8,12 +8,12 @@
 
 Josh:  
 - [ ] Manual testing for bugs, possible issues with component mounting
-- [ ] Check on responsive sizes
+- [x] Check on responsive sizes
 - [ ] Revisit Colors
 - [x] Make sure it's working again
 - [ ] Animations
  - [x] bug on home screen
- - [ ] Animate Title also
+ - [x] Animate Title also
  - [ ] Animation on screen transition
  - [ ] buttons
 - [ ] Clean up End Screen 
@@ -21,6 +21,7 @@ Josh:
  - [ ] Bug with user going back to home screen when clicking on push notification - maybe has something to do with changes for app state tracker on waiting room screen recently made
  - [x] Something going on with chat
  - [ ] Loading Screen Not centered at beginning
+ - [ ] Sound isn't working?
 
 For Future
 - code improvements
