@@ -70,7 +70,20 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
       ...Typography.innerText[deviceWidth]
     },
     innerText: {
-      ...Typography.innerText[deviceWidth]
+      ...Typography.innerText[deviceWidth],
+    },
+    innerRematchText: {
+      ...Typography.rematchText[deviceWidth],
+      color: 'red',
+      marginTop: 'auto',
+      marginBottom: 'auto',
+      textAlign: 'center'
+    },
+    rematchHeadingText: {
+      ...Typography.rematchText[deviceWidth],
+      marginTop: 'auto',
+      marginBottom: 'auto',
+      textAlign: 'center'
     },
     chatModalStyles: {
       backgroundColor: 'black'
@@ -89,7 +102,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
       alignContent: 'center',
     },
     gap: {
-      marginHorizontal: 10,
+      marginHorizontal: 6,
       alignItems: 'center',
     },
     showChatBtn: {
@@ -178,19 +191,19 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
             >
               <View style={styles.yesNoButtonCont}>
                 <View style={styles.gap}>
-                  <Text style={styles.innerText}>{rematchText}</Text>
+                  <Text style={styles.rematchHeadingText}>{rematchText}</Text>
                 </View>
                 <View style={styles.gap}>
                   <PixelButton buttonStyle={{width: 60, marginBottom: 10 }}>
                     <Pressable onPress={handleYes} style={{height: '100%', width: '100%'}}>
-                      <Text style={styles.innerText}>Yes</Text>
+                      <Text style={styles.innerRematchText}>Yes</Text>
                     </Pressable>
                   </PixelButton>
                 </View>
                 <View style={styles.gap}>
                   <PixelButton buttonStyle={{width: 60}}>
                     <Pressable onPress={handleNo} style={{height: '100%', width: '100%'}}>
-                      <Text style={styles.innerText}>No</Text>
+                      <Text style={styles.innerRematchText}>No</Text>
                     </Pressable>
                   </PixelButton>
                 </View>
