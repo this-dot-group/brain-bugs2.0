@@ -16,12 +16,15 @@ Josh:
  - [x] Animate Title also
  - [ ] Animation on screen transition
  - [ ] buttons
-- [ ] Clean up End Screen 
+- [x] Clean up End Screen
+ - [x] Make new component PixelPressable, and replaced PixelButtons that are pressables on end screen with that
 - New:
  - [ ] Bug with user going back to home screen when clicking on push notification - maybe has something to do with changes for app state tracker on waiting room screen recently made
  - [x] Something going on with chat
  - [x] Loading Screen Not centered at beginning
  - [ ] Sound isn't working?
+ - [ ] Pixel Button is really Pixel Border - maybe need a different version for button to use pressable events
+ - [ ] Move mute button to shared
 
 For Future
 - code improvements

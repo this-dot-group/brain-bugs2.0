@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { View, Text, StyleSheet, Alert, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Alert } from 'react-native'
 import { Redirect } from 'react-router-native'
 import { connect } from 'react-redux';
-import { numQuestions, newCategory, publicOrPrivate, getQuestions, resetQuestions } from '../../store/gameInfoReducer';
+import { numQuestions, newCategory, publicOrPrivate, resetQuestions } from '../../store/gameInfoReducer';
 import { newOpponent } from '../../store/userReducer';
 import { playSound } from '../../store/soundsReducer'
 import Chat from '../Chat/Chat';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import Score from './Score';
-import { PixelButton } from '../Shared';
+import { PixelPressable } from '../Shared';
 import MuteButton from '../MuteButton/MuteButton';
 import { Buttons, Typography } from '../../styles';
 
@@ -32,7 +32,6 @@ function GameEnd({
 }) {
   const [backToLobby, setBackToLobby] = useState(false);
   const [rematchReady, setRematchReady] = useState(false)
-  const opponentSaidNoToRematch = useRef(false);
   const [roomJoin, setRoomJoin] = useState(false);
   const [showInvitation, setShowInvitation] = useState(false);
   const [currentUserObj, setCurrentUserObj] = useState({});
@@ -41,19 +40,17 @@ function GameEnd({
   const [opponentLeftRoom, setOpponentLeftRoom] = useState(false);
   const [saidYesToRematch, setSaidYesToRematch] = useState(false);
   const [rematchRequested, setRematchRequested] = useState(false);
+  const opponentSaidNoToRematch = useRef(false);
 
   const token = location.state.finalScore.token;
 
-  const rematchText = `${opponent} wants a rematch! What do you think?`
+  const rematchText = `${opponent} wants a rematch! What do you think?`;
 
   const styles = StyleSheet.create({
     root: {
       height: '100%',
       width: '100%',
       justifyContent: 'space-between'
-    },
-    showChatWrapper: {
-      position: 'relative'
     },
     scoreRows: {
       position: 'absolute',
@@ -67,9 +64,6 @@ function GameEnd({
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'center',
-    },
-    innerText: {
-      ...Typography.innerText[screenDeviceWidth]
     },
     rematchText: {
       ...Typography.rematchText[screenDeviceWidth]
@@ -98,10 +92,9 @@ function GameEnd({
     endButton : {
       marginLeft: 'auto'
     },
-  })
+  });
 
   useEffect(() => {
-    // Play sound to reward winner and punish loser
     const userObj = location.state.finalScore.playerOne.socket === socketId ? location.state.finalScore.playerOne : location.state.finalScore.playerTwo;
 
     const oppObj = userObj.name === location.state.finalScore.playerOne.name ? location.state.finalScore.playerTwo : location.state.finalScore.playerOne;
@@ -111,7 +104,7 @@ function GameEnd({
 
     if (oppObj.score === userObj.score) {
       setUserOutcome('tie');
-    } else if (userObj.score === Math.max(userObj.score, oppObj.score)) {
+    } else if (userObj.score > oppObj.score) {
       playSound('win');
       setUserOutcome('win');
     } else {
@@ -120,20 +113,19 @@ function GameEnd({
     }
 
     socket.on('rematchInvitation', onRematchInvitation);
-    socket.on('opponentRematchResponse', onRematchResponse)
-    socket.on('gameCodeForRematch', joinRematch)
+    socket.on('opponentRematchResponse', onRematchResponse);
+    socket.on('gameCodeForRematch', joinRematch);
     socket.on('redirectToHowToPlay', redirect);
-    socket.on('opponentLeftRoom', createOpponentLeftRoomAlert)
+    socket.on('opponentLeftRoom', createOpponentLeftRoomAlert);
 
     return () => {
-      socket.off('rematchInvitation', onRematchInvitation)
-      socket.off('opponentRematchResponse', onRematchResponse)
-      socket.off('gameCodeForRematch', joinRematch)
+      socket.off('rematchInvitation', onRematchInvitation);
+      socket.off('opponentRematchResponse', onRematchResponse);
+      socket.off('gameCodeForRematch', joinRematch);
       socket.off('redirectToHowToPlay', redirect);
-      socket.off('opponentLeftRoom', createOpponentLeftRoomAlert)
-
+      socket.off('opponentLeftRoom', createOpponentLeftRoomAlert);
     }
-  }, [])
+  }, []);
 
   // 1. one person clicks button to request rematch, emits the "rematch" event
   // 2. server is emitting to the room (person who did not req rematch) the "rematchInvitation" event
@@ -143,7 +135,6 @@ function GameEnd({
   // 6. server listens for this, emits gameCodeForRematch to opponent, triggers joinRematch function which emits the joinTwoPlayer event
   // 7. on server side, makes game obj, joins each person to room, and redirectsHowToPlay
 
-
   const redirect = (usernames) => {
     // this stuff is happening to the opponent (person who said yes to rematch)
     newOpponent(usernames.gameMaker);
@@ -151,11 +142,10 @@ function GameEnd({
   }
 
   const onRematchInvitation = () => {
-    setShowInvitation(true)
+    setShowInvitation(true);
   }
 
   const createOpponentSaidNoAlert = (opponent) => {
-
     Alert.alert(
       'Find another challenger!',
       `Your opponent ${opponent} declined your rematch request.`,
@@ -171,7 +161,7 @@ function GameEnd({
 
   const createOpponentLeftRoomAlert = () => {
     // check here to see if rematch is already no, in which case we dont need to show the alert
-    if(!opponentSaidNoToRematch.current){
+    if (!opponentSaidNoToRematch.current){
       Alert.alert(
         'Your opponent has left the room.',
         'Rematch and chat no longer enabled.',
@@ -189,20 +179,18 @@ function GameEnd({
   }
 
   const onRematchResponse = (payload) => {
-
     const { response, rematchGameInfo } = payload;
     // all the stuff in this function is happening to the person who ASKED for the rematch
 
     if (response) {
       resetQuestions();
-      newCategory({ name: rematchGameInfo.categoryName, id: rematchGameInfo.categoryID })
+      newCategory({ name: rematchGameInfo.categoryName, id: rematchGameInfo.categoryID });
       numQuestions(rematchGameInfo.numQuestions);
       publicOrPrivate('private');
 
       socket.emit('sendRematchOpponentToPrivateGameJoin', gameCode);
 
       setRematchReady(true);
-
     }
 
     if (!response) {
@@ -210,25 +198,21 @@ function GameEnd({
       opponentSaidNoToRematch.current = true;
       createOpponentSaidNoAlert(opponent);
     }
-
   }
 
   const joinRematch = (gameCode) => {
-
     // this stuff is happening to the person who said YES to the rematch, the opponent
-
     if (numPlayers === 1) {
       fakeOpponentSocket.emit('joinTwoPlayer', [gameCode, 'Cricket']);
     }
     socket.emit('joinTwoPlayer', [gameCode, username]);
   }
 
-
   const handleRematch = () => {
     setRematchRequested(true);
     socket.emit('rematch')
     if (numPlayers === 1) {
-      resetQuestions()
+      resetQuestions();
       setRematchReady(true);
     }
   };
@@ -241,7 +225,7 @@ function GameEnd({
 
   const handleNo = () => {
     setRematchRequested(false);
-    socket.emit('rematchResponse', false)
+    socket.emit('rematchResponse', false);
     leaveRoomAndGoToLobby();
   }
 
@@ -272,30 +256,31 @@ function GameEnd({
         {showInvitation ?
           <View style={styles.rematchInvite}>
             <View style={styles.yesNoButtonCont}>
-              <PixelButton buttonStyle={{width: 60, marginBottom: 10 }}>
-                <Pressable onPress={handleYes} style={{height: '100%', width: '100%'}}>
-                  <Text style={styles.innerText}>Yes</Text>
-                </Pressable>
-              </PixelButton>
-
-              <PixelButton buttonStyle={{width: 60}}>
-                <Pressable onPress={handleNo} style={{height: '100%', width: '100%'}}>
-                  <Text style={styles.innerText}>No</Text>
-                </Pressable>
-              </PixelButton>
+              <PixelPressable
+                buttonStyle={{ width: 60, marginBottom: 10 }}
+                pressableProps={{
+                  onPress: handleYes
+                }}
+              >Yes</PixelPressable>
+              <PixelPressable
+                buttonStyle={{ width: 60 }}
+                pressableProps={{
+                  onPress: handleNo
+                }}
+              >No</PixelPressable>
             </View>
             <Text style={styles.rematchText}>{rematchText}</Text>
           </View> :
           !opponentLeftRoom && numPlayers === 2 &&
-          <PixelButton buttonStyle={styles.optionBtns}>
-            <Pressable 
-              onPress={handleRematch} 
-              style={{height: '100%', width: '100%'}}
-              disabled={rematchRequested}
-            >
-              <Text style={styles.innerText}>{rematchRequested ? `Requesting...` : `Rematch`}</Text>
-            </Pressable>
-          </PixelButton>
+          <PixelPressable
+            buttonStyle={styles.optionBtns}
+            pressableProps={{
+              onPress: handleRematch,
+              disabled: rematchRequested,
+            }}
+          >
+            {rematchRequested ? 'Requesting...' : 'Rematch'}
+          </PixelPressable>
         }
         <MuteButton styles={styles.endButton} />
       </View>
@@ -316,14 +301,12 @@ function GameEnd({
         </View>
       </View>
       <View style={styles.buttonRow}>
-        <PixelButton buttonStyle={styles.optionBtns}>
-          <Pressable
-            onPress={leaveRoomAndGoToLobby}
-            style={{height: '100%', width: '100%'}}
-          >
-            <Text style={styles.innerText}>Back to Lobby</Text>
-          </Pressable>
-        </PixelButton>
+        <PixelPressable
+          buttonStyle={styles.optionBtns}
+          pressableProps={{
+            onPress: leaveRoomAndGoToLobby
+          }}
+        >Back to Lobby</PixelPressable>
 
         {!opponentLeftRoom && numPlayers === 2 &&
           <Chat
@@ -351,16 +334,15 @@ const mapStateToProps = state => ({
   username: state.userReducer.username,
   numPlayers: state.gameInfoReducer.numPlayers || 2,
   screenDeviceWidth: state.userReducer.deviceWidth
-})
+});
 
 const mapDispatchToProps = {
   numQuestions,
   newCategory,
   publicOrPrivate,
-  getQuestions,
   resetQuestions,
   newOpponent,
   playSound
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameEnd);
