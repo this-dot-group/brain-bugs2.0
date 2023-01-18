@@ -20,7 +20,7 @@ Josh:
 - New:
  - [ ] Bug with user going back to home screen when clicking on push notification - maybe has something to do with changes for app state tracker on waiting room screen recently made
  - [x] Something going on with chat
- - [ ] Loading Screen Not centered at beginning
+ - [x] Loading Screen Not centered at beginning
  - [ ] Sound isn't working?
 
 For Future
