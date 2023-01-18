@@ -31,12 +31,12 @@ For Future
 
 Tia: 
 Responsive styling leftovers:
-TODO: How to play screen
-TODO: "you have played all questions in category" scenarios in waiting room
-TODO: waiting room 2 (simulate push notif)
-TODO: chat screen 
-TODO: recalculate answer option and questions allowed character amounts, will depend on device size
-TODO: double check that correct device width is being set to userReducer (sometimes in sim it records device width before it rotates to landscape, making it always "small")
+TODO: [x] How to play screen
+TODO: [ ] "you have played all questions in category" scenarios in waiting room
+TODO: [x] waiting room 2 (simulate push notif)
+TODO: [ ] chat screen 
+TODO: [ ] recalculate answer option and questions allowed character amounts, will depend on device size
+TODO: [ ] double check that correct device width is being set to userReducer (sometimes in sim it records device width before it rotates to landscape, making it always "small")
 
 
 
