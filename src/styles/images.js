@@ -36,6 +36,21 @@ const trophyBase = {
   bottom: 0
 }
 
+export const trophyCont = {
+  small: {
+    height: 50,
+    width: 50
+  },
+  medium: {
+    height: 56,
+    width: 56
+  },
+  large: {   
+    height: 60,
+    width: 60
+  }
+}
+
 export const gameEndTrophy = {
   small: {
     ...trophyBase,
