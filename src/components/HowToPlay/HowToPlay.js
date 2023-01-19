@@ -8,60 +8,60 @@ import { Spinner, PixelButton } from '../Shared';
 import MuteButton from '../MuteButton/MuteButton';
 import { START_COUNTDOWN } from '../../../config';
 import { playSound } from '../../store/soundsReducer';
-import { Views } from '../../styles';
 import AppStateTracker from '../AppState/AppStateTracker';
-
-const styles = StyleSheet.create({
-  root: {
-    justifyContent: 'space-between',
-    width: '100%',
-    height: '100%'
-  },
-  topRow: {
-    paddingHorizontal: 50,
-    paddingTop: 30,
-  },
-  body: {
-    alignItems: 'center',
-  },
-  bottomRow: {
-    paddingHorizontal: 50,
-    paddingBottom: 30,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%'
-  },
-  innerText: {
-    fontFamily: 'DotGothic',
-  },
-  names: {
-    fontFamily: 'VT323',
-    fontSize: 40,
-  },
-  subtitle: {
-    fontFamily: 'DotGothic',
-    fontSize: 20,
-    marginBottom: 20
-  },
-  countdown: {
-    fontSize: 20,
-    fontFamily: 'DotGothic',
-  },
-  modalView: {
-    ...Views.modalView,
-  }
-})
-
+import { Buttons, Views, Typography } from '../../styles/';
 
 function HowToPlay(props) {
-  const { username, opponent, playSound, socket, gameCode } = props;
-
   const [seconds, setSeconds] = useState(START_COUNTDOWN * 1000);
   const [modalVisible, setModalVisible] = useState(false);
   const [goCountdown, setGoCountdown] = useState(true);
   const [goToGame, setGoToGame] = useState(false);
   const [backToLobby, setBackToLobby] = useState(false);
+
+  const { username, opponent, playSound, socket, gameCode, screenDeviceWidth } = props;
+
+  const styles = StyleSheet.create({
+    root: {
+      justifyContent: 'space-between',
+      width: '100%',
+      height: '100%'
+    },
+    topRow: {
+      paddingHorizontal: 50,
+      paddingTop: 30,
+    },
+    body: {
+      alignItems: 'center',
+    },
+    bottomRow: {
+      paddingHorizontal: 50,
+      paddingBottom: 30,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '100%'
+    },
+    innerText: {
+      ...Typography.innerText[screenDeviceWidth]
+    },
+    howToPlayBtn: {
+      ...Buttons.howToPlayBtn[screenDeviceWidth]
+    },
+    names: {
+      ...Typography.headingThreeText[screenDeviceWidth]
+    },
+    subtitle: {
+      ...Typography.normalText[screenDeviceWidth],
+      marginBottom: 4
+    },
+    countdown: {
+      ...Typography.smallInnerText[screenDeviceWidth],
+      color: 'red'
+    },
+    modalView: {
+      ...Views.modalView,
+    }
+  })
 
   const handleOpponentLeftResponse = () => {
     socket.emit('cancelGame');
@@ -124,7 +124,7 @@ function HowToPlay(props) {
       />
       <View style={styles.root}>
         <View style={styles.topRow}>
-          <PixelButton buttonStyle={{width: 150}}>
+          <PixelButton buttonStyle={styles.howToPlayBtn}>
             <Pressable
               onPress={handleQuit}
             >
@@ -135,7 +135,7 @@ function HowToPlay(props) {
 
         <View style={styles.body}>
           <Text style={styles.names}>{username} {opponent && `vs ${opponent}`}</Text>
-          <Text style={styles.subtitle}>Game starting in&nbsp;</Text>
+          <Text style={styles.subtitle}>Game starting in ...</Text>
           <Spinner>
             <Countdown
               seconds={seconds}
@@ -149,7 +149,7 @@ function HowToPlay(props) {
 
         <View style={styles.bottomRow}>
           
-          <PixelButton buttonStyle={{width: 150}}>
+          <PixelButton buttonStyle={styles.howToPlayBtn}>
             <Pressable
               onPress={() => {
                 playSound('click')
@@ -179,6 +179,7 @@ const mapStateToProps = (state) => {
     username: state.userReducer.username,
     opponent: state.userReducer.opponent,
     gameCode: state.userReducer.gameCode,
+    screenDeviceWidth: state.userReducer.deviceWidth
   }
 }
 export default connect(mapStateToProps, { playSound })(HowToPlay)

@@ -156,6 +156,35 @@ export const inputText = {
   }
 }
 
+////// CHAT INPUT TEXT 
+////// - chat input
+
+const chatInputTextBase = {
+  flexGrow: 1,
+  marginRight: 10,
+  backgroundColor: 'white',
+  zIndex: 2,
+  width: '80%'
+}
+
+export const chatInputText = {
+  small: {
+    ...chatInputTextBase,
+    fontSize: 18,
+    height: 40
+  },
+  medium: {
+    ...chatInputTextBase,
+    fontSize: 22,
+    height: 46
+  },
+  large: {
+    ...chatInputTextBase,
+    fontSize: 24,
+    height: 46
+  }
+}
+
 ////// NORMAL TEXT 
 ////// - how to play modal bullet pts 
 
@@ -180,6 +209,8 @@ export const normalText = {
     paddingVertical: 10,
   }
 }
+
+
 
 ////// ALERT TEXT 
 ////// - invalid code alert on private game screen 

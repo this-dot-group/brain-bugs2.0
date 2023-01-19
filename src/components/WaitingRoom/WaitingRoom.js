@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet} from 'react-native'
+import { View, Text, Pressable, StyleSheet} from 'react-native'
 import { Redirect } from 'react-router-native';
 import * as Clipboard from 'expo-clipboard';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
@@ -47,6 +47,16 @@ const WaitingRoom = (props) => {
       justifyContent: 'space-between',
       width: '100%',
     },
+    noMoreCategoriesView: {
+      flexDirection: 'column',
+      width: '100%',
+      alignItems: 'center'
+    },
+    noMoreCategoriesInnerView: {
+      flexDirection: 'row',
+      width: '100%',
+      justifyContent: 'center'
+    },
     alertText: {
       ...Typography.alertText[screenDeviceWidth],
     },
@@ -69,6 +79,18 @@ const WaitingRoom = (props) => {
     howToPlayBtn: {
       ...Buttons.howToPlayBtn[screenDeviceWidth]
     },
+    noMoreCategoriesBtnsLeft: {
+      ...Buttons.noMoreCategoriesBtns[screenDeviceWidth],
+      marginRight: 14
+    },
+    noMoreCategoriesBtnsRight: {
+      ...Buttons.noMoreCategoriesBtns[screenDeviceWidth],
+      marginLeft: 14
+    },
+    noMoreCategoriesHeading: {
+      ...Typography.headingTwoText[screenDeviceWidth],
+      textAlign: 'center'
+    }
   })
 
   const handleCodeCopy = () => {
@@ -217,11 +239,40 @@ const WaitingRoom = (props) => {
           </>
         }
 
-        {props.publicOrPrivate !== 'private' &&
-        <>
-          <Text style={styles.waitingText}>Waiting for 1 more player...</Text> 
-          <Spinner />
-        </>
+        {props.publicOrPrivate !== 'private' && !showNoMoreQuestionsOptions && (
+          <>
+            <Text style={styles.waitingText}>Waiting for 1 more player...</Text> 
+            <Spinner />
+          </>
+        )
+        }
+
+        {showNoMoreQuestionsOptions && 
+          <View style={styles.noMoreCategoriesView}>
+            <Text style={styles.noMoreCategoriesHeading}>You have played all the questions in this category!</Text>
+
+            <View style={styles.noMoreCategoriesInnerView}>
+              <PixelButton buttonStyle={styles.noMoreCategoriesBtnsLeft}>
+                <Pressable
+                  style={{height: '100%', width: '100%'}}
+                  onPress={resetGameToken}
+                >
+                  <Text style={styles.innerText}>Play this category, repeat questions</Text>
+                </Pressable> 
+              </PixelButton>
+
+              <PixelButton buttonStyle={styles.noMoreCategoriesBtnsRight}>
+                <Pressable
+                  style={{height: '100%', width: '100%'}}
+                  onPress={() => setBackToLobby(true)}
+                >
+                  <Text style={styles.innerText}>Back to lobby, new category</Text>
+                </Pressable>
+              </PixelButton>
+            </View>
+
+
+          </View>
         }
 
         <View style={styles.bottomRowView}>
@@ -237,30 +288,6 @@ const WaitingRoom = (props) => {
               </Pressable>  
            </PixelButton>
           )}
-
-        {showNoMoreQuestionsOptions && 
-          <View style={styles.bottomRowView}>
-            <Text style={styles.innerText}>You have played all the questions in this category!</Text>
-
-            <PixelButton buttonStyle={{width: 160, height: 62}}>
-              <Pressable
-                style={{height: '100%', width: '100%'}}
-                onPress={resetGameToken}
-              >
-                <Text style={styles.innerText}>Play this category, repeat questions</Text>
-              </Pressable> 
-            </PixelButton>
-
-            <PixelButton buttonStyle={{width: 122, height: 62, marginRight: 24}}>
-              <Pressable
-                style={{height: '100%', width: '100%'}}
-                onPress={() => setBackToLobby(true)}
-              >
-                <Text style={styles.innerText}>Back to lobby, new category</Text>
-              </Pressable>
-          </PixelButton>
-          </View>
-        }
   
           <View style={{marginTop: 'auto', marginBottom: 'auto'}}>
             <MuteButton />
