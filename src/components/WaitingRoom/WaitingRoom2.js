@@ -1,53 +1,57 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, ActivityIndicator, Pressable, Modal, StyleSheet, Alert } from 'react-native'
+import { View, Text, Pressable, StyleSheet, Alert } from 'react-native'
 import { Redirect } from 'react-router-native';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import { newOpponent } from '../../store/userReducer'
 import { connect } from 'react-redux';
 import MuteButton from '../MuteButton/MuteButton';
 
-import { Views } from '../../styles';
+import { Views, Typography, Buttons } from '../../styles';
 import { PixelButton, Spinner } from '../Shared';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 40,
-    paddingLeft: 40,
-    paddingRight: 40,
-    paddingBottom: 40,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  topRowView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-  bottomRowView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-  innerText: {
-    fontFamily: 'DotGothic',
-    fontSize: 14,
-    marginTop: 'auto',
-    marginBottom: 'auto',
-    textAlign: 'center'
-  },
-  modalView: {
-    ...Views.modalView,
-  },
-
-})
 
 const WaitingRoom2 = (props) => {
 
   const [modalVisible, setModalVisible] = useState(false)
   const [roomJoin, setRoomJoin] = useState(false)
   const [backToLobby, setBackToLobby] = useState(false);
+
+  const { socket, screenDeviceWidth } = props;
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingTop: 40,
+      paddingLeft: 40,
+      paddingRight: 40,
+      paddingBottom: 40,
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'space-between'
+    },
+    topRowView: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+    },
+    bottomRowView: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+    },
+    innerText: {
+      ...Typography.innerText[screenDeviceWidth],
+    },
+    howToPlayBtn: {
+      ...Buttons.howToPlayBtn[screenDeviceWidth]
+    },
+    subtitle: {
+      ...Typography.normalText[screenDeviceWidth],
+      marginBottom: 4
+    },
+    modalView: {
+      ...Views.modalView,
+    },
+  })
 
   const redirectToHowToPlay = usernames => {
     props.newOpponent(usernames.gameMaker)
@@ -68,20 +72,18 @@ const WaitingRoom2 = (props) => {
   }
 
   const cancelGame = () => {
-
-    props.socket.emit('cancelGame');
-
+    socket.emit('cancelGame');
     setBackToLobby(true);
   }
 
   useEffect(() => {
 
-    props.socket.on('redirectToHowToPlay', redirectToHowToPlay)
-    props.socket.on('couldNotJoinPlayers', redirectGameJoinerToLobby)
+    socket.on('redirectToHowToPlay', redirectToHowToPlay)
+    socket.on('couldNotJoinPlayers', redirectGameJoinerToLobby)
 
     return () => {
-      props.socket.off('redirectToHowToPlay', redirectToHowToPlay);
-      props.socket.off('couldNotJoinPlayers', redirectGameJoinerToLobby)
+      socket.off('redirectToHowToPlay', redirectToHowToPlay);
+      socket.off('couldNotJoinPlayers', redirectGameJoinerToLobby)
     }
 
   }, [])
@@ -91,10 +93,11 @@ const WaitingRoom2 = (props) => {
       <HowToPlayModal 
         visible={modalVisible}
         setVisible={setModalVisible}
+        deviceSize={screenDeviceWidth}
       />
 
         <View style={styles.topRowView}>
-          <PixelButton buttonStyle={{width: 100}}>
+          <PixelButton buttonStyle={styles.howToPlayBtn}>
             <Pressable
               onPress={() => {
                 setModalVisible(true);
@@ -106,14 +109,14 @@ const WaitingRoom2 = (props) => {
         </View>
 
         
-        <Text>
+        <Text style={styles.subtitle}>
           We have alerted your opponent, please wait a moment...
         </Text>
 
         <Spinner />
 
         <View style={styles.bottomRowView}>
-          <PixelButton buttonStyle={{width: 100}}>
+          <PixelButton buttonStyle={styles.howToPlayBtn}>
             <Pressable
               onPress={cancelGame}
               style={{height: '100%', width: '100%'}}
@@ -139,6 +142,7 @@ const WaitingRoom2 = (props) => {
 const mapStateToProps = (state) => {
   return {
     socket: state.socketReducer,
+    screenDeviceWidth: state.userReducer.deviceWidth
   }
 }
 

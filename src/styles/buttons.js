@@ -55,3 +55,24 @@ export const dropdownBtns = {
     marginBottom: 26,
   }
 }
+
+////// NO MORE CATEGORIES OPTION BTNS WIDTH /////
+////// - waiting room screen options /////
+
+export const noMoreCategoriesBtns = {
+  small: {
+    width: 220,
+    height: 70,
+    marginTop: 20
+  },
+  medium: {
+    width: 240,
+    height: 80,
+    marginTop: 24,
+  },
+  large: {
+    width: 280,
+    height: 90,
+    marginTop: 20
+  }
+}

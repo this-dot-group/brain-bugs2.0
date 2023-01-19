@@ -5,15 +5,6 @@ import { TitleBar, PixelButton, StyledInput, KeyboardAvoidingComponent, Hider } 
 import Badge from './Badge';
 import { Buttons, Typography } from '../../styles';
 
-function Overlay ({ active }) {
-  return (
-    <Hider
-      show={active}
-      style={styles.overlay}
-      pointerEvents='none'
-    />
-  )
-}
 
 function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rematchText, deviceWidth }) {
   const [messages, setMessages] = useState([]);
@@ -37,18 +28,18 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
       backgroundColor: 'white'
     },
     messages: {
+      ...Typography.normalText[deviceWidth],
       alignSelf: 'flex-end',
       backgroundColor: 'green',
       color: '#fff',
       borderRadius: 10,
       paddingHorizontal: 8,
-      paddingVertical: 2,
       overflow: 'hidden',
       marginBottom: 2,
-      fontSize: 18,
       maxWidth: '50%'
     },
     opponentMessages : {
+      ...Typography.normalText[deviceWidth],
       alignSelf: 'flex-start',
       backgroundColor: 'blue',
     },
@@ -67,11 +58,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
       zIndex: 4
     },
     input: {
-      flexGrow: 1,
-      marginRight: 10,
-      backgroundColor: 'white',
-      zIndex: 2,
-      width: '80%'
+      ...Typography.chatInputText[deviceWidth],
     },
     button: {
       height: '100%',
@@ -80,10 +67,23 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
       justifyContent: 'center'
     },
     buttonText: {
-      fontFamily: 'DotGothic'
+      ...Typography.innerText[deviceWidth]
     },
     innerText: {
-      ...Typography.innerText[deviceWidth]
+      ...Typography.innerText[deviceWidth],
+    },
+    innerRematchText: {
+      ...Typography.rematchText[deviceWidth],
+      color: 'red',
+      marginTop: 'auto',
+      marginBottom: 'auto',
+      textAlign: 'center'
+    },
+    rematchHeadingText: {
+      ...Typography.rematchText[deviceWidth],
+      marginTop: 'auto',
+      marginBottom: 'auto',
+      textAlign: 'center'
     },
     chatModalStyles: {
       backgroundColor: 'black'
@@ -102,13 +102,28 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
       alignContent: 'center',
     },
     gap: {
-      marginHorizontal: 10,
+      marginHorizontal: 6,
       alignItems: 'center',
     },
     showChatBtn: {
       ...Buttons.howToPlayBtn[deviceWidth]
+    },
+    howToPlayBtn: {
+      ...Buttons.howToPlayBtn[deviceWidth],
+      width: 80,
+      zIndex: 1
     }
   })
+
+  function Overlay ({ active }) {
+    return (
+      <Hider
+        show={active}
+        style={styles.overlay}
+        pointerEvents='none'
+      />
+    )
+  }
 
   const unseenMessages = useMemo(() => 
     showChat ? 0 : messages.filter(({ timeStamp }) => timeStamp > latestTime).length,
@@ -176,25 +191,26 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
             >
               <View style={styles.yesNoButtonCont}>
                 <View style={styles.gap}>
-                  <Text style={styles.innerText}>{rematchText}</Text>
+                  <Text style={styles.rematchHeadingText}>{rematchText}</Text>
                 </View>
                 <View style={styles.gap}>
                   <PixelButton buttonStyle={{width: 60, marginBottom: 10 }}>
                     <Pressable onPress={handleYes} style={{height: '100%', width: '100%'}}>
-                      <Text style={styles.innerText}>Yes</Text>
+                      <Text style={styles.innerRematchText}>Yes</Text>
                     </Pressable>
                   </PixelButton>
                 </View>
                 <View style={styles.gap}>
                   <PixelButton buttonStyle={{width: 60}}>
                     <Pressable onPress={handleNo} style={{height: '100%', width: '100%'}}>
-                      <Text style={styles.innerText}>No</Text>
+                      <Text style={styles.innerRematchText}>No</Text>
                     </Pressable>
                   </PixelButton>
                 </View>
               </View>
             </Hider>
           </TitleBar>
+
           <View style={styles.content}>
             <Overlay active={keyboardActive} />
             <ScrollView
@@ -246,7 +262,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
                   style={styles.input}
                 />
                 <PixelButton
-                  buttonStyle={{ width: 100, zIndex: 1 }}
+                  buttonStyle={styles.howToPlayBtn}
                 >
                   <Pressable onPress={sendMessage} style={styles.button}>
                     <Text style={styles.buttonText}>
