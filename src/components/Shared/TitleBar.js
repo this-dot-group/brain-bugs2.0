@@ -1,10 +1,7 @@
 import React from 'react';
-import { Text, Pressable, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { Typography } from '../../styles';
-import PixelButton  from './PixelButton';
-
-
-
+import PixelPressable from './PixelPressable';
 
 function TitleBar({ children, cb, style, deviceSize }) {
   const makeStyles = (style) => StyleSheet.create({
@@ -38,22 +35,23 @@ function TitleBar({ children, cb, style, deviceSize }) {
   return (
     <View style={styles.root}>
       <Text style={styles.text}>{children}</Text>
-      <PixelButton
-        buttonStyle={{
-          width: 40,
-          height: 40,
+      <PixelPressable
+        wrapperStyle={{
           position: 'absolute',
           top: 0,
           right: 0
         }}
+        buttonStyle={{
+          width: 40,
+          height: 40,
+        }}
+        pressableProps={{
+          onPress: cb,
+          style: styles.closeModalButton
+        }}
       >
-        <Pressable
-          style={styles.closeModalButton}
-          onPress={cb}
-        >
-          <Text style={styles.closeModalButtonText}>X</Text>
-        </Pressable>
-      </PixelButton>
+        <Text style={styles.closeModalButtonText}>X</Text>
+      </PixelPressable>
     </View>
   );
 }

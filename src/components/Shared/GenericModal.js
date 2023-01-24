@@ -10,9 +10,7 @@ const getStyles = style =>  StyleSheet.create({
   },
 });
 
-function GenericModal(props) {
-  const { children, style } = props;
-
+function GenericModal({ children, style, ...props }) {
   const styles = getStyles(style);
 
   return (
@@ -26,10 +24,10 @@ function GenericModal(props) {
       <ScrollView
         contentContainerStyle={{flexGrow: 1}}
         keyboardShouldPersistTaps="handled"
-        >
+      >
         <View
           style={styles.modalView}
-          >
+        >
           {children}
         </View>
       </ScrollView>
