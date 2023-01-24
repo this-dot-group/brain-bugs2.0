@@ -77,7 +77,7 @@ export const gameMakerPushToken = pushToken => {
   }
 }
 
-export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired) => {
+export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired, deviceWidth) => {
 
   return async (dispatch, getState) => {
     try {
@@ -89,6 +89,18 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired)
 
       async function fetchAndFormatQuestionObjects(number) {
 
+        const questionCharLimit = {
+          small: 85,
+          medium: 100,
+          large: 145,
+        };
+
+        const answerCharLimit = {
+          small: 50,
+          medium: 45,
+          large: 38,
+        };
+
         const response = await axios.get(`http://${EXPO_LOCAL_URL}:3000/questions/${id}/${number}/${tokenForRematch || token}`)
 
         if(!response.data || !response.data.length) {
@@ -99,9 +111,9 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired)
         origResponse = response
 
         // filter out objects with questions and correct answers that have too many characters
-        const withoutLongQuestions = response.data.filter(obj => he.decode(obj.question).length <= 80)
+        const withoutLongQuestions = response.data.filter(obj => he.decode(obj.question).length <= questionCharLimit[deviceWidth])
 
-        let withoutLongQsAndAs = withoutLongQuestions.filter(obj => he.decode(obj.correct_answer).length <= 38)
+        let withoutLongQsAndAs = withoutLongQuestions.filter(obj => he.decode(obj.correct_answer).length <= answerCharLimit[deviceWidth])
 
         // filter out objects with incorrect answers that have too many characters
         for (var i = withoutLongQsAndAs.length - 1; i >= 0; --i) {
