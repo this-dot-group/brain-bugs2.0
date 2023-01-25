@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 const getStyles = (
   buttonStyle,
@@ -55,7 +55,8 @@ const getStyles = (
       left: borderWidth * -1
     },
     backgroundColorBarRight: {
-      left: width,
+      left: buttonStyle.width || width,
+
     },
     cornerDots: {
       position: 'absolute',
