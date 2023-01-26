@@ -24,7 +24,7 @@ const WaitingRoom = (props) => {
   const [copied, setCopied] = useState(false);
   const [token, setToken] = useState('');
 
-  const {screenDeviceWidth} = props;
+  const { screenDeviceWidth } = props;
 
   const styles = StyleSheet.create({
     container: {
@@ -123,7 +123,7 @@ const WaitingRoom = (props) => {
   const handleNoQuestions = async () => {
     if(props.location.state?.token) {
       await props.resetUserGameToken(props.location.state?.token);
-      await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions,props.location.state?.token);
+      await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions, props.location.state?.token, screenDeviceWidth);
       return;
     }
     setShowNoMoreQuestionsOptions(true);
@@ -131,7 +131,7 @@ const WaitingRoom = (props) => {
 
   const resetGameToken = async () => {
     await props.resetUserGameToken()
-    await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions, props.token, handleNoQuestions);
+    await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions, props.token, handleNoQuestions, screenDeviceWidth);
     setShowNoMoreQuestionsOptions(false);
   }
 
@@ -146,7 +146,7 @@ const WaitingRoom = (props) => {
     Notifications.addNotificationResponseReceivedListener(handleNotificationResponse);
 
     (async () => {
-      await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions, tokenToUse, handleNoQuestions);
+      await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions, tokenToUse, handleNoQuestions, screenDeviceWidth);
     })()
 
   }, [])

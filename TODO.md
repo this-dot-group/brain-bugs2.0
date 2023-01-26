@@ -44,9 +44,11 @@ TODO: [x] "you have played all questions in category" scenarios in waiting room
 TODO: [x] waiting room 2 (simulate push notif)
 TODO: [x] chat screen 
 TODO: [x] double check that correct device width is being set to userReducer (sometimes in sim it records device width before it rotates to landscape, making it always "small")
-TODO: [ ] recalculate answer option and questions allowed character amounts, will depend on device size
+TODO: [x] recalculate answer option and questions allowed character amounts, will depend on device size
+TODO: [x] one pixel blanked out within pixel buttons? looks like small white pixel dot or something
 - possible bug: chat new message red alert doesnt show up on android
 - do we need 'no more questions' scenario on waiting room 2 also? this is the situation where we are notifying user via push notification, waiting for them 
+- do we want to tell users how many questions they answered correctly?
 
 
 
