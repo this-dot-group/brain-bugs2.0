@@ -9,7 +9,7 @@ import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import MuteButton from '../MuteButton/MuteButton';
 import AnimatedLogo from './AnimatedLogo';
-import { PixelButton, KeyboardAvoidingComponent, Hider } from '../Shared';
+import { PixelButton, KeyboardAvoidingComponent, Hider, PixelPressable } from '../Shared';
 
 import { Buttons, Views, Typography, Images } from '../../styles/';
 
@@ -176,17 +176,15 @@ function Homescreen(props) {
       </View>
       
       <View style={styles.bottomNestedRowView}>
-        <PixelButton buttonStyle={styles.howToPlayBtn}>
-          <Pressable
-            onPress={() => {
+        <PixelPressable
+          buttonStyle={styles.howToPlayBtn}
+          pressableProps={{
+            onPress: () => {
               playSound('click')
               setModalVisible(true);
-            }}
-            style={{height: '100%', width: '100%'}}
-          >
-            <Text style={styles.innerText}>How To Play</Text>
-          </Pressable>
-        </PixelButton>
+            }
+          }}
+        >How To Play</PixelPressable>
 
         <HowToPlayModal
           visible={modalVisible}

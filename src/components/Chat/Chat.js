@@ -108,16 +108,6 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
     }
   })
 
-  function Overlay ({ active }) {
-    return (
-      <Hider
-        show={active}
-        style={styles.overlay}
-        pointerEvents='none'
-      />
-    )
-  }
-
   const unseenMessages = useMemo(() => 
     showChat ? 0 : messages.filter(({ timeStamp }) => timeStamp > latestTime).length,
   [messages, showChat, latestTime]);

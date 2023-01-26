@@ -15,7 +15,7 @@ Josh:
  - [x] bug on home screen
  - [x] Animate Title also
  - [ ] Animation on screen transition
- - [ ] buttons
+ - [ ] buttons - have example, but need to place throughout app
 - [x] Clean up End Screen
  - [x] Make new component PixelPressable, and replaced PixelButtons that are pressables on end screen with that
 - New:
@@ -23,8 +23,10 @@ Josh:
  - [x] Something going on with chat
  - [x] Loading Screen Not centered at beginning
  - [ ] Sound isn't working?
+  - [ ] seems like it is just not working on sim
  - [ ] Pixel Button is really Pixel Border - maybe need a different version for button to use pressable events
  - [ ] Move mute button to shared
+ - [ ] Keyboard hiding input on home screen
 
 For Future
 - code improvements
