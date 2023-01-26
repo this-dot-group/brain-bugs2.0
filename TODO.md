@@ -5,28 +5,16 @@
  - keep an eye for repetitive errors, add to bug list below
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
-
 Josh:  
 - [ ] Manual testing for bugs, possible issues with component mounting
-- [x] Check on responsive sizes
 - [ ] Revisit Colors
-- [x] Make sure it's working again
+ - [ ] replace 'black' and 'white' color strings with variables
 - [ ] Animations
- - [x] bug on home screen
- - [x] Animate Title also
  - [ ] Animation on screen transition
- - [ ] buttons - have example, but need to place throughout app
-- [x] Clean up End Screen
- - [x] Make new component PixelPressable, and replaced PixelButtons that are pressables on end screen with that
-- New:
- - [ ] Bug with user going back to home screen when clicking on push notification - maybe has something to do with changes for app state tracker on waiting room screen recently made
- - [x] Something going on with chat
- - [x] Loading Screen Not centered at beginning
- - [ ] Sound isn't working?
-  - [ ] seems like it is just not working on sim
- - [ ] Pixel Button is really Pixel Border - maybe need a different version for button to use pressable events
- - [ ] Move mute button to shared
- - [ ] Keyboard hiding input on home screen
+ - [ ] replace all buttons with animated PixelPressable button 
+- [ ] Keyboard hiding input on home screen
+- [ ] Think about keeping track of player stats
+
 
 For Future
 - code improvements
@@ -34,28 +22,24 @@ For Future
   - make some shared components/variables
     - answer buttons
     - trophy/score section
+    - mute button
   - Delete unused things
    - hourglass gif
    - Emoji.js
 
 
 Tia: 
-Responsive styling leftovers:
-TODO: [x] How to play screen
-TODO: [x] "you have played all questions in category" scenarios in waiting room
-TODO: [x] waiting room 2 (simulate push notif)
-TODO: [x] chat screen 
-TODO: [x] double check that correct device width is being set to userReducer (sometimes in sim it records device width before it rotates to landscape, making it always "small")
-TODO: [x] recalculate answer option and questions allowed character amounts, will depend on device size
-TODO: [x] one pixel blanked out within pixel buttons? looks like small white pixel dot or something
-- possible bug: chat new message red alert doesnt show up on android
-- do we need 'no more questions' scenario on waiting room 2 also? this is the situation where we are notifying user via push notification, waiting for them 
-- do we want to tell users how many questions they answered correctly?
-
+- [ ] test out sound on sim vs phone (broken on sim?)
+- [ ] look into chat new message red alert not showing up on android
+- [ ] make push notifications work reliably
+- look into this when revisiting push notifications - do we need 'no more questions' scenario on waiting room 2 also? this is the situation where we are notifying user via push notification, waiting for them 
+- [ ] Bug with user going back to home screen when clicking on push notification - maybe has something to do with changes for app state tracker on waiting room screen recently made
 
 
  Ideas
 - [ ] need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.
+- [ ] Add how many questions were answered correctly for each player on end screen
+- [ ] Add user stats button (high score, game record, number games player, etc)
  
 
 ## Possible bugs
