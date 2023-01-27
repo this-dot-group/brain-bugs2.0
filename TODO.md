@@ -15,6 +15,9 @@ Josh:
 - [ ] Keyboard hiding input on home screen
 - [ ] Think about keeping track of player stats
 
+New:
+- [ ] 'Back To Lobby' Button on end screen doesn't fit in button
+
 
 For Future
 - code improvements
