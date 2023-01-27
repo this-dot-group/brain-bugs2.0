@@ -11,12 +11,24 @@ Josh:
  - [ ] replace 'black' and 'white' color strings with variables
 - [ ] Animations
  - [ ] Animation on screen transition
+ - [ ] Mute Button
  - [ ] replace all buttons with animated PixelPressable button 
+  - [x] Chat
+  - [x] GameScreen
+  - [ ] HomeScreen
+  - [ ] HowToPlay
+  - [ ] JoinGame
+  - [ ] PrivateGame
+  - [ ] StartGame
+  - [ ] LobbyScreen
+  - [ ] WaitingRoom
+  - [ ] WaitingRoom2 
 - [ ] Keyboard hiding input on home screen
 - [ ] Think about keeping track of player stats
 
 New:
 - [ ] 'Back To Lobby' Button on end screen doesn't fit in button
+- [ ] 'Submit' button animation - something that smoothly makes it clear that the answer was submitted
 
 
 For Future
@@ -24,11 +36,11 @@ For Future
   - destructure props
   - make some shared components/variables
     - answer buttons
-    - trophy/score section
     - mute button
   - Delete unused things
    - hourglass gif
    - Emoji.js
+  - Clean Up GameScreen code
 
 
 Tia: 
