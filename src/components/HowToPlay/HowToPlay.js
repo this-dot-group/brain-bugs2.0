@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Pressable, StyleSheet, Alert, AppState } from 'react-native'
+import { View, Text, StyleSheet, Alert, AppState } from 'react-native'
 import { Redirect } from 'react-router-native';
 import { connect } from 'react-redux'
 import Countdown from '../Countdown/Countdown'
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal';
-import { Spinner, PixelButton } from '../Shared';
+import { Spinner, PixelPressable } from '../Shared';
 import MuteButton from '../MuteButton/MuteButton';
 import { START_COUNTDOWN } from '../../../config';
 import { playSound } from '../../store/soundsReducer';
@@ -40,9 +40,6 @@ function HowToPlay(props) {
       justifyContent: 'space-between',
       alignItems: 'center',
       width: '100%'
-    },
-    innerText: {
-      ...Typography.innerText[screenDeviceWidth]
     },
     howToPlayBtn: {
       ...Buttons.howToPlayBtn[screenDeviceWidth]
@@ -90,6 +87,11 @@ function HowToPlay(props) {
     setBackToLobby(true);
   }
 
+  const handleHowToPlay = () => {
+    playSound('click');
+    setModalVisible(true);
+  }
+
   useEffect(() => {
     if(seconds === 0) {
       setGoCountdown(false);
@@ -124,13 +126,10 @@ function HowToPlay(props) {
       />
       <View style={styles.root}>
         <View style={styles.topRow}>
-          <PixelButton buttonStyle={styles.howToPlayBtn}>
-            <Pressable
-              onPress={handleQuit}
-            >
-              <Text style={styles.innerText}>Quit</Text>
-            </Pressable>
-          </PixelButton>
+          <PixelPressable
+            buttonStyle={styles.howToPlayBtn}
+            pressableProps={{ onPress: handleQuit }}
+          >Quit</PixelPressable>
         </View>
 
         <View style={styles.body}>
@@ -148,21 +147,15 @@ function HowToPlay(props) {
         </View>
 
         <View style={styles.bottomRow}>
-          
-          <PixelButton buttonStyle={styles.howToPlayBtn}>
-            <Pressable
-              onPress={() => {
-                playSound('click')
-                setModalVisible(true);
-              }}
-            >
-              <Text style={styles.innerText}>How To Play</Text>
-            </Pressable>
-          </PixelButton>
+          <PixelPressable
+            buttonStyle={styles.howToPlayBtn}
+            pressableProps={{ onPress: handleHowToPlay }}
+          >How To Play</PixelPressable>
 
           <HowToPlayModal
             visible={modalVisible}
             setVisible={setModalVisible}
+            deviceSize={screenDeviceWidth}
           />
 
           <MuteButton />

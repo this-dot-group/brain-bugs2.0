@@ -15,20 +15,25 @@ Josh:
  - [ ] replace all buttons with animated PixelPressable button 
   - [x] Chat
   - [x] GameScreen
-  - [ ] HomeScreen
-  - [ ] HowToPlay
-  - [ ] JoinGame
-  - [ ] PrivateGame
-  - [ ] StartGame
-  - [ ] LobbyScreen
+  - [x] HomeScreen
+  - [x] HowToPlay
+  - [x] JoinGame
+  - [x] PrivateGame
+  - [x] StartGame - Don't think I can do dropdowns, animation relies on pressable attributes
+  - [x] LobbyScreen
   - [ ] WaitingRoom
   - [ ] WaitingRoom2 
 - [ ] Keyboard hiding input on home screen
+- [x] 'How to Play' Modal on Countdown screen is missing styles
+Local Storage
 - [ ] Think about keeping track of player stats
+- [ ] Remember Mute State
+
 
 New:
 - [ ] 'Back To Lobby' Button on end screen doesn't fit in button
 - [ ] 'Submit' button animation - something that smoothly makes it clear that the answer was submitted
+- [ ] Does not always stay in landscape for me, especially at beginning
 
 
 For Future

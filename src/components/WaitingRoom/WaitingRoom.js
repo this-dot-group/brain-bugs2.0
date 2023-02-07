@@ -13,7 +13,7 @@ import * as Notifications from 'expo-notifications';
 import { Typography, Views, Buttons } from '../../styles';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
-import { PixelButton, Spinner } from '../Shared';
+import { PixelButton, Spinner, PixelPressable } from '../Shared';
 
 const WaitingRoom = (props) => {
 
@@ -202,14 +202,20 @@ const WaitingRoom = (props) => {
 
         <View style={styles.topRowView}>
           {!showNoMoreQuestionsOptions && (
-            <PixelButton buttonStyle={styles.howToPlayBtn}>
-              <Pressable
-                onPress={cancelGame}
-                style={{height: '100%', width: '100%'}}
-              >
-                <Text style={styles.innerText}>Cancel Game</Text>
-              </Pressable> 
-            </PixelButton>
+            <PixelPressable
+              buttonStyle={styles.howToPlayBtn}
+              pressableProps={{
+                onPress: cancelGame
+              }}
+            >Cancel Game</PixelPressable>
+            // <PixelButton buttonStyle={styles.howToPlayBtn}>
+            //   <Pressable
+            //     onPress={cancelGame}
+            //     style={{height: '100%', width: '100%'}}
+            //   >
+            //     <Text style={styles.innerText}>Cancel Game</Text>
+            //   </Pressable> 
+            // </PixelButton>
           )}
 
           {props.publicOrPrivate === 'private' && (

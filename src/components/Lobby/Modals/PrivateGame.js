@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Text, StyleSheet, View, Pressable } from 'react-native'
+import { Text, StyleSheet, View } from 'react-native'
 import { Input } from 'react-native-elements';
 import { connect } from 'react-redux'
 import { newOpponent } from '../../../store/userReducer';
 import { Typography } from '../../../styles';
-import { GenericModal, PixelButton, Hider, TitleBar } from '../../Shared';
+import { GenericModal, Hider, TitleBar, PixelPressable } from '../../Shared';
 
 function PrivateGame(props) {
   const [gameCode, setGameCode] = useState('');
@@ -99,13 +99,14 @@ function PrivateGame(props) {
         <Hider
           show={showGo}
         >
-          <PixelButton variant="go">
-            <Pressable
-              onPress={() => props.socket.emit('joinTwoPlayer', [gameCode, props.username])}
-            >
-              <Text>Go</Text>
-            </Pressable>
-          </PixelButton>
+          <PixelPressable
+            variant="go"
+            pressableProps={{
+              onPress: () => props.socket.emit('joinTwoPlayer', [gameCode, props.username])
+            }}
+          >
+            Go
+          </PixelPressable>
         </Hider>
       </View>
     </GenericModal>

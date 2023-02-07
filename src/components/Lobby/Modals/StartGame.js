@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { Platform, View, StyleSheet, Alert, Pressable, Text } from 'react-native'
+import { Platform, View, StyleSheet, Alert } from 'react-native'
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
-import { Link } from 'react-router-native';
+import { Redirect } from 'react-router-native';
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate, pushTokenAlertInteraction, gameMakerPushToken } from '../../../store/gameInfoReducer';
 import { newOpponent, pushNotificationToken } from '../../../store/userReducer';
 import { QUESTION_DROPDOWN_CHOICES } from '../../../../config';
-import { PixelButton, GenericModal, DropdownMenu, Hider, TitleBar } from '../../Shared';
+import { PixelButton, GenericModal, DropdownMenu, Hider, TitleBar, PixelPressable } from '../../Shared';
 
 import he from 'he';
 import { Buttons } from '../../../styles'
@@ -19,6 +19,7 @@ function StartGame(props) {
   const [categoryList, setCategoryList] = useState([]);
   const [numPlayers, setNumPlayers] = useState(1);
   const [showGo, setShowGo] = useState(false);
+  const [redirect, setRedirect] = useState(null);
 
   const styles = StyleSheet.create({
     dropdowns: {
@@ -173,6 +174,8 @@ function StartGame(props) {
     props.gameInfo.pushTokenAlertInteraction
   ]);
 
+  if (redirect) return <Redirect to="/waitingroom" />
+
   return (
     <GenericModal visible={props.modalVisible === 'start'}>
       <TitleBar
@@ -180,7 +183,7 @@ function StartGame(props) {
         deviceSize={props.screenDeviceWidth}
       >
         Create a Game
-        </TitleBar>
+      </TitleBar>
 
       <View style={styles.dropdowns}>
         <View style={styles.dropDownView}>
@@ -260,13 +263,12 @@ function StartGame(props) {
         <Hider
           show={showGo}
         >
-          <PixelButton variant="go">
-            <Pressable>
-              <Link to="/waitingroom">
-                <Text>Go</Text>
-              </Link>
-            </Pressable>
-          </PixelButton>
+          <PixelPressable
+            variant="go"
+            pressableProps={{
+              onPress: () => setRedirect(true)
+            }}
+          >Go</PixelPressable>
         </Hider>
       </View>
     </GenericModal>
