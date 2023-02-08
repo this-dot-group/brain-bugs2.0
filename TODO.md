@@ -12,7 +12,7 @@ Josh:
 - [ ] Animations
  - [ ] Animation on screen transition
  - [ ] Mute Button
- - [ ] replace all buttons with animated PixelPressable button 
+ - [x] replace all buttons with animated PixelPressable button 
   - [x] Chat
   - [x] GameScreen
   - [x] HomeScreen
@@ -21,8 +21,8 @@ Josh:
   - [x] PrivateGame
   - [x] StartGame - Don't think I can do dropdowns, animation relies on pressable attributes
   - [x] LobbyScreen
-  - [ ] WaitingRoom
-  - [ ] WaitingRoom2 
+  - [x] WaitingRoom
+  - [x] WaitingRoom2 
 - [ ] Keyboard hiding input on home screen
 - [x] 'How to Play' Modal on Countdown screen is missing styles
 Local Storage

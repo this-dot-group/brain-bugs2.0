@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Pressable, StyleSheet, Alert } from 'react-native'
+import { View, Text, StyleSheet, Alert } from 'react-native'
 import { Redirect } from 'react-router-native';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import { newOpponent } from '../../store/userReducer'
@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import MuteButton from '../MuteButton/MuteButton';
 
 import { Views, Typography, Buttons } from '../../styles';
-import { PixelButton, Spinner } from '../Shared';
+import { PixelPressable, Spinner } from '../Shared';
 
 const WaitingRoom2 = (props) => {
 
@@ -97,15 +97,12 @@ const WaitingRoom2 = (props) => {
       />
 
         <View style={styles.topRowView}>
-          <PixelButton buttonStyle={styles.howToPlayBtn}>
-            <Pressable
-              onPress={() => {
-                setModalVisible(true);
-              }}
-              style={{height: '100%', width: '100%'}}>
-                <Text style={styles.innerText}>How To Play</Text>
-            </Pressable> 
-          </PixelButton>
+          <PixelPressable
+            buttonStyle={styles.howToPlayBtn}
+            pressableProps={{ onPress: () => setModalVisible(true) }}
+          >
+            How To Play
+          </PixelPressable>
         </View>
 
         
@@ -116,15 +113,13 @@ const WaitingRoom2 = (props) => {
         <Spinner />
 
         <View style={styles.bottomRowView}>
-          <PixelButton buttonStyle={styles.howToPlayBtn}>
-            <Pressable
-              onPress={cancelGame}
-              style={{height: '100%', width: '100%'}}
-              >
-                <Text style={styles.innerText}>Cancel Game</Text>
-            </Pressable> 
-          </PixelButton>
-     
+          <PixelPressable
+            buttonStyle={styles.howToPlayBtn}
+            pressableProps={{ onPress: cancelGame }}
+          >
+            Cancel Game
+          </PixelPressable>
+    
           <MuteButton/>
         </View>
 
