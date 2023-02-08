@@ -8,8 +8,7 @@ import { playSound } from '../../store/soundsReducer'
 import Chat from '../Chat/Chat';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import Score from './Score';
-import { PixelPressable } from '../Shared';
-import MuteButton from '../MuteButton/MuteButton';
+import { PixelPressable, MuteButton } from '../Shared';
 import { Buttons, Typography } from '../../styles';
 
 function GameEnd({

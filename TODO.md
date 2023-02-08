@@ -8,10 +8,10 @@
 Josh:  
 - [ ] Manual testing for bugs, possible issues with component mounting
 - [ ] Revisit Colors
- - [ ] replace 'black' and 'white' color strings with variables
+ - [ ] replace 'black' and 'white' color strings with variables - not really using eigher enough to make an impact
 - [ ] Animations
  - [ ] Animation on screen transition
- - [ ] Mute Button
+ - [x] Mute Button
  - [x] replace all buttons with animated PixelPressable button 
   - [x] Chat
   - [x] GameScreen
@@ -41,7 +41,7 @@ For Future
   - destructure props
   - make some shared components/variables
     - answer buttons
-    - mute button
+    - [x] mute button
   - Delete unused things
    - hourglass gif
    - Emoji.js

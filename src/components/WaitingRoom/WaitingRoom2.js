@@ -4,10 +4,9 @@ import { Redirect } from 'react-router-native';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import { newOpponent } from '../../store/userReducer'
 import { connect } from 'react-redux';
-import MuteButton from '../MuteButton/MuteButton';
 
 import { Views, Typography, Buttons } from '../../styles';
-import { PixelPressable, Spinner } from '../Shared';
+import { PixelPressable, Spinner, MuteButton } from '../Shared';
 
 const WaitingRoom2 = (props) => {
 

@@ -3,7 +3,6 @@ import { View, Text, StyleSheet} from 'react-native'
 import { Redirect } from 'react-router-native';
 import * as Clipboard from 'expo-clipboard';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
-import MuteButton from '../MuteButton/MuteButton';
 import { newOpponent, resetUserGameToken } from '../../store/userReducer'
 import { getQuestions } from '../../store/gameInfoReducer'
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer'
@@ -13,7 +12,7 @@ import * as Notifications from 'expo-notifications';
 import { Typography, Views, Buttons } from '../../styles';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
-import { Spinner, PixelPressable } from '../Shared';
+import { Spinner, PixelPressable, MuteButton } from '../Shared';
 
 const WaitingRoom = (props) => {
 

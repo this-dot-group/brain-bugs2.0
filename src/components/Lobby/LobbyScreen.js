@@ -5,11 +5,10 @@ import { connect } from 'react-redux';
 import JoinGameModal from './Modals/JoinGame';
 import PrivateGameModal from './Modals/PrivateGame';
 import StartGameModal from './Modals/StartGame';
-import MuteButton from '../MuteButton/MuteButton';
 import { newOpponent, newGameCode } from '../../store/userReducer';
 import { newGame } from '../../store/gameInfoReducer';
 import { playSound } from '../../store/soundsReducer'
-import { PixelPressable } from '../Shared'
+import { PixelPressable, MuteButton } from '../Shared'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Buttons, Typography } from '../../styles';
 

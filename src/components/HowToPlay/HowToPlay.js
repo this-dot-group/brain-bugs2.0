@@ -4,8 +4,7 @@ import { Redirect } from 'react-router-native';
 import { connect } from 'react-redux'
 import Countdown from '../Countdown/Countdown'
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal';
-import { Spinner, PixelPressable } from '../Shared';
-import MuteButton from '../MuteButton/MuteButton';
+import { Spinner, PixelPressable, MuteButton } from '../Shared';
 import { START_COUNTDOWN } from '../../../config';
 import { playSound } from '../../store/soundsReducer';
 import AppStateTracker from '../AppState/AppStateTracker';

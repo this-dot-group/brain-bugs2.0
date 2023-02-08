@@ -7,9 +7,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
-import MuteButton from '../MuteButton/MuteButton';
 import AnimatedLogo from './AnimatedLogo';
-import { PixelButton, KeyboardAvoidingComponent, PixelPressable } from '../Shared';
+import { PixelButton, KeyboardAvoidingComponent, PixelPressable, MuteButton } from '../Shared';
 
 import { Buttons, Views, Typography, Images } from '../../styles/';
 
