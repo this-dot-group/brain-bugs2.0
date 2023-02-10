@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Text, Pressable, StyleSheet } from 'react-native'
+import { Text, StyleSheet } from 'react-native'
 import { Redirect } from 'react-router-native'
 import { newOpponent } from '../../../store/userReducer';
 import { connect } from 'react-redux';
-import { GenericModal, PixelButton, TitleBar } from '../../Shared';
+import { GenericModal, PixelPressable, TitleBar } from '../../Shared';
 import { Typography } from '../../../styles';
 
 function JoinGame(props) {
@@ -17,7 +17,15 @@ function JoinGame(props) {
     smallInnerText: {
       ...Typography.smallInnerText[props.screenDeviceWidth]
     }
-  })
+  });
+
+  const handleJoinTwoPlayer = gameObj => {
+    props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username, gameObj.gameMakerPushToken]);
+
+    if(gameObj.gameMakerPushToken !== null){
+      setRedirectToWaitingRoom2(true);
+    }
+  }
 
   return (
     <GenericModal
@@ -31,26 +39,15 @@ function JoinGame(props) {
       </TitleBar>
   
       {props.gamesWaiting.map((gameObj, i) =>
-
-        <PixelButton
+        <PixelPressable
           key={i}
-          buttonStyle={{width: 500, marginLeft: 'auto', marginRight: 'auto'}}
+          buttonStyle={{ width: 500, marginLeft: 'auto', marginRight: 'auto' }}
+          pressableProps={{ onPress: () => handleJoinTwoPlayer(gameObj) }}
         >
-          <Pressable
-            onPress={() => {
-              props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username, gameObj.gameMakerPushToken]);
-
-              if(gameObj.gameMakerPushToken !== null){
-                setRedirectToWaitingRoom2(true);
-              }
-            }}
-            style={{height: '100%', width: '100%'}}
-          >
-            <Text style={styles.smallInnerText}>
-              {gameObj.player} is waiting to play {gameObj.category}
-            </Text>
-          </Pressable>
-        </PixelButton>
+          <Text style={styles.smallInnerText}>
+            {gameObj.player} is waiting to play {gameObj.category}
+          </Text>
+        </PixelPressable>
       )}
 
       {!props.gamesWaiting.length && 

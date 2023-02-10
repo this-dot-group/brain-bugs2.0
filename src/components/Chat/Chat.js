@@ -1,7 +1,7 @@
-import { View, Text, StyleSheet, ScrollView, Keyboard, Pressable, Modal } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Keyboard, Modal } from 'react-native';
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { TitleBar, PixelButton, StyledInput, KeyboardAvoidingComponent, Hider } from '../Shared';
+import { TitleBar, StyledInput, KeyboardAvoidingComponent, Hider, PixelPressable } from '../Shared';
 import Badge from './Badge';
 import Overlay from './Overlay';
 import { Buttons, Typography } from '../../styles';
@@ -59,18 +59,6 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
     },
     input: {
       ...Typography.chatInputText[deviceWidth],
-    },
-    button: {
-      height: '100%',
-      width: '100%',
-      alignItems: 'center',
-      justifyContent: 'center'
-    },
-    buttonText: {
-      ...Typography.innerText[deviceWidth]
-    },
-    innerText: {
-      ...Typography.innerText[deviceWidth],
     },
     innerRematchText: {
       ...Typography.rematchText[deviceWidth],
@@ -149,11 +137,12 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
   return (
     <>
       <View style={styles.showChatWrapper}>
-        <PixelButton buttonStyle={styles.showChatBtn}>
-          <Pressable onPress={showModal} style={{height: '100%', width: '100%', position: 'relative'}}>
-            <Text style={styles.innerText}>Show Chat</Text>
-          </Pressable>
-        </PixelButton>
+        <PixelPressable
+          buttonStyle={styles.showChatBtn}
+          pressableProps={{ onPress: showModal }}
+        >
+          Show Chat
+        </PixelPressable>
         {!!unseenMessages && <Badge number={unseenMessages} />}
       </View>
       <Modal
@@ -177,18 +166,20 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
                   <Text style={styles.rematchHeadingText}>{rematchText}</Text>
                 </View>
                 <View style={styles.gap}>
-                  <PixelButton buttonStyle={{width: 60, marginBottom: 10 }}>
-                    <Pressable onPress={handleYes} style={{height: '100%', width: '100%'}}>
-                      <Text style={styles.innerRematchText}>Yes</Text>
-                    </Pressable>
-                  </PixelButton>
+                  <PixelPressable
+                    buttonStyle={{width: 60, marginBottom: 10 }}
+                    pressableProps={{ onPress: handleYes }}
+                  >
+                    <Text style={styles.innerRematchText}>Yes</Text>
+                  </PixelPressable>
                 </View>
                 <View style={styles.gap}>
-                  <PixelButton buttonStyle={{width: 60}}>
-                    <Pressable onPress={handleNo} style={{height: '100%', width: '100%'}}>
-                      <Text style={styles.innerRematchText}>No</Text>
-                    </Pressable>
-                  </PixelButton>
+                  <PixelPressable
+                    buttonStyle={{width: 60, marginBottom: 10 }}
+                    pressableProps={{ onPress: handleNo }}
+                  >
+                    <Text style={styles.innerRematchText}>No</Text>
+                  </PixelPressable>
                 </View>
               </View>
             </Hider>
@@ -244,15 +235,12 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
                   blurOnSubmit={true}
                   style={styles.input}
                 />
-                <PixelButton
+                <PixelPressable
                   buttonStyle={styles.howToPlayBtn}
+                  pressableProps={{ onPress: sendMessage }}
                 >
-                  <Pressable onPress={sendMessage} style={styles.button}>
-                    <Text style={styles.buttonText}>
-                      Send
-                    </Text>
-                  </Pressable>
-                </PixelButton>
+                  Send
+                </PixelPressable>
               </ScrollView>
             </KeyboardAvoidingComponent>
           </View>

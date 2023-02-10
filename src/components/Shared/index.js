@@ -7,6 +7,7 @@ import TitleBar from './TitleBar';
 import StyledInput from './StyledInput';
 import Spinner from './Spinner.js';
 import KeyboardAvoidingComponent from './KeyboardAvoiding.js';
+import MuteButton from './MuteButton.js';
 
 export {
   GenericModal,
@@ -17,5 +18,6 @@ export {
   TitleBar,
   StyledInput,
   Spinner,
-  KeyboardAvoidingComponent
+  KeyboardAvoidingComponent,
+  MuteButton,
 };

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Pressable, StyleSheet} from 'react-native'
+import { View, Text, StyleSheet} from 'react-native'
 import { Redirect } from 'react-router-native';
 import * as Clipboard from 'expo-clipboard';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
-import MuteButton from '../MuteButton/MuteButton';
 import { newOpponent, resetUserGameToken } from '../../store/userReducer'
 import { getQuestions } from '../../store/gameInfoReducer'
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer'
@@ -13,7 +12,7 @@ import * as Notifications from 'expo-notifications';
 import { Typography, Views, Buttons } from '../../styles';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
-import { PixelButton, Spinner } from '../Shared';
+import { Spinner, PixelPressable, MuteButton } from '../Shared';
 
 const WaitingRoom = (props) => {
 
@@ -59,9 +58,6 @@ const WaitingRoom = (props) => {
     },
     alertText: {
       ...Typography.alertText[screenDeviceWidth],
-    },
-    innerText: {
-      ...Typography.innerText[screenDeviceWidth],
     },
     waitingText: {
       ...Typography.headingTwoText[screenDeviceWidth]
@@ -202,32 +198,23 @@ const WaitingRoom = (props) => {
 
         <View style={styles.topRowView}>
           {!showNoMoreQuestionsOptions && (
-            <PixelButton buttonStyle={styles.howToPlayBtn}>
-              <Pressable
-                onPress={cancelGame}
-                style={{height: '100%', width: '100%'}}
-              >
-                <Text style={styles.innerText}>Cancel Game</Text>
-              </Pressable> 
-            </PixelButton>
+            <PixelPressable
+              buttonStyle={styles.howToPlayBtn}
+              pressableProps={{
+                onPress: cancelGame
+              }}
+            >Cancel Game</PixelPressable>
           )}
 
           {props.publicOrPrivate === 'private' && (
-            <PixelButton buttonStyle={styles.howToPlayBtn}>
-              <Pressable
-                onPress={handleCodeCopy}
-                style={{height: '100%', width: '100%'}}
-              >
-              {copied && (
-                <Text style={styles.alertText}>Copied!</Text>
-              )} 
-              {!copied && (
-                <Text style={styles.innerText}>
-                  {props.gameCode}
-                </Text>
-              )}  
-              </Pressable>  
-            </PixelButton>
+            <PixelPressable
+              buttonStyle={styles.howToPlayBtn}
+              pressableProps={{
+                onPress: handleCodeCopy,
+              }}
+            >
+              {copied ? <Text style={styles.alertText}>Copied!</Text> : props.gameCode}
+            </PixelPressable>
           )}
         </View>
 
@@ -250,43 +237,31 @@ const WaitingRoom = (props) => {
         {showNoMoreQuestionsOptions && 
           <View style={styles.noMoreCategoriesView}>
             <Text style={styles.noMoreCategoriesHeading}>You have played all the questions in this category!</Text>
-
             <View style={styles.noMoreCategoriesInnerView}>
-              <PixelButton buttonStyle={styles.noMoreCategoriesBtnsLeft}>
-                <Pressable
-                  style={{height: '100%', width: '100%'}}
-                  onPress={resetGameToken}
-                >
-                  <Text style={styles.innerText}>Play this category, repeat questions</Text>
-                </Pressable> 
-              </PixelButton>
-
-              <PixelButton buttonStyle={styles.noMoreCategoriesBtnsRight}>
-                <Pressable
-                  style={{height: '100%', width: '100%'}}
-                  onPress={() => setBackToLobby(true)}
-                >
-                  <Text style={styles.innerText}>Back to lobby, new category</Text>
-                </Pressable>
-              </PixelButton>
+              <PixelPressable
+                buttonStyle={styles.noMoreCategoriesBtnsLeft}
+                pressableProps={{ onPress: resetGameToken }}
+              >
+                Play this category, repeat questions
+              </PixelPressable>
+              <PixelPressable
+                buttonStyle={styles.noMoreCategoriesBtnsRight}
+                pressableProps={{ onPress: () => setBackToLobby(true) }}
+              >
+                Back to lobby, new category
+              </PixelPressable>
             </View>
-
-
           </View>
         }
 
         <View style={styles.bottomRowView}>
           {!showNoMoreQuestionsOptions && (
-            <PixelButton buttonStyle={styles.howToPlayBtn}>
-              <Pressable
-                  onPress={() => {
-                    setModalVisible(true);
-                  }}
-                  style={{height: '100%', width: '100%'}}
-              >
-                <Text style={styles.innerText}>How To Play</Text>
-              </Pressable>  
-           </PixelButton>
+            <PixelPressable
+              buttonStyle={styles.howToPlayBtn}
+              pressableProps={{ onPress: () => setModalVisible(true) }}
+            >
+              How To Play
+            </PixelPressable>
           )}
   
           <View style={{marginTop: 'auto', marginBottom: 'auto'}}>

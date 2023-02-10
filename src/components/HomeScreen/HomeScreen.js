@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { View, Text, TextInput, StyleSheet, Modal, Pressable, Dimensions } from 'react-native'
+import { View, TextInput, StyleSheet, Modal, Dimensions } from 'react-native'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-native';
 import socketIO from 'socket.io-client';
@@ -7,9 +7,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
-import MuteButton from '../MuteButton/MuteButton';
 import AnimatedLogo from './AnimatedLogo';
-import { PixelButton, KeyboardAvoidingComponent, Hider, PixelPressable } from '../Shared';
+import { PixelButton, KeyboardAvoidingComponent, PixelPressable, MuteButton } from '../Shared';
 
 import { Buttons, Views, Typography, Images } from '../../styles/';
 
@@ -87,10 +86,6 @@ function Homescreen(props) {
     input: {
       ...Typography.inputText[screenDeviceWidth]
     },
-    // how to play and go btns
-    innerText: {
-      ...Typography.innerText[screenDeviceWidth]
-    },
     howToPlayBtn: {
       ...Buttons.howToPlayBtn[screenDeviceWidth]
     },
@@ -166,11 +161,19 @@ function Homescreen(props) {
               />
             </PixelButton>
 
-            <PixelButton buttonStyle={{ width: 70, height: 46, marginLeft: 16, backgroundColor: validUsername ? 'rgba(128,128,128,0)' : 'rgba(128,128,128,0.4)', borderColor: validUsername ? 'black' : 'rgba(128,128,128,0.2)' }}>
-              <Pressable onPress={handleGo} disabled={!validUsername}>
-                <Text style={styles.innerText}>Go!</Text>
-              </Pressable>
-            </PixelButton>
+            <PixelPressable
+              buttonStyle={{
+                width: 70,
+                height: 46,
+                marginLeft: 16,
+                backgroundColor: validUsername ? 'rgba(128,128,128,0)' : 'rgba(128,128,128,0.4)',
+                borderColor: validUsername ? 'black' : 'rgba(128,128,128,0.2)',
+              }}
+              pressableProps={{
+                onPress: handleGo,
+                disabled: !validUsername,
+              }}
+            >Go!</PixelPressable>
           </View>
         </KeyboardAvoidingComponent>
       </View>

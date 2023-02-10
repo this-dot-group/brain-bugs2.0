@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Redirect } from 'react-router-native';
 import { connect } from 'react-redux';
 import JoinGameModal from './Modals/JoinGame';
 import PrivateGameModal from './Modals/PrivateGame';
 import StartGameModal from './Modals/StartGame';
-import MuteButton from '../MuteButton/MuteButton';
 import { newOpponent, newGameCode } from '../../store/userReducer';
 import { newGame } from '../../store/gameInfoReducer';
 import { playSound } from '../../store/soundsReducer'
-import PixelButton from '../Shared/PixelButton'
+import { PixelPressable, MuteButton } from '../Shared'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Buttons, Typography } from '../../styles';
 
@@ -49,9 +48,6 @@ function StartScreen(props) {
     },
     optionBtns: {
       ...Buttons.listOptionBtns[screenDeviceWidth]
-    },
-    innerText: {
-      ...Typography.innerText[screenDeviceWidth],
     }
   })
 
@@ -127,42 +123,29 @@ function StartScreen(props) {
         <Text style={styles.greeting}>WELCOME {userName.toUpperCase()}!</Text>
       )}
 
-      <PixelButton buttonStyle={styles.optionBtns}>
-        <Pressable
-          onPress={() => handleModalChange('start')}
-          style={{height: '100%', width: '100%'}}
-        >
-          <Text style={styles.innerText}>Start a Game</Text>
-        </Pressable>
-      </PixelButton>
-
+      <PixelPressable
+        buttonStyle={styles.optionBtns}
+        pressableProps={{ onPress: () => handleModalChange('start') }}
+      >Start a Game</PixelPressable>
       <StartGameModal
         setModalVisible={handleModalChange}
         modalVisible={modalVisible}
       />
 
-      <PixelButton buttonStyle={styles.optionBtns}>
-        <Pressable
-          onPress={() => handleModalChange('join')}
-          style={{height: '100%', width: '100%'}}
-        >
-          <Text style={styles.innerText}> Join Existing Game </Text>
-        </Pressable>
-      </PixelButton>
+      <PixelPressable
+        buttonStyle={styles.optionBtns}
+        pressableProps={{ onPress: () => handleModalChange('join') }}
+      >Join Existing Game</PixelPressable>
       <JoinGameModal
         setModalVisible={handleModalChange}
         modalVisible={modalVisible}
         gamesWaiting={gamesWaiting}
       />
 
-      <PixelButton buttonStyle={styles.optionBtns}>
-        <Pressable
-          onPress={() => handleModalChange('private')}
-          style={{height: '100%', width: '100%'}}
-        >
-          <Text style={styles.innerText}> Join Private Game </Text>
-        </Pressable>
-      </PixelButton>
+      <PixelPressable
+        buttonStyle={styles.optionBtns}
+        pressableProps={{ onPress: () => handleModalChange('private') }}
+      >Join Private Game</PixelPressable>
       <PrivateGameModal
         setModalVisible={handleModalChange}
         modalVisible={modalVisible}

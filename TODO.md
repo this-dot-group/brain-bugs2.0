@@ -8,12 +8,32 @@
 Josh:  
 - [ ] Manual testing for bugs, possible issues with component mounting
 - [ ] Revisit Colors
- - [ ] replace 'black' and 'white' color strings with variables
+ - [ ] replace 'black' and 'white' color strings with variables - not really using eigher enough to make an impact
 - [ ] Animations
  - [ ] Animation on screen transition
- - [ ] replace all buttons with animated PixelPressable button 
+ - [x] Mute Button
+ - [x] replace all buttons with animated PixelPressable button 
+  - [x] Chat
+  - [x] GameScreen
+  - [x] HomeScreen
+  - [x] HowToPlay
+  - [x] JoinGame
+  - [x] PrivateGame
+  - [x] StartGame - Don't think I can do dropdowns, animation relies on pressable attributes
+  - [x] LobbyScreen
+  - [x] WaitingRoom
+  - [x] WaitingRoom2 
 - [ ] Keyboard hiding input on home screen
+- [x] 'How to Play' Modal on Countdown screen is missing styles
+Local Storage
 - [ ] Think about keeping track of player stats
+- [ ] Remember Mute State
+
+
+New:
+- [ ] 'Back To Lobby' Button on end screen doesn't fit in button
+- [ ] 'Submit' button animation - something that smoothly makes it clear that the answer was submitted
+- [ ] Does not always stay in landscape for me, especially at beginning
 
 
 For Future
@@ -21,11 +41,11 @@ For Future
   - destructure props
   - make some shared components/variables
     - answer buttons
-    - trophy/score section
-    - mute button
+    - [x] mute button
   - Delete unused things
    - hourglass gif
    - Emoji.js
+  - Clean Up GameScreen code
 
 
 Tia: 

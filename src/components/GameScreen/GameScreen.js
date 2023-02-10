@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Text, View, Pressable, StyleSheet, Image, Alert } from 'react-native'
+import { Text, View, StyleSheet, Image, Alert } from 'react-native'
 import he from 'he';
 import { Redirect } from 'react-router-native';
 import { connect } from 'react-redux';
@@ -7,7 +7,7 @@ import { playSound } from '../../store/soundsReducer';
 import Countdown from '../Countdown/Countdown';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import { QUESTION_TIME } from '../../../config';
-import { PixelButton } from '../Shared';
+import { PixelPressable } from '../Shared';
 import { Typography } from '../../styles';
 
 function GameScreen(props) {
@@ -341,23 +341,20 @@ function GameScreen(props) {
           >
 
             <View style={styles.answerOptionPressables}>
-              <PixelButton
+              <PixelPressable
                 buttonStyle={chooseColor(ansObjForRendering[0].index)}
+                pressableProps={{
+                  onPress: () => setSelected(ansObjForRendering[0].index),
+                  style: styles.nonSelectedAnswer,
+                  key: ansObjForRendering[0].index,
+                  disabled: displayAnswer || selected === 0,
+                }}
               >
-                <Pressable
-                  onPress={() => {
-                    setSelected(ansObjForRendering[0].index)
-                  }}
-                  style={styles.nonSelectedAnswer}
-
-                  key={ansObjForRendering[0].index}
-                  disabled={displayAnswer}>
-                  <Text
-                    style={styles.answerText}>
-                    {he.decode(ansObjForRendering[0].answer)}
-                  </Text>
-                </Pressable>
-              </PixelButton>
+                <Text
+                  style={styles.answerText}>
+                  {he.decode(ansObjForRendering[0].answer)}
+                </Text>
+              </PixelPressable>
             </View>
 
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -406,24 +403,20 @@ function GameScreen(props) {
 
             <View style={styles.answerOptionPressables}>
               <View style={{alignSelf: 'flex-end'}}>
-                <PixelButton
-                  buttonStyle={chooseColor(ansObjForRendering[1].index)} 
+                <PixelPressable
+                  buttonStyle={chooseColor(ansObjForRendering[1].index)}
+                  pressableProps={{
+                    onPress: () => setSelected(ansObjForRendering[1].index),
+                    style: styles.nonSelectedAnswer,
+                    key: ansObjForRendering[1].index,
+                    disabled: displayAnswer || selected === 1
+                  }}
                 >
-                  <Pressable
-                    onPress={() => {
-                      setSelected(ansObjForRendering[1].index)
-                    }}
-                    style={styles.nonSelectedAnswer}
-
-                    key={ansObjForRendering[1].index}
-                    disabled={displayAnswer}>
-                    <Text
-                      style={styles.answerText}>
-                      {he.decode(ansObjForRendering[1].answer)}
-                    </Text>
-                  </Pressable>
-                </PixelButton>
-
+                  <Text
+                    style={styles.answerText}>
+                    {he.decode(ansObjForRendering[1].answer)}
+                  </Text>
+                </PixelPressable>
               </View>
             </View>
 
@@ -436,21 +429,19 @@ function GameScreen(props) {
           >
             {(selected === 0 || selected === 2) && submitted === -1 
               ?  <View style={styles.submitButtonLeftView}>
-                  <PixelButton buttonStyle={{ height: 60, width: 80 }}>
-                    <Pressable
-                      onPress={() => {
-                        handleAnsPress(formattedQuestionInfo.answers[selected], selected)
-                      }}
-                      style={styles.submitButton}
-                      disabled={displayAnswer}
-                    >
-                      <Text
-                        style={styles.submitText}>
-                        Submit
-                      </Text>
-                    </Pressable>
-                  </PixelButton>
-                  </View>
+                <PixelPressable
+                  buttonStyle={{ height: 60, width: 80 }}
+                  pressableProps={{
+                    onPress: () => handleAnsPress(formattedQuestionInfo.answers[selected], selected),
+                    style: styles.submitButton,
+                    disabled: displayAnswer
+                  }}
+                >
+                  <Text style={styles.submitText}>
+                    Submit
+                  </Text>
+                </PixelPressable>
+              </View>
               : <View style={styles.submitButtonLeftView}>
                   {waiting.boolean === true && displayAnswer !== true && (selected === 0 || selected === 2) &&
                   <Text style={styles.waitingText}>
@@ -471,20 +462,18 @@ function GameScreen(props) {
 
             {(selected === 1 || selected === 3) && submitted === -1 
               ? <View style={styles.submitButtonRightView}>
-                  <PixelButton buttonStyle={{ height: 60, width: 80 }}>
-                    <Pressable
-                      onPress={() => {
-                        handleAnsPress(formattedQuestionInfo.answers[selected], selected)
-                      }}
-                      style={styles.submitButton}
-                      disabled={displayAnswer}
-                    >
-                      <Text
-                        style={styles.submitText}>
-                        Submit
-                      </Text>
-                    </Pressable>
-                  </PixelButton>
+                <PixelPressable
+                  buttonStyle={{ height: 60, width: 80 }}
+                  pressableProps={{
+                    onPress: () => handleAnsPress(formattedQuestionInfo.answers[selected], selected),
+                    style: styles.submitButton,
+                    disabled: displayAnswer
+                  }}
+                >
+                  <Text style={styles.submitText}>
+                    Submit
+                  </Text>
+                </PixelPressable>
                 </View>
               : <View style={styles.submitButtonRightView}>
                   {waiting.boolean === true && displayAnswer !== true && (selected === 1 || selected === 3) &&
@@ -506,22 +495,19 @@ function GameScreen(props) {
 
             {ansObjForRendering[2] &&
               <View style={styles.answerOptionPressables}>
-                <PixelButton
-                  buttonStyle={chooseColor(ansObjForRendering[2].index)}>
-                  <Pressable
-                    onPress={() => {
-                      setSelected(ansObjForRendering[2].index)
-                    }}
-                    style={styles.nonSelectedAnswer}
-
-                    key={ansObjForRendering[2].index}
-                    disabled={displayAnswer}>
-                    <Text
-                      style={styles.answerText}>
-                      {he.decode(ansObjForRendering[2].answer)}
-                    </Text>
-                  </Pressable>
-                </PixelButton>
+                <PixelPressable
+                  buttonStyle={chooseColor(ansObjForRendering[2].index)}
+                  pressableProps={{
+                    onPress: () => setSelected(ansObjForRendering[2].index),
+                    style: styles.nonSelectedAnswer,
+                    key: ansObjForRendering[2].index,
+                    disabled: displayAnswer || selected === 2,
+                  }}
+                >
+                  <Text style={styles.answerText}>
+                    {he.decode(ansObjForRendering[2].answer)}
+                  </Text>
+                </PixelPressable>
               </View>
             }
 
@@ -541,21 +527,19 @@ function GameScreen(props) {
             {ansObjForRendering[3] &&
               <View style={styles.answerOptionPressables}>
                 <View style={{alignSelf: 'flex-end'}}>
-                  <PixelButton buttonStyle={chooseColor(ansObjForRendering[3].index)}>
-                    <Pressable
-                      onPress={() => {
-                        setSelected(ansObjForRendering[3].index)
-                      }}
-                      style={styles.nonSelectedAnswer}
-
-                      key={ansObjForRendering[3].index}
-                      disabled={displayAnswer}>
-                      <Text
-                        style={styles.answerText}>
-                        {he.decode(ansObjForRendering[3].answer)}
-                      </Text>
-                    </Pressable>
-                  </PixelButton>
+                  <PixelPressable
+                    buttonStyle={chooseColor(ansObjForRendering[3].index)}
+                    pressableProps={{
+                      onPress: () => setSelected(ansObjForRendering[3].index),
+                      style: styles.nonSelectedAnswer,
+                      key: ansObjForRendering[3].index,
+                      disabled: displayAnswer || selected === 3,
+                    }}
+                  >
+                    <Text style={styles.answerText}>
+                      {he.decode(ansObjForRendering[3].answer)}
+                    </Text>
+                  </PixelPressable>
                 </View>
               </View>
             }
