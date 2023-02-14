@@ -19,13 +19,12 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
       height: '100%',
       paddingHorizontal: 50,
       paddingVertical: 20,
-      zIndex: 1,
+      zIndex: 2,
     },
     messagesContainer: {
       maxHeight: '100%',
       overflow: 'scroll',
       width: '100%',
-      backgroundColor: 'white'
     },
     messages: {
       ...Typography.normalText[deviceWidth],
@@ -48,17 +47,17 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
       flex: 1,
       paddingBottom: 50,
       height: '100%',
-      backgroundColor: 'white'
     },
     form: {
       flexDirection: 'row',
       width: '100%',
       alignItems: 'flex-end',
       height: '100%',
-      zIndex: 4
+      zIndex: 2
     },
     input: {
       ...Typography.chatInputText[deviceWidth],
+      zIndex: 2
     },
     innerRematchText: {
       ...Typography.rematchText[deviceWidth],
@@ -127,6 +126,8 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
     Keyboard.dismiss();
   }
 
+  const hideKeyboard = () => Keyboard.dismiss();
+
   const hideModal = () => {
     setShowChat(false);
     setLatestTime(Date.now())
@@ -151,42 +152,48 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
         supportedOrientations={['landscape']}
         style={styles.chatModalStyles}
       >
-        <Overlay active={keyboardActive} />
-        <View style={styles.root}>
-
-          <TitleBar
-            cb={hideModal}
-            style={{ marginBottom: 0 }}
+        <Overlay
+          active={keyboardActive}
+          backgroundColor={'rgba(0,0,0,.5)'}
+          onPress={hideKeyboard}
+        />
+        <View style={styles.root} pointerEvents={'box-none'}>
+          <View
+            pointerEvents={!keyboardActive ? 'auto' : 'none'}
           >
-            <Hider
-              show={rematchPending}
+            <TitleBar
+              cb={hideModal}
+              style={{ marginBottom: 0 }}
             >
-              <View style={styles.yesNoButtonCont}>
-                <View style={styles.gap}>
-                  <Text style={styles.rematchHeadingText}>{rematchText}</Text>
+              <Hider
+                show={rematchPending}
+              >
+                <View style={styles.yesNoButtonCont}>
+                  <View style={styles.gap}>
+                    <Text style={styles.rematchHeadingText}>{rematchText}</Text>
+                  </View>
+                  <View style={styles.gap}>
+                    <PixelPressable
+                      buttonStyle={{width: 60, marginBottom: 10 }}
+                      pressableProps={{ onPress: handleYes }}
+                    >
+                      <Text style={styles.innerRematchText}>Yes</Text>
+                    </PixelPressable>
+                  </View>
+                  <View style={styles.gap}>
+                    <PixelPressable
+                      buttonStyle={{width: 60, marginBottom: 10 }}
+                      pressableProps={{ onPress: handleNo }}
+                    >
+                      <Text style={styles.innerRematchText}>No</Text>
+                    </PixelPressable>
+                  </View>
                 </View>
-                <View style={styles.gap}>
-                  <PixelPressable
-                    buttonStyle={{width: 60, marginBottom: 10 }}
-                    pressableProps={{ onPress: handleYes }}
-                  >
-                    <Text style={styles.innerRematchText}>Yes</Text>
-                  </PixelPressable>
-                </View>
-                <View style={styles.gap}>
-                  <PixelPressable
-                    buttonStyle={{width: 60, marginBottom: 10 }}
-                    pressableProps={{ onPress: handleNo }}
-                  >
-                    <Text style={styles.innerRematchText}>No</Text>
-                  </PixelPressable>
-                </View>
-              </View>
-            </Hider>
-          </TitleBar>
+              </Hider>
+            </TitleBar>
+          </View>
 
           <View style={styles.content}>
-            <Overlay active={keyboardActive} />
             <ScrollView
               ref={scrollViewRef}
               style={styles.messagesContainer}
@@ -196,6 +203,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
                 flexDirection: 'column',
               }}
               scrollEnabled={!keyboardActive}
+              keyboardShouldPersistTaps="handled"
             >
               <View
                 style={{flex: 0 }}
@@ -213,7 +221,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
               </View>
             </ScrollView>
             <KeyboardAvoidingComponent
-              keyboardVerticalOffset={95}
+              keyboardVerticalOffset={80}
               style={{
                 position:'absolute',
                 bottom: 0,

@@ -1,23 +1,38 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 import { Hider } from '../Shared';
 
-const styles = StyleSheet.create({
-  overlay: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0,0,0,.5)',
-    position: 'absolute',
-    zIndex: 1,
-  },
-});
+export default function Overlay ({
+  active,
+  backgroundColor = 'transparent',
+  onPress,
+}) {
+  const styles = StyleSheet.create({
+    overlay: {
+      width: '100%',
+      height: '100%',
+      backgroundColor,
+      position: 'absolute',
+      zIndex: 2,
+      left: 0,
+      top: 0,
+    },
+    pressable: {
+      width: '100%',
+      height: '100%',
+    }
+  });
 
-export default function Overlay ({ active }) {
   return (
     <Hider
       show={active}
       style={styles.overlay}
-      pointerEvents='none'
-    />
+    >
+      <Pressable
+        onPress={onPress}
+        style={styles.pressable}
+        pointerEvents="auto"
+      />
+    </Hider>
   )
 }
