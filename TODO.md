@@ -23,8 +23,12 @@ Josh:
   - [x] LobbyScreen
   - [x] WaitingRoom
   - [x] WaitingRoom2 
-- [ ] Keyboard hiding input on home screen
+- [x] Keyboard hiding input on home screen
+    - [x] made hook for shared keyboard logic
+    - [x] changed submit button, so it goes to the next screen when you press it
 - [x] 'How to Play' Modal on Countdown screen is missing styles
+- [x] Fixes for overlay on chat screen, so it close the keyboard wherever you click it
+- [x] bring overlay to home screen
 Local Storage
 - [ ] Think about keeping track of player stats
 - [ ] Remember Mute State

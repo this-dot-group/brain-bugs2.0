@@ -1,10 +1,10 @@
 import React from 'react';
 import { Pressable, StyleSheet } from 'react-native';
-import { Hider } from '../Shared';
+import { Hider } from '.';
 
 export default function Overlay ({
   active,
-  backgroundColor = 'transparent',
+  backgroundColor = 'rgba(0,0,0,.5)',
   onPress,
 }) {
   const styles = StyleSheet.create({

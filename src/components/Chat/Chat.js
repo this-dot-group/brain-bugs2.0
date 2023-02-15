@@ -1,16 +1,15 @@
-import { View, Text, StyleSheet, ScrollView, Keyboard, Modal } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Modal } from 'react-native';
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { TitleBar, StyledInput, KeyboardAvoidingComponent, Hider, PixelPressable } from '../Shared';
+import { TitleBar, StyledInput, KeyboardAvoidingComponent, Hider, PixelPressable, Overlay } from '../Shared';
 import Badge from './Badge';
-import Overlay from './Overlay';
 import { Buttons, Typography } from '../../styles';
+import { useKeyboard } from '../../hooks';
 
 function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rematchText, deviceWidth }) {
   const [messages, setMessages] = useState([]);
   const [currMessage, setCurrMesssage] = useState('');
   const [showChat, setShowChat] = useState(false);
-  const [keyboardActive, setKeyboardActive] = useState(false);
   const [latestTime, setLatestTime] = useState(Date.now());
 
   const styles = StyleSheet.create({
@@ -95,6 +94,8 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
     }
   })
 
+  const { keyboardActive, hideKeyboard } = useKeyboard();
+
   const unseenMessages = useMemo(() => 
     showChat ? 0 : messages.filter(({ timeStamp }) => timeStamp > latestTime).length,
   [messages, showChat, latestTime]);
@@ -104,12 +105,8 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
 
   useEffect(() => {
     socket.on('newMessage', messageHandler);
-    const keyboardShowing = Keyboard.addListener('keyboardWillShow', () => setKeyboardActive(true));
-    const keyboardhiding = Keyboard.addListener('keyboardWillHide', () => setKeyboardActive(false));
 
     return () => {
-      keyboardShowing.remove();
-      keyboardhiding.remove();
       socket.off('newMessage', messageHandler);
     }
   }, [])
@@ -123,10 +120,8 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
     socket.emit('messageSend', { gameCode, message: currMessage, ...user });
     setCurrMesssage('');
     textInputRef.current.clear();
-    Keyboard.dismiss();
+    hideKeyboard();
   }
-
-  const hideKeyboard = () => Keyboard.dismiss();
 
   const hideModal = () => {
     setShowChat(false);
@@ -154,7 +149,6 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
       >
         <Overlay
           active={keyboardActive}
-          backgroundColor={'rgba(0,0,0,.5)'}
           onPress={hideKeyboard}
         />
         <View style={styles.root} pointerEvents={'box-none'}>

@@ -8,6 +8,7 @@ import StyledInput from './StyledInput';
 import Spinner from './Spinner.js';
 import KeyboardAvoidingComponent from './KeyboardAvoiding.js';
 import MuteButton from './MuteButton.js';
+import Overlay from './Overlay.js';
 
 export {
   GenericModal,
@@ -20,4 +21,5 @@ export {
   Spinner,
   KeyboardAvoidingComponent,
   MuteButton,
+  Overlay,
 };
