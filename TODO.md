@@ -8,34 +8,15 @@
 Josh:  
 - [ ] Manual testing for bugs, possible issues with component mounting
 - [ ] Revisit Colors
- - [ ] replace 'black' and 'white' color strings with variables - not really using eigher enough to make an impact
+- [ ] Keep an eye out for red dot bug on chat
+
 - [ ] Animations
  - [ ] Animation on screen transition
- - [x] Mute Button
- - [x] replace all buttons with animated PixelPressable button 
-  - [x] Chat
-  - [x] GameScreen
-  - [x] HomeScreen
-  - [x] HowToPlay
-  - [x] JoinGame
-  - [x] PrivateGame
-  - [x] StartGame - Don't think I can do dropdowns, animation relies on pressable attributes
-  - [x] LobbyScreen
-  - [x] WaitingRoom
-  - [x] WaitingRoom2 
-- [x] Keyboard hiding input on home screen
-    - [x] made hook for shared keyboard logic
-    - [x] changed submit button, so it goes to the next screen when you press it
-- [x] 'How to Play' Modal on Countdown screen is missing styles
-- [x] Fixes for overlay on chat screen, so it close the keyboard wherever you click it
-- [x] bring overlay to home screen
 Local Storage
 - [ ] Think about keeping track of player stats
 - [ ] Remember Mute State
 
-
 New:
-- [ ] 'Back To Lobby' Button on end screen doesn't fit in button
 - [ ] 'Submit' button animation - something that smoothly makes it clear that the answer was submitted
 - [ ] Does not always stay in landscape for me, especially at beginning
 
@@ -53,11 +34,13 @@ For Future
 
 
 Tia: 
-- [ ] test out sound on sim vs phone (broken on sim?)
 - [ ] look into chat new message red alert not showing up on android
 - [ ] make push notifications work reliably
 - look into this when revisiting push notifications - do we need 'no more questions' scenario on waiting room 2 also? this is the situation where we are notifying user via push notification, waiting for them 
 - [ ] Bug with user going back to home screen when clicking on push notification - maybe has something to do with changes for app state tracker on waiting room screen recently made
+- [ ] Sizing
+ - [ ] 'Back To Lobby' Button on end screen doesn't fit in button
+ - [ ] In smallest size sim, the top row on game screen maybe doesn't fit 
 
 
  Ideas
