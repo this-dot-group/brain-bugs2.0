@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet } from 'react-native';
-import { Hider } from '.';
+import Hider from './Hider';
 
 export default function Overlay ({
   active,
