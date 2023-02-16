@@ -9,8 +9,11 @@ import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import AnimatedLogo from './AnimatedLogo';
 import { PixelButton, KeyboardAvoidingComponent, PixelPressable, MuteButton } from '../Shared';
+import Overlay from '../Shared/Overlay'
 
 import { Buttons, Views, Typography, Images } from '../../styles/';
+
+import { useKeyboard } from '../../hooks';
 
 import { newSocket } from '../../store/socketReducer.js';
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer';
@@ -40,6 +43,7 @@ function Homescreen(props) {
     playSound 
   } = props;
 
+  const { keyboardActive, hideKeyboard } = useKeyboard();
 
   const getUsername = async () => {
     try {
@@ -96,6 +100,7 @@ function Homescreen(props) {
       flexDirection: 'column',
       alignItems: 'center',
       marginTop: 10,
+      zIndex: 2,
     },
     // wraps username row
     inputNestedRowView: {
@@ -130,6 +135,11 @@ function Homescreen(props) {
     setToLobby(true)
   }
 
+  const handleSubmit = () => {
+    if (!validUsername) return;
+    handleGo();
+  }
+
   console.log('HomeScreen screenWidth: ', screenDeviceWidth)
 
   if (!ready) {
@@ -140,13 +150,17 @@ function Homescreen(props) {
 
   return (
     <View style={styles.container}>
+      <Overlay
+        active={keyboardActive}
+        onPress={hideKeyboard}
+      />
       <View style={styles.logoTextRowView}>
         <AnimatedLogo
           imgStyle={styles.logoImg}
           textStyle={styles.logoText}
         />
         <KeyboardAvoidingComponent
-          offset={0}
+          offset={50}
           style={{ backgroundColor: 'transparent', flex: 0 }}
         >
           <View style={styles.inputNestedRowView}>
@@ -158,6 +172,8 @@ function Homescreen(props) {
                 maxLength={15}
                 onChangeText={value => handleUsernameChange(value)}
                 value={username}
+                returnKeyType={'go'}
+                onSubmitEditing={handleSubmit}
               />
             </PixelButton>
 
@@ -166,7 +182,7 @@ function Homescreen(props) {
                 width: 70,
                 height: 46,
                 marginLeft: 16,
-                backgroundColor: validUsername ? 'rgba(128,128,128,0)' : 'rgba(128,128,128,0.4)',
+                backgroundColor: validUsername ? 'white' : 'rgba(128,128,128,0.4)',
                 borderColor: validUsername ? 'black' : 'rgba(128,128,128,0.2)',
               }}
               pressableProps={{

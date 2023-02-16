@@ -43,6 +43,7 @@ export const homeScreenContainer = {
   width: '100%',
   alignItems: 'center',
   justifyContent: 'space-between',
+  position: 'relative'
 }
 
 
