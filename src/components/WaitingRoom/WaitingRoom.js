@@ -7,7 +7,6 @@ import { newOpponent, resetUserGameToken } from '../../store/userReducer'
 import { getQuestions } from '../../store/gameInfoReducer'
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer'
 import { connect } from 'react-redux';
-import * as Notifications from 'expo-notifications';
 
 import { Typography, Views, Buttons } from '../../styles';
 import AppStateTracker from '../AppState/AppStateTracker.js';
@@ -98,14 +97,7 @@ const WaitingRoom = (props) => {
     }, 1500)
   }
 
-  const handleNotificationResponse = response => {
-    // response.notification.request.content.data has the relevant info sent from two person event
-    // { gameCode, gameMaker, gameJoiner}
-    props.socket.emit('joinTwoPlayerViaPushNotification', response.notification.request.content.data)
-  };
-
   const redirectGameMakerToLobby = () => {
-    // ok to do without an alert since this only occurs if gameMaker has the app backgrounded and their push token was invalid so they werent able to get push notification
     setBackToLobby(true);
   };
 
@@ -135,11 +127,6 @@ const WaitingRoom = (props) => {
     const tokenToUse = props.location.state?.token || props.token;
 
     setToken(tokenToUse);
-
-    // don't need this anymore because it only ran when push notification was interacted with while the app is in foreground, but at this point we aren't sending a notification when app is foregrounded, we're just dropping them into game
-    // Notifications.addNotificationReceivedListener(handleNotification);
-    
-    Notifications.addNotificationResponseReceivedListener(handleNotificationResponse);
 
     (async () => {
       await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions, tokenToUse, handleNoQuestions, screenDeviceWidth);

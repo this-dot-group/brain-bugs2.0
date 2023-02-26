@@ -86,7 +86,6 @@ function StartScreen(props) {
             category: currentGame.category.name,
             player: currentGame.userName,
             gameCode: currentGame.gameCode,
-            gameMakerPushToken: currentGame.gameMakerPushToken
           }
           filteredGames.push(relevantInfo)
         }
