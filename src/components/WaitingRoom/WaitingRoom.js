@@ -7,11 +7,14 @@ import { newOpponent, resetUserGameToken } from '../../store/userReducer'
 import { getQuestions } from '../../store/gameInfoReducer'
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer'
 import { connect } from 'react-redux';
-
+import Countdown from '../Countdown/Countdown';
 import { Typography, Views, Buttons } from '../../styles';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
 import { Spinner, PixelPressable, MuteButton } from '../Shared';
+import { EXPO_LOCAL_URL } from '../../../env'
+import axios from 'axios';
+
 
 const WaitingRoom = (props) => {
 
@@ -21,6 +24,14 @@ const WaitingRoom = (props) => {
   const [showNoMoreQuestionsOptions, setShowNoMoreQuestionsOptions] = useState(false);
   const [copied, setCopied] = useState(false);
   const [token, setToken] = useState('');
+  const [waitingRoomTriviaObjs, setWaitingRoomTriviaObjs] = useState(undefined)
+  const [showRandomTrivia, setShowRandomTrivia] = useState(false);
+  const [showRandomTriviaAnswer, setShowRandomTriviaAnswer] = useState(false);
+  const [seconds, setSeconds] = useState(5000);
+  const [showCountdown, setShowCountdown] = useState(false);
+  const [goCountdown, setGoCountdown] = useState(false);
+  const [triviaQuestionIndex, setTriviaQuestionIndex] = useState(0);
+
 
   const { screenDeviceWidth } = props;
 
@@ -102,9 +113,7 @@ const WaitingRoom = (props) => {
   };
 
   const cancelGame = () => {
-
     props.socket.emit('cancelGame');
-
     setBackToLobby(true);
   }
 
@@ -130,9 +139,43 @@ const WaitingRoom = (props) => {
 
     (async () => {
       await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions, tokenToUse, handleNoQuestions, screenDeviceWidth);
+
+      try {
+        const waitingRoomTriviaReq = await axios.get(`http://${EXPO_LOCAL_URL}:3000/waitingRoomTrivia`);
+        setWaitingRoomTriviaObjs(waitingRoomTriviaReq.data)
+        setTimeout(() => {
+          setShowRandomTrivia(true);
+          setShowCountdown(true);
+          setGoCountdown(true);
+        }, 2000)
+      } catch (e) {
+        // this state will just continue to show the loading circle
+        console.error('ERROR IN WAITING ROOM TRIVIA:', e);
+      }
+
     })()
 
   }, [])
+
+  useEffect(() => {
+    if(seconds === 0) {
+      setGoCountdown(false);
+      setShowCountdown(false);
+      setShowRandomTriviaAnswer(true);
+      setTimeout(() => {
+        if(triviaQuestionIndex < 19) {
+          setShowRandomTriviaAnswer(false);
+          setTriviaQuestionIndex(triviaQuestionIndex + 1) 
+          setSeconds(5000);
+          setShowCountdown(true);  
+          setGoCountdown(true);
+        } else {
+          setWaitingRoomTriviaObjs(undefined)
+        }
+      }, 3000)   
+
+    }
+  }, [seconds]);
   
   useEffect(() => {
     props.fullGameInfo.userName = props.userName;
@@ -147,7 +190,6 @@ const WaitingRoom = (props) => {
 
     if(props.fullGameInfo.liveGameQuestions) {
       props.socket.emit('newGame', {...props.fullGameInfo, token })
-
       props.socket.emit('appStateUpdate', appStateGameCode)
     }
 
@@ -213,10 +255,43 @@ const WaitingRoom = (props) => {
           </>
         }
 
-        {props.publicOrPrivate !== 'private' && !showNoMoreQuestionsOptions && (
+        {props.publicOrPrivate !== 'private' && !showNoMoreQuestionsOptions && !waitingRoomTriviaObjs && (
           <>
             <Text style={styles.waitingText}>Waiting for 1 more player...</Text> 
             <Spinner />
+          </>
+        )
+        }
+
+        {props.publicOrPrivate !== 'private' && 
+        !showNoMoreQuestionsOptions && 
+        waitingRoomTriviaObjs && 
+        !showRandomTrivia && (
+          <>
+            <Text style={styles.alertText}>Some trivia while you wait!</Text>
+            <Text style={styles.alertText}>...</Text>
+          </>
+        )
+        }
+
+        {props.publicOrPrivate !== 'private' && 
+        !showNoMoreQuestionsOptions && 
+        waitingRoomTriviaObjs && 
+        showRandomTrivia && (
+          <>
+            <Text style={styles.normalText}>{waitingRoomTriviaObjs[triviaQuestionIndex].question}</Text>
+            {showCountdown && (
+              <Countdown
+                deviceWidth={screenDeviceWidth}
+                seconds={seconds}
+                setSeconds={setSeconds}
+                style={{ color: 'red' }}
+                go={goCountdown}
+                setGo={setGoCountdown}
+              /> 
+            )}
+            {showRandomTriviaAnswer && !showCountdown && <Text style={styles.normalText}>{waitingRoomTriviaObjs[triviaQuestionIndex].answer}</Text>}
+            
           </>
         )
         }
