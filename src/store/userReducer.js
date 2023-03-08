@@ -6,9 +6,6 @@ export default (state = {}, action) => {
   const { type, payload } = action;
 
   switch (type) {
-
-  case 'NEW_USER':
-    return { ...state, username: payload };
   case 'PUSH_NOTIFICATION_TOKEN':
     return {...state, pushNotificationUserToken: payload}
   case 'NEW_GAME_CODE':
@@ -25,6 +22,8 @@ export default (state = {}, action) => {
     return state;
   }
 };
+
+export const username = (state = '', { type, payload }) =>  type === 'NEW_USER' ? payload : state;
 
 export const deviceWidth = (deviceWidth) => {
   return {

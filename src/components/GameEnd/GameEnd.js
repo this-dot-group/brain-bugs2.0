@@ -330,7 +330,7 @@ const mapStateToProps = state => ({
   socketId: state.userReducer.socketId,
   fakeOpponentSocket: state.fakeOpponentSocketReducer,
   opponent: state.userReducer.opponent,
-  username: state.userReducer.username,
+  username: state.username,
   numPlayers: state.gameInfoReducer.numPlayers || 2,
   screenDeviceWidth: state.userReducer.deviceWidth
 });

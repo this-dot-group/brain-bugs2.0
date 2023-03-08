@@ -168,7 +168,7 @@ function HowToPlay(props) {
 const mapStateToProps = (state) => {
   return {
     socket: state.socketReducer,
-    username: state.userReducer.username,
+    username: state.username,
     opponent: state.userReducer.opponent,
     gameCode: state.userReducer.gameCode,
     screenDeviceWidth: state.userReducer.deviceWidth
