@@ -13,8 +13,9 @@ Josh:
 - [ ] Animations
  - [ ] Animation on screen transition
 Local Storage
+- [x] Maybe swap local storage with a persist gate
 - [ ] Think about keeping track of player stats
-- [ ] Remember Mute State
+- [x] Remember Mute State
 
 New:
 - [ ] 'Submit' button animation - something that smoothly makes it clear that the answer was submitted
@@ -26,7 +27,6 @@ For Future
   - destructure props
   - make some shared components/variables
     - answer buttons
-    - [x] mute button
   - Delete unused things
    - hourglass gif
    - Emoji.js

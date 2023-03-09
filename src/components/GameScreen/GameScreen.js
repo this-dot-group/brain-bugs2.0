@@ -570,7 +570,7 @@ const mapStateToProps = (state) => {
     socket: state.socketReducer,
     gameCode: state.userReducer.gameCode,
     fakeOpponentSocket: state.fakeOpponentSocketReducer,
-    userName: state.userReducer.username,
+    userName: state.username,
     socketId: state.userReducer.socketId,
     numPlayers: state.gameInfoReducer.numPlayers || 2,
     opponent: state.userReducer.opponent,

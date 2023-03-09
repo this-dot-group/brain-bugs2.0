@@ -19,9 +19,6 @@ export const QUESTION_DROPDOWN_CHOICES = numQuestions.map(value => ({
   value
 }));
 
-// Should be false
-export const DEFAULT_MUTED = testMode;
-
 export const instructions = [
   'Read the question',
   'Select an answer before the timer runs out',
