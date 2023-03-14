@@ -14,7 +14,6 @@ const initialState = {
 };
 
 const handleStreak = ({ currentStreak }, outcome) => {
-  console.log(outcome, currentStreak)
   if (currentStreak.type === outcome) {
     return {
       type: outcome,
