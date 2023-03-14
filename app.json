@@ -17,8 +17,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "requireFullScreen": true
     },
+    "plugins" : [
+      [
+        "expo-screen-orientation",
+        {
+          "initialOrientation": "LANDSCAPE_LEFT"
+        }
+      ]
+    ],
     "android": {
       "useNextNotificationsApi": true,
       "softwareKeyboardLayoutMode": "pan"
