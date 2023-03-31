@@ -6,6 +6,8 @@
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 Josh:  
+- look into two player time based apps to see how they handle leaving the app while game is in process
+- push notification / local notification discussion
 - [ ] Manual testing for bugs, possible issues with component mounting
 - [ ] Revisit Colors
 - [ ] Keep an eye out for red dot bug on chat
@@ -34,7 +36,15 @@ For Future
 
 
 Tia: 
-- [ ] look into chat new message red alert not showing up on android
+- if player leaves game while on waiting room and trivia example, need to cancel game
+- what about private game, leaving the app to give friend the code? 
+- can we keep app going (waiting room screen) while its backgrounded?
+- look into two player time based apps to see how they handle this
+- checking at end of countdown screen to make sure both players are active (foregrounded) in app before going to start game
+  - private game scenario where player has left app to give code to friend, doesnt come back to app immediately, opponent joins game, player 1 would need to get back to app before end of countdown screen in order to keep game
+- are there alternatives to push notifications? "local notifications"?
+
+- [ ] look into chat new message red alert not showing up on android (check updated comments/notes in Chat)
 - [ ] make push notifications work reliably
 - look into this when revisiting push notifications - do we need 'no more questions' scenario on waiting room 2 also? this is the situation where we are notifying user via push notification, waiting for them 
 - [ ] Bug with user going back to home screen when clicking on push notification - maybe has something to do with changes for app state tracker on waiting room screen recently made

@@ -3,7 +3,6 @@ import { View, TextInput, StyleSheet, Modal, Dimensions } from 'react-native'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-native';
 import socketIO from 'socket.io-client';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
@@ -26,12 +25,6 @@ const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 const fakeOpponentSocket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 
 function Homescreen(props) {
-  const [modalVisible, setModalVisible] = useState(false)
-  const [validUsername, setValidUsername] = useState(false);
-  const [username, setUsername] = useState('')
-  const [toLobby, setToLobby] = useState(false);
-  const [ready, setReady] = useState(false);
-  const { width, height } = Dimensions.get('window');  
   const { 
     deviceWidth, 
     newSocket, 
@@ -40,23 +33,18 @@ function Homescreen(props) {
     newToken, 
     newUsername, 
     screenDeviceWidth, 
-    playSound 
+    playSound,
+    username,
   } = props;
 
-  const { keyboardActive, hideKeyboard } = useKeyboard();
+  const [modalVisible, setModalVisible] = useState(false)
+  const [validUsername, setValidUsername] = useState(!!username);
+  const [formUsername, setFormUsername] = useState(username || '')
+  const [toLobby, setToLobby] = useState(false);
+  const [ready, setReady] = useState(false);
+  const { width, height } = Dimensions.get('window');  
 
-  const getUsername = async () => {
-    try {
-      const localUsername = await AsyncStorage.getItem('username')
-      if (localUsername !== null) {
-        newUsername(localUsername);
-        setValidUsername(true);
-        setUsername(localUsername);
-      }
-    } catch(e) {
-      console.error(e)
-    }
-  }
+  const { keyboardActive, hideKeyboard } = useKeyboard();
 
   useEffect(() => {
     // set user device width in global state so we can use for responsive styling in other components
@@ -70,7 +58,6 @@ function Homescreen(props) {
     newToken();
     setReady(true);
     socket.on('shareId', setSocketId);
-    getUsername()
     return () => {
       socket.off('shareId', setSocketId)
     }
@@ -121,16 +108,12 @@ function Homescreen(props) {
   }
 
   const handleUsernameChange = (username) => {
-    setUsername(username)
-    if (username) {
-      newUsername(username)
-      setValidUsername(true);
-    } else {
-      setValidUsername(false);
-    }
+    setFormUsername(username);
+    setValidUsername(!!username);
   }
 
   const handleGo = async () => {
+    newUsername(formUsername);
     await playSound('flute');
     setToLobby(true)
   }
@@ -171,7 +154,7 @@ function Homescreen(props) {
                 placeholder={'Enter username'}
                 maxLength={15}
                 onChangeText={value => handleUsernameChange(value)}
-                value={username}
+                value={formUsername}
                 returnKeyType={'go'}
                 onSubmitEditing={handleSubmit}
               />
@@ -225,7 +208,8 @@ function Homescreen(props) {
 
 const mapStateToProps = (state) => {
   return {
-    screenDeviceWidth: state.userReducer.deviceWidth
+    screenDeviceWidth: state.userReducer.deviceWidth,
+    username: state.username
   }
 }
 

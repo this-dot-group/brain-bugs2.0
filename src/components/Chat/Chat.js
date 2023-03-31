@@ -10,6 +10,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
   const [messages, setMessages] = useState([]);
   const [currMessage, setCurrMesssage] = useState('');
   const [showChat, setShowChat] = useState(false);
+  // capturing the time you open the modal, in theory
   const [latestTime, setLatestTime] = useState(Date.now());
 
   const styles = StyleSheet.create({
@@ -97,6 +98,9 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
   const { keyboardActive, hideKeyboard } = useKeyboard();
 
   // TODO: something is happening with the way this component mounts. the messages.filter function is working correctly but the component will mount a couple times and cause it to steamroll the correct unread message count. works v sporadically (if you wait 10 seconds it works fine. why would that prevent a double remount?)
+  
+  // when is unseenMessages logging? 
+  // do we even need useMemo?
   const unseenMessages = useMemo(() => 
     showChat ? 0 : messages.filter(({ timeStamp }) => timeStamp > latestTime).length,
   [messages, showChat, latestTime]);

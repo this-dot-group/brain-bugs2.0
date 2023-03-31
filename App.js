@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react'
 import { NativeRouter, Route } from 'react-router-native'
 import * as Font from 'expo-font'
 
-import store from './src/store/index.js';
+import store, { persistor } from './src/store/index.js';
 
 import HomeScreen from './src/components/HomeScreen/HomeScreen'
 import GameEnd from './src/components/GameEnd/GameEnd'
@@ -46,35 +47,36 @@ export default function App() {
   }
 
   return (
-    <Provider
-      store={store}>
-      <Sounds />
-      <NativeRouter>
-        <View style={styles.container}>
-          <Route
-            exact path='/'
-            component={HomeScreen} />
-          <Route
-            exact path='/lobby'
-            component={Lobby} />
-          <Route
-            exact path='/waitingroom'
-            component={WaitingRoom}
-          />
-          <Route
-            exact path='/howtoplay'
-            component={HowToPlay}
-          />
-          <Route 
-            exact path='/gameplay'
-            component={GameScreen}
-          />
-          <Route 
-            exact path='/gameend'
-            component={GameEnd}
-          />
-        </View>
-      </NativeRouter>
+    <Provider store={store}>
+      <PersistGate persistor={persistor} loading={<LoadingScreen/>}>
+        <Sounds />
+        <NativeRouter>
+          <View style={styles.container}>
+            <Route
+              exact path='/'
+              component={HomeScreen} />
+            <Route
+              exact path='/lobby'
+              component={Lobby} />
+            <Route
+              exact path='/waitingroom'
+              component={WaitingRoom}
+            />
+            <Route
+              exact path='/howtoplay'
+              component={HowToPlay}
+            />
+            <Route 
+              exact path='/gameplay'
+              component={GameScreen}
+            />
+            <Route 
+              exact path='/gameend'
+              component={GameEnd}
+            />
+          </View>
+        </NativeRouter>
+      </PersistGate>
     </Provider>
   );
   

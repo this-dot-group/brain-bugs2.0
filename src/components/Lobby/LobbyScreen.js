@@ -9,7 +9,6 @@ import { newOpponent, newGameCode } from '../../store/userReducer';
 import { newGame } from '../../store/gameInfoReducer';
 import { playSound } from '../../store/soundsReducer'
 import { PixelPressable, MuteButton } from '../Shared'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Buttons, Typography } from '../../styles';
 
 function StartScreen(props) {
@@ -19,7 +18,7 @@ function StartScreen(props) {
 
   const {
     screenDeviceWidth,
-    userName,
+    username,
     socket,
     newGame,
     newGameCode,
@@ -53,16 +52,7 @@ function StartScreen(props) {
 
   const createGameCode = () => Math.floor(Math.random() * 100000).toString().padStart(5, '0');
 
-  const storeUsername = async () => {
-    try {
-      await AsyncStorage.setItem('username', userName);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
   useEffect(() => {
-    storeUsername();
 
     // reset game so no info from previous games carries over
     newGame({});
@@ -118,8 +108,8 @@ function StartScreen(props) {
 
   return (
     <View style={styles.container}>
-      {userName && (
-        <Text style={styles.greeting}>WELCOME {userName.toUpperCase()}!</Text>
+      {username && (
+        <Text style={styles.greeting}>WELCOME {username.toUpperCase()}!</Text>
       )}
 
       <PixelPressable
@@ -164,7 +154,7 @@ function StartScreen(props) {
 
 const mapStateToProps = (state) => {
   return {
-    userName: state.userReducer.username,
+    username: state.username,
     socket: state.socketReducer,
     screenDeviceWidth: state.userReducer.deviceWidth
   }

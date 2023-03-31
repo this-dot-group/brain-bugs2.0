@@ -1,26 +1,38 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import {  combineReducers } from 'redux';
+import { configureStore } from '@reduxjs/toolkit'
 import thunk from 'redux-thunk';
-import userReducer from './userReducer.js';
+import { persistStore, persistReducer } from 'redux-persist'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import userReducer, { username } from './userReducer.js';
 import socketReducer from './socketReducer.js';
 import gameInfoReducer from './gameInfoReducer.js';
 import fakeOpponentSocketReducer from './fakeOpponentSocketReducer'
 import soundsReducer, { isMuted } from './soundsReducer';
 
-
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+  whitelist: ['isMuted', 'username']
+}
 
 let reducers = combineReducers({
   userReducer,
+  username,
   socketReducer,
   gameInfoReducer,
   fakeOpponentSocketReducer,
   soundsReducer,
-  isMuted
+  isMuted,
 });
 
-const store = () => {
-  return createStore( reducers, composeWithDevTools(applyMiddleware(thunk)) );
-};
+const persistedReducer = persistReducer(persistConfig, reducers)
 
-export default store();
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: [thunk]
+});
+
+export default store;
+
+export const persistor = persistStore(store);
 

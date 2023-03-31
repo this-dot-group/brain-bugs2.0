@@ -24,6 +24,8 @@ export default (state = {}, action) => {
   }
 };
 
+export const username = (state = '', { type, payload }) =>  type === 'NEW_USER' ? payload : state;
+
 export const deviceWidth = (deviceWidth) => {
   return {
     type: 'DEVICE_WIDTH',

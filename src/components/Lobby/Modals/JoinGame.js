@@ -54,7 +54,7 @@ function JoinGame(props) {
 const mapStateToProps = (state) => {
   return {
     socket: state.socketReducer,
-    username: state.userReducer.username,
+    username: state.username,
     screenDeviceWidth: state.userReducer.deviceWidth
   }
 }

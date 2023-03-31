@@ -352,7 +352,7 @@ const WaitingRoom = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    userName: state.userReducer.username,
+    userName: state.username,
     gameCode: state.userReducer.gameCode,
     token: state.userReducer.token,
     socket: state.socketReducer,
