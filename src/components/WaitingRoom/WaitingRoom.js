@@ -264,7 +264,7 @@ const WaitingRoom = (props) => {
                 onPress: handleShareCode,
               }}
             >
-              {copied ? <Text style={styles.alertText}>Copied!</Text> : props.gameCode}
+              {copied ? <Text style={styles.alertText}>Copied!</Text> : `Code: ${props.gameCode}`}
             </PixelPressable>
           )}
         </View>
@@ -272,7 +272,7 @@ const WaitingRoom = (props) => {
         {props.publicOrPrivate === 'private' &&
           <>
             <Text style={styles.privateWaitingText}>
-              Give the game code to your opponent! Click to copy. Game will start when other player joins.
+              Give the game code to your opponent! Click code button to share. Game will start when other player joins.
             </Text>
           </>
         }
