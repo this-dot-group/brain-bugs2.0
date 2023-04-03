@@ -113,8 +113,9 @@ const WaitingRoom = (props) => {
         message:
           `Come play Brain Bugs with me! \nHere's the code to join my game: ${props.gameCode}`,
       });
+      // On iOS you can track if the user actually shared it and where they shared it, or if they dismissed the sharing menu. Can't track any of that on Android. 
 
-      //TODO: as soon as this is clicked the app goes to background
+      // On Android, when code is shared to another app it takes you out of Brain Bugs (app state tracker records that the app goes to background) and then you're in the app your sharing to. I don't think it's the same on iOS- need to have Josh test.
     } catch (error) {
       Alert.alert(
         'We were unable to open sharing.',

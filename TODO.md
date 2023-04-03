@@ -36,6 +36,7 @@ For Future
 
 
 Tia: 
+- TODO: have Josh test private gamecode sharing in iOS. What happens after you share to a messaging app? Are you still in Brain Bugs app, or are you fully in the messaging app? 
 - if player leaves game while on waiting room and trivia example, need to cancel game
 - what about private game, leaving the app to give friend the code? 
 - can we keep app going (waiting room screen) while its backgrounded?
