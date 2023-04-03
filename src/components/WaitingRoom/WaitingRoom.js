@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet} from 'react-native'
+import { View, Text, StyleSheet, Share, Alert } from 'react-native'
 import { Redirect } from 'react-router-native';
 import * as Clipboard from 'expo-clipboard';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
@@ -100,12 +100,34 @@ const WaitingRoom = (props) => {
   })
 
   const handleCodeCopy = () => {
-    console.log('in handleCodeCopy:', props.gameCode)
     Clipboard.setStringAsync(props.gameCode);
     setCopied(true)
     setTimeout(() => {
       setCopied(false)
     }, 1500)
+  }
+
+  const handleShareCode = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          `Come play Brain Bugs with me! \nHere's the code to join my game: ${props.gameCode}`,
+      });
+
+      //TODO: as soon as this is clicked the app goes to background
+    } catch (error) {
+      Alert.alert(
+        'We were unable to open sharing.',
+        `Press Copy Code below to save code to Clipboard.`,
+        [
+          {
+            text: 'Copy Code',
+            onPress: () => handleCodeCopy(),
+          },
+        ],
+        { cancelable: false }
+      );
+    }
   }
 
   const redirectGameMakerToLobby = () => {
@@ -239,7 +261,7 @@ const WaitingRoom = (props) => {
             <PixelPressable
               buttonStyle={styles.howToPlayBtn}
               pressableProps={{
-                onPress: handleCodeCopy,
+                onPress: handleShareCode,
               }}
             >
               {copied ? <Text style={styles.alertText}>Copied!</Text> : props.gameCode}
