@@ -1,29 +1,77 @@
 const initialState = {
-  highScore: 0,
-  totalPoints: 0,
+  highScore: {
+    id: 1,
+    label: 'High Score',
+    value: 0,
+  },
+  totalPoints: {
+    id: 2,
+    label: 'Total Points',
+    value: 0,
+  },
   outcomes: {
+    id: 3,
+    label: 'Record',
     win: 0,
     lose: 0,
     tie: 0,
+    value: '0-0-0',
   },
   currentStreak: {
+    id: 4,
+    label: 'Current Streak',
     type: 'win',
     length: 0,
+    value: 'Won last 0 games',
   },
-  longestWinStreak: 0,
+  longestWinStreak: {
+    id: 5,
+    label: 'Longest Win Streak',
+    value: 0,
+  },
+  winningPercentage: {
+    id: 6,
+    label: 'Winning Percentage',
+    value: `${0}%`,
+  },
 };
 
-const handleStreak = ({ currentStreak }, outcome) => {
-  if (currentStreak.type === outcome) {
-    return {
-      type: outcome,
-      length: currentStreak.length + 1
-    };
-  }
+const winningPct = outcomes => {
+  if (!(outcomes.win || outcomes.lose || outcomes.tie)) return 0;
+  return Math.floor(outcomes.win / (outcomes.win + outcomes.lose + outcomes.tie) * 100);
+}
 
+const streakString = currentStreak => {
+  const typeMap = {
+    win: 'Won',
+    lose: 'Lost',
+    tie: 'Tied',
+  };
+
+  return typeMap[currentStreak.type]
+    + ' last'
+    + (currentStreak.length === 1 ? '' : ` ${currentStreak.length}`)
+    + ' game'
+    + (currentStreak.length === 1 ? '' : 's');
+}
+
+const handleStreak = ({ currentStreak }, outcome) => {
+  let updatedStreakNumbers;
+  if (currentStreak.type === outcome) {
+    updatedStreakNumbers = {
+      type: outcome,
+      length: currentStreak.length + 1,
+    }
+  } else {
+    updatedStreakNumbers =  {
+      type: outcome,
+      length: 1,
+    }
+  }
   return {
-    type: outcome,
-    length: 1,
+    ...currentStreak,
+    ...updatedStreakNumbers,
+    value: streakString(updatedStreakNumbers),
   };
 }
 
@@ -34,17 +82,38 @@ export default (state = initialState, action) => {
     const { outcome, score } = payload;
     const newState = { ...state };
   
-    newState.outcomes = {
+    const newOutcomes = {
       ...newState.outcomes,
       [outcome]: newState.outcomes[outcome] + 1,
-    }
+    };
+
+    newState.outcomes = {
+      ...newOutcomes,
+      value: `${newOutcomes.win}-${newOutcomes.lose}-${newOutcomes.tie}`,
+    };
+
+    newState.winningPercentage = {
+      ...newState.winningPercentage,
+      value: `${winningPct(newState.outcomes)}%`,
+    };
   
-    newState.totalPoints += score;
-    newState.highScore = Math.max(newState.highScore, score);
+    newState.totalPoints = {
+      ...newState.totalPoints,
+      value: newState.totalPoints.value += score,
+    };
+
+    newState.highScore = {
+      ...newState.highScore,
+      value: Math.max(newState.highScore.value, score),
+    };
+
     newState.currentStreak = handleStreak(newState, outcome);
 
     if (outcome === 'win') {
-      newState.longestWinStreak = Math.max(newState.longestWinStreak, newState.currentStreak.length);
+      newState.longestWinStreak =  {
+        ...newState.longestWinStreak,
+        value: Math.max(newState.longestWinStreak.value, newState.currentStreak.length)
+      }
     }
 
     return newState;

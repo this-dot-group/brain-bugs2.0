@@ -76,3 +76,21 @@ export const noMoreCategoriesBtns = {
     marginTop: 20
   }
 }
+
+////// STATS BTN WIDTH //////////////
+////// - stats btn ///////
+
+export const statsBtn = {
+  small: {
+    width: 80,
+    height: 40
+  },
+  medium: {
+    width: 90,
+    height: 46
+  },
+  large: {
+    width: 100,
+    height: 46
+  }
+}
