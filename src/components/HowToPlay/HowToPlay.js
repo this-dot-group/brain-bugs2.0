@@ -70,10 +70,10 @@ function HowToPlay(props) {
     
     Alert.alert(
       'Your opponent left!',
-      'Please press UGH to go back to lobby for new game.',
+      'Please go back to lobby for new game.',
       [
         {
-          text: 'UGH',
+          text: 'Lobby',
           onPress: () => handleOpponentLeftResponse(),
         },
       ],

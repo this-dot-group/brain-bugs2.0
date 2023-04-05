@@ -34,7 +34,7 @@ function StartScreen(props) {
       width: '100%',
       height: '100%',
       paddingVertical: 30,
-      paddingHorizontal: 30,
+      paddingHorizontal: 10,
     },
     muteButton: {
       alignSelf: 'flex-end',
