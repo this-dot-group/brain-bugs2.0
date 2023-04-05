@@ -9,10 +9,12 @@ import { newOpponent, newGameCode } from '../../store/userReducer';
 import { newGame } from '../../store/gameInfoReducer';
 import { playSound } from '../../store/soundsReducer'
 import { PixelPressable, MuteButton } from '../Shared'
-import { Buttons, Typography } from '../../styles';
+import { Buttons, Typography, Views } from '../../styles';
+import StatsModal from '../StatsModal/StatsModal';
 
 function StartScreen(props) {
   const [modalVisible, setModalVisible] = useState(null);
+  const [statsVisible, setStatsVisible] = useState(false);
   const [gamesWaiting, setGamesWaiting] = useState([])
   const [roomJoin, setRoomJoin] = useState(false);
 
@@ -33,21 +35,26 @@ function StartScreen(props) {
       alignItems: 'center',
       width: '100%',
       height: '100%',
-      paddingVertical: 30,
-      paddingHorizontal: 10,
-    },
-    muteButton: {
-      alignSelf: 'flex-end',
-      marginBottom: 0,
-      marginTop: 'auto'
+      paddingTop: 10,
+      paddingBottom: 30,
     },
     greeting: {
       ...Typography.headingOneText[screenDeviceWidth],
-      marginBottom: 20,
+      marginTop: 0,
+      marginBottom: 16,
     },
     optionBtns: {
       ...Buttons.listOptionBtns[screenDeviceWidth]
-    }
+    },
+    optionBtnLastChild: {
+      marginBottom: 0,
+    },
+    statsBtn: {
+      ...Buttons.statsBtn[screenDeviceWidth],
+    },
+    bottomNestedRowView: {
+      ...Views.bottomNestedRowView,
+    },
   })
 
   const createGameCode = () => Math.floor(Math.random() * 100000).toString().padStart(5, '0');
@@ -132,7 +139,7 @@ function StartScreen(props) {
       />
 
       <PixelPressable
-        buttonStyle={styles.optionBtns}
+        buttonStyle={{...styles.optionBtns, ...styles.optionBtnLastChild}}
         pressableProps={{ onPress: () => handleModalChange('private') }}
       >Join Private Game</PixelPressable>
       <PrivateGameModal
@@ -143,9 +150,28 @@ function StartScreen(props) {
       {roomJoin &&
         <Redirect to='/howtoplay' />
       }
-      <MuteButton
-        styles={styles.muteButton}
-      />
+
+      <View style={styles.bottomNestedRowView}>
+        <PixelPressable
+            buttonStyle={styles.statsBtn}
+            pressableProps={{
+              onPress: () => {
+                playSound('click')
+                setStatsVisible(true);
+              }
+            }}
+          >Stats</PixelPressable>
+
+          <StatsModal
+            visible={statsVisible}
+            setVisible={setStatsVisible}
+            deviceSize={screenDeviceWidth}
+          />
+
+          <MuteButton
+            styles={styles.muteButton}
+          />
+      </View>
     </View>
   )
 }

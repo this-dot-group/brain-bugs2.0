@@ -15,8 +15,17 @@ Josh:
 - [ ] Animations
  - [ ] Animation on screen transition
 Local Storage
-- [ ] Think about keeping track of player stats
-- [ ] Remember Mute State
+- [x] Think about keeping track of player stats
+- [x] add modal, or something to home screen or somewhere
+- [x] add some styles
+- [x] figure out where to put it - put it on lobby screen
+- maybe could be a drawer for stats, how to play, and mute button
+
+Notes about other games:
+- Check about what happens if you leave the waiting room screen for a private game
+  - This led to a validation error
+- There are apps that let you leave and come back to a game mid game
+- I think that while you are playing a game, it makes sense that you would not leave mid game
 
 New:
 - [ ] 'Submit' button animation - something that smoothly makes it clear that the answer was submitted

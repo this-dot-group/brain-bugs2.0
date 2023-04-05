@@ -4,7 +4,8 @@ import { Redirect } from 'react-router-native'
 import { connect } from 'react-redux';
 import { numQuestions, newCategory, publicOrPrivate, resetQuestions } from '../../store/gameInfoReducer';
 import { newOpponent } from '../../store/userReducer';
-import { playSound } from '../../store/soundsReducer'
+import { playSound } from '../../store/soundsReducer';
+import { updateGame } from '../../store/statsReducer';
 import Chat from '../Chat/Chat';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import Score from './Score';
@@ -28,6 +29,7 @@ function GameEnd({
   fakeOpponentSocket,
   username,
   gameInfo,
+  updateGame,
 }) {
   const [backToLobby, setBackToLobby] = useState(false);
   const [rematchReady, setRematchReady] = useState(false)
@@ -125,6 +127,12 @@ function GameEnd({
       socket.off('opponentLeftRoom', createOpponentLeftRoomAlert);
     }
   }, []);
+
+  useEffect(() => {
+    if (userOutcome && currentUserObj.score !== undefined) {
+      updateGame(userOutcome, currentUserObj.score);
+    }
+  }, [userOutcome, currentUserObj])
 
   // 1. one person clicks button to request rematch, emits the "rematch" event
   // 2. server is emitting to the room (person who did not req rematch) the "rematchInvitation" event
@@ -341,7 +349,8 @@ const mapDispatchToProps = {
   publicOrPrivate,
   resetQuestions,
   newOpponent,
-  playSound
+  playSound,
+  updateGame,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameEnd);
