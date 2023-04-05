@@ -10,6 +10,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
   const [messages, setMessages] = useState([]);
   const [currMessage, setCurrMesssage] = useState('');
   const [showChat, setShowChat] = useState(false);
+  // capturing the time you open the modal, in theory. originally set here but very quickly updated via server event roundtrip (need Date.now() to come from one source of truth, the server, not the individual client)
   const [latestTime, setLatestTime] = useState(Date.now());
 
   const styles = StyleSheet.create({
@@ -96,23 +97,31 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
 
   const { keyboardActive, hideKeyboard } = useKeyboard();
 
-  const unseenMessages = useMemo(() => 
-    showChat ? 0 : messages.filter(({ timeStamp }) => timeStamp > latestTime).length,
-  [messages, showChat, latestTime]);
+  const unseenMessages = showChat ? 0 : messages.filter(({ timeStamp }) => timeStamp > latestTime).length;
 
   const scrollViewRef = useRef();
   const textInputRef = useRef();
 
   useEffect(() => {
+    socket.emit('getFirstLatestTime', socket.id);
+    socket.on('setFirstLatestTime', latestTimeHandler);
     socket.on('newMessage', messageHandler);
 
     return () => {
+      socket.off('setFirstLatestTime', latestTimeHandler);
       socket.off('newMessage', messageHandler);
     }
   }, [])
+
+  const latestTimeHandler = latestTimeObj => {
+    if(socket.id in latestTimeObj) {
+      setLatestTime(latestTimeObj[socket.id])
+    }
+  }
   
-  const messageHandler = updatedMessages => {
-    setMessages(updatedMessages);
+  const messageHandler = updatedChatObj => {
+    setLatestTime(updatedChatObj.latestTime[socket.id])
+    setMessages(updatedChatObj.messages);
   }
 
   const sendMessage = () => {
@@ -125,7 +134,8 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
 
   const hideModal = () => {
     setShowChat(false);
-    setLatestTime(Date.now())
+    setLatestTime(Date.now());
+    socket.emit('setUserLatestTime', socket.id);
   }
   
   const showModal = () => setShowChat(true);

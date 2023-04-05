@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet} from 'react-native'
+import { View, Text, StyleSheet, Share, Alert } from 'react-native'
 import { Redirect } from 'react-router-native';
 import * as Clipboard from 'expo-clipboard';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
@@ -7,12 +7,14 @@ import { newOpponent, resetUserGameToken } from '../../store/userReducer'
 import { getQuestions } from '../../store/gameInfoReducer'
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer'
 import { connect } from 'react-redux';
-import * as Notifications from 'expo-notifications';
-
+import Countdown from '../Countdown/Countdown';
 import { Typography, Views, Buttons } from '../../styles';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
 import { Spinner, PixelPressable, MuteButton } from '../Shared';
+import { EXPO_LOCAL_URL } from '../../../env'
+import axios from 'axios';
+
 
 const WaitingRoom = (props) => {
 
@@ -22,6 +24,14 @@ const WaitingRoom = (props) => {
   const [showNoMoreQuestionsOptions, setShowNoMoreQuestionsOptions] = useState(false);
   const [copied, setCopied] = useState(false);
   const [token, setToken] = useState('');
+  const [waitingRoomTriviaObjs, setWaitingRoomTriviaObjs] = useState(undefined)
+  const [showRandomTrivia, setShowRandomTrivia] = useState(false);
+  const [showRandomTriviaAnswer, setShowRandomTriviaAnswer] = useState(false);
+  const [seconds, setSeconds] = useState(5000);
+  const [showCountdown, setShowCountdown] = useState(false);
+  const [goCountdown, setGoCountdown] = useState(false);
+  const [triviaQuestionIndex, setTriviaQuestionIndex] = useState(0);
+
 
   const { screenDeviceWidth } = props;
 
@@ -90,7 +100,6 @@ const WaitingRoom = (props) => {
   })
 
   const handleCodeCopy = () => {
-    console.log('in handleCodeCopy:', props.gameCode)
     Clipboard.setStringAsync(props.gameCode);
     setCopied(true)
     setTimeout(() => {
@@ -98,21 +107,36 @@ const WaitingRoom = (props) => {
     }, 1500)
   }
 
-  const handleNotificationResponse = response => {
-    // response.notification.request.content.data has the relevant info sent from two person event
-    // { gameCode, gameMaker, gameJoiner}
-    props.socket.emit('joinTwoPlayerViaPushNotification', response.notification.request.content.data)
-  };
+  const handleShareCode = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          `Come play Brain Bugs with me! \nHere's the code to join my game: ${props.gameCode}`,
+      });
+      // On iOS you can track if the user actually shared it and where they shared it, or if they dismissed the sharing menu. Can't track any of that on Android. 
+
+      // On Android, when code is shared to another app it takes you out of Brain Bugs (app state tracker records that the app goes to background) and then you're in the app your sharing to. I don't think it's the same on iOS- need to have Josh test.
+    } catch (error) {
+      Alert.alert(
+        'We were unable to open sharing.',
+        `Press Copy Code below to save code to Clipboard.`,
+        [
+          {
+            text: 'Copy Code',
+            onPress: () => handleCodeCopy(),
+          },
+        ],
+        { cancelable: false }
+      );
+    }
+  }
 
   const redirectGameMakerToLobby = () => {
-    // ok to do without an alert since this only occurs if gameMaker has the app backgrounded and their push token was invalid so they werent able to get push notification
     setBackToLobby(true);
   };
 
   const cancelGame = () => {
-
     props.socket.emit('cancelGame');
-
     setBackToLobby(true);
   }
 
@@ -136,16 +160,45 @@ const WaitingRoom = (props) => {
 
     setToken(tokenToUse);
 
-    // don't need this anymore because it only ran when push notification was interacted with while the app is in foreground, but at this point we aren't sending a notification when app is foregrounded, we're just dropping them into game
-    // Notifications.addNotificationReceivedListener(handleNotification);
-    
-    Notifications.addNotificationResponseReceivedListener(handleNotificationResponse);
-
     (async () => {
       await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions, tokenToUse, handleNoQuestions, screenDeviceWidth);
+
+      try {
+        const waitingRoomTriviaReq = await axios.get(`http://${EXPO_LOCAL_URL}:3000/waitingRoomTrivia`);
+        setWaitingRoomTriviaObjs(waitingRoomTriviaReq.data)
+        setTimeout(() => {
+          setShowRandomTrivia(true);
+          setShowCountdown(true);
+          setGoCountdown(true);
+        }, 2000)
+      } catch (e) {
+        // this state will just continue to show the loading circle
+        console.error('ERROR IN WAITING ROOM TRIVIA:', e);
+      }
+
     })()
 
   }, [])
+
+  useEffect(() => {
+    if(seconds === 0) {
+      setGoCountdown(false);
+      setShowCountdown(false);
+      setShowRandomTriviaAnswer(true);
+      setTimeout(() => {
+        if(triviaQuestionIndex < 19) {
+          setShowRandomTriviaAnswer(false);
+          setTriviaQuestionIndex(triviaQuestionIndex + 1) 
+          setSeconds(5000);
+          setShowCountdown(true);  
+          setGoCountdown(true);
+        } else {
+          setWaitingRoomTriviaObjs(undefined)
+        }
+      }, 3000)   
+
+    }
+  }, [seconds]);
   
   useEffect(() => {
     props.fullGameInfo.userName = props.userName;
@@ -160,7 +213,6 @@ const WaitingRoom = (props) => {
 
     if(props.fullGameInfo.liveGameQuestions) {
       props.socket.emit('newGame', {...props.fullGameInfo, token })
-
       props.socket.emit('appStateUpdate', appStateGameCode)
     }
 
@@ -210,10 +262,10 @@ const WaitingRoom = (props) => {
             <PixelPressable
               buttonStyle={styles.howToPlayBtn}
               pressableProps={{
-                onPress: handleCodeCopy,
+                onPress: handleShareCode,
               }}
             >
-              {copied ? <Text style={styles.alertText}>Copied!</Text> : props.gameCode}
+              {copied ? <Text style={styles.alertText}>Copied!</Text> : `Code: ${props.gameCode}`}
             </PixelPressable>
           )}
         </View>
@@ -221,15 +273,48 @@ const WaitingRoom = (props) => {
         {props.publicOrPrivate === 'private' &&
           <>
             <Text style={styles.privateWaitingText}>
-              Give the game code to your opponent! Click to copy. Game will start when other player joins.
+              Give the game code to your opponent! Click code button to share. Game will start when other player joins.
             </Text>
           </>
         }
 
-        {props.publicOrPrivate !== 'private' && !showNoMoreQuestionsOptions && (
+        {props.publicOrPrivate !== 'private' && !showNoMoreQuestionsOptions && !waitingRoomTriviaObjs && (
           <>
             <Text style={styles.waitingText}>Waiting for 1 more player...</Text> 
             <Spinner />
+          </>
+        )
+        }
+
+        {props.publicOrPrivate !== 'private' && 
+        !showNoMoreQuestionsOptions && 
+        waitingRoomTriviaObjs && 
+        !showRandomTrivia && (
+          <>
+            <Text style={styles.alertText}>Some trivia while you wait!</Text>
+            <Text style={styles.alertText}>...</Text>
+          </>
+        )
+        }
+
+        {props.publicOrPrivate !== 'private' && 
+        !showNoMoreQuestionsOptions && 
+        waitingRoomTriviaObjs && 
+        showRandomTrivia && (
+          <>
+            <Text style={styles.normalText}>{waitingRoomTriviaObjs[triviaQuestionIndex].question}</Text>
+            {showCountdown && (
+              <Countdown
+                deviceWidth={screenDeviceWidth}
+                seconds={seconds}
+                setSeconds={setSeconds}
+                style={{ color: 'red' }}
+                go={goCountdown}
+                setGo={setGoCountdown}
+              /> 
+            )}
+            {showRandomTriviaAnswer && !showCountdown && <Text style={styles.normalText}>{waitingRoomTriviaObjs[triviaQuestionIndex].answer}</Text>}
+            
           </>
         )
         }

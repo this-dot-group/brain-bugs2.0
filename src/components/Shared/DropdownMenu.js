@@ -24,7 +24,7 @@ function DropdownMenu(props) {
       textAlign: 'left',
     },
     labelText: {
-      ...Typography.innerText[screenDeviceWidth],
+      ...Typography.dropdownInnerText[screenDeviceWidth],
       textAlign: 'left'
     },
     selectedItemText: {

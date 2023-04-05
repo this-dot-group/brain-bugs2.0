@@ -6,8 +6,9 @@ export default (state = {}, action) => {
   const { type, payload } = action;
 
   switch (type) {
-  case 'PUSH_NOTIFICATION_TOKEN':
-    return {...state, pushNotificationUserToken: payload}
+
+  case 'NEW_USER':
+    return { ...state, username: payload };
   case 'NEW_GAME_CODE':
     return { ...state, gameCode: payload };
   case 'NEW_OPPONENT':
@@ -36,13 +37,6 @@ export const newUsername = (username) => {
   return {
     type: 'NEW_USER',
     payload: username,
-  };
-};
-
-export const pushNotificationToken = answer => {
-  return {
-    type: 'PUSH_NOTIFICATION_TOKEN',
-    payload: answer,
   };
 };
 

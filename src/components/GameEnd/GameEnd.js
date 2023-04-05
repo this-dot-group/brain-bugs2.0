@@ -158,7 +158,7 @@ function GameEnd({
       `Your opponent ${opponent} declined your rematch request.`,
       [
         {
-          text: 'Back to Lobby',
+          text: 'Lobby',
           onPress: () => setBackToLobby(true),
         },
       ],
@@ -174,7 +174,7 @@ function GameEnd({
         'Rematch and chat no longer enabled.',
         [
           {
-            text: 'Got it',
+            text: 'Ok',
             onPress: () => setOpponentLeftRoom(true),
           },
         ],
@@ -313,7 +313,7 @@ function GameEnd({
           pressableProps={{
             onPress: leaveRoomAndGoToLobby
           }}
-        >Back to Lobby</PixelPressable>
+        >Lobby</PixelPressable>
 
         {!opponentLeftRoom && numPlayers === 2 &&
           <Chat

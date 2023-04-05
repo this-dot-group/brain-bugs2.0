@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Text, StyleSheet } from 'react-native'
+import React from 'react'
+import { Text, StyleSheet, Dimensions } from 'react-native'
 import { Redirect } from 'react-router-native'
 import { newOpponent } from '../../../store/userReducer';
 import { connect } from 'react-redux';
@@ -8,7 +8,7 @@ import { Typography } from '../../../styles';
 
 function JoinGame(props) {
 
-  const [ redirectToWaitingRoom2, setRedirectToWaitingRoom2 ] = useState(false)
+  const { width } = Dimensions.get('window');  
 
   const styles = StyleSheet.create({
     innerText: {
@@ -20,11 +20,7 @@ function JoinGame(props) {
   });
 
   const handleJoinTwoPlayer = gameObj => {
-    props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username, gameObj.gameMakerPushToken]);
-
-    if(gameObj.gameMakerPushToken !== null){
-      setRedirectToWaitingRoom2(true);
-    }
+    props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username]);
   }
 
   return (
@@ -41,7 +37,7 @@ function JoinGame(props) {
       {props.gamesWaiting.map((gameObj, i) =>
         <PixelPressable
           key={i}
-          buttonStyle={{ width: 500, marginLeft: 'auto', marginRight: 'auto' }}
+          buttonStyle={{ width: width-140, marginLeft: 'auto', marginRight: 'auto' }}
           pressableProps={{ onPress: () => handleJoinTwoPlayer(gameObj) }}
         >
           <Text style={styles.smallInnerText}>
@@ -54,7 +50,6 @@ function JoinGame(props) {
         <Text style={styles.innerText}>No available games yet...</Text>
       }
 
-      {redirectToWaitingRoom2 && <Redirect to='/waitingroom2' />}
     </GenericModal>
   )
 }

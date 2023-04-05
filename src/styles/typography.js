@@ -34,11 +34,11 @@ export const headingOneText = {
   },
   medium: {
     ...headingTextBase,
-    fontSize: 60  
+    fontSize: 55  
   },
   large: {
     ...headingTextBase,
-    fontSize: 70  
+    fontSize: 60  
   }
 }
 
@@ -101,6 +101,31 @@ export const innerText = {
   },
   large: {
     ...innerTextBase,
+    fontSize: 24
+  }
+}
+
+////// DROPDOWN INNER LABEL TEXT 
+////// - start game
+
+const dropdownInnerTextBase = {
+  fontFamily: 'DotGothic',
+  marginTop: 'auto',
+  marginBottom: 'auto',
+  textAlign: 'center'
+}
+
+export const dropdownInnerText = {
+  small: {
+    ...dropdownInnerTextBase,
+    fontSize: 18
+  },
+  medium: {
+    ...dropdownInnerTextBase,
+    fontSize: 20
+  },
+  large: {
+    ...dropdownInnerTextBase,
     fontSize: 24
   }
 }
