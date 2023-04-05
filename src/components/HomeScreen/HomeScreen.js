@@ -96,10 +96,7 @@ function Homescreen(props) {
     },
     // wraps how to play modal row
     bottomNestedRowView: {
-      flexDirection: 'row',
-      width: '90%',
-      alignItems: 'center',
-      justifyContent: 'space-between',
+      ...Views.bottomNestedRowView,
     },
   })
 

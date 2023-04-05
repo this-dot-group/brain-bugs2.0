@@ -46,4 +46,10 @@ export const homeScreenContainer = {
   position: 'relative'
 }
 
+export const bottomNestedRowView = {
+  flexDirection: 'row',
+  width: '90%',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+}
 

@@ -8,11 +8,12 @@ import socketReducer from './socketReducer.js';
 import gameInfoReducer from './gameInfoReducer.js';
 import fakeOpponentSocketReducer from './fakeOpponentSocketReducer'
 import soundsReducer, { isMuted } from './soundsReducer';
+import statsReducer from './statsReducer';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['isMuted', 'username']
+  whitelist: ['isMuted', 'username', 'statsReducer'],
 }
 
 let reducers = combineReducers({
@@ -23,6 +24,7 @@ let reducers = combineReducers({
   fakeOpponentSocketReducer,
   soundsReducer,
   isMuted,
+  statsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers)
