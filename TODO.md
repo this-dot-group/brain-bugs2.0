@@ -36,25 +36,25 @@ For Future
 
 
 Tia: 
-- TODO: have Josh test private gamecode sharing in iOS. What happens after you share to a messaging app? Are you still in Brain Bugs app, or are you fully in the messaging app? 
+- [x] Added sharing to private game code situation
+  - TODO: have Josh test private gamecode sharing in iOS. What happens after you share to a messaging app? Are you still in Brain Bugs app, or are you fully in the messaging app? (is the sharing menu just an overlay over brain bugs app)
   - on Android I only ever see the appState: background event, which means app is still running in background. should be on same page when user returns to the app after sharing the code. 
+  - look into how to keep app running in background if not the case
 
-- if player leaves game while on waiting room and trivia example, need to cancel game
-- what about private game, leaving the app to give friend the code? 
-- can we keep app going (waiting room screen) while its backgrounded?
-- look into two player time based apps to see how they handle this
-- checking at end of countdown screen to make sure both players are active (foregrounded) in app before going to start game
+- [ ] if player leaves game while on waiting room and trivia example, need to cancel game
+- [ ] checking at end of countdown screen to make sure both players are active (foregrounded) in app before going to start game
   - private game scenario where player has left app to give code to friend, doesnt come back to app immediately, opponent joins game, player 1 would need to get back to app before end of countdown screen in order to keep game
-- are there alternatives to push notifications? "local notifications"?
+
+- [x] are there alternatives to push notifications? "local notifications"?
   - documentation references local notifications and so do many tech articles, but there is zero actual info about implementation. i think its an old carryover and expo doesnt support it anymore? seemed a dead-end. 
 
-- [ ] look into chat new message red alert not showing up on android (check updated comments/notes in Chat)
+- [x] look into chat new message red alert not showing up on android (check updated comments/notes in Chat)
   - latestTime was off! Date.now() uses system date/time for calculation and my computer time was a little different than phone time
   - needed to get Date.now() from one source of truth so it's always coming from server now
 
 - [ ] Sizing
- - [ ] 'Back To Lobby' Button on end screen doesn't fit in button
- - [ ] In smallest size sim, the top row on game screen maybe doesn't fit 
+ - [x] 'Back To Lobby' Button on end screen doesn't fit in button
+ - [ ] In smallest size sim, the top row on game screen maybe doesn't fit. maybe make a new xs size? only one is the xs iPhone SE 1st gen, all other devices small devices are fine
 
 
  Ideas
