@@ -6,30 +6,20 @@
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 Josh:  
-- look into two player time based apps to see how they handle leaving the app while game is in process
-- push notification / local notification discussion
 - [ ] Manual testing for bugs, possible issues with component mounting
 - [ ] Revisit Colors
-- [ ] Keep an eye out for red dot bug on chat
-
 - [ ] Animations
  - [ ] Animation on screen transition
-Local Storage
-- [x] Think about keeping track of player stats
-- [x] add modal, or something to home screen or somewhere
-- [x] add some styles
-- [x] figure out where to put it - put it on lobby screen
-- maybe could be a drawer for stats, how to play, and mute button
-
-Notes about other games:
-- Check about what happens if you leave the waiting room screen for a private game
-  - This led to a validation error
-- There are apps that let you leave and come back to a game mid game
-- I think that while you are playing a game, it makes sense that you would not leave mid game
-
-New:
+- [ ] maybe could be a drawer for stats, how to play, and mute button
 - [ ] 'Submit' button animation - something that smoothly makes it clear that the answer was submitted
-- [ ] Does not always stay in landscape for me, especially at beginning
+- Maybe look into potential bug:
+  - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
+
+
+
+Tia: 
+- [ ] Look into if there's a way to force Android to stay in-app when you share private game code
+- [ ] Implement a check to make sure both players are appState = active before game starts
 
 
 For Future
@@ -42,41 +32,12 @@ For Future
    - hourglass gif
    - Emoji.js
   - Clean Up GameScreen code
-
-
-Tia: 
-- [x] Added sharing to private game code situation
-  - TODO: have Josh test private gamecode sharing in iOS. What happens after you share to a messaging app? Are you still in Brain Bugs app, or are you fully in the messaging app? (is the sharing menu just an overlay over brain bugs app)
-  - on Android I only ever see the appState: background event, which means app is still running in background. should be on same page when user returns to the app after sharing the code. 
-  - look into how to keep app running in background if not the case
-
-- [ ] if player leaves game while on waiting room and trivia example, need to cancel game
-- [ ] checking at end of countdown screen to make sure both players are active (foregrounded) in app before going to start game
-  - private game scenario where player has left app to give code to friend, doesnt come back to app immediately, opponent joins game, player 1 would need to get back to app before end of countdown screen in order to keep game
-
-- [x] are there alternatives to push notifications? "local notifications"?
-  - documentation references local notifications and so do many tech articles, but there is zero actual info about implementation. i think its an old carryover and expo doesnt support it anymore? seemed a dead-end. 
-
-- [x] look into chat new message red alert not showing up on android (check updated comments/notes in Chat)
-  - latestTime was off! Date.now() uses system date/time for calculation and my computer time was a little different than phone time
-  - needed to get Date.now() from one source of truth so it's always coming from server now
-
-- [ ] Sizing
- - [x] 'Back To Lobby' Button on end screen doesn't fit in button
- - [ ] In smallest size sim, the top row on game screen maybe doesn't fit. maybe make a new xs size? only one is the xs iPhone SE 1st gen, all other devices small devices are fine
-
-
- Ideas
-- [ ] need to revisit push notifications, read through code and figure out where the leaks are. how to handle no response to push notification, what does that look like for gameMaker who is waiting? revisit push notification permissions.
-- [ ] Add how many questions were answered correctly for each player on end screen
-- [ ] Add user stats button (high score, game record, number games player, etc)
  
 
 ## Possible bugs
 - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
 - App seems to load in portrait before switching to landscape, looks glitchy
  - Maybe this is caused by expo go
- - If a private game is cancelled after other player has already entered code but not pressed go, it appears that the game is still there
 
 
 ## Code / Fit & finish
