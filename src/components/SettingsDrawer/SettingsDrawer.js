@@ -6,8 +6,6 @@ import HowToPlayModal from '../HowToPlayModal/HowToPlayModal';
 import { playSound } from '../../store/soundsReducer';
 import { connect } from 'react-redux';
 import { Buttons } from '../../styles'
-// TODO remove the other buttons where the drawer is dropped and add to other screens
-
 
 const SettingsDrawer = ({ screenDeviceWidth, playSound }) => {
   if (!screenDeviceWidth) return <></>;
@@ -31,13 +29,13 @@ const SettingsDrawer = ({ screenDeviceWidth, playSound }) => {
       alignItems: 'center',
       width: '100%',
       paddingRight: 6,
-      paddingLeft: 4,
     },
     innerButtons: {
       flexDirection: 'row',
       justifyContent: 'flex-end',
     },
     innerButton: {
+      fontSize: 90,
       padding: 8,
     }
   });
@@ -46,7 +44,7 @@ const SettingsDrawer = ({ screenDeviceWidth, playSound }) => {
   const [statsVisible, setStatsVisible] = useState(false);
   const [howToPlayVisibile, setHowToPlayVisible] = useState(false);
 
-  const rightTranslate = Buttons.settingsDrawer[screenDeviceWidth].width - 20;
+  const rightTranslate = Buttons.settingsDrawer[screenDeviceWidth].width - 40;
   const translateXVal = useRef(new Animated.Value(rightTranslate)).current;
 
   const translateAnim = (toValue) => () => {
@@ -100,6 +98,7 @@ const SettingsDrawer = ({ screenDeviceWidth, playSound }) => {
               isToggled={open}
               untoggledText={'⚙️'}
               toggledText={'❌'}
+              styles={styles.innerButton}
             />
             <View style={styles.innerButtons}>
               <ToggleButton

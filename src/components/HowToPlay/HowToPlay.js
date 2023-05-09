@@ -3,25 +3,24 @@ import { View, Text, StyleSheet, Alert, AppState } from 'react-native'
 import { Redirect } from 'react-router-native';
 import { connect } from 'react-redux'
 import Countdown from '../Countdown/Countdown'
-import HowToPlayModal from '../HowToPlayModal/HowToPlayModal';
-import { Spinner, PixelPressable, MuteButton } from '../Shared';
+import { Spinner, PixelPressable } from '../Shared';
 import { START_COUNTDOWN } from '../../../config';
 import { playSound } from '../../store/soundsReducer';
 import AppStateTracker from '../AppState/AppStateTracker';
-import { Buttons, Views, Typography } from '../../styles/';
+import { Buttons, Typography } from '../../styles/';
+import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 
 function HowToPlay(props) {
   const [seconds, setSeconds] = useState(START_COUNTDOWN * 1000);
-  const [modalVisible, setModalVisible] = useState(false);
   const [goCountdown, setGoCountdown] = useState(true);
   const [goToGame, setGoToGame] = useState(false);
   const [backToLobby, setBackToLobby] = useState(false);
 
-  const { username, opponent, playSound, socket, gameCode, screenDeviceWidth } = props;
+  const { username, opponent, socket, gameCode, screenDeviceWidth } = props;
 
   const styles = StyleSheet.create({
     root: {
-      justifyContent: 'space-between',
+      justifyContent: 'flex-start',
       width: '100%',
       height: '100%'
     },
@@ -31,14 +30,6 @@ function HowToPlay(props) {
     },
     body: {
       alignItems: 'center',
-    },
-    bottomRow: {
-      paddingHorizontal: 50,
-      paddingBottom: 30,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      width: '100%'
     },
     howToPlayBtn: {
       ...Buttons.howToPlayBtn[screenDeviceWidth]
@@ -54,9 +45,6 @@ function HowToPlay(props) {
       ...Typography.smallInnerText[screenDeviceWidth],
       color: 'red'
     },
-    modalView: {
-      ...Views.modalView,
-    }
   })
 
   const handleOpponentLeftResponse = () => {
@@ -84,11 +72,6 @@ function HowToPlay(props) {
   const handleQuit = () => {
     socket.emit('leaveRoom');
     setBackToLobby(true);
-  }
-
-  const handleHowToPlay = () => {
-    playSound('click');
-    setModalVisible(true);
   }
 
   useEffect(() => {
@@ -145,21 +128,7 @@ function HowToPlay(props) {
           </Spinner>
         </View>
 
-        <View style={styles.bottomRow}>
-          <PixelPressable
-            buttonStyle={styles.howToPlayBtn}
-            pressableProps={{ onPress: handleHowToPlay }}
-          >How To Play</PixelPressable>
-
-          <HowToPlayModal
-            visible={modalVisible}
-            setVisible={setModalVisible}
-            deviceSize={screenDeviceWidth}
-          />
-
-          <MuteButton />
-
-        </View>
+        <SettingsDrawer />
       </View>
     </>
   )

@@ -8,13 +8,12 @@ import StartGameModal from './Modals/StartGame';
 import { newOpponent, newGameCode } from '../../store/userReducer';
 import { newGame } from '../../store/gameInfoReducer';
 import { playSound } from '../../store/soundsReducer'
-import { PixelPressable, MuteButton } from '../Shared'
-import { Buttons, Typography, Views } from '../../styles';
-import StatsModal from '../StatsModal/StatsModal';
+import { PixelPressable } from '../Shared'
+import { Buttons, Typography } from '../../styles';
+import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 
 function StartScreen(props) {
   const [modalVisible, setModalVisible] = useState(null);
-  const [statsVisible, setStatsVisible] = useState(false);
   const [gamesWaiting, setGamesWaiting] = useState([])
   const [roomJoin, setRoomJoin] = useState(false);
 
@@ -48,12 +47,6 @@ function StartScreen(props) {
     },
     optionBtnLastChild: {
       marginBottom: 0,
-    },
-    statsBtn: {
-      ...Buttons.statsBtn[screenDeviceWidth],
-    },
-    bottomNestedRowView: {
-      ...Views.bottomNestedRowView,
     },
   })
 
@@ -151,27 +144,7 @@ function StartScreen(props) {
         <Redirect to='/howtoplay' />
       }
 
-      <View style={styles.bottomNestedRowView}>
-        <PixelPressable
-            buttonStyle={styles.statsBtn}
-            pressableProps={{
-              onPress: () => {
-                playSound('click')
-                setStatsVisible(true);
-              }
-            }}
-          >Stats</PixelPressable>
-
-          <StatsModal
-            visible={statsVisible}
-            setVisible={setStatsVisible}
-            deviceSize={screenDeviceWidth}
-          />
-
-          <MuteButton
-            styles={styles.muteButton}
-          />
-      </View>
+      <SettingsDrawer />
     </View>
   )
 }

@@ -1,17 +1,16 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { View, TextInput, StyleSheet, Modal, Dimensions } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, TextInput, StyleSheet, Dimensions } from 'react-native'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-native';
 import socketIO from 'socket.io-client';
 
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
-import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import AnimatedLogo from './AnimatedLogo';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
-import { PixelButton, KeyboardAvoidingComponent, PixelPressable, MuteButton } from '../Shared';
+import { PixelButton, KeyboardAvoidingComponent, PixelPressable } from '../Shared';
 import Overlay from '../Shared/Overlay'
 
-import { Buttons, Views, Typography, Images } from '../../styles/';
+import { Views, Typography, Images } from '../../styles/';
 
 import { useKeyboard } from '../../hooks';
 
@@ -38,7 +37,6 @@ function Homescreen(props) {
     username,
   } = props;
 
-  const [modalVisible, setModalVisible] = useState(false)
   const [validUsername, setValidUsername] = useState(!!username);
   const [formUsername, setFormUsername] = useState(username || '')
   const [toLobby, setToLobby] = useState(false);
@@ -78,12 +76,6 @@ function Homescreen(props) {
     input: {
       ...Typography.inputText[screenDeviceWidth]
     },
-    howToPlayBtn: {
-      ...Buttons.howToPlayBtn[screenDeviceWidth]
-    },
-    goBtn: {
-
-    },
     logoTextRowView: {
       flexDirection: 'column',
       alignItems: 'center',
@@ -94,10 +86,6 @@ function Homescreen(props) {
     inputNestedRowView: {
       flexDirection: 'row',
       alignItems: 'center',
-    },
-    // wraps how to play modal row
-    bottomNestedRowView: {
-      ...Views.bottomNestedRowView,
     },
   })
 
@@ -173,29 +161,6 @@ function Homescreen(props) {
             >Go!</PixelPressable>
           </View>
         </KeyboardAvoidingComponent>
-      </View>
-      
-      <View style={styles.bottomNestedRowView}>
-        <PixelPressable
-          buttonStyle={styles.howToPlayBtn}
-          pressableProps={{
-            onPress: () => {
-              playSound('click')
-              setModalVisible(true);
-            }
-          }}
-        >How To Play</PixelPressable>
-
-        <HowToPlayModal
-          visible={modalVisible}
-          setVisible={setModalVisible}
-          deviceSize={screenDeviceWidth}
-        />
-
-        <View>
-          <MuteButton/>
-        </View>
-     
       </View>
 
       {toLobby && <Redirect to='/lobby' />}

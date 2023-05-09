@@ -2,23 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Share, Alert } from 'react-native'
 import { Redirect } from 'react-router-native';
 import * as Clipboard from 'expo-clipboard';
-import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import { newOpponent, resetUserGameToken } from '../../store/userReducer'
 import { getQuestions } from '../../store/gameInfoReducer'
 import { newFakeOpponent } from '../../store/fakeOpponentSocketReducer'
 import { connect } from 'react-redux';
 import Countdown from '../Countdown/Countdown';
-import { Typography, Views, Buttons } from '../../styles';
+import { Typography, Buttons } from '../../styles';
 import AppStateTracker from '../AppState/AppStateTracker.js';
 import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
-import { Spinner, PixelPressable, MuteButton } from '../Shared';
+import { Spinner, PixelPressable } from '../Shared';
 import { EXPO_LOCAL_URL } from '../../../env'
 import axios from 'axios';
+import SettingsDrawer from '../SettingsDrawer/SettingsDrawer.js';
 
 
 const WaitingRoom = (props) => {
-
-  const [modalVisible, setModalVisible] = useState(false)
   const [roomJoin, setRoomJoin] = useState(false)
   const [backToLobby, setBackToLobby] = useState(false);
   const [showNoMoreQuestionsOptions, setShowNoMoreQuestionsOptions] = useState(false);
@@ -51,11 +49,6 @@ const WaitingRoom = (props) => {
       justifyContent: 'space-between',
       width: '100%',
     },
-    bottomRowView: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      width: '100%',
-    },
     noMoreCategoriesView: {
       flexDirection: 'column',
       width: '100%',
@@ -78,9 +71,6 @@ const WaitingRoom = (props) => {
     },
     normalText: {
       ...Typography.normalText[screenDeviceWidth]
-    },
-    modalView: {
-      ...Views.modalView,
     },
     howToPlayBtn: {
       ...Buttons.howToPlayBtn[screenDeviceWidth]
@@ -339,31 +329,11 @@ const WaitingRoom = (props) => {
           </View>
         }
 
-        <View style={styles.bottomRowView}>
-          {!showNoMoreQuestionsOptions && (
-            <PixelPressable
-              buttonStyle={styles.howToPlayBtn}
-              pressableProps={{ onPress: () => setModalVisible(true) }}
-            >
-              How To Play
-            </PixelPressable>
-          )}
-  
-          <View style={{marginTop: 'auto', marginBottom: 'auto'}}>
-            <MuteButton />
-          </View>
-        
-        </View>
-
-        <HowToPlayModal 
-          visible={modalVisible}
-          setVisible={setModalVisible}
-          deviceSize={screenDeviceWidth}
-        />
-
         {backToLobby && <Redirect to='/lobby' />}
         
         {roomJoin && <Redirect to='/howtoplay' />}
+
+        <SettingsDrawer />
 
       </View>
     )

@@ -100,15 +100,15 @@ export const statsBtn = {
 
 export const settingsDrawer = {
   small: {
-    width: 120,
-    height: 40
+    width: 140,
+    height: 45
   },
   medium: {
-    width: 160,
-    height: 46
+    width: 180,
+    height: 50
   },
   large: {
-    width: 170,
-    height: 46
+    width: 190,
+    height: 50
   }
 }

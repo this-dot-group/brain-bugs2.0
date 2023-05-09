@@ -49,6 +49,7 @@ function ToggleButton({ toggle, isToggled, styles, untoggledText, toggledText })
         onPressIn={shrink}
         onPressOut={grow}
         style={btnStyles.pressable}
+        hitSlop={10}
       >
         <Hider show={isToggled} style={btnStyles.button}>
           <Text>{toggledText}</Text>
