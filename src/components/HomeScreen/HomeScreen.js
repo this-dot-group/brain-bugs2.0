@@ -7,6 +7,7 @@ import socketIO from 'socket.io-client';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal.js';
 import AnimatedLogo from './AnimatedLogo';
+import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import { PixelButton, KeyboardAvoidingComponent, PixelPressable, MuteButton } from '../Shared';
 import Overlay from '../Shared/Overlay'
 
@@ -198,6 +199,7 @@ function Homescreen(props) {
       </View>
 
       {toLobby && <Redirect to='/lobby' />}
+      <SettingsDrawer />
       
     </View>
   )
