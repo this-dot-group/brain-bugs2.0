@@ -94,3 +94,21 @@ export const statsBtn = {
     height: 46
   }
 }
+
+////// SETTINGS DRAWER //////////////
+//////  settings drawer- ///////
+
+export const settingsDrawer = {
+  small: {
+    width: 140,
+    height: 45
+  },
+  medium: {
+    width: 180,
+    height: 50
+  },
+  large: {
+    width: 190,
+    height: 50
+  }
+}
