@@ -1,6 +1,5 @@
-import React from 'react'
-import { Text, StyleSheet, Dimensions } from 'react-native'
-import { Redirect } from 'react-router-native'
+import React, {useEffect} from 'react'
+import { Text, StyleSheet, Dimensions, Alert } from 'react-native'
 import { newOpponent } from '../../../store/userReducer';
 import { connect } from 'react-redux';
 import { GenericModal, PixelPressable, TitleBar } from '../../Shared';
@@ -18,6 +17,27 @@ function JoinGame(props) {
       ...Typography.smallInnerText[props.screenDeviceWidth]
     }
   });
+
+  useEffect(() => {
+    props.socket.on('couldNotJoinPlayers', alertGameJoinerCantJoin)
+    return () => {
+      props.socket.off('couldNotJoinPlayers', alertGameJoinerCantJoin)
+    }
+  }, [])
+
+  const alertGameJoinerCantJoin = () => {
+    props.socket.emit('refreshAvailableGameList')
+    Alert.alert(
+      'We are sorry, this game could not be joined.',
+      'The game creator is unavailable. Please choose another game!',
+      [
+        {
+          text: 'OK',
+        },
+      ],
+      { cancelable: true }
+    );
+  };
 
   const handleJoinTwoPlayer = gameObj => {
     props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username]);
