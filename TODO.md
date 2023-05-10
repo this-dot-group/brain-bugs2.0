@@ -8,9 +8,8 @@
 Josh:  
 - [ ] Manual testing for bugs, possible issues with component mounting
 - [ ] Revisit Colors
-- [ ] Animations
- - [ ] Animation on screen transition
-- [ ] maybe could be a drawer for stats, how to play, and mute button
+- [ ] add the drawer to the end screen
+- [ ] look into error boundary
 - [ ] 'Submit' button animation - something that smoothly makes it clear that the answer was submitted
 - Maybe look into potential bug:
   - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
@@ -18,11 +17,10 @@ Josh:
 
 
 Tia: 
-- [x] Changed declining rematch behavior to just hide buttons, not send both users back to lobby
-- [x] Look into if there's a way to force Android to stay in-app when you share private game code
-- [x] Implement a check to make sure both players are appState = active before game starts
-- [x] Handle backgrounding on game end screen
-
+- [ ] Revisit Colors
+- [ ] Animation on screen transition
+- [ ] App seems to load in portrait before switching to landscape, looks glitchy
+  - Maybe this is caused by expo go
 
 For Future
 - code improvements
@@ -37,10 +35,6 @@ For Future
  
 
 ## Possible bugs
-- Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
-- App seems to load in portrait before switching to landscape, looks glitchy
- - Maybe this is caused by expo go
-
 
 ## Code / Fit & finish
 - clean up package.json unused dependencies
