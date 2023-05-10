@@ -199,6 +199,7 @@ const WaitingRoom = (props) => {
     let appStateGameCode = {
       appState: 'active',
       gameCode: props.gameCode,
+      gamePhase: 'waiting_room',
     }
 
     if(props.fullGameInfo.liveGameQuestions) {

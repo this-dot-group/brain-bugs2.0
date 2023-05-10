@@ -18,8 +18,10 @@ Josh:
 
 
 Tia: 
-- [ ] Look into if there's a way to force Android to stay in-app when you share private game code
-- [ ] Implement a check to make sure both players are appState = active before game starts
+- [x] Changed declining rematch behavior to just hide buttons, not send both users back to lobby
+- [x] Look into if there's a way to force Android to stay in-app when you share private game code
+- [x] Implement a check to make sure both players are appState = active before game starts
+- [x] Handle backgrounding on game end screen
 
 
 For Future

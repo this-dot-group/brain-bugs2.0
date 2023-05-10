@@ -193,10 +193,7 @@ function GameScreen(props) {
   }
 
   const showOpponentLeftAlert = () => {
-    console.log('in showOpponentLeftAlert')
-
     setGoCountdown(false);
-    
     Alert.alert(
       'Your opponent left!',
       'Please go back to lobby for new game.',

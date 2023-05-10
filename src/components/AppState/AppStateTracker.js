@@ -1,34 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { AppState } from 'react-native';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-native'
 
 function AppStateTracker(props) {
-
   const [backToHome, setBackToHome] = useState(false);
-
-  let socketIdOfUserWhoBackgrounded;
+  const appState = useRef(AppState.currentState);
+  const {gameCode, gamePhase, socket} = props;
 
   const handleAppStateChange = (nextAppState) => {
-    console.log('app state on change',nextAppState)
-    // if a user was previously backgrounded and then they return, redirect home
-    if(nextAppState === "active" && props.socket.id === socketIdOfUserWhoBackgrounded) {
+    // if a user backgrounded during gameplay and then they return, redirect home
+    const fromBackgroundToActive = (appState.current === 'background' || appState.current === 'inactive') && nextAppState === 'active';
+
+    appState.current = nextAppState;
+
+    if(fromBackgroundToActive && (gamePhase === 'game_play' || gamePhase === 'game_end')) {
       setBackToHome(true)
     }
-    
+
     let appStateGameCode = {
       appState: nextAppState,
-      gameCode: props.gameCode,
-      gamePhase: props.gamePhase
+      gameCode: gameCode,
+      gamePhase: gamePhase,
     }
     
-    props.socket.emit('appStateUpdate', appStateGameCode)
-
-    if((nextAppState === "background" || nextAppState === "inactive") && props.gamePhase === "game_play") {
-      console.log('user backgrounded', socketIdOfUserWhoBackgrounded, props.socket.id);
-      socketIdOfUserWhoBackgrounded = props.socket.id
-    }
-
+    socket.emit('appStateUpdate', appStateGameCode)
   }
 
 
@@ -36,14 +32,13 @@ function AppStateTracker(props) {
     const subscription = AppState.addEventListener('change', handleAppStateChange);
 
     // initial set to "active" state, listener will take care of changes
-    console.log('inAppStateTracker useEffect:', AppState.currentState)
     let appStateGameCode = {
       appState: AppState.currentState,
-      gameCode: props.gameCode,
-      gamePhase: props.gamePhase,
+      gameCode: gameCode,
+      gamePhase: gamePhase,
     }
 
-    props.socket.emit('appStateUpdate', appStateGameCode)
+    socket.emit('appStateUpdate', appStateGameCode)
 
     return () => {
       subscription.remove();
