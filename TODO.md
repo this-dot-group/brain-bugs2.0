@@ -18,12 +18,11 @@ Josh:
 
 
 Tia: 
-- [ ] Should declining rematch send both users back to lobby? this is current behavior
-- [ ] Look into if there's a way to force Android to stay in-app when you share private game code
-- [ ] Implement a check to make sure both players are appState = active before game starts
+- [x] Changed declining rematch behavior to just hide buttons, not send both users back to lobby
+- [x] Look into if there's a way to force Android to stay in-app when you share private game code
+- [x] Implement a check to make sure both players are appState = active before game starts
 
 - We're already handling blanket user leaves with the leaveRoom event (see how to play and game end)
-
 - Not listening to app state on game end screen (if they leave, rematch/chat should go away. same as if the opponent goes back to lobby) look at how we handle it for user still in the room during game play
 
 

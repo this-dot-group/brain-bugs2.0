@@ -41,6 +41,7 @@ function GameEnd({
   const [opponentLeftRoom, setOpponentLeftRoom] = useState(false);
   const [saidYesToRematch, setSaidYesToRematch] = useState(false);
   const [rematchRequested, setRematchRequested] = useState(false);
+  const [hideRematchButtons, setHideRematchButtons] = useState(false);
   const opponentSaidNoToRematch = useRef(false);
 
   const token = location.state.finalScore.token;
@@ -158,12 +159,12 @@ function GameEnd({
       `Your opponent ${opponent} declined your rematch request.`,
       [
         {
-          text: 'Lobby',
-          onPress: () => setBackToLobby(true),
+          text: 'Ok',
         },
       ],
       { cancelable: false }
     );
+    setHideRematchButtons(true);
   }
 
   const createOpponentLeftRoomAlert = () => {
@@ -233,7 +234,7 @@ function GameEnd({
   const handleNo = () => {
     setRematchRequested(false);
     socket.emit('rematchResponse', false);
-    leaveRoomAndGoToLobby();
+    setHideRematchButtons(true);
   }
 
   const leaveRoomAndGoToLobby = () => {
@@ -260,7 +261,7 @@ function GameEnd({
   return (
     <View style={styles.root}>
       <View style={styles.buttonRow}>
-        {showInvitation ?
+        {showInvitation && !hideRematchButtons ?
           <View style={styles.rematchInvite}>
             <View style={styles.yesNoButtonCont}>
               <PixelPressable
@@ -278,7 +279,7 @@ function GameEnd({
             </View>
             <Text style={styles.rematchText}>{rematchText}</Text>
           </View> :
-          !opponentLeftRoom && numPlayers === 2 &&
+          !opponentLeftRoom && numPlayers === 2 && !hideRematchButtons &&
           <PixelPressable
             buttonStyle={styles.optionBtns}
             pressableProps={{
