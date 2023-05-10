@@ -8,6 +8,7 @@ import { playSound } from '../../store/soundsReducer';
 import { updateGame } from '../../store/statsReducer';
 import Chat from '../Chat/Chat';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
+import AppStateTracker from '../AppState/AppStateTracker.js';
 import Score from './Score';
 import { PixelPressable, MuteButton } from '../Shared';
 import { Buttons, Typography } from '../../styles';
@@ -119,6 +120,7 @@ function GameEnd({
     socket.on('gameCodeForRematch', joinRematch);
     socket.on('redirectToHowToPlay', redirect);
     socket.on('opponentLeftRoom', createOpponentLeftRoomAlert);
+    socket.on('opponentLeftDuringGame', showOpponentLeftAlert)
 
     return () => {
       socket.off('rematchInvitation', onRematchInvitation);
@@ -126,6 +128,7 @@ function GameEnd({
       socket.off('gameCodeForRematch', joinRematch);
       socket.off('redirectToHowToPlay', redirect);
       socket.off('opponentLeftRoom', createOpponentLeftRoomAlert);
+      socket.off('opponentLeftDuringGame', showOpponentLeftAlert)
     }
   }, []);
 
@@ -184,6 +187,20 @@ function GameEnd({
       opponentSaidNoToRematch.current = false;
     }
     return;
+  }
+
+  const showOpponentLeftAlert = () => {
+    Alert.alert(
+      'Your opponent has left the room.',
+      'Please go back to lobby for new game.',
+      [
+        {
+          text: 'Lobby',
+          onPress: () => setBackToLobby(true),
+        },
+      ],
+      { cancelable: false }
+    );
   }
 
   const onRematchResponse = (payload) => {
@@ -261,6 +278,10 @@ function GameEnd({
   return (
     <View style={styles.root}>
       <View style={styles.buttonRow}>
+      <AppStateTracker
+        gameCode={gameCode}
+        gamePhase='game_end' 
+      />
         {showInvitation && !hideRematchButtons ?
           <View style={styles.rematchInvite}>
             <View style={styles.yesNoButtonCont}>

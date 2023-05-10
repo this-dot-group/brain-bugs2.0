@@ -14,7 +14,7 @@ function AppStateTracker(props) {
 
     appState.current = nextAppState;
 
-    if(fromBackgroundToActive && gamePhase === 'game_play') {
+    if(fromBackgroundToActive && (gamePhase === 'game_play' || gamePhase === 'game_end')) {
       setBackToHome(true)
     }
 
