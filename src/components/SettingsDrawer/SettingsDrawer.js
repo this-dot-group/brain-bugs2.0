@@ -14,9 +14,9 @@ const SettingsDrawer = ({ screenDeviceWidth, playSound }) => {
       top: 0,
       left: 0,
       bottom: 0,
-      right: 0,
+      right: 50,
       position: 'absolute',
-      paddingVertical: 60,
+      paddingVertical: 30,
       alignItems: 'flex-end',
       justifyContent: 'flex-end',
     },
@@ -44,7 +44,7 @@ const SettingsDrawer = ({ screenDeviceWidth, playSound }) => {
   const [statsVisible, setStatsVisible] = useState(false);
   const [howToPlayVisibile, setHowToPlayVisible] = useState(false);
 
-  const rightTranslate = Buttons.settingsDrawer[screenDeviceWidth].width - 40;
+  const rightTranslate = Buttons.settingsDrawer[screenDeviceWidth].width + 15;
   const translateXVal = useRef(new Animated.Value(rightTranslate)).current;
 
   const translateAnim = (toValue) => () => {
@@ -58,7 +58,7 @@ const SettingsDrawer = ({ screenDeviceWidth, playSound }) => {
 
   const right = translateAnim(rightTranslate);
 
-  const left = translateAnim(10);
+  const left = translateAnim(0);
 
   const handlePress = () => {
     playSound('click');
@@ -81,7 +81,12 @@ const SettingsDrawer = ({ screenDeviceWidth, playSound }) => {
   const handleHowToPlay = modalHandler(setHowToPlayVisible);
 
   return (
-    <View style={styles.root} pointerEvents={open ? 'auto' : 'box-none'} onPointerDown={handlePress} onPointerDownCapture={handlePress}>
+    <View
+      style={styles.root}
+      pointerEvents={'box-none'}
+      onPointerDown={handlePress}
+      onPointerDownCapture={handlePress}
+    >
       <Animated.View
         style={{
           transform: [
