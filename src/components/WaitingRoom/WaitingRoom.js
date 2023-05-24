@@ -14,6 +14,7 @@ import { Spinner, PixelPressable } from '../Shared';
 import { EXPO_LOCAL_URL } from '../../../env'
 import axios from 'axios';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer.js';
+import AnimatedView from '../Shared/AnimatedView';
 
 
 const WaitingRoom = (props) => {
@@ -234,7 +235,7 @@ const WaitingRoom = (props) => {
   if (props.fullGameInfo.numPlayers === 2 && !props.location.state?.token) {
     return (
 
-      <View style={styles.container}>
+      <AnimatedView style={styles.container}>
         <AppStateTracker
           gameCode={props.gameCode}
           gamePhase='waiting_room' />
@@ -336,7 +337,7 @@ const WaitingRoom = (props) => {
 
         <SettingsDrawer />
 
-      </View>
+      </AnimatedView>
     )
   }
   else return roomJoin
