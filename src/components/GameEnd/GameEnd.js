@@ -12,6 +12,7 @@ import AppStateTracker from '../AppState/AppStateTracker.js';
 import Score from './Score';
 import { PixelPressable, MuteButton } from '../Shared';
 import { Buttons, Typography } from '../../styles';
+import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import AnimatedView from '../Shared/AnimatedView';
 
 function GameEnd({
@@ -312,7 +313,18 @@ function GameEnd({
             {rematchRequested ? 'Requesting...' : 'Rematch'}
           </PixelPressable>
         }
-        <MuteButton styles={styles.endButton} />
+
+        {!opponentLeftRoom && numPlayers === 2 &&
+          <Chat
+            deviceWidth={screenDeviceWidth}
+            gameCode={gameCode}
+            user={currentUserObj}
+            rematchPending={showInvitation}
+            handleNo={handleNo}
+            handleYes={handleYes}
+            rematchText={rematchText}
+          />
+        }
       </View>
       <View style={styles.scoreRows} pointerEvents="none">
         <View style={styles.scoreRow}>
@@ -337,19 +349,8 @@ function GameEnd({
             onPress: leaveRoomAndGoToLobby
           }}
         >Lobby</PixelPressable>
-
-        {!opponentLeftRoom && numPlayers === 2 &&
-          <Chat
-            deviceWidth={screenDeviceWidth}
-            gameCode={gameCode}
-            user={currentUserObj}
-            rematchPending={showInvitation}
-            handleNo={handleNo}
-            handleYes={handleYes}
-            rematchText={rematchText}
-          />
-        }
       </View>
+      <SettingsDrawer />
     </AnimatedView>
   )
 }

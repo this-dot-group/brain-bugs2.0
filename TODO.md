@@ -10,6 +10,16 @@ Josh:
 - [ ] Revisit Colors
 - [ ] add the drawer to the end screen
 - [ ] look into error boundary
+  - [x] Error Boundary Component
+  - [x] Fallback component
+  - [ ] Send alert to server to cancel game if game hasn't started
+    - [ ] add device number to game obj
+      - [ ] in waiting room when game is emitted
+      - [ ] where ever join game is
+        - [ ] public
+        - [ ] private
+        - [ ] rematch
+      - add to server
 - [ ] 'Submit' button animation - something that smoothly makes it clear that the answer was submitted
 - Maybe look into potential bug:
   - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
@@ -27,7 +37,6 @@ For Future
   - destructure props
   - make some shared components/variables
     - answer buttons
-    - [x] mute button
   - Delete unused things
    - hourglass gif
    - Emoji.js
