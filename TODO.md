@@ -5,32 +5,23 @@
  - keep an eye for repetitive errors, add to bug list below
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
-Josh:  
-- [ ] Manual testing for bugs, possible issues with component mounting
+Josh:
 - [ ] Revisit Colors
-- [ ] add the drawer to the end screen
-- [ ] look into error boundary
-  - [x] Error Boundary Component
-  - [x] Fallback component
-  - [ ] Send alert to server to cancel game if game hasn't started
-    - [ ] add device number to game obj
-      - [ ] in waiting room when game is emitted
-      - [ ] where ever join game is
-        - [ ] public
-        - [ ] private
-        - [ ] rematch
-      - add to server
 - [ ] 'Submit' button animation - something that smoothly makes it clear that the answer was submitted
-- Maybe look into potential bug:
+- [ ] Disable buttons once you have pressed submit
+- [ ] App seems to load in portrait before switching to landscape, looks glitchy
+  - Maybe this is caused by expo go
+
+- [ ] Maybe look into potential bug:
   - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
 
 
 
 Tia: 
 - [ ] Revisit Colors
-- [ ] Animation on screen transition
-- [ ] App seems to load in portrait before switching to landscape, looks glitchy
-  - Maybe this is caused by expo go
+- [ ] Cancel Game from waiting room should have an "are you sure" modal
+- [ ] Spacing on waiting room screen
+
 
 For Future
 - code improvements
@@ -91,14 +82,8 @@ For Future
 
 ## Improvement ideas
 * Single player fake opponent scoring (right now they get it right 50% of time, random # for points)
-- use local storage to remember mute status, name, maybe high score? 
-  - Track high score by category and num questions
-- Something to do in the WaitingRoom for gameMaker (jumping brain bug!)
 - Any special way to handle a tie?
-- If rematch is requested, hide chat screen, or show rematch request in chat (cant see the request since its behind the chat screen)
-- Cancel Game from waiting room should have an "are you sure" modal
- 
-
+- Weird apple shapes over the screen
 
 ## Manuel Testing
 - Single Player Works
