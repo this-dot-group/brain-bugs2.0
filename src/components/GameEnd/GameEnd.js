@@ -13,6 +13,7 @@ import Score from './Score';
 import { PixelPressable, MuteButton } from '../Shared';
 import { Buttons, Typography } from '../../styles';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
+import AnimatedView from '../Shared/AnimatedView';
 
 function GameEnd({
   screenDeviceWidth,
@@ -277,7 +278,7 @@ function GameEnd({
   );
 
   return (
-    <View style={styles.root}>
+    <AnimatedView style={styles.root}>
       <View style={styles.buttonRow}>
       <AppStateTracker
         gameCode={gameCode}
@@ -350,7 +351,7 @@ function GameEnd({
         >Lobby</PixelPressable>
       </View>
       <SettingsDrawer />
-    </View>
+    </AnimatedView>
   )
 }
 

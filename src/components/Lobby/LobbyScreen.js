@@ -11,6 +11,7 @@ import { playSound } from '../../store/soundsReducer'
 import { PixelPressable } from '../Shared'
 import { Buttons, Typography } from '../../styles';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
+import AnimatedView from '../Shared/AnimatedView';
 
 function StartScreen(props) {
   const [modalVisible, setModalVisible] = useState(null);
@@ -107,7 +108,7 @@ function StartScreen(props) {
   }
 
   return (
-    <View style={styles.container}>
+    <AnimatedView style={styles.container}>
       {username && (
         <Text style={styles.greeting}>WELCOME {username.toUpperCase()}!</Text>
       )}
@@ -145,7 +146,7 @@ function StartScreen(props) {
       }
 
       <SettingsDrawer />
-    </View>
+    </AnimatedView>
   )
 }
 

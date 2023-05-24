@@ -7,6 +7,7 @@ import socketIO from 'socket.io-client';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import AnimatedLogo from './AnimatedLogo';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
+import AnimatedView from '../Shared/AnimatedView';
 import { PixelButton, KeyboardAvoidingComponent, PixelPressable } from '../Shared';
 import Overlay from '../Shared/Overlay'
 
@@ -118,7 +119,7 @@ function Homescreen(props) {
   }
 
   return (
-    <View style={styles.container}>
+    <AnimatedView style={styles.container}>
       <Overlay
         active={keyboardActive}
         onPress={hideKeyboard}
@@ -166,7 +167,7 @@ function Homescreen(props) {
       {toLobby && <Redirect to='/lobby' />}
       <SettingsDrawer />
       
-    </View>
+    </AnimatedView>
   )
 }
 

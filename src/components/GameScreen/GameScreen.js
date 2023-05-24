@@ -9,6 +9,7 @@ import AppStateTracker from '../AppState/AppStateTracker.js';
 import { QUESTION_TIME } from '../../../config';
 import { PixelPressable } from '../Shared';
 import { Typography } from '../../styles';
+import AnimatedView from '../Shared/AnimatedView';
 
 function GameScreen(props) {
   const [seconds, setSeconds] = useState(QUESTION_TIME * 1000);
@@ -322,9 +323,7 @@ function GameScreen(props) {
 
   return (
 
-    <View
-      style={styles.container}
-    >
+    <AnimatedView style={styles.container}>
       {formattedQuestionInfo.question &&
         <>
           <AppStateTracker
@@ -556,9 +555,7 @@ function GameScreen(props) {
 
         </>
       }
-
-    </View>
-
+    </AnimatedView>
   )
 }
 
