@@ -12,6 +12,7 @@ import AppStateTracker from '../AppState/AppStateTracker.js';
 import Score from './Score';
 import { PixelPressable, MuteButton } from '../Shared';
 import { Buttons, Typography } from '../../styles';
+import AnimatedView from '../Shared/AnimatedView';
 
 function GameEnd({
   screenDeviceWidth,
@@ -276,7 +277,7 @@ function GameEnd({
   );
 
   return (
-    <View style={styles.root}>
+    <AnimatedView style={styles.root}>
       <View style={styles.buttonRow}>
       <AppStateTracker
         gameCode={gameCode}
@@ -349,7 +350,7 @@ function GameEnd({
           />
         }
       </View>
-    </View>
+    </AnimatedView>
   )
 }
 

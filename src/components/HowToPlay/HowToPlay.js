@@ -9,6 +9,7 @@ import { playSound } from '../../store/soundsReducer';
 import AppStateTracker from '../AppState/AppStateTracker';
 import { Buttons, Typography } from '../../styles/';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
+import AnimatedView from '../Shared/AnimatedView';
 
 function HowToPlay(props) {
   const [seconds, setSeconds] = useState(START_COUNTDOWN * 1000);
@@ -106,7 +107,7 @@ function HowToPlay(props) {
         gameCode={gameCode}
         gamePhase='game_play'
       />
-      <View style={styles.root}>
+      <AnimatedView style={styles.root}>
         <View style={styles.topRow}>
           <PixelPressable
             buttonStyle={styles.howToPlayBtn}
@@ -129,7 +130,7 @@ function HowToPlay(props) {
         </View>
 
         <SettingsDrawer />
-      </View>
+      </AnimatedView>
     </>
   )
 }
