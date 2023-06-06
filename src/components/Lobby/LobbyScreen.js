@@ -44,9 +44,10 @@ function StartScreen(props) {
       marginBottom: 16,
     },
     optionBtns: {
-      ...Buttons.listOptionBtns[screenDeviceWidth]
+      ...Buttons.listOptionBtns[screenDeviceWidth],
     },
     optionBtnLastChild: {
+      width: Buttons.listOptionBtns[screenDeviceWidth].width + 18,
       marginBottom: 0,
     },
   })
