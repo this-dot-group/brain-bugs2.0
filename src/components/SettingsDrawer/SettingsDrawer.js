@@ -14,7 +14,7 @@ const SettingsDrawer = ({ screenDeviceWidth, playSound }) => {
       top: 0,
       left: 0,
       bottom: 0,
-      right: 50,
+      right: 20,
       position: 'absolute',
       paddingVertical: 30,
       alignItems: 'flex-end',
@@ -44,7 +44,7 @@ const SettingsDrawer = ({ screenDeviceWidth, playSound }) => {
   const [statsVisible, setStatsVisible] = useState(false);
   const [howToPlayVisibile, setHowToPlayVisible] = useState(false);
 
-  const rightTranslate = Buttons.settingsDrawer[screenDeviceWidth].width + 15;
+  const rightTranslate = Buttons.settingsDrawer[screenDeviceWidth].width  - 15;
   const translateXVal = useRef(new Animated.Value(rightTranslate)).current;
 
   const translateAnim = (toValue) => () => {
