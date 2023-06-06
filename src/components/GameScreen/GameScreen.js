@@ -10,6 +10,7 @@ import { QUESTION_TIME } from '../../../config';
 import { PixelPressable } from '../Shared';
 import { Typography } from '../../styles';
 import AnimatedView from '../Shared/AnimatedView';
+import SubmitButton from './SubmitButton';
 
 function GameScreen(props) {
   const [seconds, setSeconds] = useState(QUESTION_TIME * 1000);
@@ -79,12 +80,6 @@ function GameScreen(props) {
     answerText: {
       ...Typography.answerText[screenDeviceWidth]
     },
-    submitText: {
-      ...Typography.submitText[screenDeviceWidth]
-    },
-    waitingText: {
-      ...Typography.waitingText[screenDeviceWidth]
-    },
     scoreText: {
       ...Typography.scoreText[screenDeviceWidth]
     },
@@ -94,19 +89,6 @@ function GameScreen(props) {
     questionTextArea: {
       padding: 10,
       width: '70%',
-    },
-    submitButtonLeftView: {
-      width: '10%',
-    },
-    submitButtonRightView: {
-      width: '10%',
-      alignItems: 'flex-end'
-    },
-    submitButton: {
-      padding: 2,
-      backgroundColor: 'white',
-      height: '100%',
-      width: '100%',
     },
   });
   
@@ -128,14 +110,12 @@ function GameScreen(props) {
     return answerArr;
   }
 
-
-  const handleAnsPress = (answer, i) => {
+  const handleAnsPress = () => {
     if(!allowSubmit) return;
-    setAllowSubmit(false)
-    // setGoCountdown(false);
+    setAllowSubmit(false);
     setTimeout(() => {
-      handleSubmitAnswer(answer, i);
-    }, 500)
+      handleSubmitAnswer(formattedQuestionInfo.answers[selected], selected);
+    }, 500);
   }
 
   //needs to know if its the correct answer 
@@ -343,7 +323,7 @@ function GameScreen(props) {
                   onPress: () => setSelected(ansObjForRendering[0].index),
                   style: styles.nonSelectedAnswer,
                   key: ansObjForRendering[0].index,
-                  disabled: displayAnswer || selected === 0,
+                  disabled: displayAnswer || selected === 0 || submitted > -1,
                 }}
               >
                 <Text
@@ -405,7 +385,7 @@ function GameScreen(props) {
                     onPress: () => setSelected(ansObjForRendering[1].index),
                     style: styles.nonSelectedAnswer,
                     key: ansObjForRendering[1].index,
-                    disabled: displayAnswer || selected === 1
+                    disabled: displayAnswer || selected === 1 || submitted > -1,
                   }}
                 >
                   <Text
@@ -423,29 +403,13 @@ function GameScreen(props) {
           <View
             style={styles.middleRowView}
           >
-            {(selected === 0 || selected === 2) && submitted === -1 
-              ?  <View style={styles.submitButtonLeftView}>
-                <PixelPressable
-                  buttonStyle={{ height: 60, width: 80 }}
-                  pressableProps={{
-                    onPress: () => handleAnsPress(formattedQuestionInfo.answers[selected], selected),
-                    style: styles.submitButton,
-                    disabled: displayAnswer
-                  }}
-                >
-                  <Text style={styles.submitText}>
-                    Submit
-                  </Text>
-                </PixelPressable>
-              </View>
-              : <View style={styles.submitButtonLeftView}>
-                  {waiting.boolean === true && displayAnswer !== true && (selected === 0 || selected === 2) &&
-                  <Text style={styles.waitingText}>
-                      Waiting for other player...
-                    </Text>
-                  }
-                </View>        
-            }
+              <SubmitButton
+                showButton={(selected % 2 === 0) && submitted === -1 && allowSubmit}
+                showWaiting={waiting.boolean === true && displayAnswer !== true && submitted % 2 === 0}
+                handleAnsPress={handleAnsPress}
+                displayAnswer={displayAnswer}
+                styles={styles}
+              />
 
               <View style={styles.questionTextArea}>
                 <Text style={styles.questionText}>
@@ -454,31 +418,13 @@ function GameScreen(props) {
                 <Text style={styles.questionCountText}>{currQuestionNum} / {totalQuestions}</Text>
               </View>
               
-        
-
-            {(selected === 1 || selected === 3) && submitted === -1 
-              ? <View style={styles.submitButtonRightView}>
-                <PixelPressable
-                  buttonStyle={{ height: 60, width: 80 }}
-                  pressableProps={{
-                    onPress: () => handleAnsPress(formattedQuestionInfo.answers[selected], selected),
-                    style: styles.submitButton,
-                    disabled: displayAnswer
-                  }}
-                >
-                  <Text style={styles.submitText}>
-                    Submit
-                  </Text>
-                </PixelPressable>
-                </View>
-              : <View style={styles.submitButtonRightView}>
-                  {waiting.boolean === true && displayAnswer !== true && (selected === 1 || selected === 3) &&
-                  <Text style={styles.waitingText}>
-                      Waiting for other player...
-                    </Text>
-                  }
-                </View>  
-            }
+              <SubmitButton
+                showButton={(selected  === 1 || selected === 3) && submitted === -1 && allowSubmit}
+                showWaiting={waiting.boolean === true && displayAnswer !== true && (submitted === 1 || submitted === 3)}
+                handleAnsPress={handleAnsPress}
+                displayAnswer={displayAnswer}
+                styles={styles}
+              />
           </View>
 
             
@@ -497,7 +443,7 @@ function GameScreen(props) {
                     onPress: () => setSelected(ansObjForRendering[2].index),
                     style: styles.nonSelectedAnswer,
                     key: ansObjForRendering[2].index,
-                    disabled: displayAnswer || selected === 2,
+                    disabled: displayAnswer || selected === 2 || submitted > -1,
                   }}
                 >
                   <Text style={styles.answerText}>
@@ -529,7 +475,7 @@ function GameScreen(props) {
                       onPress: () => setSelected(ansObjForRendering[3].index),
                       style: styles.nonSelectedAnswer,
                       key: ansObjForRendering[3].index,
-                      disabled: displayAnswer || selected === 3,
+                      disabled: displayAnswer || selected === 3 || submitted > -1,
                     }}
                   >
                     <Text style={styles.answerText}>
