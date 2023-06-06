@@ -130,7 +130,7 @@ function Homescreen(props) {
           textStyle={styles.logoText}
         />
         <KeyboardAvoidingComponent
-          offset={50}
+          offset={80}
           style={{ backgroundColor: 'transparent', flex: 0 }}
         >
           <View style={styles.inputNestedRowView}>
