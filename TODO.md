@@ -7,29 +7,19 @@
 
 Josh:
 - [ ] Revisit Colors
-- [x] 'Submit' button animation - something that smoothly makes it clear that the answer was submitted
-  - [x] Fix right side
-- [x] Disable buttons once you have pressed submit
+- [ ] don't show "waiting for other player" if opponent has already submitted
+- [ ] Figure out dealing with black bar on iPhones
 - [ ] App seems to load in portrait before switching to landscape, looks glitchy
   - Maybe this is caused by expo go
   - Maybe try forcing on home screen
   - Alert orientation is also sometimes portrait
-- [x] Fix keyboard avoiding on home page
-- [x] Fix drawer - see on iphone
-
-- [ ] Maybe look into potential bug:
-  - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
-  - I could not recreate this
-
-New: 6/6
-- [ ] don't show "waiting for other player" if opponent has already submitted
 
 
 Tia: 
-- [x] Revisit Colors
-- [x] Cancel Game from waiting room should have an "are you sure" modal
-- [x] Fixed width of last button on lobby screen (private game)
 - [ ] Spacing on waiting room screen (?)
+ - [ ] Spacing between the trivia section and the countown lines
+- [ ] Mock up gameplay screen in new color scheme
+- [ ] Bug crawling animation
 
 
 For Future
