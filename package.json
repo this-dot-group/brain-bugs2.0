@@ -15,12 +15,15 @@
     "expo": "^46.0.0",
     "expo-av": "~12.0.4",
     "expo-clipboard": "~3.1.0",
+    "expo-device": "~4.3.0",
     "expo-font": "~10.2.0",
     "expo-permissions": "~13.2.0",
+    "expo-screen-orientation": "~4.3.0",
     "expo-status-bar": "~1.4.0",
     "he": "^1.2.0",
     "react": "18.0.0",
     "react-dom": "18.0.0",
+    "react-error-boundary": "^4.0.8",
     "react-native": "0.69.6",
     "react-native-dotenv": "^2.4.3",
     "react-native-dropdown-picker": "^5.4",
@@ -33,9 +36,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
-    "socket.io-client": "^3.0.4",
-    "expo-device": "~4.3.0",
-    "expo-screen-orientation": "~4.3.0"
+    "socket.io-client": "^3.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6"

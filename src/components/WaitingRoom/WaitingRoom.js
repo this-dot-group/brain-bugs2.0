@@ -127,8 +127,24 @@ const WaitingRoom = (props) => {
   };
 
   const cancelGame = () => {
-    props.socket.emit('cancelGame');
-    setBackToLobby(true);
+    Alert.alert(
+      'Are you sure?', 
+      'You will be redirected back to the Lobby', 
+      [
+        {
+          text: 'Yes, cancel game',
+          onPress: () => {
+            props.socket.emit('cancelGame');
+            setBackToLobby(true);
+          },
+          style: 'cancel',
+        },
+        {
+          text: 'No, continue with this game',
+        },
+      ],
+      { cancelable: false },
+    );
   }
 
   const handleNoQuestions = async () => {
