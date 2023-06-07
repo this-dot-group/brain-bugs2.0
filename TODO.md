@@ -18,9 +18,10 @@ Josh:
 
 
 Tia: 
-- [ ] Revisit Colors
-- [ ] Cancel Game from waiting room should have an "are you sure" modal
-- [ ] Spacing on waiting room screen
+- [x] Revisit Colors
+- [x] Cancel Game from waiting room should have an "are you sure" modal
+- [x] Fixed width of last button on lobby screen (private game)
+- [ ] Spacing on waiting room screen (?)
 
 
 For Future
