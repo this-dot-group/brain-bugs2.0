@@ -7,14 +7,22 @@
 
 Josh:
 - [ ] Revisit Colors
-- [ ] 'Submit' button animation - something that smoothly makes it clear that the answer was submitted
-- [ ] Disable buttons once you have pressed submit
+- [x] 'Submit' button animation - something that smoothly makes it clear that the answer was submitted
+  - [x] Fix right side
+- [x] Disable buttons once you have pressed submit
 - [ ] App seems to load in portrait before switching to landscape, looks glitchy
   - Maybe this is caused by expo go
+  - Maybe try forcing on home screen
+  - Alert orientation is also sometimes portrait
+- [x] Fix keyboard avoiding on home page
+- [x] Fix drawer - see on iphone
 
 - [ ] Maybe look into potential bug:
   - Keyboard doesn't close when you press outside of it - https://reactnativecode.com/react-native-hide-dismiss-keyboard/
+  - I could not recreate this
 
+New: 6/6
+- [ ] don't show "waiting for other player" if opponent has already submitted
 
 
 Tia: 
