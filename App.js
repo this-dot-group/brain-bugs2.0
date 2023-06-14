@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import { NativeRouter, Route } from 'react-router-native'
 import * as Font from 'expo-font'
+import { lockAsync, OrientationLock } from "expo-screen-orientation";
 
 import store, { persistor } from './src/store/index.js';
 
@@ -32,6 +33,10 @@ const styles = StyleSheet.create({
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
+  const setOrientation = async () => {
+    await lockAsync(OrientationLock.LANDSCAPE);
+  }
+
   useEffect(() => {
     (async () => {
       await Font.loadAsync({
@@ -39,6 +44,7 @@ export default function App() {
         VT323: require('./assets/fonts/VT323-Regular.ttf')
       });
       setFontsLoaded(true);
+      setOrientation();
     })()
   }, [])
 

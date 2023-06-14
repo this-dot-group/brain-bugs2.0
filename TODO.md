@@ -12,7 +12,8 @@ Josh:
   - [x] Fix for modals
 - [x] Style the animated view with default styles, like a white background
       (this makes the safe area view work)
-- [ ] App seems to load in portrait before switching to landscape, looks glitchy
+- [ ] Fix drawer again
+- [x] App seems to load in portrait before switching to landscape, looks glitchy
   - Maybe this is caused by expo go
   - Maybe try forcing on home screen
   - Alert orientation is also sometimes portrait
