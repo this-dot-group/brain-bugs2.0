@@ -1,5 +1,12 @@
 import React, { useRef, useEffect } from 'react';
-import { Animated, Easing } from 'react-native';
+import { Animated, StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  root: {
+    backgroundColor: '#fff',
+    overflow: 'hidden'
+  }
+});
 
 const AnimatedView = (props) => {
   const { children, style = {} } = props
@@ -16,6 +23,7 @@ const AnimatedView = (props) => {
   return (
     <Animated.View
       style={{
+        ...styles.root,
         ...style,
         opacity: fadeAnim,
       }}>

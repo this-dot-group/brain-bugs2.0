@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, SafeAreaView } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import { NativeRouter, Route } from 'react-router-native'
@@ -21,9 +21,10 @@ import Sounds from './src/sounds/Sounds'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
   },
 });
 
@@ -53,7 +54,7 @@ export default function App() {
         <PersistGate persistor={persistor} loading={<LoadingScreen/>}>
           <Sounds />
           <NativeRouter>
-              <View style={styles.container}>
+              <SafeAreaView style={styles.container}>
                 <Route
                   exact path='/'
                   component={HomeScreen} />
@@ -76,7 +77,7 @@ export default function App() {
                   exact path='/gameend'
                   component={GameEnd}
                 />
-              </View>
+              </SafeAreaView>
           </NativeRouter>
         </PersistGate>
       </Provider>

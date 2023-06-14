@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Modal, StyleSheet, View, ScrollView } from 'react-native';
+import { Modal, StyleSheet, View, ScrollView, SafeAreaView } from 'react-native';
 import { Views } from '../../styles';
 
 const getStyles = style =>  StyleSheet.create({
@@ -25,11 +25,9 @@ function GenericModal({ children, style, ...props }) {
         contentContainerStyle={{flexGrow: 1}}
         keyboardShouldPersistTaps="handled"
       >
-        <View
-          style={styles.modalView}
-        >
-          {children}
-        </View>
+        <SafeAreaView>
+          <View style={styles.modalView}>{children}</View>
+        </SafeAreaView>
       </ScrollView>
     </Modal>
   );
