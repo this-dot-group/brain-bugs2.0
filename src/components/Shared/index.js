@@ -10,6 +10,7 @@ import KeyboardAvoidingComponent from './KeyboardAvoiding.js';
 import MuteButton from './MuteButton.js';
 import Overlay from './Overlay.js';
 import ToggleButton from './ToggleButton.js';
+import AnimatedView from './AnimatedView.js';
 
 export {
   GenericModal,
@@ -24,4 +25,5 @@ export {
   MuteButton,
   Overlay,
   ToggleButton,
+  AnimatedView,
 };

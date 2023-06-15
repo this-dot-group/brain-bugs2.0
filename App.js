@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, SafeAreaView } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import { NativeRouter, Route } from 'react-router-native'
@@ -60,6 +61,7 @@ export default function App() {
         <PersistGate persistor={persistor} loading={<LoadingScreen/>}>
           <Sounds />
           <NativeRouter>
+            <SafeAreaProvider>
               <SafeAreaView style={styles.container}>
                 <Route
                   exact path='/'
@@ -84,6 +86,7 @@ export default function App() {
                   component={GameEnd}
                 />
               </SafeAreaView>
+            </SafeAreaProvider>
           </NativeRouter>
         </PersistGate>
       </Provider>

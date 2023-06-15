@@ -1,14 +1,15 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useRef} from 'react'
 import { Text, StyleSheet, Dimensions, Alert } from 'react-native'
 import { newOpponent } from '../../../store/userReducer';
 import { connect } from 'react-redux';
 import { GenericModal, PixelPressable, TitleBar } from '../../Shared';
 import { Typography } from '../../../styles';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 function JoinGame(props) {
 
-  const { width } = Dimensions.get('window');  
-
+  const { width } = Dimensions.get('window');
+  const { left, right } = useSafeAreaInsets();
   const styles = StyleSheet.create({
     innerText: {
       ...Typography.innerText[props.screenDeviceWidth]
@@ -57,7 +58,11 @@ function JoinGame(props) {
       {props.gamesWaiting.map((gameObj, i) =>
         <PixelPressable
           key={i}
-          buttonStyle={{ width: width-140, marginLeft: 'auto', marginRight: 'auto' }}
+          buttonStyle={{
+            width: width - left - right - 140,
+            marginLeft: 'auto',
+            marginRight: 'auto'
+          }}
           pressableProps={{ onPress: () => handleJoinTwoPlayer(gameObj) }}
         >
           <Text style={styles.smallInnerText}>
