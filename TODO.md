@@ -16,9 +16,9 @@ Josh:
 
 
 Tia: 
-- [ ] Spacing on waiting room screen (?)
- - [ ] Spacing between the trivia section and the countown lines
-- [ ] Mock up gameplay screen in new color scheme
+- [x] Spacing on waiting room screen (?)
+ - [x] Spacing between the trivia section and the countown lines
+- [x] Mock up gameplay screen in new color scheme
 - [ ] Bug crawling animation
 
 
