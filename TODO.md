@@ -6,25 +6,13 @@
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 Josh:
-- [ ] Revisit Colors
 - [ ] don't show "waiting for other player" if opponent has already submitted
-- [x] Figure out dealing with black bar on iPhones
-  - [x] Fix modals
-  - [x] Fix join game button being too wide (react-native-safe-area-context)
-  - [x] Fix chat
-- [x] Style the animated view with default styles, like a white background
-      (this makes the safe area view work)
 - [ ] Fix drawer again
-- [x] App seems to load in portrait before switching to landscape, looks glitchy
-  - Maybe this is caused by expo go
-  - Maybe try forcing on home screen
-  - Alert orientation is also sometimes portrait
+- [ ] Content audit for all pages, such as how to play instructions, content for alerts (does the wording sound ok in these?)
 
 
 Tia: 
-- [x] Spacing on waiting room screen (?)
- - [x] Spacing between the trivia section and the countown lines
-- [x] Mock up gameplay screen in new color scheme
+- [ ] Start adding colors to app
 - [ ] Bug crawling animation
 
 
@@ -56,7 +44,7 @@ For Future
  - Bounce or something on pixel button
  
  
-- Content for all pages, such as how to play instructions, content for alerts
+
 - Logo/img/etc
 - if you dont answer a question, when the correct answer moment occurs it looks like you answered correctly (because no other option is selected)
 - improve selected/submitted feedback (raining down smileys/sads)
