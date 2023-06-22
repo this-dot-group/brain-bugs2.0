@@ -14,6 +14,7 @@ Josh:
 Tia: 
 - [ ] Start adding colors to app
 - [ ] Bug crawling animation
+- [ ] Test safe area view on android
 
 
 For Future
