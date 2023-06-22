@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, ScrollView, Modal } from 'react-native';
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import { View, Text, StyleSheet, ScrollView, Modal, SafeAreaView } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { TitleBar, StyledInput, KeyboardAvoidingComponent, Hider, PixelPressable, Overlay } from '../Shared';
 import Badge from './Badge';
@@ -14,12 +14,18 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
   const [latestTime, setLatestTime] = useState(Date.now());
 
   const styles = StyleSheet.create({
-    root: {
+    modalInner: {
+      backgroundColor: 'white',
+      height: '100%',
+      width: '100%',
+      padding: 20,
+      zIndex: 2,
+    },
+    safeArea: {
       flex: 1,
       height: '100%',
-      paddingHorizontal: 50,
-      paddingVertical: 20,
-      zIndex: 2,
+      backgroundColor: 'black',
+      position: 'relative',
     },
     messagesContainer: {
       maxHeight: '100%',
@@ -42,11 +48,19 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
       alignSelf: 'flex-start',
       backgroundColor: 'blue',
     },
+    overlay: {
+      left: -20,
+      top: -20
+    },
     content: {
       position: 'relative',
       flex: 1,
       paddingBottom: 50,
       height: '100%',
+      zIndex: 3
+    },
+    contenInner: {
+      flex: 0
     },
     form: {
       flexDirection: 'row',
@@ -73,7 +87,8 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
       textAlign: 'center'
     },
     chatModalStyles: {
-      backgroundColor: 'black'
+      backgroundColor: 'black',
+      // width: '100%'
     },
     yesNoButtonCont: {
       display: 'flex',
@@ -155,108 +170,113 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
         visible={showChat}
         presentationStyle="fullScreen"
         supportedOrientations={['landscape']}
+        animationType='fade'
         style={styles.chatModalStyles}
       >
-        <Overlay
-          active={keyboardActive}
-          onPress={hideKeyboard}
-        />
-        <View style={styles.root} pointerEvents={'box-none'}>
-          <View
-            pointerEvents={!keyboardActive ? 'auto' : 'none'}
-          >
-            <TitleBar
-              cb={hideModal}
-              style={{ marginBottom: 0 }}
-            >
-              <Hider
-                show={rematchPending}
-              >
-                <View style={styles.yesNoButtonCont}>
-                  <View style={styles.gap}>
-                    <Text style={styles.rematchHeadingText}>{rematchText}</Text>
-                  </View>
-                  <View style={styles.gap}>
-                    <PixelPressable
-                      buttonStyle={{width: 60, marginBottom: 10 }}
-                      pressableProps={{ onPress: handleYes }}
-                    >
-                      <Text style={styles.innerRematchText}>Yes</Text>
-                    </PixelPressable>
-                  </View>
-                  <View style={styles.gap}>
-                    <PixelPressable
-                      buttonStyle={{width: 60, marginBottom: 10 }}
-                      pressableProps={{ onPress: handleNo }}
-                    >
-                      <Text style={styles.innerRematchText}>No</Text>
-                    </PixelPressable>
-                  </View>
-                </View>
-              </Hider>
-            </TitleBar>
-          </View>
+        <SafeAreaView style={styles.safeArea} pointerEvents={'box-none'}>
+          <View style={styles.modalInner}>
+            <Overlay
+              active={keyboardActive}
+              onPress={hideKeyboard}
+              style={styles.overlay}
+            />
 
-          <View style={styles.content}>
-            <ScrollView
-              ref={scrollViewRef}
-              style={styles.messagesContainer}
-              onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
-              contentContainerStyle={{
-                justifyContent: 'flex-end',
-                flexDirection: 'column',
-              }}
-              scrollEnabled={!keyboardActive}
-              keyboardShouldPersistTaps="handled"
+            <View
+              pointerEvents={!keyboardActive ? 'auto' : 'none'}
             >
-              <View
-                style={{flex: 0 }}
+              <TitleBar
+                cb={hideModal}
+                style={{ marginBottom: 0 }}
               >
-                {messages.map(({ message, userId, timeStamp }) =>
-                  <Text
-                    key={timeStamp}
-                    style={
-                      userId === socket.id
-                        ? {...styles.messages}
-                        : {...styles.messages, ...styles.opponentMessages}
-                    }
-                  >{message}</Text>
-                )}
-              </View>
-            </ScrollView>
-            <KeyboardAvoidingComponent
-              keyboardVerticalOffset={80}
-              style={{
-                position:'absolute',
-                bottom: 0,
-                width: '100%',
-                zIndex: 1
-              }}
-            >
-              <ScrollView
-                contentContainerStyle={styles.form}
-                keyboardShouldPersistTaps="handled"
-                scrollEnabled={false}
-              >
-                <StyledInput
-                  multiline={true}
-                  onChangeText={value => setCurrMesssage(value)}
-                  ref={textInputRef}
-                  onSubmitEditing={sendMessage}
-                  returnKeyType="send"
-                  blurOnSubmit={true}
-                  style={styles.input}
-                />
-                <PixelPressable
-                  buttonStyle={styles.howToPlayBtn}
-                  pressableProps={{ onPress: sendMessage }}
+                <Hider
+                  show={rematchPending}
                 >
-                  Send
-                </PixelPressable>
+                  <View style={styles.yesNoButtonCont}>
+                    <View style={styles.gap}>
+                      <Text style={styles.rematchHeadingText}>{rematchText}</Text>
+                    </View>
+                    <View style={styles.gap}>
+                      <PixelPressable
+                        buttonStyle={{ width: 60, marginBottom: 10 }}
+                        pressableProps={{ onPress: handleYes }}
+                      >
+                        <Text style={styles.innerRematchText}>Yes</Text>
+                      </PixelPressable>
+                    </View>
+                    <View style={styles.gap}>
+                      <PixelPressable
+                        buttonStyle={{ width: 60, marginBottom: 10 }}
+                        pressableProps={{ onPress: handleNo }}
+                      >
+                        <Text style={styles.innerRematchText}>No</Text>
+                      </PixelPressable>
+                    </View>
+                  </View>
+                </Hider>
+              </TitleBar>
+            </View>
+
+            <View style={styles.content}>
+              <ScrollView
+                ref={scrollViewRef}
+                style={styles.messagesContainer}
+                onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
+                contentContainerStyle={{
+                  justifyContent: 'flex-end',
+                  flexDirection: 'column',
+                }}
+                scrollEnabled={!keyboardActive}
+                keyboardShouldPersistTaps="handled"
+              >
+                <View
+                  style={styles.contentInner}
+                >
+                  {messages.map(({ message, userId, timeStamp }) =>
+                    <Text
+                      key={timeStamp}
+                      style={
+                        userId === socket.id
+                          ? {...styles.messages}
+                          : {...styles.messages, ...styles.opponentMessages}
+                      }
+                    >{message}</Text>
+                  )}
+                </View>
               </ScrollView>
-            </KeyboardAvoidingComponent>
+              <KeyboardAvoidingComponent
+                keyboardVerticalOffset={80}
+                style={{
+                  position:'absolute',
+                  bottom: 0,
+                  width: '100%',
+                  zIndex: 1
+                }}
+              >
+                <ScrollView
+                  contentContainerStyle={styles.form}
+                  keyboardShouldPersistTaps="handled"
+                  scrollEnabled={false}
+                >
+                  <StyledInput
+                    multiline={true}
+                    onChangeText={value => setCurrMesssage(value)}
+                    ref={textInputRef}
+                    onSubmitEditing={sendMessage}
+                    returnKeyType="send"
+                    blurOnSubmit={true}
+                    style={styles.input}
+                  />
+                  <PixelPressable
+                    buttonStyle={styles.howToPlayBtn}
+                    pressableProps={{ onPress: sendMessage }}
+                  >
+                    Send
+                  </PixelPressable>
+                </ScrollView>
+              </KeyboardAvoidingComponent>
+            </View>
           </View>
-        </View>
+        </SafeAreaView>
       </Modal>
     </>
   )

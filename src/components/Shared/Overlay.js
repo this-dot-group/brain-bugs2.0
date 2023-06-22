@@ -1,16 +1,20 @@
 import React from 'react';
-import { Pressable, StyleSheet } from 'react-native';
+import { Pressable, StyleSheet, useWindowDimensions } from 'react-native';
 import Hider from './Hider';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function Overlay ({
   active,
   backgroundColor = 'rgba(0,0,0,.5)',
   onPress,
+  style,
 }) {
+  const { width, height } = useWindowDimensions()
+  const { left, right, top, bottom } = useSafeAreaInsets() 
   const styles = StyleSheet.create({
     overlay: {
-      width: '100%',
-      height: '100%',
+      width: width + left + right,
+      height: height + top + bottom,
       backgroundColor,
       position: 'absolute',
       zIndex: 2,
@@ -26,7 +30,10 @@ export default function Overlay ({
   return (
     <Hider
       show={active}
-      style={styles.overlay}
+      style={{
+        ...styles.overlay,
+        ...style
+      }}
     >
       <Pressable
         onPress={onPress}

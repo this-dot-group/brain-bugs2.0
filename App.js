@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import { NativeRouter, Route } from 'react-router-native'
 import * as Font from 'expo-font'
+import { lockAsync, OrientationLock } from "expo-screen-orientation";
 
 import store, { persistor } from './src/store/index.js';
 
@@ -21,15 +23,20 @@ import Sounds from './src/sounds/Sounds'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
   },
 });
 
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
+
+  const setOrientation = async () => {
+    await lockAsync(OrientationLock.LANDSCAPE);
+  }
 
   useEffect(() => {
     (async () => {
@@ -38,6 +45,7 @@ export default function App() {
         VT323: require('./assets/fonts/VT323-Regular.ttf')
       });
       setFontsLoaded(true);
+      setOrientation();
     })()
   }, [])
 
@@ -53,7 +61,8 @@ export default function App() {
         <PersistGate persistor={persistor} loading={<LoadingScreen/>}>
           <Sounds />
           <NativeRouter>
-              <View style={styles.container}>
+            <SafeAreaProvider>
+              <SafeAreaView style={styles.container}>
                 <Route
                   exact path='/'
                   component={HomeScreen} />
@@ -76,7 +85,8 @@ export default function App() {
                   exact path='/gameend'
                   component={GameEnd}
                 />
-              </View>
+              </SafeAreaView>
+            </SafeAreaProvider>
           </NativeRouter>
         </PersistGate>
       </Provider>

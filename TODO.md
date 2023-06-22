@@ -8,8 +8,14 @@
 Josh:
 - [ ] Revisit Colors
 - [ ] don't show "waiting for other player" if opponent has already submitted
-- [ ] Figure out dealing with black bar on iPhones
-- [ ] App seems to load in portrait before switching to landscape, looks glitchy
+- [x] Figure out dealing with black bar on iPhones
+  - [x] Fix modals
+  - [x] Fix join game button being too wide (react-native-safe-area-context)
+  - [x] Fix chat
+- [x] Style the animated view with default styles, like a white background
+      (this makes the safe area view work)
+- [ ] Fix drawer again
+- [x] App seems to load in portrait before switching to landscape, looks glitchy
   - Maybe this is caused by expo go
   - Maybe try forcing on home screen
   - Alert orientation is also sometimes portrait
