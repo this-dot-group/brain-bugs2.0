@@ -42,13 +42,12 @@ const WaitingRoom = (props) => {
       paddingRight: 40,
       paddingBottom: 40,
       width: '100%',
-      alignItems: 'center',
-      justifyContent: 'space-between'
     },
     topRowView: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       width: '100%',
+      height: '20%'
     },
     noMoreCategoriesView: {
       flexDirection: 'column',
@@ -64,14 +63,15 @@ const WaitingRoom = (props) => {
       ...Typography.alertText[screenDeviceWidth],
     },
     waitingText: {
-      ...Typography.headingTwoText[screenDeviceWidth]
+      ...Typography.headingTwoText[screenDeviceWidth],
+      marginBottom: 4
     },
     privateWaitingText: {
       ...Typography.normalText[screenDeviceWidth],
       textAlign: 'center'
     },
     normalText: {
-      ...Typography.normalText[screenDeviceWidth]
+      ...Typography.normalText[screenDeviceWidth],
     },
     howToPlayBtn: {
       ...Buttons.howToPlayBtn[screenDeviceWidth]
@@ -277,82 +277,83 @@ const WaitingRoom = (props) => {
             </PixelPressable>
           )}
         </View>
+        
+        <View style={{ width: '100%', height: '70%', alignItems: 'center', justifyContent: 'center'}}>
+          {props.publicOrPrivate === 'private' &&
+            <>
+              <Text style={styles.privateWaitingText}>
+                Give the game code to your opponent! Click code button to share. Game will start when other player joins.
+              </Text>
+            </>
+          }
 
-        {props.publicOrPrivate === 'private' &&
-          <>
-            <Text style={styles.privateWaitingText}>
-              Give the game code to your opponent! Click code button to share. Game will start when other player joins.
-            </Text>
-          </>
-        }
+          {props.publicOrPrivate !== 'private' && !showNoMoreQuestionsOptions && !waitingRoomTriviaObjs && (
+            <>
+              <Text style={styles.waitingText}>Waiting for 1 more player...</Text> 
+              <Spinner />
+            </>
+          )
+          }
 
-        {props.publicOrPrivate !== 'private' && !showNoMoreQuestionsOptions && !waitingRoomTriviaObjs && (
-          <>
-            <Text style={styles.waitingText}>Waiting for 1 more player...</Text> 
-            <Spinner />
-          </>
-        )
-        }
+          {props.publicOrPrivate !== 'private' && 
+          !showNoMoreQuestionsOptions && 
+          waitingRoomTriviaObjs && 
+          !showRandomTrivia && (
+            <>
+              <Text style={styles.alertText}>Some trivia while you wait!</Text>
+              <Text style={styles.alertText}>...</Text>
+            </>
+          )
+          }
 
-        {props.publicOrPrivate !== 'private' && 
-        !showNoMoreQuestionsOptions && 
-        waitingRoomTriviaObjs && 
-        !showRandomTrivia && (
-          <>
-            <Text style={styles.alertText}>Some trivia while you wait!</Text>
-            <Text style={styles.alertText}>...</Text>
-          </>
-        )
-        }
+          {props.publicOrPrivate !== 'private' && 
+          !showNoMoreQuestionsOptions && 
+          waitingRoomTriviaObjs && 
+          showRandomTrivia && (
+            <>
+              <Text style={styles.normalText}>{waitingRoomTriviaObjs[triviaQuestionIndex].question}</Text>
+              {showCountdown && (
+                <Countdown
+                  deviceWidth={screenDeviceWidth}
+                  seconds={seconds}
+                  setSeconds={setSeconds}
+                  style={styles.normalText}
+                  go={goCountdown}
+                  setGo={setGoCountdown}
+                /> 
+              )}
+              {showRandomTriviaAnswer && !showCountdown && <Text style={styles.normalText}>{waitingRoomTriviaObjs[triviaQuestionIndex].answer}</Text>} 
+            </>
+          )
+          }
 
-        {props.publicOrPrivate !== 'private' && 
-        !showNoMoreQuestionsOptions && 
-        waitingRoomTriviaObjs && 
-        showRandomTrivia && (
-          <>
-            <Text style={styles.normalText}>{waitingRoomTriviaObjs[triviaQuestionIndex].question}</Text>
-            {showCountdown && (
-              <Countdown
-                deviceWidth={screenDeviceWidth}
-                seconds={seconds}
-                setSeconds={setSeconds}
-                style={{ color: 'red' }}
-                go={goCountdown}
-                setGo={setGoCountdown}
-              /> 
-            )}
-            {showRandomTriviaAnswer && !showCountdown && <Text style={styles.normalText}>{waitingRoomTriviaObjs[triviaQuestionIndex].answer}</Text>}
-            
-          </>
-        )
-        }
-
-        {showNoMoreQuestionsOptions && 
-          <View style={styles.noMoreCategoriesView}>
-            <Text style={styles.noMoreCategoriesHeading}>You have played all the questions in this category!</Text>
-            <View style={styles.noMoreCategoriesInnerView}>
-              <PixelPressable
-                buttonStyle={styles.noMoreCategoriesBtnsLeft}
-                pressableProps={{ onPress: resetGameToken }}
-              >
-                Play this category, repeat questions
-              </PixelPressable>
-              <PixelPressable
-                buttonStyle={styles.noMoreCategoriesBtnsRight}
-                pressableProps={{ onPress: () => setBackToLobby(true) }}
-              >
-                Back to lobby, new category
-              </PixelPressable>
+          {showNoMoreQuestionsOptions && 
+            <View style={styles.noMoreCategoriesView}>
+              <Text style={styles.noMoreCategoriesHeading}>You have played all the questions in this category!</Text>
+              <View style={styles.noMoreCategoriesInnerView}>
+                <PixelPressable
+                  buttonStyle={styles.noMoreCategoriesBtnsLeft}
+                  pressableProps={{ onPress: resetGameToken }}
+                >
+                  Play this category, repeat questions
+                </PixelPressable>
+                <PixelPressable
+                  buttonStyle={styles.noMoreCategoriesBtnsRight}
+                  pressableProps={{ onPress: () => setBackToLobby(true) }}
+                >
+                  Back to lobby, new category
+                </PixelPressable>
+              </View>
             </View>
-          </View>
-        }
+          }
+
+        </View>
+
+        <SettingsDrawer/>
 
         {backToLobby && <Redirect to='/lobby' />}
-        
         {roomJoin && <Redirect to='/howtoplay' />}
-
-        <SettingsDrawer />
-
+        
       </AnimatedView>
     )
   }
