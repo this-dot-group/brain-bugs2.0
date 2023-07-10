@@ -31,6 +31,7 @@ function GameScreen(props) {
   const lastCorrect = useRef(null)
   const [backToLobby, setBackToLobby] = useState(false);
   const [goCountdown, setGoCountdown] = useState(false);
+  const [opponentAnswered, setOpponentAnswered] = useState(false);
 
   const { screenDeviceWidth } = props;
 
@@ -188,6 +189,9 @@ function GameScreen(props) {
     );
   }
 
+  const handleOpponentAnswered = () => setOpponentAnswered(true);
+
+  useEffect(() => console.log('opponent answered', opponentAnswered), [opponentAnswered]);
 
   useEffect(() => {
     props.socket.emit('readyForGame');
@@ -230,6 +234,7 @@ function GameScreen(props) {
         setFormattedQuestionInfo(questionObj);
         setSubmitted(-1);
         setAllowSubmit(true);
+        setOpponentAnswered(false);
         
         setGoCountdown(true)
         if (firstQuestion.current) {
@@ -252,6 +257,7 @@ function GameScreen(props) {
     props.socket.on('score', handleScore);
     props.socket.on('endGame', endGame);
     props.socket.on('opponentLeftDuringGame', showOpponentLeftAlert)
+    props.socket.on('opponentAnswered', handleOpponentAnswered);
     
 
     return () => {
@@ -259,6 +265,7 @@ function GameScreen(props) {
       props.socket.off('score', handleScore);
       props.socket.off('endGame', endGame);
       props.socket.off('opponentLeftDuringGame', showOpponentLeftAlert);
+      props.socket.off('opponentAnswered', handleOpponentAnswered);
     }
 
   }, [])
@@ -277,8 +284,6 @@ function GameScreen(props) {
         fakeOpponentSubmit()
       }
     }
-    // console.log('seconds', seconds)
-
   }, [seconds])
 
   useEffect(() => {
@@ -405,7 +410,7 @@ function GameScreen(props) {
           >
               <SubmitButton
                 showButton={(selected % 2 === 0) && submitted === -1 && allowSubmit}
-                showWaiting={waiting.boolean === true && displayAnswer !== true && submitted % 2 === 0}
+                showWaiting={waiting.boolean === true && !opponentAnswered && displayAnswer !== true && submitted % 2 === 0}
                 handleAnsPress={handleAnsPress}
                 displayAnswer={displayAnswer}
                 styles={styles}
@@ -420,7 +425,7 @@ function GameScreen(props) {
               
               <SubmitButton
                 showButton={(selected  === 1 || selected === 3) && submitted === -1 && allowSubmit}
-                showWaiting={waiting.boolean === true && displayAnswer !== true && (submitted === 1 || submitted === 3)}
+                showWaiting={waiting.boolean === true && !opponentAnswered && displayAnswer !== true && (submitted === 1 || submitted === 3)}
                 handleAnsPress={handleAnsPress}
                 displayAnswer={displayAnswer}
                 styles={styles}

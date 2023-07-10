@@ -6,10 +6,15 @@
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 Josh:
-- [ ] don't show "waiting for other player" if opponent has already submitted
+- [x] don't show "waiting for other player" if opponent has already submitted
 - [ ] Fix drawer again
 - [ ] Content audit for all pages, such as how to play instructions, content for alerts (does the wording sound ok in these?)
 
+New:
+- [ ] Fix all "Create a game" modals to account for SafeAreaView
+- [ ] Center text for trivia while you wait
+- [ ] Maybe make a custom alert
+- [ ] Find or create pixel icons
 
 Tia: 
 - [ ] Start adding colors to app
