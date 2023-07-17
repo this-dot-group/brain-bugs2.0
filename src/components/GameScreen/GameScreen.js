@@ -178,10 +178,10 @@ function GameScreen(props) {
     setGoCountdown(false);
     Alert.alert(
       'Your opponent left!',
-      'Please go back to lobby for new game.',
+      'Go back to the lobby for a new game.',
       [
         {
-          text: 'Lobby',
+          text: 'Go to Lobby',
           onPress: () => handleOpponentLeftResponse(),
         },
       ],

@@ -124,8 +124,8 @@ function StartGame(props) {
             buttonStyle={styles.optionBtns}>
             <DropdownMenu
               items={[
-                { label: 'Single player', value: 1 },
-                { label: 'Two players', value: 2 }
+                { label: 'One', value: 1 },
+                { label: 'Two', value: 2 }
               ]}
               title='Number of Players'
               screenDeviceWidth={props.screenDeviceWidth}
@@ -143,10 +143,10 @@ function StartGame(props) {
             <PixelButton buttonStyle={styles.optionBtns}>
               <DropdownMenu
                 items={[
-                  { label: 'Public game', value: 'public' },
-                  { label: 'Private game', value: 'private' }
+                  { label: 'Public', value: 'public' },
+                  { label: 'Private', value: 'private' }
                 ]}
-                title='Public / Private Game'
+                title='Public or Private?'
                 screenDeviceWidth={props.screenDeviceWidth}
                 cb={item => {
                   props.publicOrPrivate(item.value);

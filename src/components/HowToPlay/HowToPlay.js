@@ -59,10 +59,10 @@ function HowToPlay(props) {
     
     Alert.alert(
       'Your opponent left!',
-      'Please go back to lobby for new game.',
+      'Go back to the lobby for a new game.',
       [
         {
-          text: 'Lobby',
+          text: 'Go to Lobby',
           onPress: () => handleOpponentLeftResponse(),
         },
       ],
@@ -117,7 +117,7 @@ function HowToPlay(props) {
 
         <View style={styles.body}>
           <Text style={styles.names}>{username} {opponent && `vs ${opponent}`}</Text>
-          <Text style={styles.subtitle}>Game starting in ...</Text>
+          <Text style={styles.subtitle}>Game starting in</Text>
           <Spinner>
             <Countdown
               seconds={seconds}

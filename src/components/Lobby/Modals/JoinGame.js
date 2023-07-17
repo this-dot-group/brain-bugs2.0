@@ -29,11 +29,11 @@ function JoinGame(props) {
   const alertGameJoinerCantJoin = () => {
     props.socket.emit('refreshAvailableGameList')
     Alert.alert(
-      'We are sorry, this game could not be joined.',
-      'The game creator is unavailable. Please choose another game!',
+      'Sorry, this game could not be joined.',
+      'Please choose another game!',
       [
         {
-          text: 'OK',
+          text: 'Ok',
         },
       ],
       { cancelable: true }
@@ -72,7 +72,7 @@ function JoinGame(props) {
       )}
 
       {!props.gamesWaiting.length && 
-        <Text style={styles.innerText}>No available games yet...</Text>
+        <Text style={styles.innerText}>No available games</Text>
       }
 
     </GenericModal>
