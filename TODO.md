@@ -10,8 +10,9 @@ Josh:
 - [ ] Fix drawer again
 - [ ] Content audit for all pages, such as how to play instructions, content for alerts (does the wording sound ok in these?)
 
-New:
+New ideas:
 - [ ] Fix all "Create a game" modals to account for SafeAreaView
+- [ ] Account for SafeArea in calculating screen size
 - [ ] Center text for trivia while you wait
 - [ ] Maybe make a custom alert
 - [ ] Find or create pixel icons
