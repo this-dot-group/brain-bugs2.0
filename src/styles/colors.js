@@ -1,3 +1,12 @@
+export const brightGreen = {
+  hex: '#00FF83'
+}
+
+
+
+
+// are any of the below used anymore?
+
 export const red = {
   hex: '#CA463A',
 }; 

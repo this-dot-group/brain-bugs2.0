@@ -21,6 +21,7 @@ import { playSound } from '../../store/soundsReducer';
 import { newUsername, newGameCode, newSocketId, newToken, deviceWidth } from '../../store/userReducer.js';
 
 import { EXPO_LOCAL_URL } from '../../../env'
+import { brightGreen } from '../../styles/colors';
 
 const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 const fakeOpponentSocket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
@@ -153,7 +154,7 @@ function Homescreen(props) {
                 height: 46,
                 marginLeft: 16,
                 backgroundColor: validUsername ? 'white' : 'rgba(128,128,128,0.4)',
-                borderColor: validUsername ? 'black' : 'rgba(128,128,128,0.2)',
+                borderColor: validUsername ? brightGreen.hex : 'rgba(128,128,128,0.2)',
               }}
               pressableProps={{
                 onPress: handleGo,
