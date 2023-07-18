@@ -2,6 +2,13 @@ export const brightGreen = {
   hex: '#00FF83'
 }
 
+export const yellow = {
+  hex: '#FED55F'
+}
+
+export const darkBackground = {
+  hex: '#23252E'
+}
 
 
 
@@ -15,9 +22,9 @@ export const orange = {
   hex: '#D4773F',
 }; 
 
-export const yellow = {
-  hex: '#E8B449',
-}; 
+// export const yellow = {
+//   hex: '#E8B449',
+// }; 
 
 export const tan = {
   hex: '#F0DEB6',

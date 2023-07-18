@@ -21,7 +21,7 @@ import { playSound } from '../../store/soundsReducer';
 import { newUsername, newGameCode, newSocketId, newToken, deviceWidth } from '../../store/userReducer.js';
 
 import { EXPO_LOCAL_URL } from '../../../env'
-import { brightGreen } from '../../styles/colors';
+import { brightGreen, darkBackground } from '../../styles/colors';
 
 const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 const fakeOpponentSocket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
@@ -76,7 +76,8 @@ function Homescreen(props) {
     },
     // username input
     input: {
-      ...Typography.inputText[screenDeviceWidth]
+      ...Typography.inputText[screenDeviceWidth],
+      backgroundColor: darkBackground.hex
     },
     logoTextRowView: {
       flexDirection: 'column',
@@ -153,14 +154,16 @@ function Homescreen(props) {
                 width: 70,
                 height: 46,
                 marginLeft: 16,
-                backgroundColor: validUsername ? 'white' : 'rgba(128,128,128,0.4)',
+                backgroundColor: validUsername ? darkBackground.hex : 'rgba(128,128,128,0.4)',
                 borderColor: validUsername ? brightGreen.hex : 'rgba(128,128,128,0.2)',
               }}
               pressableProps={{
                 onPress: handleGo,
                 disabled: !validUsername,
               }}
-            >Go!</PixelPressable>
+            >
+              Go!
+            </PixelPressable>
           </View>
         </KeyboardAvoidingComponent>
       </View>

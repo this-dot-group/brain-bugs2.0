@@ -1,9 +1,10 @@
 import React, { useRef, useEffect } from 'react';
 import { Animated, StyleSheet } from 'react-native';
+import { darkBackground } from '../../styles/colors';
 
 const styles = StyleSheet.create({
   root: {
-    backgroundColor: '#fff',
+    backgroundColor: darkBackground.hex,
     overflow: 'hidden'
   }
 });

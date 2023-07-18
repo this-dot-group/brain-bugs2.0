@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { brightGreen } from '../../styles/colors';
+import { brightGreen, darkBackground } from '../../styles/colors';
 
 const getStyles = (
   buttonStyle,
@@ -10,7 +10,7 @@ const getStyles = (
     width = 216,
     height = 40,
     borderColor = brightGreen.hex,
-    backgroundColor = 'white',
+    backgroundColor = darkBackground.hex,
     borderWidth = 4,
     marginLeft = 0,
     marginRight = 0,

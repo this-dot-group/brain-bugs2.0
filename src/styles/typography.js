@@ -1,3 +1,5 @@
+import { yellow } from "./colors";
+
 const countdownTextBase = {
   color: 'red',
   textAlign: 'center',
@@ -25,6 +27,7 @@ export const countdownText = {
 const headingTextBase = {
   fontFamily: 'DotGothic',
   margin: 4,
+  color: yellow.hex
 }
 
 export const headingOneText = {
@@ -87,7 +90,8 @@ const innerTextBase = {
   fontFamily: 'DotGothic',
   marginTop: 'auto',
   marginBottom: 'auto',
-  textAlign: 'center'
+  textAlign: 'center',
+  color: yellow.hex
 }
 
 export const innerText = {
@@ -164,6 +168,7 @@ const inputTextBase = {
   fontFamily: 'DotGothic',
   paddingLeft: 8,
   flexDirection: 'row',
+  color: yellow.hex
 }
 
 export const inputText = {
