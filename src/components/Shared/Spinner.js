@@ -84,7 +84,7 @@ function Spinner ({ children }) {
           {Object.keys(bugs).map(bug => 
             <Image
               key={bug}
-              source={require('../../images/BRAIN_BUG1.png')}
+              source={require('../../images/BRAIN_BUG2.png')}
               style={styles[bug]}
             />
           )}
