@@ -116,7 +116,8 @@ const dropdownInnerTextBase = {
   fontFamily: 'DotGothic',
   marginTop: 'auto',
   marginBottom: 'auto',
-  textAlign: 'center'
+  textAlign: 'center',
+  color: yellow.hex
 }
 
 export const dropdownInnerText = {

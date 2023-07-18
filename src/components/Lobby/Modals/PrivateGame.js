@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { newOpponent } from '../../../store/userReducer';
 import { Typography } from '../../../styles';
 import { GenericModal, Hider, TitleBar, PixelPressable } from '../../Shared';
+import { yellow } from '../../../styles/colors';
 
 function PrivateGame(props) {
   const [gameCode, setGameCode] = useState('');
@@ -81,6 +82,7 @@ function PrivateGame(props) {
       </TitleBar>
       <Input
         placeholder='Enter code'
+        placeholderTextColor={yellow.hex}
         style={styles.inputText}
         onChangeText={value => handleChange(value)}
         maxLength={5}

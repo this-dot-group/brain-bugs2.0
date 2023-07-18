@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { Typography } from '../../styles';
 import PixelPressable from './PixelPressable';
+import { brightGreen } from '../../styles/colors';
 
 function TitleBar({ children, cb, style, deviceSize }) {
   const makeStyles = (style) => StyleSheet.create({
@@ -27,6 +28,7 @@ function TitleBar({ children, cb, style, deviceSize }) {
     },
     closeModalButtonText: {
       fontWeight: 'bold',
+      color: brightGreen.hex
     }
   });
   
