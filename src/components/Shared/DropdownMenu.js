@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { Image } from 'react-native-elements';
 import { Typography, Views } from '../../styles';
-import { gray } from '../../styles/colors';
+import { darkBackground } from '../../styles/colors';
 import Spinner from './Spinner';
 
 function DropdownMenu(props) {
@@ -34,14 +35,22 @@ function DropdownMenu(props) {
   });
 
   for (let i = 0; i < items.length; i++) {
-    if(i % 2) items[i].containerStyle = { backgroundColor: gray.hex }
+    if(i % 2) items[i].containerStyle = { backgroundColor: '#443148' }
   }
 
   return (
     <DropDownPicker
       style={{
         borderWidth: 0,
-        backgroundColor: 'rgba(0,0,0,0)'
+        backgroundColor: darkBackground.hex
+      }}
+      CloseIconComponent={() => {
+        return (
+          <Image
+            source={require('../../images/yellow-x.png')}
+            style={{ width: 40, height: 40 }}
+          />
+        )
       }}
       labelStyle={styles.selectedItemText}
       listItemContainerStyle={styles.item}
@@ -61,6 +70,9 @@ function DropdownMenu(props) {
       modalProps={{
         supportedOrientations: ['landscape'],
         animationType: 'slide',
+      }}
+      modalContentContainerStyle={{
+        backgroundColor: darkBackground.hex
       }}
       loading={loading || false}
       ActivityIndicatorComponent={Spinner}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import { Image } from 'react-native-elements';
 import { Typography } from '../../styles';
 import PixelPressable from './PixelPressable';
 import { brightGreen } from '../../styles/colors';
@@ -25,10 +26,6 @@ function TitleBar({ children, cb, style, deviceSize }) {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-    },
-    closeModalButtonText: {
-      fontWeight: 'bold',
-      color: brightGreen.hex
     }
   });
   
@@ -52,7 +49,10 @@ function TitleBar({ children, cb, style, deviceSize }) {
           style: styles.closeModalButton
         }}
       >
-        <Text style={styles.closeModalButtonText}>X</Text>
+         <Image
+            source={require('../../images/green-x.png')}
+            style={{ width: 25, height: 25 }}
+          />
       </PixelPressable>
     </View>
   );

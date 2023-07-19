@@ -22,6 +22,7 @@ export const modalView = {
 const baseDropdownItemView = {
   alignSelf: 'center',
   width: '80%',
+  backgroundColor: darkBackground.hex
 }
 
 export const dropdownItemView = {
