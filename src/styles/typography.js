@@ -1,9 +1,9 @@
-import { yellow } from "./colors";
+import { brightGreen, red, yellow } from "./colors";
 
 const countdownTextBase = {
-  color: 'red',
   textAlign: 'center',
-  fontFamily: 'VT323'
+  fontFamily: 'VT323',
+  color: red.hex
 }
 export const countdownText = {
   small: {
@@ -273,6 +273,7 @@ export const alertText = {
 const ansTextBase = {
   fontFamily: 'DotGothic',
   textAlign: 'center',
+  color: yellow.hex
 }
 
 export const answerText = {
@@ -298,6 +299,7 @@ const submitTextBase = {
   textAlign: 'center',
   marginTop: 'auto',
   marginBottom: 'auto',
+  color: yellow.hex
 }
 
 export const submitText = {
@@ -321,6 +323,7 @@ export const submitText = {
 const qTextBase = {
   fontFamily: 'VT323',
   textAlign: 'center',
+  color: yellow.hex
 }
 
 export const questionText = {
@@ -344,7 +347,8 @@ export const questionText = {
 const qCountTextBase = {
   fontFamily: 'VT323',
   textAlign: 'center',
-  paddingTop: 2
+  paddingTop: 2,
+  color: yellow.hex
 }
 
 export const questionCountText = {
@@ -368,6 +372,7 @@ export const questionCountText = {
 const scoreTextBase = {
   fontFamily: 'DotGothic',
   textAlign: 'center',
+  color: yellow.hex
 }
 
 export const scoreText = {
@@ -391,6 +396,7 @@ export const scoreText = {
 const waitingTextBase = {
   fontStyle: 'italic',
   textAlign: 'center',
+  color: yellow.hex
 }
 
 export const waitingText = {

@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { Hider, PixelPressable } from "../Shared";
 import { Typography } from "../../styles";
 import { connect } from "react-redux";
+import { darkBackground, blue } from "../../styles/colors";
 
 const SubmitButton = ({
   showButton,
@@ -16,7 +17,7 @@ const SubmitButton = ({
     },
     submitButton: {
       padding: 2,
-      backgroundColor: 'white',
+      backgroundColor: darkBackground.hex,
       height: '100%',
       width: '100%',
     },
@@ -32,7 +33,7 @@ const SubmitButton = ({
     <View style={styles.container}>
       <Hider show={showButton}>
         <PixelPressable
-          buttonStyle={{ height: 60, width: 80, position: "absolute" }}
+          buttonStyle={{ height: 60, width: 80, position: "absolute", borderColor: blue.hex }}
           pressableProps={{
             onPress: handleAnsPress,
             onPressOut: () => {},
@@ -40,7 +41,7 @@ const SubmitButton = ({
             disabled: displayAnswer,
           }}
         >
-          <Text style={styles.submitText}>Submit</Text>
+          <Text style={styles.submitText}>SUBMIT</Text>
         </PixelPressable>
       </Hider>
       <Hider show={showWaiting}>

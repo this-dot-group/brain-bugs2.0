@@ -44,7 +44,6 @@ function HowToPlay(props) {
     },
     countdown: {
       ...Typography.smallInnerText[screenDeviceWidth],
-      color: 'red'
     },
   })
 

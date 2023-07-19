@@ -4,7 +4,7 @@ import { brightGreen, darkBackground } from '../../styles/colors';
 
 const getStyles = (
   buttonStyle,
-  textStyle
+  textStyle,
 ) => {
   let {
     width = 216,
