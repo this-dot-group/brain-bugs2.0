@@ -6,16 +6,11 @@
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 Josh:
-- [x] don't show "waiting for other player" if opponent has already submitted
-- [ ] Fix drawer again
-- [ ] Content audit for all pages, such as how to play instructions, content for alerts (does the wording sound ok in these?)
-
-New ideas:
 - [ ] Fix all "Create a game" modals to account for SafeAreaView
+- [ ] Check for device type to see if we should use SafeAreaView
 - [ ] Account for SafeArea in calculating screen size
-- [ ] Center text for trivia while you wait
-- [ ] Maybe make a custom alert
 - [ ] Find or create pixel icons
+- [ ] Center text for trivia while you wait
 
 Tia: 
 - [x] Start adding colors to app
@@ -26,9 +21,8 @@ Tia:
   - [ ] Brighter red in countdown
   - [ ] Rematch request text
   - [ ] Chat
+- [ ] Maybe make a custom alert
 - [ ] Bug crawling animation
-- [x] Test safe area view on android
-  - On android, this causes the menu buttons (home, back, etc) to always be showing 
 
 
 For Future
