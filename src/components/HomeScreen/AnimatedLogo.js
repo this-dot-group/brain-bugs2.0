@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { Animated, Easing } from 'react-native';
-import logo from '../../images/BRAIN_BUG1.png';
+import logo from '../../images/BRAIN_BUG2.png';
 
 function AnimatedLogo ({ imgStyle, textStyle }) {
   const scaleAnim = useRef(new Animated.Value(1.8)).current;

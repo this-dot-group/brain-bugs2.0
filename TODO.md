@@ -12,9 +12,17 @@ Josh:
 
 
 Tia: 
-- [ ] Start adding colors to app
+- [x] Start adding colors to app
+  - [ ] Handled color change on answer selected when 2p
+  - [ ] Enter username placeholder text
+  - [ ] In list delimiation, try shade dif of same background color
+  - [ ] Text in GO button
+  - [ ] Brighter red in countdown
+  - [ ] Rematch request text
+  - [ ] Chat
 - [ ] Bug crawling animation
-- [ ] Test safe area view on android
+- [x] Test safe area view on android
+  - On android, this causes the menu buttons (home, back, etc) to always be showing 
 
 
 For Future

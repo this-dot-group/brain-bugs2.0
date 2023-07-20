@@ -1,7 +1,9 @@
+import { brightGreen, red, yellow } from "./colors";
+
 const countdownTextBase = {
-  color: 'red',
   textAlign: 'center',
-  fontFamily: 'VT323'
+  fontFamily: 'VT323',
+  color: red.hex
 }
 export const countdownText = {
   small: {
@@ -25,6 +27,7 @@ export const countdownText = {
 const headingTextBase = {
   fontFamily: 'DotGothic',
   margin: 4,
+  color: yellow.hex
 }
 
 export const headingOneText = {
@@ -87,7 +90,8 @@ const innerTextBase = {
   fontFamily: 'DotGothic',
   marginTop: 'auto',
   marginBottom: 'auto',
-  textAlign: 'center'
+  textAlign: 'center',
+  color: yellow.hex
 }
 
 export const innerText = {
@@ -112,7 +116,8 @@ const dropdownInnerTextBase = {
   fontFamily: 'DotGothic',
   marginTop: 'auto',
   marginBottom: 'auto',
-  textAlign: 'center'
+  textAlign: 'center',
+  color: yellow.hex
 }
 
 export const dropdownInnerText = {
@@ -137,7 +142,8 @@ const smInnerTextBase = {
   fontFamily: 'DotGothic',
   marginTop: 'auto',
   marginBottom: 'auto',
-  textAlign: 'center'
+  textAlign: 'center',
+  color: yellow.hex
 }
 
 export const smallInnerText = {
@@ -155,7 +161,7 @@ export const smallInnerText = {
   }
 }
 
-////// INPUT TEXT 
+////// INPUT TEXT   
 ////// - input placeholder 
 
 const inputTextBase = {
@@ -164,6 +170,7 @@ const inputTextBase = {
   fontFamily: 'DotGothic',
   paddingLeft: 8,
   flexDirection: 'row',
+  color: yellow.hex
 }
 
 export const inputText = {
@@ -215,6 +222,7 @@ export const chatInputText = {
 
 const normalTextBase = {
   fontFamily: 'DotGothic',
+  color: yellow.hex
 }
 
 export const normalText = {
@@ -243,7 +251,8 @@ export const normalText = {
 const alertTextBase = {
   color: 'red',
   fontFamily: 'DotGothic',
-  textAlign: 'center'
+  textAlign: 'center',
+  color: red.hex
 }
 
 export const alertText = {
@@ -267,6 +276,7 @@ export const alertText = {
 const ansTextBase = {
   fontFamily: 'DotGothic',
   textAlign: 'center',
+  color: yellow.hex
 }
 
 export const answerText = {
@@ -292,6 +302,7 @@ const submitTextBase = {
   textAlign: 'center',
   marginTop: 'auto',
   marginBottom: 'auto',
+  color: yellow.hex
 }
 
 export const submitText = {
@@ -315,6 +326,7 @@ export const submitText = {
 const qTextBase = {
   fontFamily: 'VT323',
   textAlign: 'center',
+  color: yellow.hex
 }
 
 export const questionText = {
@@ -338,7 +350,8 @@ export const questionText = {
 const qCountTextBase = {
   fontFamily: 'VT323',
   textAlign: 'center',
-  paddingTop: 2
+  paddingTop: 2,
+  color: yellow.hex
 }
 
 export const questionCountText = {
@@ -362,6 +375,7 @@ export const questionCountText = {
 const scoreTextBase = {
   fontFamily: 'DotGothic',
   textAlign: 'center',
+  color: yellow.hex
 }
 
 export const scoreText = {
@@ -385,6 +399,7 @@ export const scoreText = {
 const waitingTextBase = {
   fontStyle: 'italic',
   textAlign: 'center',
+  color: yellow.hex
 }
 
 export const waitingText = {

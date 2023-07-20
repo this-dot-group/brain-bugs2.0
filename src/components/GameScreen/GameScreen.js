@@ -11,6 +11,8 @@ import { PixelPressable } from '../Shared';
 import { Typography } from '../../styles';
 import AnimatedView from '../Shared/AnimatedView';
 import SubmitButton from './SubmitButton';
+import { brightGreen, blue, red, darkBackground } from '../../styles/colors';
+import { answerText } from '../../styles/typography';
 
 function GameScreen(props) {
   const [seconds, setSeconds] = useState(QUESTION_TIME * 1000);
@@ -94,7 +96,12 @@ function GameScreen(props) {
   
   const buttonStyle = {
     height: 70,
-    width: 220
+    width: 220,
+    borderColor: blue.hex
+  }
+
+  const answerText = {
+    ...Typography.answerText[screenDeviceWidth]
   }
 
 
@@ -289,16 +296,30 @@ function GameScreen(props) {
     const styles = { ...buttonStyle };
 
     if (i === selected) {
-      styles.backgroundColor = '#C0C0C0'
+      styles.backgroundColor = blue.hex
     }
     if (i === submitted) {
-      styles.backgroundColor = '#8A8787'
+      styles.backgroundColor = red.hex,
+      styles.borderColor = red.hex
     }
     if (i === correctIndex && displayAnswer) {
-      styles.backgroundColor = '#ADD8E6'
+      styles.backgroundColor = brightGreen.hex,
+      styles.borderColor = brightGreen.hex
     }
     return styles;
   }
+
+  const chooseAnswerTextColor = (i) => {
+    const styles = { ...answerText };
+
+    if (i === submitted && displayAnswer) {
+      styles.color = darkBackground.hex
+    }
+    if (i === correctIndex && displayAnswer) {
+      styles.color = darkBackground.hex
+    }
+    return styles;
+  };
 
 
   return (
@@ -319,6 +340,7 @@ function GameScreen(props) {
             <View style={styles.answerOptionPressables}>
               <PixelPressable
                 buttonStyle={chooseColor(ansObjForRendering[0].index)}
+                borderColor={brightGreen.hex}
                 pressableProps={{
                   onPress: () => setSelected(ansObjForRendering[0].index),
                   style: styles.nonSelectedAnswer,
@@ -327,7 +349,7 @@ function GameScreen(props) {
                 }}
               >
                 <Text
-                  style={styles.answerText}>
+                  style={chooseAnswerTextColor(ansObjForRendering[0].index)}>
                   {he.decode(ansObjForRendering[0].answer)}
                 </Text>
               </PixelPressable>
@@ -336,7 +358,7 @@ function GameScreen(props) {
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               {displayAnswer && (
                 <Image
-                source={score.playerOne.correct ? require('../../images/check.png') : require('../../images/x.png')}
+                source={score.playerOne.correct ? require('../../images/green-check.png') : require('../../images/red-x.png')}
                 style={{ height: 20, width: 20, marginRight: 10 }} 
                 />
               )}
@@ -365,7 +387,7 @@ function GameScreen(props) {
               </View>
               {displayAnswer && (
                 <Image
-                source={score.playerTwo.correct ? require('../../images/check.png') : require('../../images/x.png')}
+                source={score.playerTwo.correct ? require('../../images/green-check.png') : require('../../images/red-x.png')}
                 style={{ height: 20, width: 20, marginLeft: 10 }} 
                 />
               )}
@@ -389,7 +411,7 @@ function GameScreen(props) {
                   }}
                 >
                   <Text
-                    style={styles.answerText}>
+                    style={chooseAnswerTextColor(ansObjForRendering[1].index)}>
                     {he.decode(ansObjForRendering[1].answer)}
                   </Text>
                 </PixelPressable>
@@ -446,7 +468,7 @@ function GameScreen(props) {
                     disabled: displayAnswer || selected === 2 || submitted > -1,
                   }}
                 >
-                  <Text style={styles.answerText}>
+                  <Text style={chooseAnswerTextColor(ansObjForRendering[2].index)}>
                     {he.decode(ansObjForRendering[2].answer)}
                   </Text>
                 </PixelPressable>
@@ -460,7 +482,6 @@ function GameScreen(props) {
               deviceWidth={screenDeviceWidth}
               seconds={seconds}
               setSeconds={setSeconds}
-              style={{ color: 'red' }}
               go={goCountdown}
               setGo={setGoCountdown}
             />
@@ -478,7 +499,7 @@ function GameScreen(props) {
                       disabled: displayAnswer || selected === 3 || submitted > -1,
                     }}
                   >
-                    <Text style={styles.answerText}>
+                    <Text style={chooseAnswerTextColor(ansObjForRendering[3].index)}>
                       {he.decode(ansObjForRendering[3].answer)}
                     </Text>
                   </PixelPressable>

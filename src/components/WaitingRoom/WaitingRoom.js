@@ -177,7 +177,7 @@ const WaitingRoom = (props) => {
           setShowRandomTrivia(true);
           setShowCountdown(true);
           setGoCountdown(true);
-        }, 2000)
+        }, 3000)
       } catch (e) {
         // this state will just continue to show the loading circle
         console.error('ERROR IN WAITING ROOM TRIVIA:', e);
@@ -317,7 +317,7 @@ const WaitingRoom = (props) => {
                   deviceWidth={screenDeviceWidth}
                   seconds={seconds}
                   setSeconds={setSeconds}
-                  style={styles.normalText}
+                  // style={styles.normalText}
                   go={goCountdown}
                   setGo={setGoCountdown}
                 /> 

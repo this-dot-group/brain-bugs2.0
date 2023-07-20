@@ -40,7 +40,7 @@ function HowToPlayModal({ visible, setVisible, deviceSize }) {
         {instructions.map(({instruction, id}) => 
           <View key={id} style={styles.listItem}>
             <Image
-              source={require('../../images/BRAIN_BUG1.png')}
+              source={require('../../images/BRAIN_BUG2.png')}
               style={styles.bug}
             />
             <Text style={styles.listText}>{instruction}</Text>

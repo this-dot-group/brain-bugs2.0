@@ -1,31 +1,19 @@
-export const red = {
-  hex: '#CA463A',
-}; 
-
-export const orange = {
-  hex: '#D4773F',
-}; 
+export const brightGreen = {
+  hex: '#00FF83'
+}
 
 export const yellow = {
-  hex: '#E8B449',
-}; 
+  hex: '#FED55F'
+}
 
-export const tan = {
-  hex: '#F0DEB6',
-}; 
+export const darkBackground = {
+  hex: '#23252E'
+}
 
-export const lightBlue = {
-  hex: '#69B6B6',
-}; 
+export const blue = {
+  hex: '#5B66AE'
+}
 
-export const medBlue = {
-  hex: '#4D9DA2',
-}; 
-
-export const darkBlue = {
-  hex: '#2F687C',
-};
-
-export const gray = {
-  hex: '#ddd'
+export const red = {
+  hex: '#B54550'
 }

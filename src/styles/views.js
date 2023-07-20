@@ -1,7 +1,10 @@
+import { brightGreen, darkBackground } from "./colors";
+
 export const modalView = {
-  backgroundColor: 'white',
+  backgroundColor: darkBackground.hex,
   borderRadius: 20,
   borderWidth: 2,
+  borderColor: brightGreen.hex,
   padding: 10,
   alignItems: 'stretch',
   display: 'flex',
@@ -19,6 +22,7 @@ export const modalView = {
 const baseDropdownItemView = {
   alignSelf: 'center',
   width: '80%',
+  backgroundColor: darkBackground.hex
 }
 
 export const dropdownItemView = {

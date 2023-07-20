@@ -1,15 +1,16 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { brightGreen, darkBackground } from '../../styles/colors';
 
 const getStyles = (
   buttonStyle,
-  textStyle
+  textStyle,
 ) => {
   let {
     width = 216,
     height = 40,
-    borderColor = 'black',
-    backgroundColor = 'white',
+    borderColor = brightGreen.hex,
+    backgroundColor = darkBackground.hex,
     borderWidth = 4,
     marginLeft = 0,
     marginRight = 0,
@@ -85,14 +86,14 @@ function PixelButton({ onPress, children, buttonStyle = {}, textStyle = {}, vari
   if(variant?.toLowerCase() === 'go') {
     if(!children) children = 'GO'
     buttonStyle = {
-      backgroundColor: 'green',
-      borderColor: 'green',
+      backgroundColor: brightGreen.hex,
+      borderColor: brightGreen.hex,
       width: 50,
       height: 46,
       ...buttonStyle
     }
     textStyle = {
-      color: 'white',
+      color: darkBackground.hex,
       fontWeight: 'bold',
       fontFamily: 'DotGothic',
       fontSize: 16,
