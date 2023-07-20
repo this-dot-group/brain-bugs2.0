@@ -160,8 +160,8 @@ function GameEnd({
 
   const createOpponentSaidNoAlert = (opponent) => {
     Alert.alert(
-      'Find another challenger!',
-      `Your opponent ${opponent} declined your rematch request.`,
+      `${opponent} declined your rematch request!`,
+      'Find another challenger.',
       [
         {
           text: 'Ok',
@@ -176,7 +176,7 @@ function GameEnd({
     // check here to see if rematch is already no, in which case we dont need to show the alert
     if (!opponentSaidNoToRematch.current){
       Alert.alert(
-        'Your opponent has left the room.',
+        'Your opponent left!',
         'Rematch and chat no longer enabled.',
         [
           {
@@ -193,11 +193,11 @@ function GameEnd({
 
   const showOpponentLeftAlert = () => {
     Alert.alert(
-      'Your opponent has left the room.',
-      'Please go back to lobby for new game.',
+      'Your opponent left!',
+      'Go back to the lobby for a new game.',
       [
         {
-          text: 'Lobby',
+          text: 'Go to Lobby',
           onPress: () => setBackToLobby(true),
         },
       ],

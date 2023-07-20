@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
-import { MuteButton, ToggleButton, PixelButton } from '../Shared';
+import { MuteButton, ToggleButton, PixelButton, Overlay } from '../Shared';
 import StatsModal from '../StatsModal/StatsModal';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal';
 import { playSound } from '../../store/soundsReducer';
 import { connect } from 'react-redux';
-import { Buttons } from '../../styles'
+import { Buttons } from '../../styles';
 
 const SettingsDrawer = ({ screenDeviceWidth, playSound }) => {
   if (!screenDeviceWidth) return <></>;
@@ -14,11 +14,12 @@ const SettingsDrawer = ({ screenDeviceWidth, playSound }) => {
       top: 0,
       left: 0,
       bottom: 0,
-      right: 20,
+      right: -8,
       position: 'absolute',
       paddingVertical: 30,
       alignItems: 'flex-end',
       justifyContent: 'flex-end',
+      zIndex: 2,
     },
     drawer: {
       ...Buttons.settingsDrawer[screenDeviceWidth],
@@ -44,7 +45,7 @@ const SettingsDrawer = ({ screenDeviceWidth, playSound }) => {
   const [statsVisible, setStatsVisible] = useState(false);
   const [howToPlayVisibile, setHowToPlayVisible] = useState(false);
 
-  const rightTranslate = Buttons.settingsDrawer[screenDeviceWidth].width  - 15;
+  const rightTranslate = Buttons.settingsDrawer[screenDeviceWidth].width - 36;
   const translateXVal = useRef(new Animated.Value(rightTranslate)).current;
 
   const translateAnim = (toValue) => () => {
@@ -87,6 +88,10 @@ const SettingsDrawer = ({ screenDeviceWidth, playSound }) => {
       onPointerDown={handlePress}
       onPointerDownCapture={handlePress}
     >
+      <Overlay
+        active={open}
+        onPress={handlePress}
+      />
       <Animated.View
         style={{
           transform: [
@@ -94,6 +99,7 @@ const SettingsDrawer = ({ screenDeviceWidth, playSound }) => {
               translateX: translateXVal,
             },
           ],
+          zIndex: 2,
         }}
       >
         <PixelButton buttonStyle={styles.drawer}>

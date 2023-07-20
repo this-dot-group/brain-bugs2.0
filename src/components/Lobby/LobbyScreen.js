@@ -117,7 +117,7 @@ function StartScreen(props) {
       <PixelPressable
         buttonStyle={styles.optionBtns}
         pressableProps={{ onPress: () => handleModalChange('start') }}
-      >Start a Game</PixelPressable>
+      >Start Game</PixelPressable>
       <StartGameModal
         setModalVisible={handleModalChange}
         modalVisible={modalVisible}

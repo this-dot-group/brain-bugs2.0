@@ -21,8 +21,8 @@ export const QUESTION_DROPDOWN_CHOICES = numQuestions.map(value => ({
 
 export const instructions = [
   'Read the question',
-  'Select an answer before the timer runs out',
-  'Press submit',
-  'Try to answer before your opponent',
-  'Stick around after the game to chat with your opponent'
+  'Select an answer',
+  'Press submit before the timer runs out',
+  'Answer quickly to get more points',
+  'Chat with your opponent after the game'
 ].map((instruction, i) => ({instruction, id: i + instruction[0]}))

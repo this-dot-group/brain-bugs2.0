@@ -31,7 +31,7 @@ const initialState = {
   },
   winningPercentage: {
     id: 6,
-    label: 'Winning Percentage',
+    label: 'Win Percentage',
     value: `${0}%`,
   },
 };

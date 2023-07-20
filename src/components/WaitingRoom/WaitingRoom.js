@@ -110,7 +110,7 @@ const WaitingRoom = (props) => {
     } catch (error) {
       Alert.alert(
         'We were unable to open sharing.',
-        `Press Copy Code below to save code to Clipboard.`,
+        'Share the game code with your opponent.',
         [
           {
             text: 'Copy Code',
@@ -128,8 +128,8 @@ const WaitingRoom = (props) => {
 
   const cancelGame = () => {
     Alert.alert(
-      'Are you sure?', 
-      'You will be redirected back to the Lobby', 
+      'Are you sure?',
+      '',
       [
         {
           text: 'Yes, cancel game',
@@ -282,7 +282,7 @@ const WaitingRoom = (props) => {
           {props.publicOrPrivate === 'private' &&
             <>
               <Text style={styles.privateWaitingText}>
-                Give the game code to your opponent! Click code button to share. Game will start when other player joins.
+                Give the game code to your opponent! Click code button to share. Game will start when your opponent joins.
               </Text>
             </>
           }
@@ -335,13 +335,13 @@ const WaitingRoom = (props) => {
                   buttonStyle={styles.noMoreCategoriesBtnsLeft}
                   pressableProps={{ onPress: resetGameToken }}
                 >
-                  Play this category, repeat questions
+                  Play this category with repeat questions
                 </PixelPressable>
                 <PixelPressable
                   buttonStyle={styles.noMoreCategoriesBtnsRight}
                   pressableProps={{ onPress: () => setBackToLobby(true) }}
                 >
-                  Back to lobby, new category
+                  Go back to the lobby 
                 </PixelPressable>
               </View>
             </View>
