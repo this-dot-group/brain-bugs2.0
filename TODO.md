@@ -12,9 +12,10 @@ Josh:
 
 
 Tia: 
-- [ ] Start adding colors to app
+- [x] Start adding colors to app
+  - [ ] Handled color change on answer selected when 2p
 - [ ] Bug crawling animation
-- [ ] Test safe area view on android
+- [x] Test safe area view on android
 
 
 For Future

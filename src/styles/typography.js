@@ -142,7 +142,8 @@ const smInnerTextBase = {
   fontFamily: 'DotGothic',
   marginTop: 'auto',
   marginBottom: 'auto',
-  textAlign: 'center'
+  textAlign: 'center',
+  color: yellow.hex
 }
 
 export const smallInnerText = {
@@ -160,7 +161,7 @@ export const smallInnerText = {
   }
 }
 
-////// INPUT TEXT 
+////// INPUT TEXT   
 ////// - input placeholder 
 
 const inputTextBase = {
@@ -221,6 +222,7 @@ export const chatInputText = {
 
 const normalTextBase = {
   fontFamily: 'DotGothic',
+  color: yellow.hex
 }
 
 export const normalText = {
@@ -249,7 +251,8 @@ export const normalText = {
 const alertTextBase = {
   color: 'red',
   fontFamily: 'DotGothic',
-  textAlign: 'center'
+  textAlign: 'center',
+  color: red.hex
 }
 
 export const alertText = {

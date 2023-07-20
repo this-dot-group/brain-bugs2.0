@@ -86,14 +86,14 @@ function PixelButton({ onPress, children, buttonStyle = {}, textStyle = {}, vari
   if(variant?.toLowerCase() === 'go') {
     if(!children) children = 'GO'
     buttonStyle = {
-      backgroundColor: 'green',
-      borderColor: 'green',
+      backgroundColor: brightGreen.hex,
+      borderColor: brightGreen.hex,
       width: 50,
       height: 46,
       ...buttonStyle
     }
     textStyle = {
-      color: 'white',
+      color: darkBackground.hex,
       fontWeight: 'bold',
       fontFamily: 'DotGothic',
       fontSize: 16,
