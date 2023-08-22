@@ -18,7 +18,7 @@ Tia:
   - [x] Enter username placeholder text
   - [X] In list delimiation, try shade dif of same background color
   - [ ] Text in GO button
-  - [ ] Brighter red in countdown
+  - [x] Brighter red in countdown
   - [ ] Rematch request text
   - [ ] Chat
 - [ ] Maybe make a custom alert

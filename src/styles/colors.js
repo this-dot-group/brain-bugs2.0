@@ -21,3 +21,7 @@ export const blue = {
 export const red = {
   hex: '#B54550'
 }
+
+export const brightRed = {
+  hex: '#DC2326'
+}

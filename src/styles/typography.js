@@ -1,9 +1,9 @@
-import { brightGreen, red, yellow } from "./colors";
+import { brightGreen, red, yellow, brightRed } from "./colors";
 
 const countdownTextBase = {
   textAlign: 'center',
   fontFamily: 'VT323',
-  color: red.hex
+  color: brightRed.hex
 }
 export const countdownText = {
   small: {
@@ -252,7 +252,7 @@ const alertTextBase = {
   color: 'red',
   fontFamily: 'DotGothic',
   textAlign: 'center',
-  color: red.hex
+  color: brightRed.hex
 }
 
 export const alertText = {
