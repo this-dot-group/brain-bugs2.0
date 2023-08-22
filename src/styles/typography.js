@@ -1,4 +1,4 @@
-import { brightGreen, red, yellow, brightRed } from "./colors";
+import { brightGreen, red, yellow, brightRed, darkBackground } from "./colors";
 
 const countdownTextBase = {
   textAlign: 'center',
@@ -84,7 +84,6 @@ export const headingThreeText = {
 
 ////// INNER TEXT 
 ////// - how to play btn 
-////// - go btn 
 
 const innerTextBase = {
   fontFamily: 'DotGothic',
@@ -106,6 +105,32 @@ export const innerText = {
   large: {
     ...innerTextBase,
     fontSize: 24
+  }
+}
+
+////// GO BTN INNER TEXT 
+////// - go btn 
+
+const goBtnInnerTextBase = {
+  fontFamily: 'VT323',
+  marginTop: 'auto',
+  marginBottom: 'auto',
+  textAlign: 'center',
+  color: darkBackground.hex
+}
+
+export const goBtnInnerText = {
+  small: {
+    ...goBtnInnerTextBase,
+    fontSize: 22
+  },
+  medium: {
+    ...goBtnInnerTextBase,
+    fontSize: 24
+  },
+  large: {
+    ...goBtnInnerTextBase,
+    fontSize: 26
   }
 }
 

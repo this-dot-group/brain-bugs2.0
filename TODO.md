@@ -17,7 +17,7 @@ Tia:
   - [ ] Handled color change on answer selected when 2p
   - [x] Enter username placeholder text
   - [X] In list delimiation, try shade dif of same background color
-  - [ ] Text in GO button
+  - [x] Text in GO button
   - [x] Brighter red in countdown
   - [ ] Rematch request text
   - [ ] Chat

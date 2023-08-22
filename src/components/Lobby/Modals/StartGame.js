@@ -167,7 +167,9 @@ function StartGame(props) {
             pressableProps={{
               onPress: () => setRedirect(true)
             }}
-          >Go</PixelPressable>
+          >
+            Go
+          </PixelPressable>
         </Hider>
       </View>
     </GenericModal>

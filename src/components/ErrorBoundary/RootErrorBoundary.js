@@ -1,6 +1,7 @@
 import { ErrorBoundary } from 'react-error-boundary';
 import { Text, View, StyleSheet } from 'react-native';
 import { Typography } from '../../styles';
+import { brightRed } from '../../styles/colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -10,8 +11,14 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%'
   },
-  heading: Typography.headingOneText.small,
-  content: Typography.innerText.small,
+  heading: {
+    ...Typography.headingOneText.small,
+    color: brightRed.hex
+  },
+  content: {
+    ...Typography.innerText.small,
+    color: brightRed.hex
+  },
 });
 
 export function RootErrorFallback() {
@@ -19,7 +26,7 @@ export function RootErrorFallback() {
     <View style={styles.container}>
       <View>
         <Text style={styles.heading}>Something went wrong...</Text>
-        <Text style={styles.content}>Sometimes our brain has bugs. Please restart the app</Text>
+        <Text style={styles.content}>Sometimes our brain has bugs. Please restart the app.</Text>
       </View>
     </View>
   );
