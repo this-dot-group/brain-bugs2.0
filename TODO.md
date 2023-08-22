@@ -19,7 +19,7 @@ Tia:
   - [X] In list delimiation, try shade dif of same background color
   - [x] Text in GO button
   - [x] Brighter red in countdown
-  - [ ] Rematch request text
+  - [x] Rematch request text
   - [ ] Chat
 - [ ] Maybe make a custom alert
 - [ ] Bug crawling animation

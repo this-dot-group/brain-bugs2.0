@@ -448,6 +448,7 @@ export const waitingText = {
 
 const rematchTextBase = {
   fontFamily: 'VT323',
+  color: brightRed.hex
 }
 
 export const rematchText = {
