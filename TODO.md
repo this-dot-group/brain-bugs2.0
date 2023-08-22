@@ -15,7 +15,7 @@ Josh:
 Tia: 
 - [x] Start adding colors to app
   - [ ] Handled color change on answer selected when 2p
-  - [ ] Enter username placeholder text
+  - [x] Enter username placeholder text
   - [ ] In list delimiation, try shade dif of same background color
   - [ ] Text in GO button
   - [ ] Brighter red in countdown
