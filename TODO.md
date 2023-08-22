@@ -20,9 +20,10 @@ Tia:
   - [x] Text in GO button
   - [x] Brighter red in countdown
   - [x] Rematch request text
-  - [ ] Chat
+  - [x] Chat
 - [ ] Maybe make a custom alert
 - [ ] Bug crawling animation
+- bug: rematch request inside chat doesn't go away once it's interacted with
 
 
 For Future

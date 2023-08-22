@@ -14,6 +14,10 @@ export const darkBackgroundLighterShade = {
   hex: '#343743'
 }
 
+export const darkBackgroundLightestShade = {
+  hex: "#CBCDD5"
+}
+
 export const blue = {
   hex: '#5B66AE'
 }

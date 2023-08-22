@@ -1,4 +1,4 @@
-import { brightGreen, red, yellow, brightRed, darkBackground } from "./colors";
+import { brightGreen, red, yellow, brightRed, darkBackground, darkBackgroundLightestShade } from "./colors";
 
 const countdownTextBase = {
   textAlign: 'center',
@@ -217,9 +217,10 @@ export const inputText = {
 ////// - chat input
 
 const chatInputTextBase = {
+  fontFamily: 'DotGothic',
   flexGrow: 1,
   marginRight: 10,
-  backgroundColor: 'white',
+  backgroundColor: darkBackgroundLightestShade.hex,
   zIndex: 2,
   width: '80%'
 }
