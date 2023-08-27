@@ -9,7 +9,7 @@ Josh:
 - [x] Fix all "Create a game" modals to account for SafeAreaView
 - [x] Check for device type to see if we should use SafeAreaView
 - [x] Account for SafeArea in calculating screen size
-- [ ] Find or create pixel icons
+- [x] Find or create pixel icons
 - [x] Center text for trivia while you wait
 
 New:
@@ -17,6 +17,8 @@ New:
 - [ ] Match styles of "Create a game" buttons and modals to rest of app
   - [ ] Titles on these buttons should be centered
   - [ ] Should we just match the styles of the other modal on these modals?
+- [ ] Update SDK
+- [ ] Consolidate images and assets folders
 
 Tia: 
 - [x] Start adding colors to app
