@@ -11,6 +11,7 @@ import MuteButton from './MuteButton.js';
 import Overlay from './Overlay.js';
 import ToggleButton from './ToggleButton.js';
 import AnimatedView from './AnimatedView.js';
+import SafeViewAllDevices from './SafeViewAllDevices.js';
 
 export {
   GenericModal,
@@ -26,4 +27,5 @@ export {
   Overlay,
   ToggleButton,
   AnimatedView,
+  SafeViewAllDevices,
 };

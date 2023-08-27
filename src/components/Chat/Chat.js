@@ -1,7 +1,15 @@
-import { View, Text, StyleSheet, ScrollView, Modal, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Modal } from 'react-native';
 import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import { TitleBar, StyledInput, KeyboardAvoidingComponent, Hider, PixelPressable, Overlay } from '../Shared';
+import {
+  TitleBar,
+  StyledInput,
+  KeyboardAvoidingComponent,
+  Hider,
+  PixelPressable,
+  Overlay,
+  SafeViewAllDevices,
+} from '../Shared';
 import Badge from './Badge';
 import { Buttons, Typography } from '../../styles';
 import { useKeyboard } from '../../hooks';
@@ -88,7 +96,6 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
     },
     chatModalStyles: {
       backgroundColor: 'black',
-      // width: '100%'
     },
     yesNoButtonCont: {
       display: 'flex',
@@ -173,7 +180,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
         animationType='fade'
         style={styles.chatModalStyles}
       >
-        <SafeAreaView style={styles.safeArea} pointerEvents={'box-none'}>
+        <SafeViewAllDevices style={styles.safeArea} pointerEvents={'box-none'}>
           <View style={styles.modalInner}>
             <Overlay
               active={keyboardActive}
@@ -276,7 +283,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
               </KeyboardAvoidingComponent>
             </View>
           </View>
-        </SafeAreaView>
+        </SafeViewAllDevices>
       </Modal>
     </>
   )

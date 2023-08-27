@@ -1,15 +1,14 @@
-import React, {useEffect, useRef} from 'react'
-import { Text, StyleSheet, Dimensions, Alert } from 'react-native'
+import React, { useEffect } from 'react';
+import { Text, StyleSheet, Alert } from 'react-native';
 import { newOpponent } from '../../../store/userReducer';
 import { connect } from 'react-redux';
 import { GenericModal, PixelPressable, TitleBar } from '../../Shared';
 import { Typography } from '../../../styles';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSafeArea } from '../../../hooks';
 
 function JoinGame(props) {
+  const { width } = useSafeArea();
 
-  const { width } = Dimensions.get('window');
-  const { left, right } = useSafeAreaInsets();
   const styles = StyleSheet.create({
     innerText: {
       ...Typography.innerText[props.screenDeviceWidth]
@@ -59,7 +58,7 @@ function JoinGame(props) {
         <PixelPressable
           key={i}
           buttonStyle={{
-            width: width - left - right - 140,
+            width: width - 140,
             marginLeft: 'auto',
             marginRight: 'auto'
           }}

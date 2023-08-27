@@ -6,11 +6,17 @@
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 Josh:
-- [ ] Fix all "Create a game" modals to account for SafeAreaView
-- [ ] Check for device type to see if we should use SafeAreaView
-- [ ] Account for SafeArea in calculating screen size
+- [x] Fix all "Create a game" modals to account for SafeAreaView
+- [x] Check for device type to see if we should use SafeAreaView
+- [x] Account for SafeArea in calculating screen size
 - [ ] Find or create pixel icons
 - [ ] Center text for trivia while you wait
+
+New:
+- [ ] Add expanded touch range for pixel pressable
+- [ ] Match styles of "Create a game" buttons and modals to rest of app
+  - [ ] Titles on these buttons should be centered
+  - [ ] Should we just match the styles of the other modal on these modals?
 
 Tia: 
 - [x] Start adding colors to app
