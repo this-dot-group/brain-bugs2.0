@@ -10,7 +10,7 @@ Josh:
 - [x] Check for device type to see if we should use SafeAreaView
 - [x] Account for SafeArea in calculating screen size
 - [ ] Find or create pixel icons
-- [ ] Center text for trivia while you wait
+- [x] Center text for trivia while you wait
 
 New:
 - [ ] Add expanded touch range for pixel pressable
