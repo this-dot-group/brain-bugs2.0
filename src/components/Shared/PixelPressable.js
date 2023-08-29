@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Text, Pressable, StyleSheet, Animated } from 'react-native';
 import PixelButton from './PixelButton';
 import { Typography } from '../../styles';
+import { darkBackground } from '../../styles/colors';
 
 function PixelPressable ({
   children,
@@ -20,6 +21,9 @@ function PixelPressable ({
     innerText: {
       ...Typography.innerText[screenDeviceWidth]
     },
+    goText: {
+      ...Typography.goBtnInnerText[screenDeviceWidth],
+    }
   });
 
   const scaleVal = useRef(new Animated.Value(1)).current;
@@ -38,7 +42,7 @@ function PixelPressable ({
   const grow = scaleAnim(1);
 
   if (typeof children === 'string') {
-    children = <Text style={styles.innerText}>{children}</Text>
+    children = <Text style={props.variant?.toLowerCase() === 'go' ? styles.goText : styles.innerText}>{children}</Text>
   }
 
   return (

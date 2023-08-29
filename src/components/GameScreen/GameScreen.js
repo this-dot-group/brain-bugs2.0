@@ -11,7 +11,7 @@ import { PixelPressable } from '../Shared';
 import { Typography } from '../../styles';
 import AnimatedView from '../Shared/AnimatedView';
 import SubmitButton from './SubmitButton';
-import { brightGreen, blue, red, darkBackground } from '../../styles/colors';
+import { brightGreen, blue, red, darkBackground, darkBlue } from '../../styles/colors';
 import { answerText } from '../../styles/typography';
 
 function GameScreen(props) {
@@ -304,6 +304,10 @@ function GameScreen(props) {
       styles.backgroundColor = blue.hex
     }
     if (i === submitted) {
+      styles.backgroundColor = darkBlue.hex,
+      styles.borderColor = darkBlue.hex
+    }
+    if( i !== correctIndex && i === submitted && displayAnswer) {
       styles.backgroundColor = red.hex,
       styles.borderColor = red.hex
     }

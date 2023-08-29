@@ -92,13 +92,6 @@ function PixelButton({ onPress, children, buttonStyle = {}, textStyle = {}, vari
       height: 46,
       ...buttonStyle
     }
-    textStyle = {
-      color: darkBackground.hex,
-      fontWeight: 'bold',
-      fontFamily: 'DotGothic',
-      fontSize: 16,
-      ...textStyle
-    }
   }
 
   const styles = getStyles(buttonStyle, textStyle);

@@ -22,15 +22,16 @@ New:
 
 Tia: 
 - [x] Start adding colors to app
-  - [ ] Handled color change on answer selected when 2p
-  - [ ] Enter username placeholder text
-  - [ ] In list delimiation, try shade dif of same background color
-  - [ ] Text in GO button
-  - [ ] Brighter red in countdown
-  - [ ] Rematch request text
-  - [ ] Chat
+  - [x] Handled color change on answer selected when 2p
+  - [x] Enter username placeholder text
+  - [X] In list delimiation, try shade dif of same background color
+  - [x] Text in GO button
+  - [x] Brighter red in countdown
+  - [x] Rematch request text
+  - [x] Chat
 - [ ] Maybe make a custom alert
 - [ ] Bug crawling animation
+- bug: rematch request inside chat doesn't go away once it's interacted with
 
 
 For Future
