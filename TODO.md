@@ -6,6 +6,10 @@
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 Josh:
+- [ ] Add expanded touch range for pixel pressable
+- [ ] Match styles of "Create a game" buttons and modals to rest of app
+  - [ ] Titles on these buttons should be centered
+  - [ ] Should we just match the styles of the other modal on these modals?
 - [ ] Bug crawling animation
 - [ ] bug: rematch request inside chat doesn't go away once it's interacted with
 - [ ] Add expanded touch range for pixel pressable
@@ -16,7 +20,7 @@ Josh:
 - [ ] Consolidate images and assets folders
 
 Tia: 
-- [ ] Maybe make a custom alert
+- [ ] Custom alert
 - [ ] Bug crawling animation
 
 

@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
+import { View, StyleSheet, Animated, Image } from 'react-native';
 import { MuteButton, ToggleButton, PixelButton, Overlay } from '../Shared';
 import StatsModal from '../StatsModal/StatsModal';
 import HowToPlayModal from '../HowToPlayModal/HowToPlayModal';
 import { playSound } from '../../store/soundsReducer';
 import { connect } from 'react-redux';
 import { Buttons } from '../../styles';
+import { yellow } from '../../styles/colors';
 
 const SettingsDrawer = ({ screenDeviceWidth, playSound }) => {
   if (!screenDeviceWidth) return <></>;
@@ -38,6 +39,17 @@ const SettingsDrawer = ({ screenDeviceWidth, playSound }) => {
     innerButton: {
       fontSize: 90,
       padding: 8,
+    },
+    menuButtonCont: {
+      width: 20,
+      height: 20,
+      display: 'flex',
+      justifyContent: 'space-between'
+    },
+    menuButtonBar: {
+      width: '100%',
+      height: 3,
+      backgroundColor: yellow.hex,
     }
   });
 
@@ -107,23 +119,54 @@ const SettingsDrawer = ({ screenDeviceWidth, playSound }) => {
             <ToggleButton
               toggle={handlePress}
               isToggled={open}
-              untoggledText={'⚙️'}
-              toggledText={'❌'}
+              untoggledText={
+                <View style={styles.menuButtonCont}>
+                  <View style={styles.menuButtonBar}></View>
+                  <View style={styles.menuButtonBar}></View>
+                  <View style={styles.menuButtonBar}></View>
+                </View>
+              }
+              toggledText={
+                <Image
+                  source={require('../../images/red-x.png')}
+                  style={{ height: 20, width: 20 }} 
+                />
+              }
               styles={styles.innerButton}
             />
             <View style={styles.innerButtons}>
               <ToggleButton
                 toggle={handleStats}
                 isToggled={statsVisible}
-                untoggledText={'📊'}
-                toggledText={'📊'}
+                untoggledText={
+                  <Image
+                    source={require('../../images/stats-icon.png')}
+                    style={{ height: 20, width: 20 }} 
+                  />
+                }
+                toggledText={
+                  <Image
+                    source={require('../../images/stats-icon.png')}
+                    style={{ height: 20, width: 20 }} 
+                  />
+                }
                 styles={styles.innerButton}
               />
               <ToggleButton
                 toggle={handleHowToPlay}
                 isToggled={howToPlayVisibile}
-                untoggledText={'❓'}
-                toggledText={'❓'}
+                untoggledText={
+                  <Image
+                    source={require('../../images/question-mark.png')}
+                    style={{ height: 20, width: 20 }} 
+                  />
+                }
+                toggledText={
+                  <Image
+                    source={require('../../images/question-mark.png')}
+                    style={{ height: 20, width: 20 }} 
+                  />
+                }
                 styles={styles.innerButton}
               />
               <MuteButton styles={styles.innerButton}/>
