@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Image } from 'react-native-elements';
 import { Typography, Views } from '../../styles';
-import { darkBackground } from '../../styles/colors';
+import { darkBackground, darkBackgroundLighterShade } from '../../styles/colors';
 import Spinner from './Spinner';
 
 function DropdownMenu(props) {
@@ -35,7 +35,7 @@ function DropdownMenu(props) {
   });
 
   for (let i = 0; i < items.length; i++) {
-    if(i % 2) items[i].containerStyle = { backgroundColor: '#443148' }
+    if(i % 2) items[i].containerStyle = { backgroundColor: darkBackgroundLighterShade.hex }
   }
 
   return (

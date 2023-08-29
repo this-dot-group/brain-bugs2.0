@@ -1,9 +1,9 @@
-import { brightGreen, red, yellow } from "./colors";
+import { brightGreen, red, yellow, brightRed, darkBackground, darkBackgroundLightestShade } from "./colors";
 
 const countdownTextBase = {
   textAlign: 'center',
   fontFamily: 'VT323',
-  color: red.hex
+  color: brightRed.hex
 }
 export const countdownText = {
   small: {
@@ -84,7 +84,6 @@ export const headingThreeText = {
 
 ////// INNER TEXT 
 ////// - how to play btn 
-////// - go btn 
 
 const innerTextBase = {
   fontFamily: 'DotGothic',
@@ -106,6 +105,32 @@ export const innerText = {
   large: {
     ...innerTextBase,
     fontSize: 24
+  }
+}
+
+////// GO BTN INNER TEXT 
+////// - go btn 
+
+const goBtnInnerTextBase = {
+  fontFamily: 'VT323',
+  marginTop: 'auto',
+  marginBottom: 'auto',
+  textAlign: 'center',
+  color: darkBackground.hex
+}
+
+export const goBtnInnerText = {
+  small: {
+    ...goBtnInnerTextBase,
+    fontSize: 22
+  },
+  medium: {
+    ...goBtnInnerTextBase,
+    fontSize: 24
+  },
+  large: {
+    ...goBtnInnerTextBase,
+    fontSize: 26
   }
 }
 
@@ -192,9 +217,10 @@ export const inputText = {
 ////// - chat input
 
 const chatInputTextBase = {
+  fontFamily: 'DotGothic',
   flexGrow: 1,
   marginRight: 10,
-  backgroundColor: 'white',
+  backgroundColor: darkBackgroundLightestShade.hex,
   zIndex: 2,
   width: '80%'
 }
@@ -252,7 +278,7 @@ const alertTextBase = {
   color: 'red',
   fontFamily: 'DotGothic',
   textAlign: 'center',
-  color: red.hex
+  color: brightRed.hex
 }
 
 export const alertText = {
@@ -423,6 +449,7 @@ export const waitingText = {
 
 const rematchTextBase = {
   fontFamily: 'VT323',
+  color: brightRed.hex
 }
 
 export const rematchText = {

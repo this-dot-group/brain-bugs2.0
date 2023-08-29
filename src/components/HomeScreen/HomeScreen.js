@@ -21,7 +21,7 @@ import { playSound } from '../../store/soundsReducer';
 import { newUsername, newGameCode, newSocketId, newToken, deviceWidth } from '../../store/userReducer.js';
 
 import { EXPO_LOCAL_URL } from '../../../env'
-import { brightGreen, darkBackground } from '../../styles/colors';
+import { brightGreen, darkBackground, yellow } from '../../styles/colors';
 
 const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
 const fakeOpponentSocket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
@@ -141,6 +141,7 @@ function Homescreen(props) {
               <TextInput
                 style={styles.input}
                 placeholder={'Enter username'}
+                placeholderTextColor={yellow.hex}
                 maxLength={15}
                 onChangeText={value => handleUsernameChange(value)}
                 value={formUsername}

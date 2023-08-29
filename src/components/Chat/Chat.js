@@ -5,6 +5,7 @@ import { TitleBar, StyledInput, KeyboardAvoidingComponent, Hider, PixelPressable
 import Badge from './Badge';
 import { Buttons, Typography } from '../../styles';
 import { useKeyboard } from '../../hooks';
+import { darkBackground, blue, yellow } from '../../styles/colors';
 
 function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rematchText, deviceWidth }) {
   const [messages, setMessages] = useState([]);
@@ -15,7 +16,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
 
   const styles = StyleSheet.create({
     modalInner: {
-      backgroundColor: 'white',
+      backgroundColor: darkBackground.hex,
       height: '100%',
       width: '100%',
       padding: 20,
@@ -24,7 +25,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
     safeArea: {
       flex: 1,
       height: '100%',
-      backgroundColor: 'black',
+      backgroundColor: darkBackground.hex,
       position: 'relative',
     },
     messagesContainer: {
@@ -35,8 +36,8 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
     messages: {
       ...Typography.normalText[deviceWidth],
       alignSelf: 'flex-end',
-      backgroundColor: 'green',
-      color: '#fff',
+      backgroundColor: yellow.hex,
+      color: darkBackground.hex,
       borderRadius: 10,
       paddingHorizontal: 8,
       overflow: 'hidden',
@@ -46,7 +47,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
     opponentMessages : {
       ...Typography.normalText[deviceWidth],
       alignSelf: 'flex-start',
-      backgroundColor: 'blue',
+      backgroundColor: blue.hex,
     },
     overlay: {
       left: -20,

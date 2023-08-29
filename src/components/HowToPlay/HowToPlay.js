@@ -10,6 +10,7 @@ import AppStateTracker from '../AppState/AppStateTracker';
 import { Buttons, Typography } from '../../styles/';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import AnimatedView from '../Shared/AnimatedView';
+import { brightRed } from '../../styles/colors';
 
 function HowToPlay(props) {
   const [seconds, setSeconds] = useState(START_COUNTDOWN * 1000);
@@ -44,6 +45,7 @@ function HowToPlay(props) {
     },
     countdown: {
       ...Typography.smallInnerText[screenDeviceWidth],
+      color: brightRed.hex
     },
   })
 
