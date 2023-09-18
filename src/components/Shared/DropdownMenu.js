@@ -33,6 +33,7 @@ function DropdownMenu(props) {
     selectedItemText: {
       ...Typography.innerText[screenDeviceWidth],
       textAlign: 'left',
+    },
     modalView: {
       ...Views.modalView,
       marginTop: top + (height * .025),
