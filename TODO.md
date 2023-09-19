@@ -7,7 +7,7 @@
 
 Josh:
 - [ ] Bug crawling animation
-- [ ] bug: rematch request inside chat doesn't go away once it's interacted with
+- [x] bug: rematch request inside chat doesn't go away once it's interacted with
 - [ ] Add expanded touch range for pixel pressable
 - [ ] Match styles of "Create a game" buttons and modals to rest of app
   - [ ] Update color of underline
@@ -15,6 +15,9 @@ Josh:
 - [x] Update SDK
   - You may need to update sdk on your machine: https://blog.expo.dev/expo-sdk-47-a0f6f5c038af
 - [x] Consolidate images and assets folders
+
+New:
+- [ ] Stats page styling
 
 Tia: 
 - [ ] Custom alert
