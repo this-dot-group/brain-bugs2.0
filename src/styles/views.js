@@ -40,6 +40,11 @@ export const dropdownItemView = {
   }
 }
 
+export const dropdownSearchContainer = {
+  borderBottomColor: brightGreen.hex,
+  borderBottomWidth: 2,
+}
+
 export const homeScreenContainer = {
   flex: 1,
   paddingTop: 30,

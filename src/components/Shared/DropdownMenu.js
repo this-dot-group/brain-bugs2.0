@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { Image } from 'react-native-elements';
 import { Typography, Views } from '../../styles';
 import { darkBackground, darkBackgroundLighterShade } from '../../styles/colors';
 import Spinner from './Spinner';
+import CloseModalButton from './CloseModalButton';
 import { useSafeArea } from '../../hooks';
 
 function DropdownMenu(props) {
@@ -41,6 +41,9 @@ function DropdownMenu(props) {
       width: width * .95,
       maxHeight: height * .95,
     },
+    searchContainerStyle: {
+      ...Views.dropdownSearchContainer,
+    },
   });
 
   for (let i = 0; i < items.length; i++) {
@@ -53,14 +56,7 @@ function DropdownMenu(props) {
         borderWidth: 0,
         backgroundColor: darkBackground.hex
       }}
-      CloseIconComponent={() => {
-        return (
-          <Image
-            source={require('../../images/yellow-x.png')}
-            style={{ width: 40, height: 40 }}
-          />
-        )
-      }}
+      CloseIconComponent={() => <CloseModalButton cb={() => setOpen(false)} />}
       labelStyle={styles.selectedItemText}
       listItemContainerStyle={styles.item}
       items={items}
@@ -87,6 +83,7 @@ function DropdownMenu(props) {
       }}
       loading={loading || false}
       ActivityIndicatorComponent={Spinner}
+      searchContainerStyle={{ ...styles.searchContainerStyle }}
     />
   );
 }
