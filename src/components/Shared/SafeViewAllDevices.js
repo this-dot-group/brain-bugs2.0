@@ -1,4 +1,4 @@
-import { Platform, SafeAreaView } from "react-native";
+import { Platform, SafeAreaView, View } from "react-native";
 
 const isIos = Platform.OS === 'ios';
 
