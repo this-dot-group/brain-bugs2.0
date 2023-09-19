@@ -101,14 +101,39 @@ function PixelButton({ onPress, children, buttonStyle = {}, textStyle = {}, vari
 
         {children}
 
-      <View style={styles.sideBorders}></View>
-      <View style={{...styles.sideBorders, ...styles.sideBorderRight}}></View>
-      <View style={styles.backgroundColorBar}></View>
-      <View style={{...styles.backgroundColorBar, ...styles.backgroundColorBarRight}}></View>
-      <View style={styles.cornerDots}></View>
-      <View style={{...styles.cornerDots, ...styles.topRightDot}}></View>
-      <View style={{...styles.cornerDots, ...styles.bottomRightDot}}></View>
-      <View style={{...styles.cornerDots, ...styles.bottomLeftDot}}></View>
+      <View
+        style={styles.sideBorders}
+        pointerEvents='none'
+      ></View>
+      <View
+        style={{...styles.sideBorders, ...styles.sideBorderRight}}
+        pointerEvents='none'
+      >
+      </View>
+      <View
+        style={styles.backgroundColorBar}
+        pointerEvents='none'
+      ></View>
+      <View
+        style={{...styles.backgroundColorBar, ...styles.backgroundColorBarRight}}
+        pointerEvents='none'
+      ></View>
+      <View
+        style={styles.cornerDots}
+        pointerEvents='none'
+      ></View>
+      <View
+        style={{...styles.cornerDots, ...styles.topRightDot}}
+        pointerEvents='none'
+      ></View>
+      <View
+        style={{...styles.cornerDots, ...styles.bottomRightDot}}
+        pointerEvents='none'
+      ></View>
+      <View
+        style={{...styles.cornerDots, ...styles.bottomLeftDot}}
+        pointerEvents='none'
+      ></View>
 
     </View>
   )

@@ -8,7 +8,7 @@
 Josh:
 - [ ] Bug crawling animation
 - [x] bug: rematch request inside chat doesn't go away once it's interacted with
-- [ ] Add expanded touch range for pixel pressable
+- [x] Add expanded touch range for pixel pressable
 - [ ] Match styles of "Create a game" buttons and modals to rest of app
   - [ ] Update color of underline
   - [ ] Close button could match
