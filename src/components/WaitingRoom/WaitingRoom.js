@@ -16,7 +16,7 @@ import axios from 'axios';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer.js';
 import AnimatedView from '../Shared/AnimatedView';
 import { CustomAlert } from '../Shared/CustomAlert';
-
+import { red } from '../../styles/colors';
 
 const WaitingRoom = (props) => {
   const [roomJoin, setRoomJoin] = useState(false)
@@ -79,6 +79,11 @@ const WaitingRoom = (props) => {
     },
     normalText: {
       ...Typography.normalText[screenDeviceWidth],
+      textAlign: 'center',
+    },
+    countdown: {
+      ...Typography.normalText[screenDeviceWidth],
+      color: red.hex,
     },
     howToPlayBtn: {
       ...Buttons.howToPlayBtn[screenDeviceWidth]
@@ -347,7 +352,7 @@ const WaitingRoom = (props) => {
                   deviceWidth={screenDeviceWidth}
                   seconds={seconds}
                   setSeconds={setSeconds}
-                  // style={styles.normalText}
+                  style={styles.countdown}
                   go={goCountdown}
                   setGo={setGoCountdown}
                 /> 

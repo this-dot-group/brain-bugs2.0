@@ -5,20 +5,22 @@ import { Image } from 'react-native-elements';
 import { Typography, Views } from '../../styles';
 import { darkBackground, darkBackgroundLighterShade } from '../../styles/colors';
 import Spinner from './Spinner';
+import { useSafeArea } from '../../hooks';
 
 function DropdownMenu(props) {
   const { items, selected, cb, title, loading, screenDeviceWidth } = props;
-  const [open, setOpen] = useState(false)
-  const [value, setValue] = useState(value || null)
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(value || null);
+  const { width, height, top, bottom } = useSafeArea(); 
 
   const styles = StyleSheet.create({
     title: {
       ...Typography.headingThreeText[screenDeviceWidth],
       fontFamily: 'VT323',
-      textAlign: 'center'
+      textAlign: 'center',
     },
     item: {
-     ...Views.dropdownItemView[screenDeviceWidth]
+      ...Views.dropdownItemView[screenDeviceWidth],
     },
     listItemStyle: {
       ...Typography.innerText[screenDeviceWidth],
@@ -26,12 +28,18 @@ function DropdownMenu(props) {
     },
     labelText: {
       ...Typography.dropdownInnerText[screenDeviceWidth],
-      textAlign: 'left'
+      textAlign: 'left',
     },
     selectedItemText: {
       ...Typography.innerText[screenDeviceWidth],
       textAlign: 'left',
-    }
+    modalView: {
+      ...Views.modalView,
+      marginTop: top + (height * .025),
+      marginBottom: bottom + (height * .025),
+      width: width * .95,
+      maxHeight: height * .95,
+    },
   });
 
   for (let i = 0; i < items.length; i++) {
@@ -70,9 +78,11 @@ function DropdownMenu(props) {
       modalProps={{
         supportedOrientations: ['landscape'],
         animationType: 'slide',
+        transparent: true,
+        presentationStyle: 'overFullScreen'
       }}
       modalContentContainerStyle={{
-        backgroundColor: darkBackground.hex
+        ...styles.modalView,
       }}
       loading={loading || false}
       ActivityIndicatorComponent={Spinner}

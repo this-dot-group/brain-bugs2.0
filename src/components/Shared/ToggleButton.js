@@ -33,6 +33,14 @@ function ToggleButton({ toggle, isToggled, styles, untoggledText, toggledText })
 
   const grow = scaleAnim(1);
 
+  if (typeof toggledText === 'string') {
+    toggledText = <Text>{toggledText}</Text>
+  }
+
+  if (typeof untoggledText === 'string') {
+    untoggledText = <Text>{untoggledText}</Text>
+  }
+
   return (
     <Animated.View
       style={{
@@ -52,10 +60,10 @@ function ToggleButton({ toggle, isToggled, styles, untoggledText, toggledText })
         hitSlop={10}
       >
         <Hider show={isToggled} style={btnStyles.button}>
-          <Text>{toggledText}</Text>
+          {toggledText}
         </Hider>
         <Hider show={!isToggled} style={btnStyles.button}>
-          <Text>{untoggledText}</Text>
+          {untoggledText}
         </Hider>
       </Pressable>
     </Animated.View>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import { NativeRouter, Route } from 'react-router-native'
@@ -17,6 +17,7 @@ import Lobby from './src/components/Lobby/LobbyScreen'
 import WaitingRoom from './src/components/WaitingRoom/WaitingRoom.js'
 import LoadingScreen from './src/components/LoadingScreen/LoadingScreen';
 import RootErrorBoundary from './src/components/ErrorBoundary/RootErrorBoundary';
+import { SafeViewAllDevices } from './src/components/Shared';
 
 import Sounds from './src/sounds/Sounds'
 
@@ -29,7 +30,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
 });
-
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -62,7 +62,7 @@ export default function App() {
           <Sounds />
           <NativeRouter>
             <SafeAreaProvider>
-              <SafeAreaView style={styles.container}>
+              <SafeViewAllDevices style={styles.container}>
                 <Route
                   exact path='/'
                   component={HomeScreen} />
@@ -85,7 +85,7 @@ export default function App() {
                   exact path='/gameend'
                   component={GameEnd}
                 />
-              </SafeAreaView>
+              </SafeViewAllDevices>
             </SafeAreaProvider>
           </NativeRouter>
         </PersistGate>
