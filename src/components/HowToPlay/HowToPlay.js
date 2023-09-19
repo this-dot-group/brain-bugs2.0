@@ -105,27 +105,27 @@ function HowToPlay(props) {
       />
       <AnimatedView style={styles.root} useSite="HowToPlay">
 
-      <CustomAlert 
-        visible={openAlert_OpponentLeft} 
-        setVisible={setOpenAlert_OpponentLeft}
-        deviceWidth={screenDeviceWidth}
-        copy={
-          <Text style={styles.alertText}>
-            Your opponent left! 
-            Go back to lobby for new game.
-          </Text>
-        }
-        buttons={
-          <>
-            <PixelPressable
-              buttonStyle={{height: 60}}
-              pressableProps={{
-                onPress: handleBackToLobby
-              }}
-            >Back to Lobby</PixelPressable>
-          </>
-        }
-      />
+        <CustomAlert 
+          visible={openAlert_OpponentLeft} 
+          setVisible={setOpenAlert_OpponentLeft}
+          deviceWidth={screenDeviceWidth}
+          copy={
+            <Text style={styles.alertText}>
+              Your opponent left! 
+              Go back to lobby for new game.
+            </Text>
+          }
+          buttons={
+            <>
+              <PixelPressable
+                buttonStyle={{height: 60}}
+                pressableProps={{
+                  onPress: handleBackToLobby
+                }}
+              >Back to Lobby</PixelPressable>
+            </>
+          }
+        />
 
         <View style={styles.topRow}>
           <PixelPressable

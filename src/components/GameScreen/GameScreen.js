@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Text, View, StyleSheet, Image, Alert } from 'react-native'
+import { Text, View, StyleSheet, Image } from 'react-native'
 import he from 'he';
 import { Redirect } from 'react-router-native';
 import { connect } from 'react-redux';
@@ -12,7 +12,7 @@ import { Typography } from '../../styles';
 import AnimatedView from '../Shared/AnimatedView';
 import SubmitButton from './SubmitButton';
 import { brightGreen, blue, red, darkBackground, darkBlue } from '../../styles/colors';
-import { answerText } from '../../styles/typography';
+import { CustomAlert } from '../Shared/CustomAlert';
 
 function GameScreen(props) {
   const [seconds, setSeconds] = useState(QUESTION_TIME * 1000);
@@ -34,6 +34,8 @@ function GameScreen(props) {
   const [backToLobby, setBackToLobby] = useState(false);
   const [goCountdown, setGoCountdown] = useState(false);
   const [opponentAnswered, setOpponentAnswered] = useState(false);
+  const [openAlert_OpponentLeft, setOpenAlert_OpponentLeft] = useState(false);
+
 
   const { screenDeviceWidth } = props;
 
@@ -93,6 +95,10 @@ function GameScreen(props) {
       padding: 10,
       width: '70%',
     },
+    alertText: {
+      ...Typography.headingTwoText[screenDeviceWidth],
+      marginBottom: 4
+    }
   });
   
   const buttonStyle = {
@@ -176,29 +182,17 @@ function GameScreen(props) {
   }
 
   const handleOpponentLeftResponse = () => {
+    setOpenAlert_OpponentLeft(false);
     props.socket.emit('cancelGame');
-
     setBackToLobby(true);
   }
 
   const showOpponentLeftAlert = () => {
     setGoCountdown(false);
-    Alert.alert(
-      'Your opponent left!',
-      'Go back to the lobby for a new game.',
-      [
-        {
-          text: 'Go to Lobby',
-          onPress: () => handleOpponentLeftResponse(),
-        },
-      ],
-      { cancelable: false }
-    );
+    setOpenAlert_OpponentLeft(true);
   }
 
   const handleOpponentAnswered = () => setOpponentAnswered(true);
-
-  useEffect(() => console.log('opponent answered', opponentAnswered), [opponentAnswered]);
 
   useEffect(() => {
     props.socket.emit('readyForGame');
@@ -334,6 +328,29 @@ function GameScreen(props) {
   return (
 
     <AnimatedView style={styles.container} useSite="GameScreen">
+
+      <CustomAlert 
+        visible={openAlert_OpponentLeft} 
+        setVisible={setOpenAlert_OpponentLeft}
+        deviceWidth={screenDeviceWidth}
+        copy={
+          <Text style={styles.alertText}>
+            Your opponent left! 
+            Go back to lobby for new game.
+          </Text>
+        }
+        buttons={
+          <>
+            <PixelPressable
+              buttonStyle={{height: 60}}
+              pressableProps={{
+                onPress: handleOpponentLeftResponse
+              }}
+            >Back to Lobby</PixelPressable>
+          </>
+        }
+      />
+
       {formattedQuestionInfo.question &&
         <>
           <AppStateTracker

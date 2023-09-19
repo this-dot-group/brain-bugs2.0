@@ -22,7 +22,7 @@ function AppStateTracker(props) {
       appState: nextAppState,
       gameCode: gameCode,
       gamePhase: gamePhase,
-    }.
+    }
     
     socket.emit('appStateUpdate', appStateGameCode)
   }
