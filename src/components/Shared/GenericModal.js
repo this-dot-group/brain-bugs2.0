@@ -8,6 +8,11 @@ const getStyles = style =>  StyleSheet.create({
     ...Views.modalView,
     ...style
   },
+  disabledView: {
+    height: '100%',
+    widht: '100%',
+    backgroundColor: 'rgba(35,47,36,0.8)'
+  }
 });
 
 function GenericModal({ children, style, ...props }) {
@@ -26,7 +31,9 @@ function GenericModal({ children, style, ...props }) {
         keyboardShouldPersistTaps="handled"
       >
         <SafeAreaView>
-          <View style={styles.modalView}>{children}</View>
+          <View style={props.disableBackground ? styles.disabledView : ''}>
+            <View style={styles.modalView}>{children}</View>
+          </View>
         </SafeAreaView>
       </ScrollView>
     </Modal>
