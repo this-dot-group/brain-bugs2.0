@@ -3,27 +3,29 @@ import { View, StyleSheet } from 'react-native'
 import GenericModal from './GenericModal'
 import { brightRed, red } from '../../styles/colors';
 
-const styles = StyleSheet.create({
-  addtlModalStyle: {
-    width: '70%',
-    borderColor: brightRed.hex
-  },
-  copySectionStyle: {
-    height: '75%',
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  btnSectionStyle: {
-    height: '25%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 20,
-  }
-});
 
-export function CustomAlert({ copy, buttons, visible, setVisible, screenDeviceWidth }) {
+export function CustomAlert({ copy, buttons, visible, addtlButtonStyle, setVisible, screenDeviceWidth }) {
+
+  const styles = StyleSheet.create({
+    addtlModalStyle: {
+      width: '70%',
+      borderColor: brightRed.hex
+    },
+    copySectionStyle: {
+      height: '75%',
+      alignSelf: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 20,
+    },
+    btnSectionStyle: {
+      height: '25%',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      padding: 20,
+      ...addtlButtonStyle
+    }
+  });
 
   return (
     <GenericModal visible={visible} style={styles.addtlModalStyle} disableBackground>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, Share, Alert } from 'react-native'
+import { View, Text, StyleSheet, Share } from 'react-native'
 import { Redirect } from 'react-router-native';
 import * as Clipboard from 'expo-clipboard';
 import { newOpponent, resetUserGameToken } from '../../store/userReducer'
@@ -31,13 +31,8 @@ const WaitingRoom = (props) => {
   const [showCountdown, setShowCountdown] = useState(false);
   const [goCountdown, setGoCountdown] = useState(false);
   const [triviaQuestionIndex, setTriviaQuestionIndex] = useState(0);
-  const [openCustomAlert, setOpenCustomAlert] = useState(false)
-  const [alertHeading, setAlertHeading] = useState('')
-  const [alertText, setAlertText] = useState('')
-  const [alertBtnOneText, setAlertBtnOneText] = useState('')
-  // const [alertBtnOneAction, setAlertBtnOneAction] = useState(undefined)
-  const [alertBtnTwoText, setAlertBtnTwoText] = useState('')
-  // const [alertBtnTwoAction, setAlertBtnTwoAction] = useState(undefined)
+  const [openAlert_CustomGame, setOpenAlert_CancelGame] = useState(false);
+  const [openAlert_CodeCopy, setOpenAlert_CodeCopy] = useState(false);
 
   const { screenDeviceWidth } = props;
 
@@ -103,6 +98,7 @@ const WaitingRoom = (props) => {
   })
 
   const handleCodeCopy = () => {
+    setOpenAlert_CodeCopy(false);
     Clipboard.setStringAsync(props.gameCode);
     setCopied(true)
     setTimeout(() => {
@@ -120,17 +116,7 @@ const WaitingRoom = (props) => {
 
       // On Android, when code is shared to another app it takes you out of Brain Bugs (app state tracker records that the app goes to background) and then you're in the app your sharing to. I don't think it's the same on iOS- need to have Josh test.
     } catch (error) {
-      Alert.alert(
-        'We were unable to open sharing.',
-        'Share the game code with your opponent.',
-        [
-          {
-            text: 'Copy Code',
-            onPress: () => handleCodeCopy(),
-          },
-        ],
-        { cancelable: false }
-      );
+      setOpenAlert_CodeCopy(true);
     }
   }
 
@@ -139,7 +125,7 @@ const WaitingRoom = (props) => {
   };
 
   const cancelGame = () => {
-    setOpenCustomAlert(true)
+    setOpenAlert_CancelGame(true)
   }
 
   const handleNoQuestions = async () => {
@@ -249,7 +235,7 @@ const WaitingRoom = (props) => {
   }
 
   const handleContinueWithGame = () => {
-    setOpenCustomAlert(false)
+    setOpenAlert_CancelGame(false)
   }
 
 
@@ -262,8 +248,8 @@ const WaitingRoom = (props) => {
           gamePhase='waiting_room' />
         
         <CustomAlert 
-          visible={openCustomAlert} 
-          setVisible={setOpenCustomAlert}
+          visible={openAlert_CustomGame} 
+          setVisible={setOpenAlert_CancelGame}
           deviceWidth={screenDeviceWidth}
           copy={
             <Text style={styles.waitingText}>
@@ -285,7 +271,29 @@ const WaitingRoom = (props) => {
                 }}
               >No</PixelPressable>
             </>
+          }
+          addtlButtonStyle={{justifyContent: 'space-between'}}
+        />
 
+        <CustomAlert 
+          visible={openAlert_CodeCopy} 
+          setVisible={setOpenAlert_CodeCopy}
+          deviceWidth={screenDeviceWidth}
+          copy={
+            <Text style={styles.waitingText}>
+              We were unable to open sharing. 
+              Share the game code with your opponent.
+            </Text>
+          }
+          buttons={
+            <>
+              <PixelPressable
+                buttonStyle={{height: 60}}
+                pressableProps={{
+                  onPress: handleCodeCopy
+                }}
+              >Copy code</PixelPressable>
+            </>
           }
         />
             
