@@ -333,7 +333,7 @@ function GameScreen(props) {
 
   return (
 
-    <AnimatedView style={styles.container}>
+    <AnimatedView style={styles.container} useSite="GameScreen">
       {formattedQuestionInfo.question &&
         <>
           <AppStateTracker

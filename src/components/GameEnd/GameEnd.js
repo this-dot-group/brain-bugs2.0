@@ -278,7 +278,7 @@ function GameEnd({
   );
 
   return (
-    <AnimatedView style={styles.root}>
+    <AnimatedView style={styles.root} useSite="GameEnd">
       <View style={styles.buttonRow}>
       <AppStateTracker
         gameCode={gameCode}

@@ -109,7 +109,7 @@ function StartScreen(props) {
   }
 
   return (
-    <AnimatedView style={styles.container}>
+    <AnimatedView style={styles.container} useSite="LobbyScreen">
       {username && (
         <Text style={styles.greeting}>WELCOME {username.toUpperCase()}!</Text>
       )}

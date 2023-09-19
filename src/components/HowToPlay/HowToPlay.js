@@ -108,7 +108,7 @@ function HowToPlay(props) {
         gameCode={gameCode}
         gamePhase='game_play'
       />
-      <AnimatedView style={styles.root}>
+      <AnimatedView style={styles.root} useSite="HowToPlay">
         <View style={styles.topRow}>
           <PixelPressable
             buttonStyle={styles.howToPlayBtn}
