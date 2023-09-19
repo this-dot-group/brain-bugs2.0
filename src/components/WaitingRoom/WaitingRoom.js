@@ -15,6 +15,7 @@ import { EXPO_LOCAL_URL } from '../../../env'
 import axios from 'axios';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer.js';
 import AnimatedView from '../Shared/AnimatedView';
+import { CustomAlert } from '../Shared/CustomAlert';
 
 
 const WaitingRoom = (props) => {
@@ -30,7 +31,13 @@ const WaitingRoom = (props) => {
   const [showCountdown, setShowCountdown] = useState(false);
   const [goCountdown, setGoCountdown] = useState(false);
   const [triviaQuestionIndex, setTriviaQuestionIndex] = useState(0);
-
+  const [openCustomAlert, setOpenCustomAlert] = useState(false)
+  const [alertHeading, setAlertHeading] = useState('')
+  const [alertText, setAlertText] = useState('')
+  const [alertBtnOneText, setAlertBtnOneText] = useState('')
+  // const [alertBtnOneAction, setAlertBtnOneAction] = useState(undefined)
+  const [alertBtnTwoText, setAlertBtnTwoText] = useState('')
+  // const [alertBtnTwoAction, setAlertBtnTwoAction] = useState(undefined)
 
   const { screenDeviceWidth } = props;
 
@@ -127,24 +134,7 @@ const WaitingRoom = (props) => {
   };
 
   const cancelGame = () => {
-    Alert.alert(
-      'Are you sure?',
-      '',
-      [
-        {
-          text: 'Yes, cancel game',
-          onPress: () => {
-            props.socket.emit('cancelGame');
-            setBackToLobby(true);
-          },
-          style: 'cancel',
-        },
-        {
-          text: 'No, continue with this game',
-        },
-      ],
-      { cancelable: false },
-    );
+    setOpenCustomAlert(true)
   }
 
   const handleNoQuestions = async () => {
@@ -248,13 +238,53 @@ const WaitingRoom = (props) => {
 
   }, [props.fullGameInfo.liveGameQuestions])
 
+  const handleFullGameCancel = () => {
+    props.socket.emit('cancelGame');
+    setBackToLobby(true);
+  }
+
+  const handleContinueWithGame = () => {
+    setOpenCustomAlert(false)
+  }
+
+
   if (props.fullGameInfo.numPlayers === 2 && !props.location.state?.token) {
     return (
 
-      <AnimatedView style={styles.container}>
+      <AnimatedView style={styles.container} useSite="WaitingRoom">
         <AppStateTracker
           gameCode={props.gameCode}
           gamePhase='waiting_room' />
+        
+        <CustomAlert 
+          visible={openCustomAlert} 
+          setVisible={setOpenCustomAlert}
+          deviceWidth={screenDeviceWidth}
+          copy={
+            <Text style={styles.waitingText}>
+              Are you sure you want to cancel the game?
+            </Text>
+          }
+          buttons={
+            <>
+              <PixelPressable
+                buttonStyle={{height: 60}}
+                pressableProps={{
+                  onPress: handleFullGameCancel
+                }}
+              >Yes, cancel game</PixelPressable>
+              <PixelPressable
+                buttonStyle={{height: 60}}
+                pressableProps={{
+                  onPress: handleContinueWithGame
+                }}
+              >No</PixelPressable>
+            </>
+
+          }
+        />
+            
+
 
         <View style={styles.topRowView}>
           {!showNoMoreQuestionsOptions && (
