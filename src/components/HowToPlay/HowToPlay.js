@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, Alert, AppState } from 'react-native'
+import { View, Text, StyleSheet, AppState } from 'react-native'
 import { Redirect } from 'react-router-native';
 import { connect } from 'react-redux'
 import Countdown from '../Countdown/Countdown'
@@ -11,12 +11,14 @@ import { Buttons, Typography } from '../../styles/';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import AnimatedView from '../Shared/AnimatedView';
 import { brightRed } from '../../styles/colors';
+import { CustomAlert } from '../Shared/CustomAlert';
 
 function HowToPlay(props) {
   const [seconds, setSeconds] = useState(START_COUNTDOWN * 1000);
   const [goCountdown, setGoCountdown] = useState(true);
   const [goToGame, setGoToGame] = useState(false);
   const [backToLobby, setBackToLobby] = useState(false);
+  const [openAlert_OpponentLeft, setOpenAlert_OpponentLeft] = useState(false);
 
   const { username, opponent, socket, gameCode, screenDeviceWidth } = props;
 
@@ -47,32 +49,25 @@ function HowToPlay(props) {
       ...Typography.smallInnerText[screenDeviceWidth],
       color: brightRed.hex
     },
+    alertText: {
+      ...Typography.headingTwoText[screenDeviceWidth],
+      marginBottom: 4
+    }
   })
 
-  const handleOpponentLeftResponse = () => {
-    socket.emit('cancelGame');
-    setBackToLobby(true);
-  }
-
   const showOpponentLeftAlert = () => {
-
     setGoCountdown(false);
-    
-    Alert.alert(
-      'Your opponent left!',
-      'Go back to the lobby for a new game.',
-      [
-        {
-          text: 'Go to Lobby',
-          onPress: () => handleOpponentLeftResponse(),
-        },
-      ],
-      { cancelable: false }
-    );
+    setOpenAlert_OpponentLeft(true);
   }
 
   const handleQuit = () => {
     socket.emit('leaveRoom');
+    setBackToLobby(true);
+  }
+
+  const handleBackToLobby = () => {
+    setOpenAlert_OpponentLeft(false);
+    socket.emit('cancelGame');
     setBackToLobby(true);
   }
 
@@ -109,6 +104,29 @@ function HowToPlay(props) {
         gamePhase='game_play'
       />
       <AnimatedView style={styles.root} useSite="HowToPlay">
+
+      <CustomAlert 
+        visible={openAlert_OpponentLeft} 
+        setVisible={setOpenAlert_OpponentLeft}
+        deviceWidth={screenDeviceWidth}
+        copy={
+          <Text style={styles.alertText}>
+            Your opponent left! 
+            Go back to lobby for new game.
+          </Text>
+        }
+        buttons={
+          <>
+            <PixelPressable
+              buttonStyle={{height: 60}}
+              pressableProps={{
+                onPress: handleBackToLobby
+              }}
+            >Back to Lobby</PixelPressable>
+          </>
+        }
+      />
+
         <View style={styles.topRow}>
           <PixelPressable
             buttonStyle={styles.howToPlayBtn}
