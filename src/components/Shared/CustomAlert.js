@@ -1,10 +1,10 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import GenericModal from './GenericModal'
-import { brightRed, red } from '../../styles/colors';
+import { brightRed } from '../../styles/colors';
 
 
-export function CustomAlert({ copy, buttons, visible, addtlButtonStyle, setVisible, screenDeviceWidth }) {
+export function CustomAlert({ copy, buttons, visible, addtlButtonStyle }) {
 
   const styles = StyleSheet.create({
     addtlModalStyle: {

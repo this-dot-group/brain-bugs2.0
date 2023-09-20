@@ -331,8 +331,6 @@ function GameScreen(props) {
 
       <CustomAlert 
         visible={openAlert_OpponentLeft} 
-        setVisible={setOpenAlert_OpponentLeft}
-        deviceWidth={screenDeviceWidth}
         copy={
           <Text style={styles.alertText}>
             Your opponent left! 

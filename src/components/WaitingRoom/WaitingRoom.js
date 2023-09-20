@@ -249,8 +249,6 @@ const WaitingRoom = (props) => {
         
         <CustomAlert 
           visible={openAlert_CustomGame} 
-          setVisible={setOpenAlert_CancelGame}
-          deviceWidth={screenDeviceWidth}
           copy={
             <Text style={styles.waitingText}>
               Are you sure you want to cancel the game?
@@ -277,8 +275,6 @@ const WaitingRoom = (props) => {
 
         <CustomAlert 
           visible={openAlert_CodeCopy} 
-          setVisible={setOpenAlert_CodeCopy}
-          deviceWidth={screenDeviceWidth}
           copy={
             <Text style={styles.waitingText}>
               We were unable to open sharing. 

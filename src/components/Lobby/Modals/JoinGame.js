@@ -57,8 +57,6 @@ function JoinGame(props) {
 
       <CustomAlert 
           visible={openAlert_JoinGame} 
-          setVisible={setOpenAlert_JoinGame}
-          deviceWidth={props.screenDeviceWidth}
           copy={
             <Text style={styles.alertText}>
               Sorry this game could not be joined. Please choose another game.
