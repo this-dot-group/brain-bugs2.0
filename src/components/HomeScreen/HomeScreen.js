@@ -121,7 +121,7 @@ function Homescreen(props) {
   }
 
   return (
-    <AnimatedView style={styles.container}>
+    <AnimatedView style={styles.container} useSite="HomeScreen">
       <Overlay
         active={keyboardActive}
         onPress={hideKeyboard}

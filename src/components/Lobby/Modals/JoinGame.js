@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
-import { Text, StyleSheet, Alert } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, StyleSheet } from 'react-native';
 import { newOpponent } from '../../../store/userReducer';
 import { connect } from 'react-redux';
 import { GenericModal, PixelPressable, TitleBar } from '../../Shared';
 import { Typography } from '../../../styles';
 import { useSafeArea } from '../../../hooks';
+import { CustomAlert } from '../../Shared/CustomAlert';
 
 function JoinGame(props) {
   const { width } = useSafeArea();
+  const [openAlert_JoinGame, setOpenAlert_JoinGame] = useState(false);
 
   const styles = StyleSheet.create({
     innerText: {
@@ -15,29 +17,28 @@ function JoinGame(props) {
     },
     smallInnerText: {
       ...Typography.smallInnerText[props.screenDeviceWidth]
-    }
+    },
+    alertText: {
+      ...Typography.headingTwoText[props.screenDeviceWidth],
+      marginBottom: 4
+    },
   });
 
+  const handleOpenAlert = () => {
+    setOpenAlert_JoinGame(true);
+  }
+
+  const handleCloseAlert = () => {
+    // TODO: should we cancel the game here?
+    setOpenAlert_JoinGame(false);
+  }
+
   useEffect(() => {
-    props.socket.on('couldNotJoinPlayers', alertGameJoinerCantJoin)
+    props.socket.on('couldNotJoinPlayers', handleOpenAlert)
     return () => {
-      props.socket.off('couldNotJoinPlayers', alertGameJoinerCantJoin)
+      props.socket.off('couldNotJoinPlayers', handleCloseAlert)
     }
   }, [])
-
-  const alertGameJoinerCantJoin = () => {
-    props.socket.emit('refreshAvailableGameList')
-    Alert.alert(
-      'Sorry, this game could not be joined.',
-      'Please choose another game!',
-      [
-        {
-          text: 'Ok',
-        },
-      ],
-      { cancelable: true }
-    );
-  };
 
   const handleJoinTwoPlayer = gameObj => {
     props.socket.emit('joinTwoPlayer', [gameObj.gameCode, props.username]);
@@ -53,6 +54,25 @@ function JoinGame(props) {
       >
         Join a Game
       </TitleBar>
+
+      <CustomAlert 
+          visible={openAlert_JoinGame} 
+          copy={
+            <Text style={styles.alertText}>
+              Sorry this game could not be joined. Please choose another game.
+            </Text>
+          }
+          buttons={
+            <>
+              <PixelPressable
+                buttonStyle={{height: 60}}
+                pressableProps={{
+                  onPress: handleCloseAlert
+                }}
+              >Ok</PixelPressable>
+            </>
+          }
+        />
   
       {props.gamesWaiting.map((gameObj, i) =>
         <PixelPressable

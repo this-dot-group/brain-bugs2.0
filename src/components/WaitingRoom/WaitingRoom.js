@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, Share, Alert } from 'react-native'
+import { View, Text, StyleSheet, Share } from 'react-native'
 import { Redirect } from 'react-router-native';
 import * as Clipboard from 'expo-clipboard';
 import { newOpponent, resetUserGameToken } from '../../store/userReducer'
@@ -15,8 +15,8 @@ import { EXPO_LOCAL_URL } from '../../../env'
 import axios from 'axios';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer.js';
 import AnimatedView from '../Shared/AnimatedView';
+import { CustomAlert } from '../Shared/CustomAlert';
 import { red } from '../../styles/colors';
-
 
 const WaitingRoom = (props) => {
   const [roomJoin, setRoomJoin] = useState(false)
@@ -31,7 +31,8 @@ const WaitingRoom = (props) => {
   const [showCountdown, setShowCountdown] = useState(false);
   const [goCountdown, setGoCountdown] = useState(false);
   const [triviaQuestionIndex, setTriviaQuestionIndex] = useState(0);
-
+  const [openAlert_CustomGame, setOpenAlert_CancelGame] = useState(false);
+  const [openAlert_CodeCopy, setOpenAlert_CodeCopy] = useState(false);
 
   const { screenDeviceWidth } = props;
 
@@ -97,6 +98,7 @@ const WaitingRoom = (props) => {
   })
 
   const handleCodeCopy = () => {
+    setOpenAlert_CodeCopy(false);
     Clipboard.setStringAsync(props.gameCode);
     setCopied(true)
     setTimeout(() => {
@@ -114,17 +116,7 @@ const WaitingRoom = (props) => {
 
       // On Android, when code is shared to another app it takes you out of Brain Bugs (app state tracker records that the app goes to background) and then you're in the app your sharing to. I don't think it's the same on iOS- need to have Josh test.
     } catch (error) {
-      Alert.alert(
-        'We were unable to open sharing.',
-        'Share the game code with your opponent.',
-        [
-          {
-            text: 'Copy Code',
-            onPress: () => handleCodeCopy(),
-          },
-        ],
-        { cancelable: false }
-      );
+      setOpenAlert_CodeCopy(true);
     }
   }
 
@@ -133,24 +125,7 @@ const WaitingRoom = (props) => {
   };
 
   const cancelGame = () => {
-    Alert.alert(
-      'Are you sure?',
-      '',
-      [
-        {
-          text: 'Yes, cancel game',
-          onPress: () => {
-            props.socket.emit('cancelGame');
-            setBackToLobby(true);
-          },
-          style: 'cancel',
-        },
-        {
-          text: 'No, continue with this game',
-        },
-      ],
-      { cancelable: false },
-    );
+    setOpenAlert_CancelGame(true)
   }
 
   const handleNoQuestions = async () => {
@@ -254,13 +229,71 @@ const WaitingRoom = (props) => {
 
   }, [props.fullGameInfo.liveGameQuestions])
 
+  const handleFullGameCancel = () => {
+    props.socket.emit('cancelGame');
+    setBackToLobby(true);
+  }
+
+  const handleContinueWithGame = () => {
+    setOpenAlert_CancelGame(false)
+  }
+
+
   if (props.fullGameInfo.numPlayers === 2 && !props.location.state?.token) {
     return (
 
-      <AnimatedView style={styles.container}>
+      <AnimatedView style={styles.container} useSite="WaitingRoom">
         <AppStateTracker
           gameCode={props.gameCode}
           gamePhase='waiting_room' />
+        
+        <CustomAlert 
+          visible={openAlert_CustomGame} 
+          copy={
+            <Text style={styles.waitingText}>
+              Are you sure you want to cancel the game?
+            </Text>
+          }
+          buttons={
+            <>
+              <PixelPressable
+                buttonStyle={{height: 60}}
+                pressableProps={{
+                  onPress: handleFullGameCancel
+                }}
+              >Yes, cancel game</PixelPressable>
+              <PixelPressable
+                buttonStyle={{height: 60}}
+                pressableProps={{
+                  onPress: handleContinueWithGame
+                }}
+              >No</PixelPressable>
+            </>
+          }
+          addtlButtonStyle={{justifyContent: 'space-between'}}
+        />
+
+        <CustomAlert 
+          visible={openAlert_CodeCopy} 
+          copy={
+            <Text style={styles.waitingText}>
+              We were unable to open sharing. 
+              Share the game code with your opponent.
+            </Text>
+          }
+          buttons={
+            <>
+              <PixelPressable
+                buttonStyle={{height: 60}}
+                pressableProps={{
+                  onPress: handleCodeCopy
+                }}
+              >Copy code</PixelPressable>
+            </>
+          }
+        />
+            
+
 
         <View style={styles.topRowView}>
           {!showNoMoreQuestionsOptions && (

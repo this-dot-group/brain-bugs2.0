@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
 });
 
 const AnimatedView = (props) => {
-  const { children, style = {} } = props
+  const { children, style = {}, useSite } = props
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
