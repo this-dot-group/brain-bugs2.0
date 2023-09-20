@@ -20,8 +20,15 @@ Josh:
 - [ ] Consolidate images and assets folders
 
 Tia: 
-- [ ] Custom alert
+- [ ] Custom alert (styling?)
 - [ ] Bug crawling animation
+- [ ] Modals in Start game look weird on Android (check this on master branch)
+- [ ] Error - undefined is not an object (evaluating 'soundsReducer[soundName].replayAsync') (maybe only on iOS sim?)
+- [ ] Do we want all that stuff on How to Play screen if we only have a couple seconds on clock? Not sure we need Quit btn and settings drawer. If we remove Quit btn than we can remove CustomAlert. Or we could keep CustomAlert, and wire up the app state listener to show the same alert if one player backgrounds the app.
+Small screen issues:
+  - [ ] Pressable options in Create a Game modal are too big on small screen
+  - [ ] Cancel game btns too big on small screen
+- [ ] in JoinGame should we cancel the game if it can't be joined? 
 
 
 
