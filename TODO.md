@@ -7,33 +7,22 @@
 
 Josh:
 - [ ] Bug crawling animation
-- [x] bug: rematch request inside chat doesn't go away once it's interacted with
-- [x] Add expanded touch range for pixel pressable
-- [x] Match styles of "Create a game" buttons and modals to rest of app
-  - [x] Update color of underline
-  - [x] Close button could match
-- [x] Update SDK
-  - You may need to update sdk on your machine: https://blog.expo.dev/expo-sdk-47-a0f6f5c038af
-- [x] Consolidate images and assets folders
-
-New:
 - [ ] Stats page styling
   - [ ] Add more space at bottom
+- [ ] Error - undefined is not an object (evaluating 'soundsReducer[soundName].replayAsync')  
 
 Tia: 
-- [ ] Custom alert (styling?)
-- [ ] Center main content
-- [ ] Streamline disabled overlay (in Menu too)
+- [ ] Custom alert styling
+   - [ ] Center main content
+   - [ ] Streamline disabled overlay (in Menu too)
 - [ ] Bug crawling animation
 - [ ] Modals in Start game are off on Android (have screenshots on phone)
 - [ ] Buttons in Start game are too squished when all 4 are showing (at least on medium size phone, test other sizes)
-- [ ] Error - undefined is not an object (evaluating 'soundsReducer[soundName].replayAsync')  
 - [ ] Do we want all that stuff on How to Play screen if we only have a couple seconds on clock? Not sure we need Quit btn and settings drawer. If we remove Quit btn than we can remove CustomAlert. Or we could keep CustomAlert, and wire up the app state listener to show the same alert if one player backgrounds the app.
 - [ ] in JoinGame should we cancel the game if it can't be joined? (test this- try to trigger situation where game can't be joined and see if it does cancel)
 Small screen issues:
   - [ ] Pressable options in Create a Game modal are too big on small screen
   - [ ] Cancel game btns in CustomAlert too big on small screen
-
 
 
 
