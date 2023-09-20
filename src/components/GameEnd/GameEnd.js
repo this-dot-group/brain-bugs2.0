@@ -369,7 +369,7 @@ function GameEnd({
             deviceWidth={screenDeviceWidth}
             gameCode={gameCode}
             user={currentUserObj}
-            rematchPending={showInvitation}
+            rematchPending={showInvitation && !hideRematchButtons}
             handleNo={handleNo}
             handleYes={handleYes}
             rematchText={rematchText}
