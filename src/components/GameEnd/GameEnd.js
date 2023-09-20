@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { View, Text, StyleSheet, Alert } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { Redirect } from 'react-router-native'
 import { connect } from 'react-redux';
 import { numQuestions, newCategory, publicOrPrivate, resetQuestions } from '../../store/gameInfoReducer';
@@ -14,6 +14,7 @@ import { PixelPressable, MuteButton } from '../Shared';
 import { Buttons, Typography } from '../../styles';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import AnimatedView from '../Shared/AnimatedView';
+import { CustomAlert } from '../Shared/CustomAlert';
 
 function GameEnd({
   screenDeviceWidth,
@@ -46,6 +47,9 @@ function GameEnd({
   const [rematchRequested, setRematchRequested] = useState(false);
   const [hideRematchButtons, setHideRematchButtons] = useState(false);
   const opponentSaidNoToRematch = useRef(false);
+  const [openAlert_OpponentLeftLobby, setOpenAlert_OpponentLeftLobby] = useState(false);
+  const [openAlert_OpponentLeftDisabled, setOpenAlert_OpponentLeftDisabled] = useState(false);
+  const [openAlert_RematchDeclined, setOpenAlert_RematchDeclined] = useState(false);
 
   const token = location.state.finalScore.token;
 
@@ -97,6 +101,10 @@ function GameEnd({
     endButton : {
       marginLeft: 'auto'
     },
+    alertText: {
+      ...Typography.headingTwoText[screenDeviceWidth],
+      marginBottom: 4
+    }
   });
 
   useEffect(() => {
@@ -122,7 +130,7 @@ function GameEnd({
     socket.on('gameCodeForRematch', joinRematch);
     socket.on('redirectToHowToPlay', redirect);
     socket.on('opponentLeftRoom', createOpponentLeftRoomAlert);
-    socket.on('opponentLeftDuringGame', showOpponentLeftAlert)
+    socket.on('opponentLeftDuringGame', handleOpenOpponentLeftAlert)
 
     return () => {
       socket.off('rematchInvitation', onRematchInvitation);
@@ -130,7 +138,7 @@ function GameEnd({
       socket.off('gameCodeForRematch', joinRematch);
       socket.off('redirectToHowToPlay', redirect);
       socket.off('opponentLeftRoom', createOpponentLeftRoomAlert);
-      socket.off('opponentLeftDuringGame', showOpponentLeftAlert)
+      socket.off('opponentLeftDuringGame', handleOpenOpponentLeftAlert)
     }
   }, []);
 
@@ -158,51 +166,36 @@ function GameEnd({
     setShowInvitation(true);
   }
 
-  const createOpponentSaidNoAlert = (opponent) => {
-    Alert.alert(
-      `${opponent} declined your rematch request!`,
-      'Find another challenger.',
-      [
-        {
-          text: 'Ok',
-        },
-      ],
-      { cancelable: false }
-    );
-    setHideRematchButtons(true);
-  }
-
   const createOpponentLeftRoomAlert = () => {
     // check here to see if rematch is already no, in which case we dont need to show the alert
     if (!opponentSaidNoToRematch.current){
-      Alert.alert(
-        'Your opponent left!',
-        'Rematch and chat no longer enabled.',
-        [
-          {
-            text: 'Ok',
-            onPress: () => setOpponentLeftRoom(true),
-          },
-        ],
-        { cancelable: false }
-      );
+      setOpenAlert_OpponentLeftDisabled(true);
       opponentSaidNoToRematch.current = false;
     }
     return;
   }
 
-  const showOpponentLeftAlert = () => {
-    Alert.alert(
-      'Your opponent left!',
-      'Go back to the lobby for a new game.',
-      [
-        {
-          text: 'Go to Lobby',
-          onPress: () => setBackToLobby(true),
-        },
-      ],
-      { cancelable: false }
-    );
+  const handleCloseOpponentLeftDisabledAlert = () => {
+    setOpenAlert_OpponentLeftDisabled(false);
+    setOpponentLeftRoom(true);
+  }
+
+  const handleOpenDeclinedRematchAlert = () => {
+    setOpenAlert_RematchDeclined(true);
+    setHideRematchButtons(true);
+  }
+
+  const handleCloseDeclinedRematchAlert = () => {
+    setOpenAlert_RematchDeclined(false);
+  }
+
+  const handleOpenOpponentLeftAlert = () => {
+    setOpenAlert_OpponentLeftLobby(true);
+  }
+
+  const handleCloseOpponentLeftAlert = () => {
+    setOpenAlert_OpponentLeftLobby(false);
+    setBackToLobby(true);
   }
 
   const onRematchResponse = (payload) => {
@@ -223,7 +216,7 @@ function GameEnd({
     if (!response) {
       // setting this to true so that when opponent leaves the room and triggers that event, the subsequent Alert will have a check to see if theyve already said no to a rematch, and then will not show that second Alert that theyve left the rom 
       opponentSaidNoToRematch.current = true;
-      createOpponentSaidNoAlert(opponent);
+      handleOpenDeclinedRematchAlert()
     }
   }
 
@@ -279,6 +272,63 @@ function GameEnd({
 
   return (
     <AnimatedView style={styles.root} useSite="GameEnd">
+      <CustomAlert 
+        visible={openAlert_OpponentLeftLobby} 
+        copy={
+          <Text style={styles.alertText}>
+            Your opponent left! 
+            Go back to lobby for new game.
+          </Text>
+        }
+        buttons={
+          <>
+            <PixelPressable
+              buttonStyle={{height: 60}}
+              pressableProps={{
+                onPress: handleCloseOpponentLeftAlert
+              }}
+            >Back to Lobby</PixelPressable>
+          </>
+        }
+      />
+      <CustomAlert 
+        visible={openAlert_OpponentLeftDisabled} 
+        copy={
+          <Text style={styles.alertText}>
+            Your opponent left! 
+            Rematch and chat no longer enabled.
+          </Text>
+        }
+        buttons={
+          <>
+            <PixelPressable
+              buttonStyle={{height: 60}}
+              pressableProps={{
+                onPress: handleCloseOpponentLeftDisabledAlert
+              }}
+            >Ok</PixelPressable>
+          </>
+        }
+      />
+      <CustomAlert 
+        visible={openAlert_RematchDeclined} 
+        copy={
+          <Text style={styles.alertText}>
+            Your opponent declined your rematch request.
+            Please find another challenger.
+          </Text>
+        }
+        buttons={
+          <>
+            <PixelPressable
+              buttonStyle={{height: 60}}
+              pressableProps={{
+                onPress: handleCloseDeclinedRematchAlert
+              }}
+            >Ok</PixelPressable>
+          </>
+        }
+      />
       <View style={styles.buttonRow}>
       <AppStateTracker
         gameCode={gameCode}
