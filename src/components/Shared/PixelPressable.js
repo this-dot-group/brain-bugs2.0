@@ -61,6 +61,7 @@ function PixelPressable ({
           style={styles.pressable}
           onPressIn={shrink}
           onPressOut={grow}
+          hitSlop={12}
           {...pressableProps}
         >
           {children}

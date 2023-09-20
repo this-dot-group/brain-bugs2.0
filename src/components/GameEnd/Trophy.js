@@ -40,7 +40,7 @@ function Trophy({ screenDeviceWidth }) {
       }}
     >
       <Image
-        source={require('../../../assets/trophy.png')}
+        source={require('../../images/trophy.png')}
         style={styles.trophy}
       />
     </Animated.View>
