@@ -103,7 +103,8 @@ function GameEnd({
     },
     alertText: {
       ...Typography.headingTwoText[screenDeviceWidth],
-      marginBottom: 4
+      marginBottom: 4,
+      textAlign: 'center'
     }
   });
 

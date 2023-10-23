@@ -20,7 +20,8 @@ function JoinGame(props) {
     },
     alertText: {
       ...Typography.headingTwoText[props.screenDeviceWidth],
-      marginBottom: 4
+      marginBottom: 4,
+      textAlign: 'center'
     },
   });
 

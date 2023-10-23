@@ -66,7 +66,8 @@ const WaitingRoom = (props) => {
     },
     waitingText: {
       ...Typography.headingTwoText[screenDeviceWidth],
-      marginBottom: 4
+      marginBottom: 4,
+      textAlign: 'center'
     },
     privateWaitingText: {
       ...Typography.normalText[screenDeviceWidth],

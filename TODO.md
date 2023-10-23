@@ -13,7 +13,7 @@ Josh:
 
 Tia: 
 - [ ] Custom alert styling
-   - [ ] Center main content
+   - [x] Center main content
    - [ ] Streamline disabled overlay (in Menu too)
 - [ ] Bug crawling animation
 - [ ] Modals in Start game are off on Android (have screenshots on phone)
