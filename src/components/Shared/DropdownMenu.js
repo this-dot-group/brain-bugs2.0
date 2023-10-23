@@ -36,8 +36,8 @@ function DropdownMenu(props) {
     },
     modalView: {
       ...Views.modalView,
-      marginTop: top + (height * .025),
-      marginBottom: bottom + (height * .025),
+      marginTop: height * .025,
+      marginBottom: height * .025,
       width: width * .95,
       maxHeight: height * .95,
     },
