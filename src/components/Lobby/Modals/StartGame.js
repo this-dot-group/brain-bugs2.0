@@ -79,7 +79,7 @@ function StartGame(props) {
   if (redirect) return <Redirect to="/waitingroom" />
 
   return (
-    <GenericModal visible={props.modalVisible === 'start'}>
+    <GenericModal visible={props.modalVisible === 'start'} disableBackground>
       <TitleBar
         cb={() => props.setModalVisible(null)}
         deviceSize={props.screenDeviceWidth}

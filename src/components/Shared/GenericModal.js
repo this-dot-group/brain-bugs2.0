@@ -12,7 +12,7 @@ const getStyles = style =>  StyleSheet.create({
   disabledView: {
     height: '100%',
     widht: '100%',
-    backgroundColor: 'rgba(35,47,36,0.8)'
+    backgroundColor: 'rgba(0,0,0,.75)'
   }
 });
 

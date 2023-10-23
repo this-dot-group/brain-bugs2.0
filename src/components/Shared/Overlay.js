@@ -5,7 +5,7 @@ import { useSafeArea } from '../../hooks';
 
 export default function Overlay ({
   active,
-  backgroundColor = 'rgba(0,0,0,.5)',
+  backgroundColor = 'rgba(0,0,0,.75)',
   onPress,
   style,
 }) {

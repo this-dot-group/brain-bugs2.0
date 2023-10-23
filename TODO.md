@@ -14,7 +14,7 @@ Josh:
 Tia: 
 - [ ] Custom alert styling
    - [x] Center main content
-   - [ ] Streamline disabled overlay (in Menu too)
+   - [x] Streamline disabled overlay (in Menu too)
 - [ ] Bug crawling animation
 - [ ] Modals in Start game are off on Android (have screenshots on phone)
 - [ ] Buttons in Start game are too squished when all 4 are showing (at least on medium size phone, test other sizes)

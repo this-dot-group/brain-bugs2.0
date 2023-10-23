@@ -48,6 +48,7 @@ function JoinGame(props) {
   return (
     <GenericModal
       visible={props.modalVisible === 'join'}
+      disableBackground
     >
       <TitleBar
         cb={() => props.setModalVisible(null)}
