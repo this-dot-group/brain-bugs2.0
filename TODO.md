@@ -21,8 +21,8 @@ Tia:
 - [ ] Do we want all that stuff on How to Play screen if we only have a couple seconds on clock? Not sure we need Quit btn and settings drawer. If we remove Quit btn than we can remove CustomAlert. Or we could keep CustomAlert, and wire up the app state listener to show the same alert if one player backgrounds the app.
 - [ ] in JoinGame should we cancel the game if it can't be joined? (test this- try to trigger situation where game can't be joined and see if it does cancel)
 Small screen issues:
-  - [ ] Pressable options in Create a Game modal are too big on small screen
-  - [ ] Cancel game btns in CustomAlert too big on small screen
+  - [x] Pressable options in Create a Game modal are too big on small screen
+  - [x] Cancel game btns in CustomAlert too big on small screen
 
 
 

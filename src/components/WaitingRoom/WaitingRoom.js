@@ -258,13 +258,19 @@ const WaitingRoom = (props) => {
           buttons={
             <>
               <PixelPressable
-                buttonStyle={{height: 60}}
+                buttonStyle={{
+                  height: 60,
+                  width: screenDeviceWidth === 'small' ? 190 : 220
+                }}
                 pressableProps={{
                   onPress: handleFullGameCancel
                 }}
               >Yes, cancel game</PixelPressable>
               <PixelPressable
-                buttonStyle={{height: 60}}
+                buttonStyle={{
+                  height: 60,
+                  width: screenDeviceWidth === 'small' ? 190 : 220
+                }}
                 pressableProps={{
                   onPress: handleContinueWithGame
                 }}
