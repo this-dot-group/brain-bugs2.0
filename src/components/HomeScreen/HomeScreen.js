@@ -10,6 +10,7 @@ import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import AnimatedView from '../Shared/AnimatedView';
 import { PixelButton, KeyboardAvoidingComponent, PixelPressable } from '../Shared';
 import Overlay from '../Shared/Overlay'
+import CrawlingBugs from '../CrawlingBugs/CrawlingBugs';
 
 import { Views, Typography, Images } from '../../styles/';
 
@@ -122,6 +123,7 @@ function Homescreen(props) {
 
   return (
     <AnimatedView style={styles.container} useSite="HomeScreen">
+      <CrawlingBugs num={8} />
       <Overlay
         active={keyboardActive}
         onPress={hideKeyboard}

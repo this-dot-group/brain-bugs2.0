@@ -1,4 +1,12 @@
-import { brightGreen, darkBackground } from "./colors";
+import { brightGreen, darkBackground, black } from "./colors";
+
+export const safeAreaContainer = {
+  flex: 1,
+  backgroundColor: black.hex,
+  alignItems: 'center',
+  justifyContent: 'center',
+  overflow: 'hidden',
+}
 
 export const modalView = {
   backgroundColor: darkBackground.hex,

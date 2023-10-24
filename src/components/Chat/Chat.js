@@ -13,7 +13,7 @@ import {
 import Badge from './Badge';
 import { Buttons, Typography } from '../../styles';
 import { useKeyboard } from '../../hooks';
-import { darkBackground, blue, yellow } from '../../styles/colors';
+import { darkBackground, blue, yellow, black } from '../../styles/colors';
 
 function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rematchText, deviceWidth }) {
   const [messages, setMessages] = useState([]);
@@ -33,7 +33,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
     safeArea: {
       flex: 1,
       height: '100%',
-      backgroundColor: darkBackground.hex,
+      backgroundColor: black.hex,
       position: 'relative',
     },
     messagesContainer: {
@@ -68,7 +68,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
       height: '100%',
       zIndex: 3
     },
-    contenInner: {
+    contentInner: {
       flex: 0
     },
     form: {
@@ -96,7 +96,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
       textAlign: 'center'
     },
     chatModalStyles: {
-      backgroundColor: 'black',
+      backgroundColor: black.hex,
     },
     yesNoButtonCont: {
       display: 'flex',
