@@ -13,6 +13,7 @@ import AnimatedView from '../Shared/AnimatedView';
 import SubmitButton from './SubmitButton';
 import { brightGreen, blue, red, darkBackground, darkBlue } from '../../styles/colors';
 import { CustomAlert } from '../Shared/CustomAlert';
+import CrawlingBugs from '../CrawlingBugs/CrawlingBugs';
 
 function GameScreen(props) {
   const [seconds, setSeconds] = useState(QUESTION_TIME * 1000);
@@ -329,7 +330,7 @@ function GameScreen(props) {
   return (
 
     <AnimatedView style={styles.container} useSite="GameScreen">
-
+      <CrawlingBugs num={2} />
       <CustomAlert 
         visible={openAlert_OpponentLeft} 
         copy={

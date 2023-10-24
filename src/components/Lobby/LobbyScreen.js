@@ -12,6 +12,7 @@ import { PixelPressable } from '../Shared'
 import { Buttons, Typography } from '../../styles';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import AnimatedView from '../Shared/AnimatedView';
+import CrawlingBugs from '../CrawlingBugs/CrawlingBugs';
 
 function StartScreen(props) {
   const [modalVisible, setModalVisible] = useState(null);
@@ -110,6 +111,7 @@ function StartScreen(props) {
 
   return (
     <AnimatedView style={styles.container} useSite="LobbyScreen">
+      <CrawlingBugs num={8} />
       {username && (
         <Text style={styles.greeting}>WELCOME {username.toUpperCase()}!</Text>
       )}

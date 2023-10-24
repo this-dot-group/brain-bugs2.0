@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { GenericModal, TitleBar } from '../Shared';
 import { instructions } from '../../../config';
@@ -12,7 +12,9 @@ function HowToPlayModal({ visible, setVisible, deviceSize }) {
   const styles = StyleSheet.create({
     instructions: {
       alignSelf: 'center',
-      paddingBottom: 30
+      paddingBottom: 30,
+      width: '100%',
+      paddingHorizontal: '15%',
     },
     listItem: {
       flexDirection: 'row',
@@ -36,7 +38,7 @@ function HowToPlayModal({ visible, setVisible, deviceSize }) {
       >
         How To Play
       </TitleBar>
-      <View style={styles.instructions}>
+      <ScrollView style={styles.instructions}>
         {instructions.map(({instruction, id}) => 
           <View key={id} style={styles.listItem}>
             <Image
@@ -46,7 +48,7 @@ function HowToPlayModal({ visible, setVisible, deviceSize }) {
             <Text style={styles.listText}>{instruction}</Text>
           </View>
         )}
-      </View>
+      </ScrollView>
     </GenericModal>
   )
 }

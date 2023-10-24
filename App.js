@@ -19,16 +19,12 @@ import LoadingScreen from './src/components/LoadingScreen/LoadingScreen';
 import RootErrorBoundary from './src/components/ErrorBoundary/RootErrorBoundary';
 import { SafeViewAllDevices } from './src/components/Shared';
 
+import { Views } from './src/styles/index.js';
+
 import Sounds from './src/sounds/Sounds'
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
-  },
+  container: Views.safeAreaContainer,
 });
 
 export default function App() {

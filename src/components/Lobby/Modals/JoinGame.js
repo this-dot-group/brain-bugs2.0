@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, ScrollView } from 'react-native';
 import { newOpponent } from '../../../store/userReducer';
 import { connect } from 'react-redux';
 import { GenericModal, PixelPressable, TitleBar } from '../../Shared';
@@ -75,26 +75,27 @@ function JoinGame(props) {
             </>
           }
         />
-  
-      {props.gamesWaiting.map((gameObj, i) =>
-        <PixelPressable
-          key={i}
-          buttonStyle={{
-            width: width - 140,
-            marginLeft: 'auto',
-            marginRight: 'auto'
-          }}
-          pressableProps={{ onPress: () => handleJoinTwoPlayer(gameObj) }}
-        >
-          <Text style={styles.smallInnerText}>
-            {gameObj.player} is waiting to play {gameObj.category}
-          </Text>
-        </PixelPressable>
-      )}
+      <ScrollView>
+        {props.gamesWaiting.map((gameObj, i) =>
+          <PixelPressable
+            key={i}
+            buttonStyle={{
+              width: width - 140,
+              marginLeft: 'auto',
+              marginRight: 'auto'
+            }}
+            pressableProps={{ onPress: () => handleJoinTwoPlayer(gameObj) }}
+          >
+            <Text style={styles.smallInnerText}>
+              {gameObj.player} is waiting to play {gameObj.category}
+            </Text>
+          </PixelPressable>
+        )}
 
-      {!props.gamesWaiting.length && 
-        <Text style={styles.innerText}>No available games</Text>
-      }
+        {!props.gamesWaiting.length && 
+          <Text style={styles.innerText}>No available games</Text>
+        }
+      </ScrollView>
 
     </GenericModal>
   )
