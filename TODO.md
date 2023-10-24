@@ -6,10 +6,23 @@
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 Josh:
-- [ ] Bug crawling animation
-- [ ] Stats page styling
-  - [ ] Add more space at bottom
-- [ ] Error - undefined is not an object (evaluating 'soundsReducer[soundName].replayAsync')  
+- [x] Bug crawling animation
+    - [x] on pages without much going on, have more bugs
+    - [x] on other pages, have a couple
+    - [x] use blue for now
+
+- [x] Stats page styling
+  - [x] Added scroll if overflow
+- [x] Add scroll to similar modals
+  - [x] How To Play
+  - [x] Start Game
+  - [x] Join Game
+- [x] Error - undefined is not an object (evaluating 'soundsReducer[soundName].replayAsync')  
+- [x] Chat style safe area
+
+New:
+- [ ] Move the pages to a pages folder, to be separate from components
+- [ ] In start game section, default dropdown button styles are covering up pixel button styles on iPhone
 
 Tia: 
 - [ ] Custom alert styling

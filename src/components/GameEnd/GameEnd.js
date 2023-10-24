@@ -15,6 +15,7 @@ import { Buttons, Typography } from '../../styles';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import AnimatedView from '../Shared/AnimatedView';
 import { CustomAlert } from '../Shared/CustomAlert';
+import CrawlingBugs from '../CrawlingBugs/CrawlingBugs';
 
 function GameEnd({
   screenDeviceWidth,
@@ -272,6 +273,7 @@ function GameEnd({
 
   return (
     <AnimatedView style={styles.root} useSite="GameEnd">
+      <CrawlingBugs num={8} />
       <CustomAlert 
         visible={openAlert_OpponentLeftLobby} 
         copy={

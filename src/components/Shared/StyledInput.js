@@ -1,10 +1,11 @@
 import React, { forwardRef } from 'react'
 import { TextInput, StyleSheet } from 'react-native'
+import { black } from '../../styles/colors'
 
 
 const getStyles = style =>  StyleSheet.create({
   root: {
-    borderColor: 'black',
+    borderColor: black.hex,
     borderWidth: 2,
     borderRadius: 10,
     padding: 10,

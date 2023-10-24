@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, ScrollView } from 'react-native'
 import { Redirect } from 'react-router-native';
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate } from '../../../store/gameInfoReducer';
 import { newOpponent } from '../../../store/userReducer';
@@ -22,14 +22,16 @@ function StartGame(props) {
   const styles = StyleSheet.create({
     dropdowns: {
       display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
       position: 'relative',
       zIndex: 1,
       height: '80%'
     },
+    dropdownsContainerStyles : {
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
     optionBtns: {
-      ...Buttons.listOptionBtns[props.screenDeviceWidth]
+      ...Buttons.listOptionBtns[props.screenDeviceWidth],
     },
     dropDownView: {
       ...Buttons.dropdownBtns[props.screenDeviceWidth]
@@ -87,7 +89,10 @@ function StartGame(props) {
         Create a Game
       </TitleBar>
 
-      <View style={styles.dropdowns}>
+      <ScrollView
+        style={styles.dropdowns}
+        contentContainerStyle={styles.dropdownsContainerStyles}
+      >
         <View style={styles.dropDownView}>
           <PixelButton
             buttonStyle={styles.optionBtns}>
@@ -156,7 +161,7 @@ function StartGame(props) {
             </PixelButton>
           </View>
         )}
-      </View>
+      </ScrollView>
 
       <View style={styles.goRow}>
         <Hider

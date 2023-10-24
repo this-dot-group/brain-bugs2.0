@@ -17,6 +17,7 @@ import SettingsDrawer from '../SettingsDrawer/SettingsDrawer.js';
 import AnimatedView from '../Shared/AnimatedView';
 import { CustomAlert } from '../Shared/CustomAlert';
 import { red } from '../../styles/colors';
+import CrawlingBugs from '../CrawlingBugs/CrawlingBugs';
 
 const WaitingRoom = (props) => {
   const [roomJoin, setRoomJoin] = useState(false)
@@ -243,6 +244,7 @@ const WaitingRoom = (props) => {
     return (
 
       <AnimatedView style={styles.container} useSite="WaitingRoom">
+        <CrawlingBugs num={2} />
         <AppStateTracker
           gameCode={props.gameCode}
           gamePhase='waiting_room' />

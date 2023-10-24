@@ -11,7 +11,7 @@ const getStyles = style =>  StyleSheet.create({
   },
   disabledView: {
     height: '100%',
-    widht: '100%',
+    width: '100%',
     backgroundColor: 'rgba(35,47,36,0.8)'
   }
 });

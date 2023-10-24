@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { GenericModal, TitleBar } from '../Shared';
 import { Typography } from '../../styles';
@@ -8,7 +8,8 @@ function StatsModal({ visible, setVisible, deviceSize, stats }) {
   const styles = StyleSheet.create({
     instructions: {
       alignSelf: 'center',
-      width: '70%',
+      width: '100%',
+      paddingHorizontal: '15%',
     },
     listItem: {
       flexDirection: 'row',
@@ -32,14 +33,14 @@ function StatsModal({ visible, setVisible, deviceSize, stats }) {
       >
         Stats
       </TitleBar>
-      <View style={styles.instructions}>
+      <ScrollView style={styles.instructions}>
         {Object.values(stats).map(({ id, label, value}) => 
           <View style={styles.listItem} key={id}>
             <Text style={styles.listText}>{label}</Text>
             <Text style={styles.listText}>{value}</Text>
           </View>
         )}
-      </View>
+      </ScrollView>
     </GenericModal>
   );
 }

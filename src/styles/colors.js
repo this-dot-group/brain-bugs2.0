@@ -33,3 +33,7 @@ export const red = {
 export const brightRed = {
   hex: '#DC2326'
 }
+
+export const black = {
+  hex: '#000000'
+}
