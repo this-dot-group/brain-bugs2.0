@@ -6,38 +6,18 @@
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 Josh:
-- [x] Bug crawling animation
-    - [x] on pages without much going on, have more bugs
-    - [x] on other pages, have a couple
-    - [x] use blue for now
-
-- [x] Stats page styling
-  - [x] Added scroll if overflow
-- [x] Add scroll to similar modals
-  - [x] How To Play
-  - [x] Start Game
-  - [x] Join Game
-- [x] Error - undefined is not an object (evaluating 'soundsReducer[soundName].replayAsync')  
-- [x] Chat style safe area
-
-New:
 - [ ] Move the pages to a pages folder, to be separate from components
+- [ ] Make sure games are always deleted from server
 - [ ] In start game section, default dropdown button styles are covering up pixel button styles on iPhone
+ - [ ] Double check style and containerStyle on DropdownPicker
+- [ ] Double check that createAGame modal looks normal on iPhone
+- [ ] Look into ChatGPT API
 
 Tia: 
-- [ ] Custom alert styling
-   - [x] Center main content
-   - [x] Streamline disabled overlay (in Menu too)
 - [ ] Bug crawling animation
-- [x] Modals in Start game are off on Android (have screenshots on phone)
-- [x] Buttons in Start game are too squished when all 4 are showing (at least on medium size phone, test other sizes)
-- [x] Do we want all that stuff on How to Play screen if we only have a couple seconds on clock? Not sure we need Quit btn and settings drawer. If we remove Quit btn than we can remove CustomAlert. Or we could keep CustomAlert, and wire up the app state listener to show the same alert if one player backgrounds the app.
 - [ ] in JoinGame should we cancel the game if it can't be joined? (test this- try to trigger situation where game can't be joined and see if it does cancel)
-Small screen issues:
-  - [x] Pressable options in Create a Game modal are too big on small screen
-  - [x] Cancel game btns in CustomAlert too big on small screen
-
-
+- [ ] Dropdown buttons should be taller or wider for longer category titles
+- [ ] Look into how we are setting screen device size
 
 For Future
 - code improvements
@@ -56,18 +36,8 @@ For Future
 - clean up package.json unused dependencies
 - Increase waiting room screen time (I had reduced at some point to speed up testing. can revisit all countdown timer # seconds)
 
-
-## New Features
-* Emoji decorations 
-
 ## Styling/Content
 - Animation Ideas
- - Bug crawling in background - homescreen, endscreen
- - Feedback copying private game code
- - Bounce or something on pixel button
- 
- 
-
 - Logo/img/etc
 - if you dont answer a question, when the correct answer moment occurs it looks like you answered correctly (because no other option is selected)
 - improve selected/submitted feedback (raining down smileys/sads)
@@ -85,21 +55,10 @@ For Future
         }
       ]
     ],
-- Feedback patterns to user while waiting for opponent response
-    - waiting room screen: loading spinner
-    - gameplay: Waiting for other user... text
-    - game end, rematch request: "Rematch" changes to "Requesting..." 
-    - if start game options are still loading: ____________
-- Dropdown buttons should be taller or wider for longer category titles
-- Trophy is not a consistent size
-- Issue with Sounds - I think when it starts on mute
-- style consistency
-  - for ex- all headings in caps?
 
 ## Improvement ideas
 * Single player fake opponent scoring (right now they get it right 50% of time, random # for points)
 - Any special way to handle a tie?
-- Weird apple shapes over the screen
 
 ## Manuel Testing
 - Single Player Works
