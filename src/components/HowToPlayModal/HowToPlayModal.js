@@ -31,7 +31,7 @@ function HowToPlayModal({ visible, setVisible, deviceSize }) {
   const handleClose = () => setVisible(false);
 
   return (
-    <GenericModal visible={visible}>
+    <GenericModal visible={visible} disableBackground>
       <TitleBar
         cb={handleClose}
         deviceSize={deviceSize}

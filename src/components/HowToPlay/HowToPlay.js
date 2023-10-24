@@ -14,7 +14,7 @@ import { brightRed } from '../../styles/colors';
 import { CustomAlert } from '../Shared/CustomAlert';
 
 function HowToPlay(props) {
-  const [seconds, setSeconds] = useState(START_COUNTDOWN * 1000);
+  const [seconds, setSeconds] = useState(START_COUNTDOWN * 100000);
   const [goCountdown, setGoCountdown] = useState(true);
   const [goToGame, setGoToGame] = useState(false);
   const [backToLobby, setBackToLobby] = useState(false);
@@ -51,7 +51,8 @@ function HowToPlay(props) {
     },
     alertText: {
       ...Typography.headingTwoText[screenDeviceWidth],
-      marginBottom: 4
+      marginBottom: 4,
+      textAlign: 'center'
     }
   })
 
@@ -134,7 +135,7 @@ function HowToPlay(props) {
 
         <View style={styles.body}>
           <Text style={styles.names}>{username} {opponent && `vs ${opponent}`}</Text>
-          <Text style={styles.subtitle}>Game starting in</Text>
+          <Text style={styles.subtitle}>Game starting in:</Text>
           <Spinner>
             <Countdown
               seconds={seconds}
@@ -146,7 +147,6 @@ function HowToPlay(props) {
           </Spinner>
         </View>
 
-        <SettingsDrawer />
       </AnimatedView>
     </>
   )

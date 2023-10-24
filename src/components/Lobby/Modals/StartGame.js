@@ -81,7 +81,7 @@ function StartGame(props) {
   if (redirect) return <Redirect to="/waitingroom" />
 
   return (
-    <GenericModal visible={props.modalVisible === 'start'}>
+    <GenericModal visible={props.modalVisible === 'start'} disableBackground>
       <TitleBar
         cb={() => props.setModalVisible(null)}
         deviceSize={props.screenDeviceWidth}
@@ -144,7 +144,10 @@ function StartGame(props) {
         </View>
 
         {numPlayers === 2 && (
-          <View style={styles.dropDownView}>
+          <View style={{
+            ...styles.dropDownView, 
+            marginBottom: 0
+            }}>
             <PixelButton buttonStyle={styles.optionBtns}>
               <DropdownMenu
                 items={[

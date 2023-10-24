@@ -10,7 +10,7 @@ function TitleBar({ children, cb, style, deviceSize }) {
       alignItems: 'center',
       justifyContent:'center',
       flexDirection: 'row',
-      marginBottom: 16,
+      marginBottom: 10,
       position: 'relative',
       ...style
     },

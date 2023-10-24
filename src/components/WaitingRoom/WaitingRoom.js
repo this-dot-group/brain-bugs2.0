@@ -67,7 +67,8 @@ const WaitingRoom = (props) => {
     },
     waitingText: {
       ...Typography.headingTwoText[screenDeviceWidth],
-      marginBottom: 4
+      marginBottom: 4,
+      textAlign: 'center'
     },
     privateWaitingText: {
       ...Typography.normalText[screenDeviceWidth],
@@ -259,13 +260,19 @@ const WaitingRoom = (props) => {
           buttons={
             <>
               <PixelPressable
-                buttonStyle={{height: 60}}
+                buttonStyle={{
+                  height: 60,
+                  width: screenDeviceWidth === 'small' ? 190 : 220
+                }}
                 pressableProps={{
                   onPress: handleFullGameCancel
                 }}
               >Yes, cancel game</PixelPressable>
               <PixelPressable
-                buttonStyle={{height: 60}}
+                buttonStyle={{
+                  height: 60,
+                  width: screenDeviceWidth === 'small' ? 190 : 220
+                }}
                 pressableProps={{
                   onPress: handleContinueWithGame
                 }}

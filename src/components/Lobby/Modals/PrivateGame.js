@@ -73,6 +73,7 @@ function PrivateGame(props) {
   return (
     <GenericModal
       visible={props.modalVisible === 'private'}
+      disableBackground
     >
       <TitleBar
         cb={() => props.setModalVisible(null)}

@@ -23,13 +23,13 @@ export const howToPlayBtn = {
 export const listOptionBtns = {
   small: {
     width: 240,
-    height: 46,
-    marginBottom: 24
+    height: 54,
+    marginBottom: 18
   },
   medium: {
     width: 300,
     height: 54,
-    marginBottom: 30,
+    marginBottom: 20,
   },
   large: {
     width: 340,
@@ -44,7 +44,7 @@ export const listOptionBtns = {
 export const dropdownBtns = {
   small: {
     height: 50,
-    marginBottom: 14,
+    marginBottom: 20,
   },
   medium: {
     height: 50,
