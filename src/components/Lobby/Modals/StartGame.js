@@ -139,7 +139,10 @@ function StartGame(props) {
         </View>
 
         {numPlayers === 2 && (
-          <View style={styles.dropDownView}>
+          <View style={{
+            ...styles.dropDownView, 
+            marginBottom: 0
+            }}>
             <PixelButton buttonStyle={styles.optionBtns}>
               <DropdownMenu
                 items={[

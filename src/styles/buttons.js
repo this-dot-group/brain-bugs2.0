@@ -24,12 +24,12 @@ export const listOptionBtns = {
   small: {
     width: 240,
     height: 54,
-    marginBottom: 24
+    marginBottom: 18
   },
   medium: {
     width: 300,
     height: 54,
-    marginBottom: 30,
+    marginBottom: 20,
   },
   large: {
     width: 340,
