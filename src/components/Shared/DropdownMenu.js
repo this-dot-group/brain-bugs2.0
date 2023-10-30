@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Typography, Views } from '../../styles';
-import { darkBackground, darkBackgroundLighterShade } from '../../styles/colors';
+import { darkBackgroundLighterShade } from '../../styles/colors';
 import Spinner from './Spinner';
 import CloseModalButton from './CloseModalButton';
 import { useSafeArea } from '../../hooks';
@@ -14,6 +14,9 @@ function DropdownMenu(props) {
   const { width, height, top, bottom } = useSafeArea(); 
 
   const styles = StyleSheet.create({
+    root: {
+      ...Views.dropdownRoot,
+    },
     title: {
       ...Typography.headingThreeText[screenDeviceWidth],
       fontFamily: 'VT323',
@@ -52,10 +55,7 @@ function DropdownMenu(props) {
 
   return (
     <DropDownPicker
-      style={{
-        borderWidth: 0,
-        backgroundColor: darkBackground.hex
-      }}
+      style={styles.root}
       CloseIconComponent={() => <CloseModalButton cb={() => setOpen(false)} />}
       labelStyle={styles.selectedItemText}
       listItemContainerStyle={styles.item}

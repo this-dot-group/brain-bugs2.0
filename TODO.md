@@ -8,10 +8,12 @@
 Josh:
 - [ ] Move the pages to a pages folder, to be separate from components
 - [ ] Make sure games are always deleted from server
-- [ ] In start game section, default dropdown button styles are covering up pixel button styles on iPhone
- - [ ] Double check style and containerStyle on DropdownPicker
-- [ ] Double check that createAGame modal looks normal on iPhone
+- [x] In start game section, default dropdown button styles are covering up pixel button styles on iPhone
+- [x] Double check that createAGame modal looks normal on iPhone
 - [ ] Look into ChatGPT API
+
+New:
+- change color of arrow (or remove arrow) and selected tick mark (make a new check mark) on drop downs
 
 Tia: 
 - [ ] Bug crawling animation
