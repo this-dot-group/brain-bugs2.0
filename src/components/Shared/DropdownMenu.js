@@ -85,6 +85,7 @@ function DropdownMenu(props) {
       ActivityIndicatorComponent={Spinner}
       searchContainerStyle={{ ...styles.searchContainerStyle }}
       arrowIconStyle={{tintColor: brightGreen.hex}}
+      tickIconStyle={{tintColor: brightGreen.hex}}
     />
   );
 }
