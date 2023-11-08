@@ -7,13 +7,33 @@
 
 Josh:
 - [ ] Move the pages to a pages folder, to be separate from components
-- [ ] Make sure games are always deleted from server
+  - We need to do this when there are no other changes, otherwise there will be a difficult merge conflict
+  - Suggested File Struture
+    - This still keeps the components that are only on one page with their page
+    - 📂 Pages
+      - ErrorBoundary
+      - GameEnd
+        - Chat
+      - GameScreen
+      - HomeScreen
+      - HowToPlay
+      - LoadingScreen
+      - Lobby
+      - WaitingRoom
+
+    - 📂 Shared (Shared Components)
+      - AppState
+      - Countdown
+      - CrawlingBugs
+      - 📂 SettingsDrawer
+        - StatsModal
+        - HowToPlayModal
+
 - [x] In start game section, default dropdown button styles are covering up pixel button styles on iPhone
-- [x] Double check that createAGame modal looks normal on iPhone
-- [ ] Look into ChatGPT API
 
 New:
-- change color of arrow (or remove arrow) and selected tick mark (make a new check mark) on drop downs
+- change color of selected tick mark (make a new check mark) on drop downs
+- Need padding at bottom of start a game modal
 
 Tia: 
 - [ ] Bug crawling animation
