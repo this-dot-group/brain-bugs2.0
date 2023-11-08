@@ -15,9 +15,10 @@ Josh:
 
 Tia: 
 - [ ] Bug crawling animation
-- [ ] in JoinGame should we cancel the game if it can't be joined? (test this- try to trigger situation where game can't be joined and see if it does cancel)
-- [ ] Dropdown buttons should be taller or wider for longer category titles
-- [ ] Look into how we are setting screen device size
+- [x] in JoinGame should we cancel the game if it can't be joined? (test this- try to trigger situation where game can't be joined and see if it does cancel)
+- [x] Dropdown buttons should be taller or wider for longer category titles
+- [x] Update the arrow icon on the create a game dropdowns
+- [x] Look into how we are setting screen device size
 
 For Future
 - code improvements
