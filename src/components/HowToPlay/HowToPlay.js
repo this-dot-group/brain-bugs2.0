@@ -14,7 +14,7 @@ import { brightRed } from '../../styles/colors';
 import { CustomAlert } from '../Shared/CustomAlert';
 
 function HowToPlay(props) {
-  const [seconds, setSeconds] = useState(START_COUNTDOWN * 100000);
+  const [seconds, setSeconds] = useState(START_COUNTDOWN * 1000);
   const [goCountdown, setGoCountdown] = useState(true);
   const [goToGame, setGoToGame] = useState(false);
   const [backToLobby, setBackToLobby] = useState(false);

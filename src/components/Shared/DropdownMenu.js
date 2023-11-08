@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Typography, Views } from '../../styles';
-import { darkBackground, darkBackgroundLighterShade } from '../../styles/colors';
+import { darkBackground, darkBackgroundLighterShade, brightGreen } from '../../styles/colors';
 import Spinner from './Spinner';
 import CloseModalButton from './CloseModalButton';
 import { useSafeArea } from '../../hooks';
@@ -84,6 +84,8 @@ function DropdownMenu(props) {
       loading={loading || false}
       ActivityIndicatorComponent={Spinner}
       searchContainerStyle={{ ...styles.searchContainerStyle }}
+      arrowIconStyle={{tintColor: brightGreen.hex}}
+      tickIconStyle={{tintColor: brightGreen.hex}}
     />
   );
 }
