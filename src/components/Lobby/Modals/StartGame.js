@@ -31,7 +31,7 @@ function StartGame(props) {
       justifyContent: 'center',
     },
     optionBtns: {
-      ...Buttons.listOptionBtns[props.screenDeviceWidth],
+      ...Buttons.createGameListOptionBtns[props.screenDeviceWidth],
     },
     dropDownView: {
       ...Buttons.dropdownBtns[props.screenDeviceWidth]
