@@ -6,12 +6,11 @@
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 Josh:
-- [ ] Move the pages to a pages folder, to be separate from components
-- [ ] Make sure games are always deleted from server
-- [ ] In start game section, default dropdown button styles are covering up pixel button styles on iPhone
- - [ ] Double check style and containerStyle on DropdownPicker
-- [ ] Double check that createAGame modal looks normal on iPhone
-- [ ] Look into ChatGPT API
+- [x] Move the pages to a pages folder, to be separate from components
+- [ ] Add more sounds
+- [ ] Improve transitions on game screen buttons
+- [ ] Look into deploying
+
 
 Tia: 
 - [ ] Bug crawling animation

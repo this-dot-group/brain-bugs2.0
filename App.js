@@ -9,14 +9,14 @@ import { lockAsync, OrientationLock } from "expo-screen-orientation";
 
 import store, { persistor } from './src/store/index.js';
 
-import HomeScreen from './src/components/HomeScreen/HomeScreen'
-import GameEnd from './src/components/GameEnd/GameEnd'
-import GameScreen from './src/components/GameScreen/GameScreen'
-import HowToPlay from './src/components/HowToPlay/HowToPlay'
-import Lobby from './src/components/Lobby/LobbyScreen'
-import WaitingRoom from './src/components/WaitingRoom/WaitingRoom.js'
-import LoadingScreen from './src/components/LoadingScreen/LoadingScreen';
-import RootErrorBoundary from './src/components/ErrorBoundary/RootErrorBoundary';
+import HomeScreen from './src/components/Pages/HomeScreen/HomeScreen.js'
+import GameEnd from './src/components/Pages/GameEnd/GameEnd.js'
+import GameScreen from './src/components/Pages/GameScreen/GameScreen.js'
+import HowToPlay from './src/components/Pages/HowToPlay/HowToPlay.js'
+import Lobby from './src/components/Pages/Lobby/LobbyScreen'
+import WaitingRoom from './src/components/Pages/WaitingRoom/WaitingRoom.js'
+import LoadingScreen from './src/components/Pages/LoadingScreen/LoadingScreen.js';
+import RootErrorBoundary from './src/components/Pages/ErrorBoundary/RootErrorBoundary.js';
 import { SafeViewAllDevices } from './src/components/Shared';
 
 import { Views } from './src/styles/index.js';
