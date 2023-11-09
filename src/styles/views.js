@@ -53,6 +53,11 @@ export const dropdownSearchContainer = {
   borderBottomWidth: 2,
 }
 
+export const dropdownRoot = {
+  borderWidth: 0,
+  backgroundColor: 'transparent',
+}
+
 export const homeScreenContainer = {
   flex: 1,
   paddingTop: 30,

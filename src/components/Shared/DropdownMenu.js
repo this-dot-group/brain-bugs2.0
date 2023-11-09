@@ -14,6 +14,9 @@ function DropdownMenu(props) {
   const { width, height, top, bottom } = useSafeArea(); 
 
   const styles = StyleSheet.create({
+    root: {
+      ...Views.dropdownRoot,
+    },
     title: {
       ...Typography.headingThreeText[screenDeviceWidth],
       fontFamily: 'VT323',
@@ -52,10 +55,7 @@ function DropdownMenu(props) {
 
   return (
     <DropDownPicker
-      style={{
-        borderWidth: 0,
-        backgroundColor: 'transparent',
-      }}
+      style={styles.root}
       CloseIconComponent={() => <CloseModalButton cb={() => setOpen(false)} />}
       labelStyle={styles.selectedItemText}
       listItemContainerStyle={styles.item}
