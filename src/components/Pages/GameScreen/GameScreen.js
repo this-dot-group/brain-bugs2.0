@@ -11,7 +11,7 @@ import { PixelPressable } from '../../Shared/index.js';
 import { Typography } from '../../../styles/index.js';
 import AnimatedView from '../../Shared/AnimatedView.js';
 import SubmitButton from './SubmitButton.js';
-import { brightGreen, blue, red, darkBackground, darkBlue } from '../../../styles/colors.js';
+import AnswerButton from './AnswerButton.js';
 import { CustomAlert } from '../../Shared/CustomAlert.js';
 import CrawlingBugs from '../../Shared/CrawlingBugs/CrawlingBugs.js';
 
@@ -74,17 +74,8 @@ function GameScreen(props) {
       width: '28%',
       height: '80%',
     },
-    nonSelectedAnswer: {
-      justifyContent: 'center',
-      height: '100%',
-      width: '100%',
-      padding: 2,
-    },
     questionText: {
       ...Typography.questionText[screenDeviceWidth]
-    },
-    answerText: {
-      ...Typography.answerText[screenDeviceWidth]
     },
     scoreText: {
       ...Typography.scoreText[screenDeviceWidth]
@@ -102,20 +93,6 @@ function GameScreen(props) {
       textAlign: 'center'
     }
   });
-  
-  const buttonStyle = {
-    height: 70,
-    width: 220,
-    borderColor: blue.hex
-  }
-
-  const answerText = {
-    ...Typography.answerText[screenDeviceWidth]
-  }
-
-
-
-
 
   // the function below adds the correct answer at a random index to the array of incorrect answers, return it to save later as the answerArr
   const insertCorrectAnswer = (questionObj) => {
@@ -293,39 +270,13 @@ function GameScreen(props) {
     setSeconds(QUESTION_TIME * 1000);
   }, [formattedQuestionInfo])
 
-  const chooseColor = (i) => {
-    const styles = { ...buttonStyle };
-
-    if (i === selected) {
-      styles.backgroundColor = blue.hex
-    }
-    if (i === submitted) {
-      styles.backgroundColor = darkBlue.hex,
-      styles.borderColor = darkBlue.hex
-    }
-    if( i !== correctIndex && i === submitted && displayAnswer) {
-      styles.backgroundColor = red.hex,
-      styles.borderColor = red.hex
-    }
-    if (i === correctIndex && displayAnswer) {
-      styles.backgroundColor = brightGreen.hex,
-      styles.borderColor = brightGreen.hex
-    }
-    return styles;
+  const getQuestionState = i => {
+    if (i === correctIndex && displayAnswer) return 'correct';
+    if (i !== correctIndex && i === submitted && displayAnswer) return 'incorrect';
+    if (i === submitted) return 'submitted';
+    if (i === selected) return 'selected';
+    return 'default';
   }
-
-  const chooseAnswerTextColor = (i) => {
-    const styles = { ...answerText };
-
-    if (i === submitted && displayAnswer) {
-      styles.color = darkBackground.hex
-    }
-    if (i === correctIndex && displayAnswer) {
-      styles.color = darkBackground.hex
-    }
-    return styles;
-  };
-
 
   return (
 
@@ -362,24 +313,15 @@ function GameScreen(props) {
           <View
             style={styles.topRowView}
           >
-
-            <View style={styles.answerOptionPressables}>
-              <PixelPressable
-                buttonStyle={chooseColor(ansObjForRendering[0].index)}
-                borderColor={brightGreen.hex}
-                pressableProps={{
-                  onPress: () => setSelected(ansObjForRendering[0].index),
-                  style: styles.nonSelectedAnswer,
-                  key: ansObjForRendering[0].index,
-                  disabled: displayAnswer || selected === 0 || submitted > -1,
-                }}
-              >
-                <Text
-                  style={chooseAnswerTextColor(ansObjForRendering[0].index)}>
-                  {he.decode(ansObjForRendering[0].answer)}
-                </Text>
-              </PixelPressable>
-            </View>
+            <AnswerButton
+              questionState={getQuestionState(ansObjForRendering[0].index)}
+              index={ansObjForRendering[0].index}
+              cb={() => setSelected(ansObjForRendering[0].index)}
+              disabled={displayAnswer || selected === 0 || submitted > -1}
+              showFinalStates={submitted > -1 || displayAnswer}
+            >
+              {he.decode(ansObjForRendering[0].answer)}
+            </AnswerButton>
 
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               {displayAnswer && (
@@ -425,25 +367,15 @@ function GameScreen(props) {
 
             </View>
 
-            <View style={styles.answerOptionPressables}>
-              <View style={{alignSelf: 'flex-end'}}>
-                <PixelPressable
-                  buttonStyle={chooseColor(ansObjForRendering[1].index)}
-                  pressableProps={{
-                    onPress: () => setSelected(ansObjForRendering[1].index),
-                    style: styles.nonSelectedAnswer,
-                    key: ansObjForRendering[1].index,
-                    disabled: displayAnswer || selected === 1 || submitted > -1,
-                  }}
-                >
-                  <Text
-                    style={chooseAnswerTextColor(ansObjForRendering[1].index)}>
-                    {he.decode(ansObjForRendering[1].answer)}
-                  </Text>
-                </PixelPressable>
-              </View>
-            </View>
-
+            <AnswerButton
+              questionState={getQuestionState(ansObjForRendering[1].index)}
+              index={ansObjForRendering[1].index}
+              cb={() => setSelected(ansObjForRendering[1].index)}
+              disabled={displayAnswer || selected === 1 || submitted > -1}
+              showFinalStates={submitted > -1 || displayAnswer}
+            >
+              {he.decode(ansObjForRendering[1].answer)}
+            </AnswerButton>
           </View>
 
           {/* MIDDLE ROW - SUBMIT OPTION, QUESTION WITH COUNT, SUBMIT OPTION */}
@@ -484,21 +416,15 @@ function GameScreen(props) {
           >
 
             {ansObjForRendering[2] &&
-              <View style={styles.answerOptionPressables}>
-                <PixelPressable
-                  buttonStyle={chooseColor(ansObjForRendering[2].index)}
-                  pressableProps={{
-                    onPress: () => setSelected(ansObjForRendering[2].index),
-                    style: styles.nonSelectedAnswer,
-                    key: ansObjForRendering[2].index,
-                    disabled: displayAnswer || selected === 2 || submitted > -1,
-                  }}
-                >
-                  <Text style={chooseAnswerTextColor(ansObjForRendering[2].index)}>
-                    {he.decode(ansObjForRendering[2].answer)}
-                  </Text>
-                </PixelPressable>
-              </View>
+              <AnswerButton
+                questionState={getQuestionState(ansObjForRendering[2].index)}
+                index={ansObjForRendering[2].index}
+                cb={() => setSelected(ansObjForRendering[2].index)}
+                disabled={displayAnswer || selected === 2 || submitted > -1}
+                showFinalStates={submitted > -1 || displayAnswer}
+              >
+                {he.decode(ansObjForRendering[2].answer)}
+              </AnswerButton>
             }
 
             {!ansObjForRendering[2] && <View style={styles.answerOptionPressables} />}
@@ -514,23 +440,15 @@ function GameScreen(props) {
           }
 
             {ansObjForRendering[3] &&
-              <View style={styles.answerOptionPressables}>
-                <View style={{alignSelf: 'flex-end'}}>
-                  <PixelPressable
-                    buttonStyle={chooseColor(ansObjForRendering[3].index)}
-                    pressableProps={{
-                      onPress: () => setSelected(ansObjForRendering[3].index),
-                      style: styles.nonSelectedAnswer,
-                      key: ansObjForRendering[3].index,
-                      disabled: displayAnswer || selected === 3 || submitted > -1,
-                    }}
-                  >
-                    <Text style={chooseAnswerTextColor(ansObjForRendering[3].index)}>
-                      {he.decode(ansObjForRendering[3].answer)}
-                    </Text>
-                  </PixelPressable>
-                </View>
-              </View>
+              <AnswerButton
+                questionState={getQuestionState(ansObjForRendering[3].index)}
+                index={ansObjForRendering[3].index}
+                cb={() => setSelected(ansObjForRendering[3].index)}
+                disabled={displayAnswer || selected === 3 || submitted > -1}
+                showFinalStates={submitted > -1 || displayAnswer}
+              >
+                {he.decode(ansObjForRendering[3].answer)}
+              </AnswerButton>
             }
 
             {!ansObjForRendering[3] && <View style={styles.answerOptionPressables} />}

@@ -320,6 +320,27 @@ export const answerText = {
   }
 }
 
+const ansTextDarkBase = {
+  fontFamily: 'DotGothic',
+  textAlign: 'center',
+  color: darkBackground.hex,
+}
+
+export const answerTextDark = {
+  small: {
+    ...ansTextDarkBase,
+    fontSize: 16,
+  },
+  medium: {
+    ...ansTextDarkBase,
+    fontSize: 18,
+  },
+  large: {
+    ...ansTextDarkBase,
+    fontSize: 20,
+  }
+}
+
 ////// SUBMIT TEXT 
 ////// - submit btn during gameplay
 
