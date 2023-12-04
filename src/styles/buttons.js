@@ -1,3 +1,5 @@
+import { blue, brightGreen, darkBlue, red } from './colors';
+
 ////// HOW TO PLAY BTN WIDTH //////////////
 ////// - how to play btn ///////
 
@@ -129,3 +131,36 @@ export const settingsDrawer = {
     height: 50
   }
 }
+
+////// Game Play //////////////
+//////  answer button styles- ///////
+
+export const answerButton = {
+    height: 70,
+    width: 220,
+    borderColor: blue.hex,
+    padding: 4,
+};
+
+export const answerButtonSelected = {
+  ...answerButton,
+  backgroundColor: blue.hex,
+};
+
+export const answerButtonSubmitted = {
+  ...answerButton,
+  backgroundColor: darkBlue.hex,
+  borderColor: darkBlue.hex,
+};
+
+export const answerButtonCorrect = {
+  ...answerButton,
+  backgroundColor: brightGreen.hex,
+  borderColor: brightGreen.hex,
+};
+
+export const answerButtonIncorrect = {
+  ...answerButton,
+  backgroundColor: red.hex,
+  borderColor: red.hex,
+};
