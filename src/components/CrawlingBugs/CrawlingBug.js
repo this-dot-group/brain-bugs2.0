@@ -3,6 +3,8 @@ import { Animated, Easing, StyleSheet } from "react-native";
 import bug from "../../images/dragonfly-sprite.png";
 import { useSafeArea } from "../../hooks";
 
+// TODO: this knows about one row of the existing spritesheet, which is 4 images
+// TODO: this is the height and width of each individual bug
 const BUG_SIZE = 70;
 const WIDTH_DURATION = 6000;
 
@@ -46,7 +48,7 @@ function CrawlingBug({ color }) {
       overflow: "hidden",
     },
     image: {
-      width: "700%",
+      width: "700%", // TODO: this is 700 because there are 7 images across the widest part of the spritesheet, and each 70x70 image needs to be 100% 
       tintColor: color,
     },
   });
@@ -116,6 +118,7 @@ function CrawlingBug({ color }) {
     );
   }
 
+  // TODO: change this for number of images I have
   for (let k = 0; k < 4; k++) {
     imgSteps.push(
       Animated.timing(imageAnim, {
