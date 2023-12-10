@@ -22,9 +22,6 @@
       "modules": true
     }
   },
-  // "ecmaFeatures": {
-  //   "jsx": true
-  // },
   "rules": {
     "no-console": "off",
     "indent": [
@@ -32,12 +29,8 @@
       2
     ],
     "quotes": [
-      "error",
       "single",
-      "double",
-      {
-        "allowTemplateLiterals": true
-      }
+      "double"
     ],
     "no-unused-vars": [
       1,
@@ -46,11 +39,6 @@
         "args": "none"
       }
     ],
-    // "no-undef": "error",
     "react/prop-types": "off"
-    // [
-    //   "enabled",
-    //    { "ignore":"ignore", "customValidators": "customValidator" }
-    //  ]
   }
 }

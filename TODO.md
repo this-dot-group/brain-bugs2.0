@@ -6,12 +6,23 @@
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 Josh:
-- [ ] Move the pages to a pages folder, to be separate from components
-- [ ] Make sure games are always deleted from server
-- [ ] In start game section, default dropdown button styles are covering up pixel button styles on iPhone
- - [ ] Double check style and containerStyle on DropdownPicker
-- [ ] Double check that createAGame modal looks normal on iPhone
-- [ ] Look into ChatGPT API
+- [x] Move the pages to a pages folder, to be separate from components
+- [ ] Add more sounds
+- [x] Improve transitions on game screen buttons
+  - [x] Fix slow animation to next screen
+  - [x] Replace all buttons with component
+  - [x] Move alt buttons into sub component
+  - [x] Move styles to styles folder
+  - [x] Remove extra variables from game screen
+- [ ] Look into deploying
+- [x] Socket ids were not removed from an object on disconnect in the server
+
+New:
+- [ ] For starting a one player game, if you select the options in the wrong order, it doesn't work
+- [ ] Sometimes getting 429 Error (too many requests). Is that new?
+- [ ] Wrap check and ex icons with Hider component
+- [ ] Change the color of the text input on chat screen
+Q: is the linting not doing enough work?
 
 Tia: 
 - [ ] Bug crawling animation
