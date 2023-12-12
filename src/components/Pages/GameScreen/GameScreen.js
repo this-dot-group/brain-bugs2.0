@@ -7,7 +7,7 @@ import { playSound } from '../../../store/soundsReducer.js';
 import Countdown from '../../Shared/Countdown/Countdown.js';
 import AppStateTracker from '../../Shared/AppState/AppStateTracker.js';
 import { QUESTION_TIME } from '../../../../config.js';
-import { PixelPressable } from '../../Shared/index.js';
+import { PixelPressable, Hider } from '../../Shared/index.js';
 import { Typography } from '../../../styles/index.js';
 import AnimatedView from '../../Shared/AnimatedView.js';
 import SubmitButton from './SubmitButton.js';
@@ -324,17 +324,15 @@ function GameScreen(props) {
             </AnswerButton>
 
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              {displayAnswer && (
+              <Hider 
+                  show={displayAnswer}
+                  style={{ paddingLeft: 10, paddingRight: 10 }}
+              >
                 <Image
-                source={score.playerOne.correct ? require('../../../images/green-check.png') : require('../../../images/red-x.png')}
-                style={{ height: 20, width: 20, marginRight: 10 }} 
+                  source={score.playerOne.correct ? require('../../../images/green-check.png') : require('../../../images/red-x.png')}
+                  style={{ height: 20, width: 20 }}
                 />
-              )}
-              {!displayAnswer && (
-                <View
-                style={{ height: 20, width: 20, marginRight: 10 }} 
-                />
-              )}
+              </Hider>
               
               <View style={{ alignItems: 'center', marginRight: 20 }}>
                 {score.playerOne &&
@@ -353,18 +351,16 @@ function GameScreen(props) {
                   </>
                 }
               </View>
-              {displayAnswer && (
-                <Image
-                source={score.playerTwo.correct ? require('../../../images/green-check.png') : require('../../../images/red-x.png')}
-                style={{ height: 20, width: 20, marginLeft: 10 }} 
-                />
-              )}
-              {!displayAnswer && (
-                <View
-                style={{ height: 20, width: 20, marginLeft: 10 }} 
-                />
-              )}
 
+              <Hider 
+                  show={displayAnswer}
+                  style={{ paddingLeft: 10, paddingRight: 10 }}
+              >
+                <Image
+                  source={score.playerTwo.correct ? require('../../../images/green-check.png') : require('../../../images/red-x.png')}
+                  style={{ height: 20, width: 20 }}
+                />
+              </Hider>
             </View>
 
             <AnswerButton

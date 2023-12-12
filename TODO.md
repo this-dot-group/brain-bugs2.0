@@ -18,10 +18,15 @@ Josh:
 - [x] Socket ids were not removed from an object on disconnect in the server
 
 New:
-- [ ] For starting a one player game, if you select the options in the wrong order, it doesn't work
-- [ ] Sometimes getting 429 Error (too many requests). Is that new?
-- [ ] Wrap check and ex icons with Hider component
-- [ ] Change the color of the text input on chat screen
+- [ ] For starting a one player game, if you select the options in the wrong order, it doesn't work 
+  - I experienced issues showing the Go btn, but not that it flat out didn't work. Were your observations related to the next issue? I did experience that...
+- [x] Sometimes getting 429 Error (too many requests). Is that new? 
+  - Yeah, I don't think I've seen it before! But I'm usually testing with only 1 or 5 questions, and I ran into it this time when I was testing with a bunch of questions at once. The issue is in the re-fetching of questions if we need to remove any because of being too long. gameInfoReducer -> fetchAndFormatQuestions. Fetching again so quickly puts us into too many requests territory, each IP is only allowed 1 request every 5 seconds. I added a lil delay before the second fetch, we can discuss further..
+  - If we keep this implementation we should streamline the loading screens (one loading screen while it refetches and then the normal loading screen)
+- [x] Wrap check and ex icons with Hider component
+- [ ] Refactor player name/score/check/x area (see slide 8 in canva)
+- [x] Change the color of the text input on chat screen 
+  - It looked like it was still black so I changed it to our darkBackground color... was there a different color in mind?
 Q: is the linting not doing enough work?
 
 Tia: 
