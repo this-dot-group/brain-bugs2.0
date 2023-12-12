@@ -106,8 +106,9 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired,
         withoutLongQsAndAs.forEach(obj => formattedData.push(obj))
 
         if(withoutLongQsAndAs.length < number) {
-          const newNumToFetch = number - withoutLongQsAndAs.length
-          await fetchAndFormatQuestionObjects(newNumToFetch)
+          const newNumToFetch = number - withoutLongQsAndAs.length;
+          await new Promise(resolve => setTimeout(resolve, 5000));
+          await fetchAndFormatQuestionObjects(newNumToFetch);
         }   
       }
 
