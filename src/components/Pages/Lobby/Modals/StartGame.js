@@ -75,6 +75,7 @@ function StartGame(props) {
   }, [
     props.gameInfo.numPlayers,
     props.gameInfo.category,  
+    props.gameInfo.numQuestions,
     props.gameInfo.publicOrPrivate,
   ]);
 
