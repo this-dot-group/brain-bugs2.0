@@ -1,11 +1,10 @@
 import React, { useRef, useEffect } from "react";
 import { Animated, Easing, StyleSheet } from "react-native";
-import bug from "../../../images/dragonfly-sprite.png";
+import bug from "../../../images/spritesheet.png";
+
 import { useSafeArea } from "../../../hooks";
 
-// TODO: this knows about one row of the existing spritesheet, which is 4 images
-// TODO: this is the height and width of each individual bug
-const BUG_SIZE = 70;
+// removed BUG_SIZE because it no longer had effect on yMax and xMax
 const WIDTH_DURATION = 6000;
 
 const getHypotenuse = (pointOne, pointTwo) => {
@@ -28,8 +27,8 @@ const getAngle = (pointOne, pointTwo) => {
 
 function CrawlingBug({ color }) {
   const { height, width } = useSafeArea();
-  const xMax = width - BUG_SIZE;
-  const yMax = height - BUG_SIZE;
+  const xMax = width;
+  const yMax = height;
   const positions = [];
 
   const styles = StyleSheet.create({
@@ -37,8 +36,8 @@ function CrawlingBug({ color }) {
       position: "absolute",
       top: 0,
       left: 0,
-      width: BUG_SIZE,
-      height: BUG_SIZE,
+      width: 1076/4, // full width of spritesheet divided by num images
+      height: 238, // height of spritesheet
       opacity: 0.4,
       overflow: "hidden",
     },
@@ -48,7 +47,7 @@ function CrawlingBug({ color }) {
       overflow: "hidden",
     },
     image: {
-      width: "700%", // TODO: this is 700 because there are 7 images across the widest part of the spritesheet, and each 70x70 image needs to be 100% 
+      width: "400%", 
       tintColor: color,
     },
   });
@@ -118,11 +117,10 @@ function CrawlingBug({ color }) {
     );
   }
 
-  // TODO: change this for number of images I have
   for (let k = 0; k < 4; k++) {
     imgSteps.push(
       Animated.timing(imageAnim, {
-        toValue: BUG_SIZE * k * -1,
+        toValue: 1076/4 * k * -1, // this used to be BUG_SIZE * k * -1
         useNativeDriver: true,
         duration: 0,
       })
