@@ -7,8 +7,8 @@
 
 Josh:
 - [ ] Add more sounds
-- [ ] Deploy backend
-- [ ] Answer buttons aren't wrapping to two lines anymore
+- [x] Socket ids were not removed from an object on disconnect in the server
+- [ ] Answer buttons not wrapping
 - [ ] Change size of bug!
 
 New:
@@ -36,6 +36,7 @@ For Future
 ## Code / Fit & finish
 - clean up package.json unused dependencies
 - Increase waiting room screen time (I had reduced at some point to speed up testing. can revisit all countdown timer # seconds)
+- Update ReadMe
 
 ## Styling/Content
 - Animation Ideas
@@ -107,6 +108,24 @@ For Future
     - Back to lobby
       - shows Alert, removes chat and rematch buttons ()
 
+## Deploying
+### Front End
+- Need to add an icon
+- Need to update the `process.env.EXPO_PUBLIC_API_URL`
+- Then we will just need to follow the instructions below 
+- Google play looks easier and cheaper to deploy to, so we should start with that
+- Will we need to update the port number for the socket connections? It should be easy to test once we have the backend set up
+
+Resources:
+- https://www.instabug.com/blog/react-native-app-ios-android
+- https://docs.expo.dev/build/setup/
+- https://docs.expo.dev/submit/android/
+
+### Back End
+- We can use Render to host our back end https://render.com
+  - It has a free tier
+- We should set this up first, and see if it is working with our undeployed project
+- I don't think we will have to change any code in the server
 
 
 Co-authored-by: Tia Low <lowtia@gmail.com>

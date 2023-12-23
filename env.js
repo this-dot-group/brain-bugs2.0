@@ -1,4 +1,5 @@
-const EXPO_LOCAL_URL = '10.0.0.199' // Josh
-// const EXPO_LOCAL_URL = '192.168.0.9' // Tia
+// const EXPO_PUBLIC_API_URL = 'http://10.0.0.199:3000'; // Josh
+// const EXPO_PUBLIC_API_URL = 'http://192.168.0.9:3000'; // Tia
+const EXPO_PUBLIC_API_URL = 'https://brain-bugs-server.onrender.com';
 
-export { EXPO_LOCAL_URL };
+export { EXPO_PUBLIC_API_URL };

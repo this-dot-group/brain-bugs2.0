@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { EXPO_LOCAL_URL } from '../../env'
+import { EXPO_PUBLIC_API_URL } from '../../env'
 
 export default (state = {}, action) => {
 
@@ -63,7 +63,7 @@ export const newSocketId = (id) => {
 
 const _getToken = async endpoint => {
   try {
-    const { data: token } = await axios.get(`http://${EXPO_LOCAL_URL}:3000/${endpoint}`);
+    const { data: token } = await axios.get(`${EXPO_PUBLIC_API_URL}/${endpoint}`);
     return token;
   } catch(e) {
     console.error(e);
