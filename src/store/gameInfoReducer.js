@@ -113,7 +113,7 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired,
       }
 
 
-      await fetchAndFormatQuestionObjects(numQuestions)
+      await fetchAndFormatQuestionObjects(numQuestions + 5) // fetch 5 extra questions here to hopefully avoid having to refetch once the questions with too many characters are removed
 
       dispatch({
         type: 'GET_QUESTIONS',
