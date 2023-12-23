@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { EXPO_LOCAL_URL } from '../../env'
+import { EXPO_PUBLIC_API_URL } from '../../env'
 import he from 'he';
 
 export default (state = {}, action) => {
@@ -82,7 +82,7 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired,
           large: 38,
         };
 
-        const response = await axios.get(`http://${EXPO_LOCAL_URL}:3000/questions/${id}/${number}/${tokenForRematch || token}`)
+        const response = await axios.get(`${EXPO_PUBLIC_API_URL}/questions/${id}/${number}/${tokenForRematch || token}`)
 
         if(!response.data || !response.data.length) {
           categoryExpired();

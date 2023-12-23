@@ -21,11 +21,11 @@ import { newFakeOpponent } from '../../../store/fakeOpponentSocketReducer.js';
 import { playSound } from '../../../store/soundsReducer.js';
 import { newUsername, newGameCode, newSocketId, newToken, deviceWidth } from '../../../store/userReducer.js';
 
-import { EXPO_LOCAL_URL } from '../../../../env.js'
+import { EXPO_PUBLIC_API_URL } from '../../../../env.js';
 import { brightGreen, darkBackground, yellow } from '../../../styles/colors.js';
 
-const socket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
-const fakeOpponentSocket = socketIO(`http://${EXPO_LOCAL_URL}:3000`);
+const socket = socketIO(EXPO_PUBLIC_API_URL);
+const fakeOpponentSocket = socketIO(EXPO_PUBLIC_API_URL);
 
 function Homescreen(props) {
   const { 

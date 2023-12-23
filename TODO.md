@@ -6,16 +6,10 @@
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 Josh:
-- [x] Move the pages to a pages folder, to be separate from components
 - [ ] Add more sounds
-- [x] Improve transitions on game screen buttons
-  - [x] Fix slow animation to next screen
-  - [x] Replace all buttons with component
-  - [x] Move alt buttons into sub component
-  - [x] Move styles to styles folder
-  - [x] Remove extra variables from game screen
-- [ ] Look into deploying
 - [x] Socket ids were not removed from an object on disconnect in the server
+- [ ] Answer buttons not wrapping
+- [x] Deploy backend
 
 New:
 - [ ] For starting a one player game, if you select the options in the wrong order, it doesn't work
@@ -45,6 +39,7 @@ For Future
 ## Code / Fit & finish
 - clean up package.json unused dependencies
 - Increase waiting room screen time (I had reduced at some point to speed up testing. can revisit all countdown timer # seconds)
+- Update ReadMe
 
 ## Styling/Content
 - Animation Ideas
@@ -116,6 +111,24 @@ For Future
     - Back to lobby
       - shows Alert, removes chat and rematch buttons ()
 
+## Deploying
+### Front End
+- Need to add an icon
+- Need to update the `process.env.EXPO_PUBLIC_API_URL`
+- Then we will just need to follow the instructions below 
+- Google play looks easier and cheaper to deploy to, so we should start with that
+- Will we need to update the port number for the socket connections? It should be easy to test once we have the backend set up
+
+Resources:
+- https://www.instabug.com/blog/react-native-app-ios-android
+- https://docs.expo.dev/build/setup/
+- https://docs.expo.dev/submit/android/
+
+### Back End
+- We can use Render to host our back end https://render.com
+  - It has a free tier
+- We should set this up first, and see if it is working with our undeployed project
+- I don't think we will have to change any code in the server
 
 
 Co-authored-by: Tia Low <lowtia@gmail.com>

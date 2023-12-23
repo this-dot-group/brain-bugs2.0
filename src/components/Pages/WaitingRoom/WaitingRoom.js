@@ -11,7 +11,7 @@ import { Typography, Buttons } from '../../../styles/index.js';
 import AppStateTracker from '../../Shared/AppState/AppStateTracker.js';
 import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
 import { Spinner, PixelPressable } from '../../Shared/index.js';
-import { EXPO_LOCAL_URL } from '../../../../env.js'
+import { EXPO_PUBLIC_API_URL } from '../../../../env.js';
 import axios from 'axios';
 import SettingsDrawer from '../../Shared/SettingsDrawer/SettingsDrawer.js';
 import AnimatedView from '../../Shared/AnimatedView.js';
@@ -154,7 +154,7 @@ const WaitingRoom = (props) => {
       await props.getQuestions(props.fullGameInfo.category.id, props.fullGameInfo.numQuestions, tokenToUse, handleNoQuestions, screenDeviceWidth);
 
       try {
-        const waitingRoomTriviaReq = await axios.get(`http://${EXPO_LOCAL_URL}:3000/waitingRoomTrivia`);
+        const waitingRoomTriviaReq = await axios.get(`${EXPO_PUBLIC_API_URL}/waitingRoomTrivia`);
         setWaitingRoomTriviaObjs(waitingRoomTriviaReq.data)
         setTimeout(() => {
           setShowRandomTrivia(true);

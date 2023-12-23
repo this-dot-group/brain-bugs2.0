@@ -9,7 +9,7 @@ import { PixelButton, GenericModal, DropdownMenu, Hider, TitleBar, PixelPressabl
 
 import he from 'he';
 import { Buttons } from '../../../../styles'
-import { EXPO_LOCAL_URL } from '../../../../../env'
+import { EXPO_PUBLIC_API_URL } from '../../../../../env'
 
 import axios from 'axios';
 
@@ -50,7 +50,7 @@ function StartGame(props) {
   useEffect(() => {
     (async () => {
       try {
-        const categories = await axios.get(`http://${EXPO_LOCAL_URL}:3000/categories`);
+        const categories = await axios.get(`${EXPO_PUBLIC_API_URL}/categories`);
         let categoryListArray = categories.data.map(category => {
           return {
             label: he.decode(category.name),
