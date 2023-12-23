@@ -1,12 +1,16 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Spinner } from '../../Shared';
+import { darkBackground } from '../../../styles/colors';
+
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: darkBackground.hex,
     alignItems: 'center',
     justifyContent: 'center',
-    height: '100%'
+    height: '100%',
+    width: '100%'
   }
 });
 
