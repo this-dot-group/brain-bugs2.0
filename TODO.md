@@ -9,19 +9,14 @@ Josh:
 - [ ] Add more sounds
 - [ ] Deploy backend
 - [ ] Answer buttons aren't wrapping to two lines anymore
+- [ ] Change size of bug!
 
 New:
 Q: is the linting not doing enough work?
 
 Tia: 
-- [x] Sometimes getting 429 Error (too many requests). Is that new? 
-  - [x] Change num questions options to 5/10/15
-  - [x] Fetch 5 more than requested to handle needing to remove the ones with Q/As that are too long (so that we dont need to fetch super quickly, we have a few questions of wiggle room)
-  - [ ] Keep the 5 second timeout as backup, streamline loading screens (this is LoadingScreen coming from WaitingRoom redirect, and then HowToPlay screen. might look better to get rid of spinner on HowToPlay and ut crawling bugs instead?)
+- [ ] get rid of spinner on HowToPlay/countdown screen and maybe add crawling bugs instead
 - [ ] Refactor player name/score/check/x area (see slide 8 in canva)
-- [x] Bug crawling animation
-  - [x] Use GIMP to rotate the images so theyre pointing to the right (should just work, but if not look into getAngle and getHypotenus)
-  - [ ] Change size of bug!
 - [ ] upgrade react native to 0.69.9
 
 
