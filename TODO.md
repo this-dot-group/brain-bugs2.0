@@ -6,28 +6,19 @@
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 Josh:
-- [x] Move the pages to a pages folder, to be separate from components
 - [ ] Add more sounds
-- [x] Improve transitions on game screen buttons
-  - [x] Fix slow animation to next screen
-  - [x] Replace all buttons with component
-  - [x] Move alt buttons into sub component
-  - [x] Move styles to styles folder
-  - [x] Remove extra variables from game screen
-- [ ] Look into deploying
-- [x] Socket ids were not removed from an object on disconnect in the server
+- [ ] Deploy backend
+- [ ] Answer buttons aren't wrapping to two lines anymore
+- [ ] Change size of bug!
 
 New:
-- [ ] For starting a one player game, if you select the options in the wrong order, it doesn't work
-- [ ] Sometimes getting 429 Error (too many requests). Is that new?
-- [ ] Wrap check and ex icons with Hider component
-- [ ] Change the color of the text input on chat screen
 Q: is the linting not doing enough work?
 
 Tia: 
-- [ ] Bug crawling animation
-- [x] in JoinGame should we cancel the game if it can't be joined? (test this- try to trigger situation where game can't be joined and see if it does cancel)
-- [ ] Look into server disconnect event, would that work?
+- [ ] get rid of spinner on HowToPlay/countdown screen and maybe add crawling bugs instead
+- [ ] Refactor player name/score/check/x area (see slide 8 in canva)
+- [ ] upgrade react native to 0.69.9
+
 
 For Future
 - code improvements

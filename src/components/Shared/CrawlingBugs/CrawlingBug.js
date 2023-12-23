@@ -1,9 +1,11 @@
 import React, { useRef, useEffect } from "react";
 import { Animated, Easing, StyleSheet } from "react-native";
-import bug from "../../../images/dragonfly-sprite.png";
+import bug from "../../../images/spritesheet.png";
+
 import { useSafeArea } from "../../../hooks";
 
-const BUG_SIZE = 70;
+const BUG_HEIGHT = 238;
+const BUG_WIDTH = BUG_HEIGHT * 269 / 238; // 269 is width of spritesheet 1076 divided by 4 bugs, 238 is height of spritesheet
 const WIDTH_DURATION = 6000;
 
 const getHypotenuse = (pointOne, pointTwo) => {
@@ -26,8 +28,8 @@ const getAngle = (pointOne, pointTwo) => {
 
 function CrawlingBug({ color }) {
   const { height, width } = useSafeArea();
-  const xMax = width - BUG_SIZE;
-  const yMax = height - BUG_SIZE;
+  const xMax = width - BUG_HEIGHT; // this would normally be width, but our screen orientation is rotated
+  const yMax = height - BUG_WIDTH;
   const positions = [];
 
   const styles = StyleSheet.create({
@@ -35,8 +37,8 @@ function CrawlingBug({ color }) {
       position: "absolute",
       top: 0,
       left: 0,
-      width: BUG_SIZE,
-      height: BUG_SIZE,
+      width: BUG_WIDTH,
+      height: BUG_HEIGHT,
       opacity: 0.4,
       overflow: "hidden",
     },
@@ -46,7 +48,7 @@ function CrawlingBug({ color }) {
       overflow: "hidden",
     },
     image: {
-      width: "700%",
+      width: "400%", 
       tintColor: color,
     },
   });
@@ -119,7 +121,7 @@ function CrawlingBug({ color }) {
   for (let k = 0; k < 4; k++) {
     imgSteps.push(
       Animated.timing(imageAnim, {
-        toValue: BUG_SIZE * k * -1,
+        toValue: BUG_WIDTH * k * -1,
         useNativeDriver: true,
         duration: 0,
       })
@@ -140,7 +142,7 @@ function CrawlingBug({ color }) {
       Animated.loop(Animated.sequence(steps)),
     ]).start();
 
-    // Start wing flapping
+    // Start bug crawling
     Animated.loop(Animated.sequence(imgSteps)).start();
   }, []);
 

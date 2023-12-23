@@ -123,7 +123,7 @@ function Homescreen(props) {
 
   return (
     <AnimatedView style={styles.container} useSite="HomeScreen">
-      <CrawlingBugs num={8} />
+      <CrawlingBugs num={2} />
       <Overlay
         active={keyboardActive}
         onPress={hideKeyboard}

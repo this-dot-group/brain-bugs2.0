@@ -221,6 +221,7 @@ const chatInputTextBase = {
   flexGrow: 1,
   marginRight: 10,
   backgroundColor: darkBackgroundLightestShade.hex,
+  color: darkBackground.hex,
   zIndex: 2,
   width: '80%'
 }
