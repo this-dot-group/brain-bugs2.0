@@ -4,7 +4,8 @@ import bug from "../../../images/spritesheet.png";
 
 import { useSafeArea } from "../../../hooks";
 
-// removed BUG_SIZE because it no longer had effect on yMax and xMax
+const BUG_HEIGHT = 238;
+const BUG_WIDTH = BUG_HEIGHT * 269 / 238; // 269 is width of spritesheet 1076 divided by 4 bugs, 238 is height of spritesheet
 const WIDTH_DURATION = 6000;
 
 const getHypotenuse = (pointOne, pointTwo) => {
@@ -27,8 +28,8 @@ const getAngle = (pointOne, pointTwo) => {
 
 function CrawlingBug({ color }) {
   const { height, width } = useSafeArea();
-  const xMax = width;
-  const yMax = height;
+  const xMax = width - BUG_HEIGHT; // this would normally be width, but our screen orientation is rotated
+  const yMax = height - BUG_WIDTH;
   const positions = [];
 
   const styles = StyleSheet.create({
@@ -36,8 +37,8 @@ function CrawlingBug({ color }) {
       position: "absolute",
       top: 0,
       left: 0,
-      width: 1076/4, // full width of spritesheet divided by num images
-      height: 238, // height of spritesheet
+      width: BUG_WIDTH,
+      height: BUG_HEIGHT,
       opacity: 0.4,
       overflow: "hidden",
     },
@@ -120,7 +121,7 @@ function CrawlingBug({ color }) {
   for (let k = 0; k < 4; k++) {
     imgSteps.push(
       Animated.timing(imageAnim, {
-        toValue: 1076/4 * k * -1, // this used to be BUG_SIZE * k * -1
+        toValue: BUG_WIDTH * k * -1,
         useNativeDriver: true,
         duration: 0,
       })
@@ -141,7 +142,7 @@ function CrawlingBug({ color }) {
       Animated.loop(Animated.sequence(steps)),
     ]).start();
 
-    // Start wing flapping
+    // Start bug crawling
     Animated.loop(Animated.sequence(imgSteps)).start();
   }, []);
 
