@@ -106,13 +106,14 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired,
         withoutLongQsAndAs.forEach(obj => formattedData.push(obj))
 
         if(withoutLongQsAndAs.length < number) {
-          const newNumToFetch = number - withoutLongQsAndAs.length
-          await fetchAndFormatQuestionObjects(newNumToFetch)
+          const newNumToFetch = number - withoutLongQsAndAs.length;
+          await new Promise(resolve => setTimeout(resolve, 5000));
+          await fetchAndFormatQuestionObjects(newNumToFetch);
         }   
       }
 
 
-      await fetchAndFormatQuestionObjects(numQuestions)
+      await fetchAndFormatQuestionObjects(numQuestions + 5) // fetch 5 extra questions here to hopefully avoid having to refetch once the questions with too many characters are removed
 
       dispatch({
         type: 'GET_QUESTIONS',
