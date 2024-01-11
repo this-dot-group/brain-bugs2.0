@@ -3,12 +3,12 @@ import { View, Text, StyleSheet, AppState } from 'react-native'
 import { Redirect } from 'react-router-native';
 import { connect } from 'react-redux'
 import Countdown from '../../Shared/Countdown/Countdown'
-import { Spinner, PixelPressable } from '../../Shared';
+import { PixelPressable } from '../../Shared';
+import CrawlingBugs from '../../Shared/CrawlingBugs/CrawlingBugs';
 import { START_COUNTDOWN } from '../../../../config';
 import { playSound } from '../../../store/soundsReducer';
 import AppStateTracker from '../../Shared/AppState/AppStateTracker';
 import { Buttons, Typography } from '../../../styles';
-import SettingsDrawer from '../../Shared/SettingsDrawer/SettingsDrawer';
 import AnimatedView from '../../Shared/AnimatedView';
 import { brightRed } from '../../../styles/colors';
 import { CustomAlert } from '../../Shared/CustomAlert';
@@ -34,6 +34,7 @@ function HowToPlay(props) {
     },
     body: {
       alignItems: 'center',
+      paddingTop: 50
     },
     howToPlayBtn: {
       ...Buttons.howToPlayBtn[screenDeviceWidth]
@@ -41,12 +42,8 @@ function HowToPlay(props) {
     names: {
       ...Typography.headingThreeText[screenDeviceWidth]
     },
-    subtitle: {
-      ...Typography.normalText[screenDeviceWidth],
-      marginBottom: 4
-    },
     countdown: {
-      ...Typography.smallInnerText[screenDeviceWidth],
+      ...Typography.countdownTextLg[screenDeviceWidth],
       color: brightRed.hex
     },
     alertText: {
@@ -126,6 +123,8 @@ function HowToPlay(props) {
           }
         />
 
+        <CrawlingBugs num={4} />
+
         <View style={styles.topRow}>
           <PixelPressable
             buttonStyle={styles.howToPlayBtn}
@@ -135,16 +134,13 @@ function HowToPlay(props) {
 
         <View style={styles.body}>
           <Text style={styles.names}>{username} {opponent && `vs ${opponent}`}</Text>
-          <Text style={styles.subtitle}>Game starting in:</Text>
-          <Spinner>
-            <Countdown
-              seconds={seconds}
-              setSeconds={setSeconds}
-              go={goCountdown}
-              setGo={setGoCountdown}
-              style={styles.countdown}
-            />
-          </Spinner>
+          <Countdown
+            seconds={seconds}
+            setSeconds={setSeconds}
+            go={goCountdown}
+            setGo={setGoCountdown}
+            style={styles.countdown}
+          />
         </View>
 
       </AnimatedView>
