@@ -164,3 +164,15 @@ export const answerButtonIncorrect = {
   backgroundColor: red.hex,
   borderColor: red.hex,
 };
+
+export const nonSelectedAnswer = {
+  justifyContent: 'center',
+  height: '100%',
+  width: '100%',
+}
+
+export const answerThemeButtonCont = {
+  position: 'absolute',
+  left: 0,
+  top: 0,
+}

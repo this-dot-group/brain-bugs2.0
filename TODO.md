@@ -7,7 +7,7 @@
 
 Josh:
 - [ ] Add more sounds
-- [ ] Answer buttons not wrapping
+- [x] Answer buttons not wrapping
 - [x] Change size of bug!
 
 New:

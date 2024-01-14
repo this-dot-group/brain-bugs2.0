@@ -15,10 +15,7 @@ const AnswerButton = ({
 }) => {
   const styles = StyleSheet.create({
     nonSelectedAnswer: {
-      justifyContent: "center",
-      height: "100%",
-      width: "100%",
-      padding: 2,
+      ...Buttons.nonSelectedAnswer,
     },
     buttonStyle: {
       ...Buttons.answerButton,
