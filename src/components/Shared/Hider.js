@@ -2,12 +2,12 @@ import React, { useEffect, useRef, } from 'react';
 import { Animated } from 'react-native';
 
 function Hider(props) {
-  const { children, show, style = {} } = props
+  const { children, show, style = {}, minOpacity = 0, maxOpacity = 1 } = props
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
-      toValue: show ? 1 : 0,
+      toValue: show ? maxOpacity : minOpacity,
       duration: 400,
       useNativeDriver: true,
     }).start();

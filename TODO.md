@@ -12,7 +12,7 @@ Josh:
 
 New:
 Q: is the linting not doing enough work?
-- [ ] Make Go button look more disabled when disabled - change color of text
+- [x] Make Go button look more disabled when disabled - change color of text
 
 Tia: 
 - [ ] get rid of spinner on HowToPlay/countdown screen and maybe add crawling bugs instead
