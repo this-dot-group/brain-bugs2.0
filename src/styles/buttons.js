@@ -135,32 +135,54 @@ export const settingsDrawer = {
 ////// Game Play //////////////
 //////  answer button styles- ///////
 
-export const answerButton = {
-    height: 70,
-    width: 220,
-    borderColor: blue.hex,
-    padding: 4,
+const ansBtnBase = {
+  height: 70,
+  borderColor: blue.hex,
+  padding: 4,
+}
+
+export const answerBtn = {
+  small: {
+    ...ansBtnBase,
+    width: 200,
+  },
+  medium: {
+    ...ansBtnBase,
+    width: 240,
+  },
+  large: {
+    ...ansBtnBase,
+    width: 260,
+  }
+}
+
+export const answerButtonSelected = (screenWidth) => {
+  return {
+    ...answerBtn[screenWidth],
+    backgroundColor: blue.hex,
+  }
 };
 
-export const answerButtonSelected = {
-  ...answerButton,
-  backgroundColor: blue.hex,
+export const answerButtonSubmitted = (screenWidth) => {
+  return {
+    ...answerBtn[screenWidth],
+    backgroundColor: darkBlue.hex,
+    borderColor: darkBlue.hex,
+  }
 };
 
-export const answerButtonSubmitted = {
-  ...answerButton,
-  backgroundColor: darkBlue.hex,
-  borderColor: darkBlue.hex,
+export const answerButtonCorrect = (screenWidth) => {
+  return {
+    ...answerBtn[screenWidth],
+    backgroundColor: brightGreen.hex,
+    borderColor: brightGreen.hex,
+  }  
 };
 
-export const answerButtonCorrect = {
-  ...answerButton,
-  backgroundColor: brightGreen.hex,
-  borderColor: brightGreen.hex,
-};
-
-export const answerButtonIncorrect = {
-  ...answerButton,
-  backgroundColor: red.hex,
-  borderColor: red.hex,
+export const answerButtonIncorrect = (screenWidth) => {
+  return {
+    ...answerBtn[screenWidth],
+    backgroundColor: red.hex,
+    borderColor: red.hex,
+  }
 };
