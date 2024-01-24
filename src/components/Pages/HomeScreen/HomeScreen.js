@@ -8,7 +8,7 @@ import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
 import AnimatedLogo from './AnimatedLogo.js';
 import SettingsDrawer from '../../Shared/SettingsDrawer/SettingsDrawer.js';
 import AnimatedView from '../../Shared/AnimatedView.js';
-import { PixelButton, KeyboardAvoidingComponent, PixelPressable } from '../../Shared/index.js';
+import { PixelButton, KeyboardAvoidingComponent, PixelPressable, Hider } from '../../Shared/index.js';
 import Overlay from '../../Shared/Overlay.js'
 import CrawlingBugs from '../../Shared/CrawlingBugs/CrawlingBugs.js';
 
@@ -151,22 +151,21 @@ function Homescreen(props) {
                 onSubmitEditing={handleSubmit}
               />
             </PixelButton>
-
-            <PixelPressable
-              buttonStyle={{
-                width: 70,
-                height: 46,
-                marginLeft: 16,
-                backgroundColor: validUsername ? darkBackground.hex : 'rgba(128,128,128,0.4)',
-                borderColor: validUsername ? brightGreen.hex : 'rgba(128,128,128,0.2)',
-              }}
-              pressableProps={{
-                onPress: handleGo,
-                disabled: !validUsername,
-              }}
-            >
-              Go!
-            </PixelPressable>
+            <Hider show={validUsername} minOpacity={.3}>
+              <PixelPressable
+                buttonStyle={{
+                  width: 70,
+                  height: 46,
+                  marginLeft: 16,
+                }}
+                pressableProps={{
+                  onPress: handleGo,
+                  disabled: !validUsername,
+                }}
+              >
+                Go!
+              </PixelPressable>
+            </Hider>
           </View>
         </KeyboardAvoidingComponent>
       </View>

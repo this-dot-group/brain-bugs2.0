@@ -4,9 +4,9 @@ import bug from "../../../images/spritesheet.png";
 
 import { useSafeArea } from "../../../hooks";
 
-const BUG_HEIGHT = 238;
+const BUG_HEIGHT = 60;
 const BUG_WIDTH = BUG_HEIGHT * 269 / 238; // 269 is width of spritesheet 1076 divided by 4 bugs, 238 is height of spritesheet
-const WIDTH_DURATION = 6000;
+const WIDTH_DURATION = 7000;
 
 const getHypotenuse = (pointOne, pointTwo) => {
   return Math.sqrt(
@@ -48,7 +48,8 @@ function CrawlingBug({ color }) {
       overflow: "hidden",
     },
     image: {
-      width: "400%", 
+      width: 4 * BUG_WIDTH, 
+      height: BUG_HEIGHT,
       tintColor: color,
     },
   });
@@ -126,7 +127,7 @@ function CrawlingBug({ color }) {
         duration: 0,
       })
     );
-    imgSteps.push(Animated.delay(50));
+    imgSteps.push(Animated.delay(80));
   }
 
   useEffect(() => {

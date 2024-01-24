@@ -318,6 +318,8 @@ export const alertText = {
 const ansTextBase = {
   fontFamily: 'DotGothic',
   textAlign: 'center',
+  position: 'absolute',
+  width: '100%',
   color: yellow.hex
 }
 
@@ -337,8 +339,7 @@ export const answerText = {
 }
 
 const ansTextDarkBase = {
-  fontFamily: 'DotGothic',
-  textAlign: 'center',
+  ...ansTextBase,
   color: darkBackground.hex,
 }
 
