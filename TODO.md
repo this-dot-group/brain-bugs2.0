@@ -7,30 +7,25 @@
 
 Josh:
 - [ ] Add more sounds
-- [x] Answer buttons not wrapping
-- [x] Change size of bug!
+- [ ] Test dif user scenarios (private game etc)
+- [ ] Look into how we customize icon for app store
 
 New:
 Q: is the linting not doing enough work?
-- [x] Make Go button look more disabled when disabled - change color of text
 
 Tia: 
-- [x] get rid of spinner on HowToPlay/countdown screen and maybe add crawling bugs instead
-- [x] need to fix question num/num on game screen, now that we're sometimes fetching more questions
-- [x] Refactor player name/score/check/x area (see slide 8 in canva)
-- [x] upgrade react native to 0.69.9 (this was already done! i just installed a couple peer dependencies)
+- [ ] Continue updating player name/score/check/x styling (see slide 8 in canva)
+- [ ] Try deployed backend on phone
+- [ ] Test dif user scenarios (private game etc)
+- [ ] Update README
+- [ ] Delete unused things like hourglass gif
+
 
 
 For Future
 - code improvements
   - destructure props
-  - make some shared components/variables
-    - answer buttons
-  - Delete unused things
-   - hourglass gif
-   - Emoji.js
-  - Clean Up GameScreen code
- 
+
 
 ## Possible bugs
 
@@ -40,12 +35,6 @@ For Future
 - Update ReadMe
 
 ## Styling/Content
-- Animation Ideas
-- Logo/img/etc
-- if you dont answer a question, when the correct answer moment occurs it looks like you answered correctly (because no other option is selected)
-- improve selected/submitted feedback (raining down smileys/sads)
-- More sounds (ticking sound)
-- need to fix alert language in redirectGameJoinerToLobby   : )
 - add the following to app.json to customize notifications
     "plugins": [
       [
