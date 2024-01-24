@@ -20,6 +20,21 @@ export const countdownText = {
   }
 };
 
+export const countdownTextLg = {
+  small: {
+    ...countdownTextBase,
+    fontSize: 50
+  },
+  medium: {
+    ...countdownTextBase,
+    fontSize: 52
+  },
+  large: {
+    ...countdownTextBase,
+    fontSize: 54
+  }
+};
+
 ////// HEADING ONE 
 ////// - logo text 
 ////// - welcome greeting 
@@ -438,7 +453,7 @@ export const scoreText = {
   },
   large: {
     ...scoreTextBase,
-    fontSize: 19,
+    fontSize: 16,
   }
 }
 

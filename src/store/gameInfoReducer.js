@@ -112,8 +112,14 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired,
         }   
       }
 
+      // fetch 5 extra questions here to hopefully avoid having to refetch once the questions with too many characters are removed
+      await fetchAndFormatQuestionObjects(numQuestions + 5) 
 
-      await fetchAndFormatQuestionObjects(numQuestions + 5) // fetch 5 extra questions here to hopefully avoid having to refetch once the questions with too many characters are removed
+      // need to make sure we're only sending num of questions requested (possible that formattedData would end up with num questions requested PLUS 5)
+      if (formattedData.length > numQuestions) {
+        const endIndex = formattedData.length - 1;
+        formattedData.splice(numQuestions, endIndex);
+      }
 
       dispatch({
         type: 'GET_QUESTIONS',

@@ -15,9 +15,10 @@ Q: is the linting not doing enough work?
 - [x] Make Go button look more disabled when disabled - change color of text
 
 Tia: 
-- [ ] get rid of spinner on HowToPlay/countdown screen and maybe add crawling bugs instead
-- [ ] Refactor player name/score/check/x area (see slide 8 in canva)
-- [ ] upgrade react native to 0.69.9
+- [x] get rid of spinner on HowToPlay/countdown screen and maybe add crawling bugs instead
+- [x] need to fix question num/num on game screen, now that we're sometimes fetching more questions
+- [x] Refactor player name/score/check/x area (see slide 8 in canva)
+- [x] upgrade react native to 0.69.9 (this was already done! i just installed a couple peer dependencies)
 
 
 For Future

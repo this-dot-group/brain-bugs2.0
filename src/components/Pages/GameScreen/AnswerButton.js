@@ -18,7 +18,7 @@ const AnswerButton = ({
       ...Buttons.nonSelectedAnswer,
     },
     buttonStyle: {
-      ...Buttons.answerButton,
+      ...Buttons.answerBtn[screenDeviceWidth],
     },
     answerText: {
       ...Typography.answerText[screenDeviceWidth],
