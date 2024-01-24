@@ -11,16 +11,16 @@ const AnswerTheme = ({ show, variation, children, screenDeviceWidth }) => {
       top: 0,
     },
     selected: {
-      ...Buttons.answerButtonSelected,
+      ...Buttons.answerButtonSelected(screenDeviceWidth),
     },
     submitted: {
-      ...Buttons.answerButtonSubmitted,
+      ...Buttons.answerButtonSubmitted(screenDeviceWidth),
     },
     correct: {
-      ...Buttons.answerButtonCorrect,
+      ...Buttons.answerButtonCorrect(screenDeviceWidth),
     },
     incorrect: {
-      ...Buttons.answerButtonIncorrect,
+      ...Buttons.answerButtonIncorrect(screenDeviceWidth),
     },
     "text-selected": {
       ...Typography.answerText[screenDeviceWidth],

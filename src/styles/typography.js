@@ -452,7 +452,7 @@ export const scoreText = {
   },
   large: {
     ...scoreTextBase,
-    fontSize: 19,
+    fontSize: 16,
   }
 }
 

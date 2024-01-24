@@ -68,7 +68,7 @@ function GameScreen(props) {
       justifyContent: 'space-between',
       width: '100%',
       height: '25%',
-      alignItems: 'center'
+      alignItems: 'center',
     },
     answerOptionPressables: {
       width: '28%',
@@ -78,7 +78,8 @@ function GameScreen(props) {
       ...Typography.questionText[screenDeviceWidth]
     },
     scoreText: {
-      ...Typography.scoreText[screenDeviceWidth]
+      ...Typography.scoreText[screenDeviceWidth],
+      textAlign: 'right'
     },
     questionCountText: {
       ...Typography.questionCountText[screenDeviceWidth]
@@ -323,44 +324,49 @@ function GameScreen(props) {
               {he.decode(ansObjForRendering[0].answer)}
             </AnswerButton>
 
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Hider 
-                  show={displayAnswer}
-                  style={{ paddingLeft: 10, paddingRight: 10 }}
-              >
-                <Image
-                  source={score.playerOne.correct ? require('../../../images/green-check.png') : require('../../../images/red-x.png')}
-                  style={{ height: 20, width: 20 }}
-                />
-              </Hider>
-              
-              <View style={{ alignItems: 'center', marginRight: 20 }}>
-                {score.playerOne &&
-                  <>
-                    <Text style={styles.scoreText}>{score.playerOne.name}</Text>
-                    <Text style={styles.scoreText}>{score.playerOne.score}</Text>
-                  </>
-                }
+            <View style={{ flexDirection: 'row', alignItems: 'center', height: '100%' }}>
+              <View style={{ flexDirection: 'column' }}>
+                <View style={{ flexDirection: 'row' }}>
+                  <View style={{ width: 100, paddingRight: 4 }}>
+                    {score.playerOne && <Text style={styles.scoreText}>{score.playerOne.name}</Text>}
+                  </View>
+                  <View style={{ width: 30, alignItems: 'center' }}>
+                    <Hider 
+                      show={displayAnswer}
+                      style={{ paddingLeft: 1, paddingRight: 1 }}
+                    >
+                      <Image
+                        source={score.playerOne.correct ? require('../../../images/green-check.png') : require('../../../images/red-x.png')}
+                        style={{ height: 20, width: 20 }}
+                      />
+                    </Hider>
+                  </View>
+                  <View style={{ width: 40, alignItems: 'left', paddingLeft: 4 }}>
+                    {score.playerOne && <Text style={styles.scoreText}>{score.playerOne.score}</Text>}
+                  </View>
+                </View>
+
+                <View style={{ flexDirection: 'row', marginTop: 8 }}>
+                  <View style={{ width: 100, paddingRight: 4 }}>
+                    {score.playerOne && <Text style={styles.scoreText}>{score.playerTwo.name}</Text>}
+                  </View>
+                  <View style={{ width: 30, alignItems: 'center' }}>
+                    <Hider 
+                      show={displayAnswer}
+                      style={{ paddingLeft: 1, paddingRight: 1 }}
+                  >
+                    <Image
+                      source={score.playerTwo.correct ? require('../../../images/green-check.png') : require('../../../images/red-x.png')}
+                      style={{ height: 20, width: 20 }}
+                    />
+                  </Hider>
+                  </View>
+                  <View style={{ width: 40, alignItems: 'left', paddingLeft: 4 }}>
+                    {score.playerOne && <Text style={styles.scoreText}>{score.playerTwo.score}</Text>}
+                  </View>
+                </View>
               </View>
 
-              <View style={{ alignItems: 'center', marginLeft: 20 }}>
-                {score.playerOne &&
-                  <>
-                    <Text style={styles.scoreText}>{score.playerTwo.name}</Text>
-                    <Text style={styles.scoreText}>{score.playerTwo.score}</Text>
-                  </>
-                }
-              </View>
-
-              <Hider 
-                  show={displayAnswer}
-                  style={{ paddingLeft: 10, paddingRight: 10 }}
-              >
-                <Image
-                  source={score.playerTwo.correct ? require('../../../images/green-check.png') : require('../../../images/red-x.png')}
-                  style={{ height: 20, width: 20 }}
-                />
-              </Hider>
             </View>
 
             <AnswerButton

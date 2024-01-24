@@ -21,7 +21,7 @@ const AnswerButton = ({
       padding: 2,
     },
     buttonStyle: {
-      ...Buttons.answerButton,
+      ...Buttons.answerBtn[screenDeviceWidth],
     },
     answerText: {
       ...Typography.answerText[screenDeviceWidth],
