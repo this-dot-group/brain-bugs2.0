@@ -7,12 +7,12 @@
 
 Josh:
 - [ ] Add more sounds
-- [x] Socket ids were not removed from an object on disconnect in the server
-- [ ] Answer buttons not wrapping
-- [ ] Change size of bug!
+- [x] Answer buttons not wrapping
+- [x] Change size of bug!
 
 New:
 Q: is the linting not doing enough work?
+- [x] Make Go button look more disabled when disabled - change color of text
 
 Tia: 
 - [ ] get rid of spinner on HowToPlay/countdown screen and maybe add crawling bugs instead

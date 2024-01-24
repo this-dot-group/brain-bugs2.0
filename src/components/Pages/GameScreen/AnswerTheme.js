@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { Text, StyleSheet } from "react-native";
 import { PixelButton, Hider } from "../../Shared";
 import { connect } from "react-redux";
 import { Typography, Buttons } from "../../../styles/index.js";
@@ -6,9 +6,7 @@ import { Typography, Buttons } from "../../../styles/index.js";
 const AnswerTheme = ({ show, variation, children, screenDeviceWidth }) => {
   const styles = StyleSheet.create({
     answerButtonCont: {
-      position: "absolute",
-      left: 0,
-      top: 0,
+      ...Buttons.answerThemeButtonCont,
     },
     selected: {
       ...Buttons.answerButtonSelected,
@@ -37,13 +35,11 @@ const AnswerTheme = ({ show, variation, children, screenDeviceWidth }) => {
   });
 
   return (
-    <View pointerEvents="none" style={styles.answerButtonCont}>
-      <Hider show={show}>
+      <Hider show={show} style={styles.answerButtonCont} pointerEvents="none">
         <PixelButton buttonStyle={styles[variation]}>
           <Text style={styles[`text-${variation}`]}>{children}</Text>
         </PixelButton>
       </Hider>
-    </View>
   );
 };
 
