@@ -144,7 +144,7 @@ function Homescreen(props) {
                 style={styles.input}
                 placeholder={'Enter username'}
                 placeholderTextColor={yellow.hex}
-                maxLength={15}
+                maxLength={12}
                 onChangeText={value => handleUsernameChange(value)}
                 value={formUsername}
                 returnKeyType={'go'}
