@@ -14,11 +14,13 @@ New:
 Q: is the linting not doing enough work?
 
 Tia: 
-- [ ] Continue updating player name/score/check/x styling (see slide 8 in canva)
+- [x] Continue updating player name/score/check/x styling (see slide 8 in canva)
 - [ ] Try deployed backend on phone
 - [ ] Test dif user scenarios (private game etc)
 - [ ] Update README
 - [ ] Delete unused things like hourglass gif
+- Sometimes it hangs on the loading spinner screen? (also 5 second fetch thing sux, especially if it has to do it twice!)
+  - console logs and TODOs in gameInfoReducer. i think it has something to do with number of questions logic there
 
 
 
