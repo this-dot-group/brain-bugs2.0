@@ -8,7 +8,7 @@
 Josh:
 - [ ] Add more sounds
 - [ ] Test dif user scenarios (private game etc)
-- [ ] Look into how we customize icon for app store
+- [x] Look into how we customize icon for app store
 
 New:
 Q: is the linting not doing enough work?
