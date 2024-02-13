@@ -93,7 +93,7 @@ function GameScreen(props) {
       width: '70%',
     },
     alertText: {
-      ...Typography.headingTwoText[screenDeviceWidth],
+      ...Typography.headingFourText[screenDeviceWidth],
       marginBottom: 4,
       textAlign: 'center'
     }
