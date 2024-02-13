@@ -15,9 +15,9 @@ Q: is the linting not doing enough work?
 
 Tia: 
 - [x] Continue updating player name/score/check/x styling (see slide 8 in canva)
-- [ ] Try deployed backend on phone
-- [ ] Test dif user scenarios (private game etc)
-  - really laggy on my android phone, sim and phone out of sync (not that big of a deal, but phone is just noticably slow)
+- [x] Try deployed backend on phone
+- [x] Test dif user scenarios (private game etc)
+  - really laggy on my android phone, sim and phone out of sync (not that big of a deal, but phone is just noticably slow). same experience using deployed vs local BE. tried removing the crawling bugs on gamescreen, didn't make a difference. 
 - [x] Update README
 - [x] Delete unused things like hourglass gif
 - [x] Sometimes it hangs on the loading spinner screen? 
