@@ -20,7 +20,7 @@ Tia:
   - on multiplyaer public game, looks like questions aren't actually changing until end of timer?
 - [x] Update README
 - [x] Delete unused things like hourglass gif
-- Sometimes it hangs on the loading spinner screen? (also 5 second fetch thing sux, especially if it has to do it twice!)
+- [x] Sometimes it hangs on the loading spinner screen? 
   - console logs and TODOs in gameInfoReducer. i think it has something to do with number of questions logic there
 
 
