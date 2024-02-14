@@ -75,7 +75,7 @@ export const headingTwoText = {
   },
   large: {
     ...headingTextBase,
-    fontSize: 44
+    fontSize: 42
   }
 }
 
@@ -94,6 +94,24 @@ export const headingThreeText = {
   large: {
     ...headingTextBase,
     fontSize: 42 
+  }
+}
+
+////// HEADING FOUR 
+////// - dropdown title text 
+
+export const headingFourText = {
+  small: {
+   ...headingTextBase,
+      fontSize: 32
+  },
+  medium: {
+    ...headingTextBase,
+    fontSize: 36
+  },
+  large: {
+    ...headingTextBase,
+    fontSize: 36
   }
 }
 

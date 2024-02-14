@@ -103,7 +103,7 @@ function GameEnd({
       marginLeft: 'auto'
     },
     alertText: {
-      ...Typography.headingTwoText[screenDeviceWidth],
+      ...Typography.headingFourText[screenDeviceWidth],
       marginBottom: 4,
       textAlign: 'center'
     }

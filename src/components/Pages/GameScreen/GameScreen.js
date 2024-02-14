@@ -81,6 +81,10 @@ function GameScreen(props) {
       ...Typography.scoreText[screenDeviceWidth],
       textAlign: 'right'
     },
+    playerNameText: {
+      ...Typography.scoreText[screenDeviceWidth],
+      textAlign: 'left'
+    },
     questionCountText: {
       ...Typography.questionCountText[screenDeviceWidth]
     },
@@ -89,7 +93,7 @@ function GameScreen(props) {
       width: '70%',
     },
     alertText: {
-      ...Typography.headingTwoText[screenDeviceWidth],
+      ...Typography.headingFourText[screenDeviceWidth],
       marginBottom: 4,
       textAlign: 'center'
     }
@@ -327,13 +331,11 @@ function GameScreen(props) {
             <View style={{ flexDirection: 'row', alignItems: 'center', height: '100%' }}>
               <View style={{ flexDirection: 'column' }}>
                 <View style={{ flexDirection: 'row' }}>
-                  <View style={{ width: 100, paddingRight: 4 }}>
-                    {score.playerOne && <Text style={styles.scoreText}>{score.playerOne.name}</Text>}
-                  </View>
-                  <View style={{ width: 30, alignItems: 'center' }}>
+                  <View style={{ width: 120, paddingLeft: 4, flexDirection: 'row', alignItems: 'center' }}>
+                    {score.playerOne && <Text style={styles.playerNameText}>{score.playerOne.name}</Text>}
                     <Hider 
                       show={displayAnswer}
-                      style={{ paddingLeft: 1, paddingRight: 1 }}
+                      style={{ paddingLeft: 6 }}
                     >
                       <Image
                         source={score.playerOne.correct ? require('../../../images/green-check.png') : require('../../../images/red-x.png')}
@@ -341,27 +343,25 @@ function GameScreen(props) {
                       />
                     </Hider>
                   </View>
-                  <View style={{ width: 40, alignItems: 'left', paddingLeft: 4 }}>
+                  <View style={{ width: 40, paddingRight: 4 }}>
                     {score.playerOne && <Text style={styles.scoreText}>{score.playerOne.score}</Text>}
                   </View>
                 </View>
 
                 <View style={{ flexDirection: 'row', marginTop: 8 }}>
-                  <View style={{ width: 100, paddingRight: 4 }}>
-                    {score.playerOne && <Text style={styles.scoreText}>{score.playerTwo.name}</Text>}
-                  </View>
-                  <View style={{ width: 30, alignItems: 'center' }}>
-                    <Hider 
+                  <View style={{ width: 120, paddingLeft: 4, flexDirection: 'row', alignItems: 'center' }}>
+                      {score.playerOne && <Text style={styles.playerNameText}>{score.playerTwo.name}</Text>}
+                      <Hider 
                       show={displayAnswer}
-                      style={{ paddingLeft: 1, paddingRight: 1 }}
+                      style={{ paddingLeft: 6 }}
                   >
                     <Image
                       source={score.playerTwo.correct ? require('../../../images/green-check.png') : require('../../../images/red-x.png')}
                       style={{ height: 20, width: 20 }}
                     />
-                  </Hider>
+                    </Hider>
                   </View>
-                  <View style={{ width: 40, alignItems: 'left', paddingLeft: 4 }}>
+                  <View style={{ width: 40, paddingRight: 4 }}>
                     {score.playerOne && <Text style={styles.scoreText}>{score.playerTwo.score}</Text>}
                   </View>
                 </View>

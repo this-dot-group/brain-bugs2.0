@@ -68,7 +68,9 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired,
 
       let formattedData = []
 
-      async function fetchAndFormatQuestionObjects(number) {
+      async function fetchAndFormatQuestionObjects(numQuestionsRequestedByUser) {
+
+        const numQuestionsToFetch = numQuestionsRequestedByUser + 5; // fetch 5 extra questions here to hopefully avoid having to refetch once the questions with too many characters are removed
 
         const questionCharLimit = {
           small: 85,
@@ -82,7 +84,7 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired,
           large: 38,
         };
 
-        const response = await axios.get(`${EXPO_PUBLIC_API_URL}/questions/${id}/${number}/${tokenForRematch || token}`)
+        const response = await axios.get(`${EXPO_PUBLIC_API_URL}/questions/${id}/${numQuestionsToFetch}/${tokenForRematch || token}`)
 
         if(!response.data || !response.data.length) {
           categoryExpired();
@@ -105,15 +107,17 @@ export const getQuestions = (id, numQuestions, tokenForRematch, categoryExpired,
 
         withoutLongQsAndAs.forEach(obj => formattedData.push(obj))
 
-        if(withoutLongQsAndAs.length < number) {
-          const newNumToFetch = number - withoutLongQsAndAs.length;
+       
+        if(withoutLongQsAndAs.length < numQuestionsRequestedByUser) {
+          const newNumToFetch = numQuestionsRequestedByUser - withoutLongQsAndAs.length;
           await new Promise(resolve => setTimeout(resolve, 5000));
           await fetchAndFormatQuestionObjects(newNumToFetch);
+        } else {
+          return
         }   
       }
 
-      // fetch 5 extra questions here to hopefully avoid having to refetch once the questions with too many characters are removed
-      await fetchAndFormatQuestionObjects(numQuestions + 5) 
+      await fetchAndFormatQuestionObjects(numQuestions) 
 
       // need to make sure we're only sending num of questions requested (possible that formattedData would end up with num questions requested PLUS 5)
       if (formattedData.length > numQuestions) {

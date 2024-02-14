@@ -19,7 +19,7 @@ function JoinGame(props) {
       ...Typography.smallInnerText[props.screenDeviceWidth]
     },
     alertText: {
-      ...Typography.headingTwoText[props.screenDeviceWidth],
+      ...Typography.headingFourText[props.screenDeviceWidth],
       marginBottom: 4,
       textAlign: 'center'
     },

@@ -47,7 +47,7 @@ function HowToPlay(props) {
       color: brightRed.hex
     },
     alertText: {
-      ...Typography.headingTwoText[screenDeviceWidth],
+      ...Typography.headingFourText[screenDeviceWidth],
       marginBottom: 4,
       textAlign: 'center'
     }
