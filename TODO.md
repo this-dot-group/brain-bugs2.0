@@ -8,10 +8,17 @@
 Josh:
 - [ ] Add more sounds
 - [ ] Test dif user scenarios (private game etc)
-- [ ] Look into how we customize icon for app store
+- [x] Look into how we customize icon for app store
 
 New:
 Q: is the linting not doing enough work?
+- [ ] On Lobby Screen, when you open a modal, the background goes up with the modal, and I think it would look smoother to fade in
+- [ ] On Create a Game Modal on Lobby Screen, there needs to be more padding bottom
+- [ ] When opponent denies game request, the text gets cut off of the screen
+- [ ] Show chat button is on right of game end screen, and after a game request is denied, it moves to the left of the screen
+- [ ] When the opponent leaves after a rematch is denied, the message says Rematch is no longer enabled, but it was already disabled as soon as the rematch request was denied
+- [ ] If the game creator leaves the game after creating it, the game does not disappear from the list
+ - [ ] If the creator comes back, and the other person is still on that screen and tries to join - it sends the creator back to the home screen ??
 
 Tia: 
 - [x] Continue updating player name/score/check/x styling (see slide 8 in canva)

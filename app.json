@@ -7,8 +7,8 @@
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#000"
+      "resizeMode": "cover",
+      "backgroundColor": "#23252E"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -30,7 +30,11 @@
     ],
     "android": {
       "useNextNotificationsApi": true,
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#23252E"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
