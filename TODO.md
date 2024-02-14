@@ -7,31 +7,16 @@
 
 Josh:
 - [ ] Add more sounds
-- [ ] Test dif user scenarios (private game etc)
-- [x] Look into how we customize icon for app store
-
-New:
-Q: is the linting not doing enough work?
-- [ ] On Lobby Screen, when you open a modal, the background goes up with the modal, and I think it would look smoother to fade in
-- [ ] On Create a Game Modal on Lobby Screen, there needs to be more padding bottom
-- [ ] When opponent denies game request, the text gets cut off of the screen
-- [ ] Show chat button is on right of game end screen, and after a game request is denied, it moves to the left of the screen
 - [ ] When the opponent leaves after a rematch is denied, the message says Rematch is no longer enabled, but it was already disabled as soon as the rematch request was denied
-- [ ] If the game creator leaves the game after creating it, the game does not disappear from the list
- - [ ] If the creator comes back, and the other person is still on that screen and tries to join - it sends the creator back to the home screen ??
+- [ ] If the game creator leaves the game after creating it, the game does not disappear from the Join Game list
+  - [ ] If you leave the app, it should cancel the games you have made
+- [ ] If the creator comes back, and the other person is still on that screen and tries to join - it sends the creator back to the home screen ??
 
 Tia: 
-- [x] Continue updating player name/score/check/x styling (see slide 8 in canva)
-- [x] Try deployed backend on phone
-- [x] Test dif user scenarios (private game etc)
-  - really laggy on my android phone, sim and phone out of sync (not that big of a deal, but phone is just noticably slow). same experience using deployed vs local BE. tried removing the crawling bugs on gamescreen, didn't make a difference. 
-- [x] Update README
-- [x] Delete unused things like hourglass gif
-- [x] Sometimes it hangs on the loading spinner screen? 
-  - console logs and TODOs in gameInfoReducer. i think it has something to do with number of questions logic there
-
-
-
+- [ ] On Lobby Screen, when you open a modal, the background goes up with the modal, and I think it would look smoother to fade in
+- [ ] On Create a Game Modal on Lobby Screen, there needs to be more padding bottom
+- [ ] Show chat button is on right of game end screen, and after a game request is denied, it moves to the left of the screen
+- [ ] Look into front end environment variables
 
 For Future
 - code improvements
@@ -46,18 +31,6 @@ For Future
 - Update ReadMe
 
 ## Styling/Content
-- add the following to app.json to customize notifications
-    "plugins": [
-      [
-        "expo-notifications",
-        {
-          "icon": "./local/path/to/myNotificationIcon.png",
-          "color": "#ffffff",
-          "sounds": ["./local/path/to/mySound.wav", "./local/path/to/myOtherSound.wav"],
-          "mode": "production"
-        }
-      ]
-    ],
 
 ## Improvement ideas
 * Single player fake opponent scoring (right now they get it right 50% of time, random # for points)
@@ -102,16 +75,11 @@ For Future
         - iPhone leaves during game (ALERT SHOWS ON PHONE TWICE)
         - phone leaves during game ()
 
-    - Push Notifications
-      - phone makes game, leaves while waiting, sim joins ()
-      - iphone makes game, leaves while waiting, android joins ()
-
     - Back to lobby
       - shows Alert, removes chat and rematch buttons ()
 
 ## Deploying
 ### Front End
-- Need to add an icon
 - Need to update the `process.env.EXPO_PUBLIC_API_URL`
 - Then we will just need to follow the instructions below 
 - Google play looks easier and cheaper to deploy to, so we should start with that
@@ -125,9 +93,6 @@ Resources:
 ### Back End
 - We can use Render to host our back end https://render.com
   - It has a free tier
-- We should set this up first, and see if it is working with our undeployed project
-- I don't think we will have to change any code in the server
-
 
 Co-authored-by: Tia Low <lowtia@gmail.com>
 Co-authored-by: Chris Hamersly <christopherhamersly@gmail.com>
