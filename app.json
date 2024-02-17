@@ -29,7 +29,6 @@
       ]
     ],
     "android": {
-      "useNextNotificationsApi": true,
       "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
