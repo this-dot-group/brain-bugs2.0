@@ -15,8 +15,9 @@ Josh:
 Tia: 
 - [x] On Lobby Screen, when you open a modal, the background goes up with the modal, and I think it would look smoother to fade in
 - [ ] On Create a Game Modal on Lobby Screen, there needs to be more padding bottom
-- [ ] Show chat button is on right of game end screen, and after a game request is denied, it moves to the left of the screen
+- [x] Show chat button is on right of game end screen, and after a game request is denied, it moves to the left of the screen
 - [ ] Look into front end environment variables
+- waiting room trivia error on rematch? (phone requested rematch, sim said yes, 502 waiting room trivia error on phone)
 
 For Future
 - code improvements
