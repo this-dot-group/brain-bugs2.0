@@ -300,7 +300,7 @@ function GameEnd({
         copy={
           <Text style={styles.alertText}>
             Your opponent left! 
-            Rematch and chat no longer enabled.
+            Chat{hideRematchButtons ? '' : ' and rematch'} no longer enabled.
           </Text>
         }
         buttons={
