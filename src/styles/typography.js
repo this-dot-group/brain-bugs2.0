@@ -71,7 +71,7 @@ export const headingTwoText = {
   },
   medium: {
     ...headingTextBase,
-    fontSize: 34  
+    fontSize: 32  
   },
   large: {
     ...headingTextBase,

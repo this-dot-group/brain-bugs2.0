@@ -67,11 +67,11 @@ export const dropdownBtns = {
   },
   medium: {
     height: 50,
-    marginBottom: 24,
+    marginBottom: 14,
   },
   large: {
     height: 50,
-    marginBottom: 26,
+    marginBottom: 22,
   }
 }
 

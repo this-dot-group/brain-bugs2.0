@@ -24,7 +24,7 @@ function StartGame(props) {
       display: 'flex',
       position: 'relative',
       zIndex: 1,
-      height: '80%'
+      height: '80%',
     },
     dropdownsContainerStyles : {
       alignItems: 'center',
@@ -34,7 +34,7 @@ function StartGame(props) {
       ...Buttons.createGameListOptionBtns[props.screenDeviceWidth],
     },
     dropDownView: {
-      ...Buttons.dropdownBtns[props.screenDeviceWidth]
+      ...Buttons.dropdownBtns[props.screenDeviceWidth],
     },
     goRow: {
       flexDirection: 'row',
