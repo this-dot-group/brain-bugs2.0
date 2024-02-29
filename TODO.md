@@ -18,7 +18,6 @@ Tia:
   - [ ] Really should refactor this to use flexbox equal space between
 - [x] Show chat button is on right of game end screen, and after a game request is denied, it moves to the left of the screen
 - [ ] Look into front end environment variables
-- waiting room trivia error on rematch? (phone requested rematch, sim said yes, 502 waiting room trivia error on phone)
 
 For Future
 - code improvements
