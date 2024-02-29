@@ -17,7 +17,8 @@ Tia:
 - [x] On Create a Game Modal on Lobby Screen, there needs to be more padding bottom
   - [ ] Really should refactor this to use flexbox equal space between
 - [x] Show chat button is on right of game end screen, and after a game request is denied, it moves to the left of the screen
-- [ ] Look into front end environment variables
+- [x] Look into front end environment variables
+  - the only thing we have in our env is the API URL and that's safe to hardcode into the app
 
 For Future
 - code improvements
