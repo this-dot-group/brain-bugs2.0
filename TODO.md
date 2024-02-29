@@ -7,18 +7,16 @@
 
 Josh:
 - [ ] Add more sounds
-- [ ] When the opponent leaves after a rematch is denied, the message says Rematch is no longer enabled, but it was already disabled as soon as the rematch request was denied
+- [x] When the opponent leaves after a rematch is denied, the message says Rematch is no longer enabled, but it was already disabled as soon as the rematch request was denied
 - [ ] If the game creator leaves the game after creating it, the game does not disappear from the Join Game list
   - [ ] If you leave the app, it should cancel the games you have made
 - [ ] If the creator comes back, and the other person is still on that screen and tries to join - it sends the creator back to the home screen ??
 
 Tia: 
-- [x] On Lobby Screen, when you open a modal, the background goes up with the modal, and I think it would look smoother to fade in
-- [x] On Create a Game Modal on Lobby Screen, there needs to be more padding bottom
-  - [x] Really should refactor this to use flexbox equal space between
-- [x] Show chat button is on right of game end screen, and after a game request is denied, it moves to the left of the screen
-- [x] Look into front end environment variables
-  - the only thing we have in our env is the API URL and that's safe to hardcode into the app
+- [ ] Add how many questions the game has to the join game menu
+- [ ] Look into front end deployment (notes below)
+- [ ] clean up package.json unused dependencies
+- [ ] Testing
 
 For Future
 - code improvements
@@ -28,9 +26,7 @@ For Future
 ## Possible bugs
 
 ## Code / Fit & finish
-- clean up package.json unused dependencies
 - Increase waiting room screen time (I had reduced at some point to speed up testing. can revisit all countdown timer # seconds)
-- Update ReadMe
 
 ## Styling/Content
 
