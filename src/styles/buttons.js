@@ -63,15 +63,12 @@ export const createGameListOptionBtns = {
 export const dropdownBtns = {
   small: {
     height: 50,
-    marginBottom: 14,
   },
   medium: {
     height: 50,
-    marginBottom: 24,
   },
   large: {
     height: 50,
-    marginBottom: 26,
   }
 }
 

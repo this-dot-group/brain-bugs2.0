@@ -3,6 +3,7 @@ import React from 'react';
 import { Modal, StyleSheet, View, ScrollView } from 'react-native';
 import { Views } from '../../styles';
 import SafeViewAllDevices from './SafeViewAllDevices';
+import { darkBackground } from '../../styles/colors';
 
 const getStyles = style =>  StyleSheet.create({
   modalView: {
@@ -12,7 +13,7 @@ const getStyles = style =>  StyleSheet.create({
   disabledView: {
     height: '100%',
     width: '100%',
-    backgroundColor: 'rgba(0,0,0,.75)'
+    backgroundColor: `${darkBackground.hex}90`
   }
 });
 
@@ -22,7 +23,7 @@ function GenericModal({ children, style, ...props }) {
   return (
     <Modal  
       transparent={!(props.presentationStyle === 'fullScreen')}
-      animationType="slide"
+      animationType="fade"
       supportedOrientations={['landscape']}
       propogateSwipe
       {...props}

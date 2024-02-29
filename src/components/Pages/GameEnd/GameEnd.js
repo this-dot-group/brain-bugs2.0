@@ -85,11 +85,12 @@ function GameEnd({
       display: 'flex',
       flexDirection: 'row',
       width: 200,
+      marginRight: 20,
       alignItems: 'flex-start',
     },
     yesNoButtonCont: {
       display: 'flex',
-      marginRight: 20
+      marginRight: 20,
     },
     buttonRow: {
       display: 'flex',
@@ -337,8 +338,21 @@ function GameEnd({
         gameCode={gameCode}
         gamePhase='game_end' 
       />
+        {!opponentLeftRoom && numPlayers === 2 &&
+          <Chat
+            deviceWidth={screenDeviceWidth}
+            gameCode={gameCode}
+            user={currentUserObj}
+            rematchPending={showInvitation && !hideRematchButtons}
+            handleNo={handleNo}
+            handleYes={handleYes}
+            rematchText={rematchText}
+          />          
+        }
+
         {showInvitation && !hideRematchButtons ?
           <View style={styles.rematchInvite}>
+            <Text style={styles.rematchText}>{rematchText}</Text>
             <View style={styles.yesNoButtonCont}>
               <PixelPressable
                 buttonStyle={{ width: 60, marginBottom: 10 }}
@@ -353,7 +367,6 @@ function GameEnd({
                 }}
               >No</PixelPressable>
             </View>
-            <Text style={styles.rematchText}>{rematchText}</Text>
           </View> :
           !opponentLeftRoom && numPlayers === 2 && !hideRematchButtons &&
           <PixelPressable
@@ -367,17 +380,6 @@ function GameEnd({
           </PixelPressable>
         }
 
-        {!opponentLeftRoom && numPlayers === 2 &&
-          <Chat
-            deviceWidth={screenDeviceWidth}
-            gameCode={gameCode}
-            user={currentUserObj}
-            rematchPending={showInvitation && !hideRematchButtons}
-            handleNo={handleNo}
-            handleYes={handleYes}
-            rematchText={rematchText}
-          />
-        }
       </View>
       <View style={styles.scoreRows} pointerEvents="none">
         <View style={styles.scoreRow}>

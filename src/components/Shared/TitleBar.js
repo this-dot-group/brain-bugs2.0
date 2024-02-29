@@ -16,7 +16,8 @@ function TitleBar({ children, cb, style, deviceSize }) {
     },
     text: {
       textAlign: 'center',
-      ...Typography.headingTwoText[deviceSize]
+      ...Typography.headingTwoText[deviceSize],
+      margin: 1
     },
   });
   
