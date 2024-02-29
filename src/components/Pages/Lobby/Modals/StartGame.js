@@ -28,7 +28,8 @@ function StartGame(props) {
     },
     dropdownsContainerStyles : {
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'space-evenly',
+      height: '100%',
     },
     optionBtns: {
       ...Buttons.createGameListOptionBtns[props.screenDeviceWidth],
@@ -91,7 +92,7 @@ function StartGame(props) {
       </TitleBar>
 
       <ScrollView
-        style={styles.dropdowns}
+        style={styles.dropdowns} // flex
         contentContainerStyle={styles.dropdownsContainerStyles}
       >
         <View style={styles.dropDownView}>

@@ -15,7 +15,7 @@ Josh:
 Tia: 
 - [x] On Lobby Screen, when you open a modal, the background goes up with the modal, and I think it would look smoother to fade in
 - [x] On Create a Game Modal on Lobby Screen, there needs to be more padding bottom
-  - [ ] Really should refactor this to use flexbox equal space between
+  - [x] Really should refactor this to use flexbox equal space between
 - [x] Show chat button is on right of game end screen, and after a game request is denied, it moves to the left of the screen
 - [x] Look into front end environment variables
   - the only thing we have in our env is the API URL and that's safe to hardcode into the app
