@@ -16,7 +16,9 @@ import CrawlingBugs from '../../Shared/CrawlingBugs/CrawlingBugs';
 
 function StartScreen(props) {
   const [modalVisible, setModalVisible] = useState(null);
-  const [gamesWaiting, setGamesWaiting] = useState([])
+  const [publicGames, setPublicGames] = useState([]);
+  const [privateGames, setPrivateGames] = useState(new Set());
+  const [privateGamesWithInactiveMaker, setPrivateGamesWithInactiveMaker] = useState(new Set());
   const [roomJoin, setRoomJoin] = useState(false);
 
   const {
@@ -55,36 +57,43 @@ function StartScreen(props) {
 
   const createGameCode = () => Math.floor(Math.random() * 100000).toString().padStart(5, '0');
 
-  useEffect(() => {
+  const receiveAvailableGames = allGames => {
+    const forPublic = [];
+    const forPrivate = new Set();
+    const inactiveMaker = new Set();
 
-    // reset game so no info from previous games carries over
+    for (let currentGame of allGames) {
+      if (currentGame.publicOrPrivate === 'public' && currentGame.numPlayers === 2) {
+
+        let relevantInfo = {
+          category: currentGame.category.name,
+          player: currentGame.userName,
+          gameCode: currentGame.gameCode,
+        }
+        forPublic.push(relevantInfo)
+      }
+
+      if (currentGame.publicOrPrivate === 'private') {
+        if (currentGame.waitingForMakerToReturn) {
+          inactiveMaker.add(currentGame.gameCode);
+        }
+        forPrivate.add(currentGame.gameCode);
+      }
+    }
+
+    setPublicGames(forPublic);
+    setPrivateGames(forPrivate);
+    setPrivateGamesWithInactiveMaker(inactiveMaker);
+  }
+
+  useEffect(() => {
     newGame({});
 
-    // maybe make a new game code each time coming here
+    // make a new game code each time coming here
     newGameCode(createGameCode());
 
     socket.emit('inJoinGame', null)
 
-    const receiveAvailableGames = allGames => {
-
-      let filteredGames = [];
-
-      for (let game in allGames) {
-
-        let currentGame = allGames[game];
-
-        if (currentGame.publicOrPrivate === 'public' && currentGame.numPlayers === 2) {
-
-          let relevantInfo = {
-            category: currentGame.category.name,
-            player: currentGame.userName,
-            gameCode: currentGame.gameCode,
-          }
-          filteredGames.push(relevantInfo)
-        }
-      }
-      setGamesWaiting(filteredGames)
-    }
     socket.on('sendAvailGameInfo', receiveAvailableGames);
 
     /**
@@ -132,7 +141,7 @@ function StartScreen(props) {
       <JoinGameModal
         setModalVisible={handleModalChange}
         modalVisible={modalVisible}
-        gamesWaiting={gamesWaiting}
+        gamesWaiting={publicGames}
       />
 
       <PixelPressable
@@ -142,6 +151,8 @@ function StartScreen(props) {
       <PrivateGameModal
         setModalVisible={handleModalChange}
         modalVisible={modalVisible}
+        privateGames={privateGames}
+        privateGamesWithInactiveMaker={privateGamesWithInactiveMaker}
       />
 
       {roomJoin &&

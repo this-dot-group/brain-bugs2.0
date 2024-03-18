@@ -18,13 +18,17 @@ function AppStateTracker(props) {
       setBackToHome(true)
     }
 
+    if (fromBackgroundToActive && gamePhase === 'waiting_room') {
+      socket.emit('checkGameStillAvailable');
+    }
+
     let appStateGameCode = {
       appState: nextAppState,
       gameCode: gameCode,
       gamePhase: gamePhase,
     }
     
-    socket.emit('appStateUpdate', appStateGameCode)
+    socket.emit('appStateUpdate', appStateGameCode);
   }
 
 

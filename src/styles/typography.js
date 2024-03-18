@@ -484,7 +484,7 @@ const waitingTextBase = {
   color: yellow.hex
 }
 
-export const waitingText = {
+export const waitingText = addLineHeight({
   small: {
     ...waitingTextBase,
     fontSize: 13,
@@ -497,7 +497,7 @@ export const waitingText = {
     ...waitingTextBase,
     fontSize: 17,
   }
-}
+}, 1.2);
 
 
 ////// REMATCH TEXT 
@@ -522,3 +522,15 @@ export const rematchText = {
     fontSize: 28,
   }
 }
+
+/**
+ * Add line height to a font for each screen size
+ * @param {Object} fontStyles { small: {}, medium: {}, large: {} }
+ * @param {number} lineHeight 
+ */
+function addLineHeight(fontStyles, lineHeight) {
+  for (let sizeObject of Object.values(fontStyles)) {
+    sizeObject.lineHeight = lineHeight * sizeObject.fontSize;
+  }
+  return fontStyles;
+} 

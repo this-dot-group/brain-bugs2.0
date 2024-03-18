@@ -219,14 +219,16 @@ const WaitingRoom = (props) => {
       }
     }
 
-    props.socket.on('redirectToHowToPlay', redirectToHowToPlay)
-    props.socket.on('startOnePlayer', startOnePlayer)
-    props.socket.on('couldNotJoinPlayers', redirectGameMakerToLobby)
+    props.socket.on('redirectToHowToPlay', redirectToHowToPlay);
+    props.socket.on('startOnePlayer', startOnePlayer);
+    props.socket.on('couldNotJoinPlayers', redirectGameMakerToLobby);
+    props.socket.on('gameNotFound', redirectGameMakerToLobby);
     
     return () => {
       props.socket.off('redirectToHowToPlay', redirectToHowToPlay);
       props.socket.off('startOnePlayer', startOnePlayer);
-      props.socket.off('couldNotJoinPlayers', redirectGameMakerToLobby)
+      props.socket.off('couldNotJoinPlayers', redirectGameMakerToLobby);
+      props.socket.off('gameNotFound', redirectGameMakerToLobby);
     }
 
   }, [props.fullGameInfo.liveGameQuestions])

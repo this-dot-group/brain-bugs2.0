@@ -7,10 +7,28 @@
 
 Josh:
 - [ ] Add more sounds
+  - [ ] Make a list of where there should be a sound where there isn't already
+    - [ ] Something when you press go to join a game or start a game
+    - [ ] Something when the game starts
+    - [ ] Ticking sound
+    - [ ] Chat alert 
+  - [ ] Add the sounds
 - [x] When the opponent leaves after a rematch is denied, the message says Rematch is no longer enabled, but it was already disabled as soon as the rematch request was denied
-- [ ] If the game creator leaves the game after creating it, the game does not disappear from the Join Game list
-  - [ ] If you leave the app, it should cancel the games you have made
-- [ ] If the creator comes back, and the other person is still on that screen and tries to join - it sends the creator back to the home screen ??
+- [x] If the game creator leaves the game after creating it, the game does not disappear from the Join Game list
+  - [x] Style
+  - [x] Rebase
+  - [x] Clean up client code
+  - [x] Clean up server code
+
+New issues
+- [ ] If your opponent leaves when you are on the chat screen, you don't get the alert
+- [ ] The "Your opponent declined your rematch.." message was going off the modal on my phone
+- [ ] Cache category list on server and on phone
+- [ ] Cache the rest of the trivia questions? Maybe continually add questions to the server
+    - I think that in production, the server would be making multiple requests at a time, causing server errors. There needs to be 5 seconds between each api request
+      - Pro: we could figure out which questions are valid ahead of time
+      - Con: We would have to deal with tokens ourselves
+- [ ] Test chat extensively
 
 Tia: 
 - [ ] Add how many questions the game has to the join game menu
