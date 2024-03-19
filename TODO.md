@@ -15,7 +15,7 @@ Josh:
 Tia: 
 - [ ] Add how many questions the game has to the join game menu
 - [ ] Look into front end deployment (notes below)
-- [ ] clean up package.json unused dependencies
+- [x] clean up package.json unused dependencies
 - [ ] Testing
 
 For Future
