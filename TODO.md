@@ -17,6 +17,8 @@ Tia:
 - [ ] Look into front end deployment (notes below)
 - [x] clean up package.json unused dependencies
 - [ ] Testing
+- [ ] Change rematch to an alert?? Styling is weird
+- [ ] Reorganize score on GameEnd to be more like name/score during GamePlay
 
 ## Deploying
 ### Front End
