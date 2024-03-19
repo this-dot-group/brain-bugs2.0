@@ -18,6 +18,19 @@ Tia:
 - [x] clean up package.json unused dependencies
 - [ ] Testing
 
+## Deploying
+### Front End
+- [x] Need to update the `process.env.EXPO_PUBLIC_API_URL`
+- Then we will just need to follow the instructions below 
+- Google play looks easier and cheaper to deploy to, so we should start with that
+- Will we need to update the port number for the socket connections? It should be easy to test once we have the backend set up
+
+Resources:
+- https://www.instabug.com/blog/react-native-app-ios-android
+- https://docs.expo.dev/build/setup/
+- https://docs.expo.dev/submit/android/
+
+
 For Future
 - code improvements
   - destructure props
@@ -76,22 +89,6 @@ For Future
     - Back to lobby
       - shows Alert, removes chat and rematch buttons ()
 
-## Deploying
-### Front End
-- Need to update the `process.env.EXPO_PUBLIC_API_URL`
-- Then we will just need to follow the instructions below 
-- Google play looks easier and cheaper to deploy to, so we should start with that
-- Will we need to update the port number for the socket connections? It should be easy to test once we have the backend set up
-
-Resources:
-- https://www.instabug.com/blog/react-native-app-ios-android
-- https://docs.expo.dev/build/setup/
-- https://docs.expo.dev/submit/android/
-
-### Back End
-- We can use Render to host our back end https://render.com
-  - It has a free tier
 
 Co-authored-by: Tia Low <lowtia@gmail.com>
-Co-authored-by: Chris Hamersly <christopherhamersly@gmail.com>
 Co-authored-by: Josh Williams <joshuasrwilliams@gmail.com>
