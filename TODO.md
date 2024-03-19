@@ -13,7 +13,7 @@ Josh:
 - [ ] If the creator comes back, and the other person is still on that screen and tries to join - it sends the creator back to the home screen ??
 
 Tia: 
-- [ ] Add how many questions the game has to the join game menu
+- [x] Add how many questions the game has to the join game menu
 - [ ] Look into front end deployment (notes below)
 - [x] clean up package.json unused dependencies
 - [ ] Testing
