@@ -87,7 +87,7 @@ function JoinGame(props) {
             pressableProps={{ onPress: () => handleJoinTwoPlayer(gameObj) }}
           >
             <Text style={styles.smallInnerText}>
-              {gameObj.player} is waiting to play {gameObj.category}
+              {gameObj.category} against {gameObj.player} ({gameObj.numQuestions} questions) 
             </Text>
           </PixelPressable>
         )}

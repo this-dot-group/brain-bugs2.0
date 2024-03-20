@@ -1,5 +1,7 @@
+import { brightRed } from '../styles/colors';
+
 export const badge = {
-  backgroundColor: 'red',
+  backgroundColor: brightRed.hex,
   position: 'absolute',
   top: -10,
   left: -12,

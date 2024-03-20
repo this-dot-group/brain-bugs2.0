@@ -77,6 +77,7 @@ function StartScreen(props) {
 
           let relevantInfo = {
             category: currentGame.category.name,
+            numQuestions: currentGame.numQuestions,
             player: currentGame.userName,
             gameCode: currentGame.gameCode,
           }

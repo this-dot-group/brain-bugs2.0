@@ -13,10 +13,36 @@ Josh:
 - [ ] If the creator comes back, and the other person is still on that screen and tries to join - it sends the creator back to the home screen ??
 
 Tia: 
-- [ ] Add how many questions the game has to the join game menu
-- [ ] Look into front end deployment (notes below)
-- [ ] clean up package.json unused dependencies
+- [x] Add how many questions the game has to the join game menu
+- [x] Look into front end deployment (notes below)
+- [x] clean up package.json unused dependencies
 - [ ] Testing
+- [ ] Change rematch to an alert?? Styling is weird
+- [ ] Reorganize score on GameEnd to be more like name/score during GamePlay
+
+## Deploying
+### Front End
+- [x] Need to update the `process.env.EXPO_PUBLIC_API_URL`
+- Create Android build to get AAB file (https://docs.expo.dev/deploy/build-project/#production-builds-using-eas) 
+- Create Google Play developer account ($25)
+  - "Create App" in the new account
+  - "Set up your app" - there are about 12 steps here
+    - [ ] Create Privacy Policy (host it via github, we'll need a link to it as one of the steps)
+    - "App access" means are any pages behind a login (doesn't apply to us since we don't ask for password)
+    - "Set up store listing" is where we can put name and short/full description. Upload icon, feature image, screenshots of app, etc.
+  - Upload app
+    - [ ] Create AAB file (should be done via native build step above)
+    - Release notes don't show up anywhere
+- Google will review it (3-7 business days) and then you'll see app on play store
+
+- Will we need to update the port number for the socket connections? It should be easy to test once we have the backend set up
+
+Resources:
+- https://www.youtube.com/watch?v=zMhhmaukhC4
+- https://www.instabug.com/blog/react-native-app-ios-android
+- https://docs.expo.dev/build/setup/
+- https://docs.expo.dev/submit/android/
+
 
 For Future
 - code improvements
@@ -76,22 +102,6 @@ For Future
     - Back to lobby
       - shows Alert, removes chat and rematch buttons ()
 
-## Deploying
-### Front End
-- Need to update the `process.env.EXPO_PUBLIC_API_URL`
-- Then we will just need to follow the instructions below 
-- Google play looks easier and cheaper to deploy to, so we should start with that
-- Will we need to update the port number for the socket connections? It should be easy to test once we have the backend set up
-
-Resources:
-- https://www.instabug.com/blog/react-native-app-ios-android
-- https://docs.expo.dev/build/setup/
-- https://docs.expo.dev/submit/android/
-
-### Back End
-- We can use Render to host our back end https://render.com
-  - It has a free tier
 
 Co-authored-by: Tia Low <lowtia@gmail.com>
-Co-authored-by: Chris Hamersly <christopherhamersly@gmail.com>
 Co-authored-by: Josh Williams <joshuasrwilliams@gmail.com>
