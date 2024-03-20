@@ -13,30 +13,28 @@ Josh:
     - [ ] Ticking sound
     - [ ] Chat alert 
   - [ ] Add the sounds
-- [x] When the opponent leaves after a rematch is denied, the message says Rematch is no longer enabled, but it was already disabled as soon as the rematch request was denied
-- [x] If the game creator leaves the game after creating it, the game does not disappear from the Join Game list
-  - [x] Style
-  - [x] Rebase
-  - [x] Clean up client code
-  - [x] Clean up server code
-
-New issues
-- [ ] If your opponent leaves when you are on the chat screen, you don't get the alert
-- [ ] The "Your opponent declined your rematch.." message was going off the modal on my phone
 - [ ] Cache category list on server and on phone
+- [ ] Look into issue of too many requests from server
+- [ ] Come up with tests to run for chat
+
+New issues 
 - [ ] Cache the rest of the trivia questions? Maybe continually add questions to the server
     - I think that in production, the server would be making multiple requests at a time, causing server errors. There needs to be 5 seconds between each api request
       - Pro: we could figure out which questions are valid ahead of time
       - Con: We would have to deal with tokens ourselves
-- [ ] Test chat extensively
+    - Ideas
+     -  Move api to client?
+     -  Make a db and add the questions?
+     -  Fake the ip address
+     -  Keep the questions in working memory
 
 Tia: 
-- [x] Add how many questions the game has to the join game menu
-- [x] Look into front end deployment (notes below)
-- [x] clean up package.json unused dependencies
 - [ ] Testing
 - [ ] Change rematch to an alert?? Styling is weird
 - [ ] Reorganize score on GameEnd to be more like name/score during GamePlay
+- [ ] If your opponent leaves when you are on the chat screen, you don't get the alert
+- [ ] The "Your opponent declined your rematch.." message was going off the modal on my phone
+- [ ] Look into issue of too many requests from server
 
 ## Deploying
 ### Front End
