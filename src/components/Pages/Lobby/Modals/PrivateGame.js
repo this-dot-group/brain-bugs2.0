@@ -5,111 +5,137 @@ import { connect } from 'react-redux'
 import { newOpponent } from '../../../../store/userReducer';
 import { Typography } from '../../../../styles';
 import { GenericModal, Hider, TitleBar, PixelPressable } from '../../../Shared';
-import { yellow } from '../../../../styles/colors';
+import { brightGreen, yellow } from '../../../../styles/colors';
 
-function PrivateGame(props) {
+const gameCodeStates = {
+  INVALID_CODE: 'INVALID_CODE',
+  SHOW_GO: 'SHOW_GO',
+  WAITING_FOR_GAME_MAKER: 'WAITING_FOR_GAME_MAKER',
+  ERROR_CODE: 'ERROR_CODE',
+};
+
+function PrivateGame({
+  screenDeviceWidth,
+  socket,
+  setModalVisible,
+  modalVisible,
+  username,
+  privateGames,
+  privateGamesWithInactiveMaker,
+}) {
   const [gameCode, setGameCode] = useState('');
-  const [error, setError] = useState(false);
-  const [validGamecodes, setValidGamecodes] = useState([]);
-  const [showGo, setShowGo] = useState(false);
+  const [gameCodeState, setGameCodeState] = useState(gameCodeStates.INVALID_CODE);
 
   const styles = StyleSheet.create({
     alertText: {
-      ...Typography.alertText[props.screenDeviceWidth],
+      ...Typography.alertText[screenDeviceWidth],
     },
     goRow: {
       flexDirection: 'row',
       alignSelf: 'flex-end',
-      paddingHorizontal: 10
+      paddingHorizontal: 10,
+      position: 'relative',
+    },
+    goRowInner: {
+      position: 'absolute',
+      right: 20,
+      width: '15%',
+      alignItems: 'flex-end'
+    },
+    inputContainer: {
+      width: '50%',
+      alignSelf: 'center',
+      paddingHorizontal: 0,
+    },
+    input: {
+      borderBottomColor: brightGreen.hex,
     },
     inputText: {
-      ...Typography.inputText[props.screenDeviceWidth]
+      ...Typography.inputText[screenDeviceWidth],
+    },
+    waitingText: {
+      ...Typography.waitingText[screenDeviceWidth],
     }
-  })
+  });
 
+  const errorMessage = () => {
+    setGameCodeState(gameCodeStates.ERROR_CODE);
+    setTimeout(() => {
+      setGameCodeState(gameCodeStates.INVALID_CODE);
+      setGameCode('');
+    }, 1500);
+  }
 
   useEffect(() => {
+    if (gameCode.length < 5) return;
 
-    props.socket.emit('inJoinGame', null)
-
-    const receiveAvailableGames = allGames => {
-      let filteredGames = [];
-
-      for (let game in allGames) {
-
-        let currentGame = allGames[game];
-
-        if (currentGame.publicOrPrivate === 'private') {
-          filteredGames.push(currentGame.gameCode)
-        }
-      }
-      setValidGamecodes(filteredGames)
+    if (!privateGames.has(gameCode)) {
+      errorMessage();
+      return;
     }
 
-    props.socket.on('sendAvailGameInfo', receiveAvailableGames)
-
-    return () => {
-      props.socket.off('sendAvailGameInfo', receiveAvailableGames);
+    if (privateGamesWithInactiveMaker.has(gameCode)) {
+      setGameCodeState(gameCodeStates.WAITING_FOR_GAME_MAKER);
+      return;
     }
 
-  }, [])
+    setGameCodeState(gameCodeStates.SHOW_GO);
+  }, [privateGamesWithInactiveMaker, gameCode, privateGames]);
 
-  const handleChange = (value) => {
-    // value is the user-entered game code 
-    setGameCode(value);
-
-    if (value.length === 5) {
-      if (!validGamecodes.includes(value)) {
-        setError(true);
-        setTimeout(() => {
-          setError(false)
-        }, 1500)
-      } else {
-        setShowGo(true)
-      }
-    }
+  const closeModal = () => {
+    setModalVisible(null);
+    setGameCode('');
+    setGameCodeState(gameCodeStates.INVALID_CODE);
   }
 
   return (
     <GenericModal
-      visible={props.modalVisible === 'private'}
+      visible={modalVisible === 'private'}
       disableBackground
     >
       <TitleBar
-        cb={() => props.setModalVisible(null)}
-        deviceSize={props.screenDeviceWidth}
+        cb={closeModal}
+        deviceSize={screenDeviceWidth}
       >
         Join a Private Game
       </TitleBar>
       <Input
         placeholder='Enter code'
-        placeholderTextColor={yellow.hex}
-        style={styles.inputText}
-        onChangeText={value => handleChange(value)}
+        onChangeText={setGameCode}
         maxLength={5}
         value={gameCode}
-        disabled={showGo}
-        containerStyle={{width: '50%', alignSelf: 'center'}}
+        disabled={gameCodeState === gameCodeStates.SHOW_GO}
+        placeholderTextColor={yellow.hex}
+        style={styles.inputText}
+        containerStyle={styles.inputContainer}
+        inputContainerStyle={styles.input}
       />
   
       <Hider
-        show={error}
+        show={gameCodeState === gameCodeStates.ERROR_CODE}
       >
-        <Text style={styles.alertText}>Invalid code, please try again! </Text>
+        <Text style={styles.alertText}>Invalid code, please try again!</Text>
       </Hider>
 
       <View style={styles.goRow}>
         <Hider
-          show={showGo}
+          show={gameCodeState === gameCodeStates.SHOW_GO}
+          style={styles.goRowInner}
         >
           <PixelPressable
             variant="go"
             pressableProps={{
-              onPress: () => props.socket.emit('joinTwoPlayer', [gameCode, props.username])
+              onPress: () => socket.emit('joinTwoPlayer', [gameCode, username])
             }}
           >
             Go
           </PixelPressable>
+        </Hider>
+        <Hider
+          show={gameCodeState === gameCodeStates.WAITING_FOR_GAME_MAKER}
+          style={styles.goRowInner}
+        >
+          <Text style={styles.waitingText}>Waiting for other player...</Text>
         </Hider>
       </View>
     </GenericModal>

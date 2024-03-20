@@ -15,7 +15,17 @@ import { Buttons, Typography } from '../../../../styles';
 import { useKeyboard } from '../../../../hooks';
 import { darkBackground, blue, yellow, black } from '../../../../styles/colors';
 
-function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rematchText, deviceWidth }) {
+function Chat({
+  socket,
+  gameCode,
+  user,
+  rematchPending,
+  handleNo,
+  handleYes,
+  rematchText,
+  deviceWidth,
+  socketId,
+}) {
   const [messages, setMessages] = useState([]);
   const [currMessage, setCurrMesssage] = useState('');
   const [showChat, setShowChat] = useState(false);
@@ -126,7 +136,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
   const textInputRef = useRef();
 
   useEffect(() => {
-    socket.emit('getFirstLatestTime', socket.id);
+    socket.emit('getFirstLatestTime', socketId);
     socket.on('setFirstLatestTime', latestTimeHandler);
     socket.on('newMessage', messageHandler);
 
@@ -137,13 +147,13 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
   }, [])
 
   const latestTimeHandler = latestTimeObj => {
-    if(socket.id in latestTimeObj) {
-      setLatestTime(latestTimeObj[socket.id])
+    if(socketId in latestTimeObj) {
+      setLatestTime(latestTimeObj[socketId]);
     }
   }
   
   const messageHandler = updatedChatObj => {
-    setLatestTime(updatedChatObj.latestTime[socket.id])
+    setLatestTime(updatedChatObj.latestTime[socketId]);
     setMessages(updatedChatObj.messages);
   }
 
@@ -158,7 +168,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
   const hideModal = () => {
     setShowChat(false);
     setLatestTime(Date.now());
-    socket.emit('setUserLatestTime', socket.id);
+    socket.emit('setUserLatestTime', socketId);
   }
   
   const showModal = () => setShowChat(true);
@@ -243,7 +253,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
                     <Text
                       key={timeStamp}
                       style={
-                        userId === socket.id
+                        userId === socketId
                           ? {...styles.messages}
                           : {...styles.messages, ...styles.opponentMessages}
                       }
@@ -292,6 +302,7 @@ function Chat({ socket, gameCode, user, rematchPending, handleNo, handleYes, rem
 
 const mapStateToProps = state => ({
   socket: state.socketReducer,
+  socketId: state.userReducer.socketId,
 })
 
 export default connect(mapStateToProps)(Chat);
