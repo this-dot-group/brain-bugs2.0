@@ -39,17 +39,18 @@ function GameEnd({
   const [backToLobby, setBackToLobby] = useState(false);
   const [rematchReady, setRematchReady] = useState(false)
   const [roomJoin, setRoomJoin] = useState(false);
-  const [showInvitation, setShowInvitation] = useState(false);
   const [currentUserObj, setCurrentUserObj] = useState({});
   const [opponentObj, setOpponentObj] = useState({});
   const [userOutcome, setUserOutcome] = useState('');
   const [opponentLeftRoom, setOpponentLeftRoom] = useState(false);
   const [saidYesToRematch, setSaidYesToRematch] = useState(false);
   const [rematchRequested, setRematchRequested] = useState(false);
+  const [quickHideChat, setQuickHideChat] = useState(false);
   const [hideRematchButtons, setHideRematchButtons] = useState(false);
   const opponentSaidNoToRematch = useRef(false);
   const [openAlert_OpponentLeftLobby, setOpenAlert_OpponentLeftLobby] = useState(false);
   const [openAlert_OpponentLeftDisabled, setOpenAlert_OpponentLeftDisabled] = useState(false);
+  const [openAlert_RematchRequested, setOpenAlert_RematchRequested] = useState(false);
   const [openAlert_RematchDeclined, setOpenAlert_RematchDeclined] = useState(false);
 
   const token = location.state.finalScore.token;
@@ -90,7 +91,7 @@ function GameEnd({
     },
     yesNoButtonCont: {
       display: 'flex',
-      marginRight: 20,
+      flexDirection: 'row',
     },
     buttonRow: {
       display: 'flex',
@@ -153,11 +154,13 @@ function GameEnd({
 
   // 1. one person clicks button to request rematch, emits the "rematch" event
   // 2. server is emitting to the room (person who did not req rematch) the "rematchInvitation" event
-  // 3. this event triggers showing the rematch invitation text/pressable to the rematch opponent, if yes, handleYes emits "rematchresponse" event and true
+  // 3. this event triggers showing the rematch invitation alert to the rematch opponent, if yes, handleYes emits "rematchresponse" event and true
   // 4. server listening for rematchResponse, emits "opponentRematchResponse" with payload of boolean response and rematchGameInfo ojb, to original requestor
   // 5. this triggers, from the requestors side, adding the category/questions/'private' to gameinfo reducer. also emits the sendRematchOpponentToPrivateGameJoin event to get opponent to join them in private room. also for requestor, sets rematchReady to true which redirects them to Waiting Room
   // 6. server listens for this, emits gameCodeForRematch to opponent, triggers joinRematch function which emits the joinTwoPlayer event
   // 7. on server side, makes game obj, joins each person to room, and redirectsHowToPlay
+
+
 
   const redirect = (usernames) => {
     // this stuff is happening to the opponent (person who said yes to rematch)
@@ -166,12 +169,14 @@ function GameEnd({
   }
 
   const onRematchInvitation = () => {
-    setShowInvitation(true);
+    setQuickHideChat(true);
+    setOpenAlert_RematchRequested(true);
   }
 
   const createOpponentLeftRoomAlert = () => {
     // check here to see if rematch is already no, in which case we dont need to show the alert
     if (!opponentSaidNoToRematch.current){
+      setQuickHideChat(true);
       setOpenAlert_OpponentLeftDisabled(true);
       opponentSaidNoToRematch.current = false;
     }
@@ -193,6 +198,7 @@ function GameEnd({
   }
 
   const handleOpenOpponentLeftAlert = () => {
+    setQuickHideChat(true);
     setOpenAlert_OpponentLeftLobby(true);
   }
 
@@ -242,12 +248,14 @@ function GameEnd({
 
   const handleYes = () => {
     setRematchRequested(false);
+    setOpenAlert_RematchRequested(false);
     socket.emit('rematchResponse', true);
     setSaidYesToRematch(true);
   }
 
   const handleNo = () => {
     setRematchRequested(false);
+    setOpenAlert_RematchRequested(false);
     socket.emit('rematchResponse', false);
     setHideRematchButtons(true);
   }
@@ -314,6 +322,31 @@ function GameEnd({
           </>
         }
       />
+      {/* REMATCH ALERT */}
+      <CustomAlert 
+        visible={openAlert_RematchRequested} 
+        copy={
+          <Text style={styles.alertText}>
+            {rematchText}
+          </Text>
+        }
+        buttons={
+          <View style={styles.yesNoButtonCont}>
+            <PixelPressable
+              buttonStyle={{ height: 60, marginRight: 20 }}
+              pressableProps={{
+                onPress: handleYes
+              }}
+            >Yes</PixelPressable>
+            <PixelPressable
+              buttonStyle={{ height: 60 }}
+              pressableProps={{
+                onPress: handleNo
+              }}
+            >No</PixelPressable>
+          </View>
+        }
+      />
       <CustomAlert 
         visible={openAlert_RematchDeclined} 
         copy={
@@ -343,32 +376,10 @@ function GameEnd({
             deviceWidth={screenDeviceWidth}
             gameCode={gameCode}
             user={currentUserObj}
-            rematchPending={showInvitation && !hideRematchButtons}
-            handleNo={handleNo}
-            handleYes={handleYes}
-            rematchText={rematchText}
+            quickHide={quickHideChat}
           />          
         }
-
-        {showInvitation && !hideRematchButtons ?
-          <View style={styles.rematchInvite}>
-            <Text style={styles.rematchText}>{rematchText}</Text>
-            <View style={styles.yesNoButtonCont}>
-              <PixelPressable
-                buttonStyle={{ width: 60, marginBottom: 10 }}
-                pressableProps={{
-                  onPress: handleYes
-                }}
-              >Yes</PixelPressable>
-              <PixelPressable
-                buttonStyle={{ width: 60 }}
-                pressableProps={{
-                  onPress: handleNo
-                }}
-              >No</PixelPressable>
-            </View>
-          </View> :
-          !opponentLeftRoom && numPlayers === 2 && !hideRematchButtons &&
+        {!opponentLeftRoom && numPlayers === 2 && !hideRematchButtons && (
           <PixelPressable
             buttonStyle={styles.optionBtns}
             pressableProps={{
@@ -378,8 +389,7 @@ function GameEnd({
           >
             {rematchRequested ? 'Requesting...' : 'Rematch'}
           </PixelPressable>
-        }
-
+        )}
       </View>
       <View style={styles.scoreRows} pointerEvents="none">
         <View style={styles.scoreRow}>
