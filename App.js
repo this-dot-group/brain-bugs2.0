@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import { NativeRouter, Route } from 'react-router-native'
 import * as Font from 'expo-font'
-import { lockAsync, OrientationLock } from "expo-screen-orientation";
+import * as ScreenOrientation from 'expo-screen-orientation';
 
 import store, { persistor } from './src/store/index.js';
 
@@ -31,7 +31,7 @@ export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
   const setOrientation = async () => {
-    await lockAsync(OrientationLock.LANDSCAPE);
+    await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
   }
 
   useEffect(() => {
