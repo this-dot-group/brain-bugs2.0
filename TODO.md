@@ -31,10 +31,14 @@ New issues
 Tia: 
 - [ ] Testing
 - [x] Change rematch to an alert?? Styling is weird
-- [ ] Reorganize score on GameEnd to be more like name/score during GamePlay
+- [ ] ~~Reorganize score on GameEnd to be more like name/score during GamePlay~~
 - [x] If your opponent leaves when you are on the chat screen, you don't get the alert (per react native, can't have multiple modals open at once. in a couple different cases i had to hid the chat modal first and then show other modal)
-- [ ] The "Your opponent declined your rematch.." message was going off the modal on my phone
-- [ ] Look into issue of too many requests from server
+- [ ] The "Your opponent declined your rematch.." message was going off the modal on my phone (couldn't repro)
+- [ ] Look into issue of too many requests from server (RangeError: Property storage exceeds 196607 properties, js engine: hermes)
+  - this was introduced with RN upgrade to 72.1 ::face-palm:: 
+  - hermes team is working on this but they don't have an expected patch date
+  - sounds like its only an issue in development? interesting discussion: https://github.com/facebook/hermes/issues/851
+  - i think it has to do with our animations and useNativeDriver (https://github.com/mananbordia/Minimal-Repro-Code-Hermes-useNativeDriver/tree/main)
 - DotGothic custom font didn't work, this fixed it rm -rf ./node_modules/expo/node_modules/expo-font/ (https://github.com/expo/expo/issues/5507)
 - screen orientation doesnt lock on android
 - looks like i don't have to press Go on android, it just starts?
