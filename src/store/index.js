@@ -9,6 +9,7 @@ import gameInfoReducer from './gameInfoReducer.js';
 import fakeOpponentSocketReducer from './fakeOpponentSocketReducer'
 import soundsReducer, { isMuted } from './soundsReducer';
 import statsReducer from './statsReducer';
+import categoriesReducer from './categoriesReducer.js';
 
 const persistConfig = {
   key: 'root',
@@ -25,6 +26,7 @@ let reducers = combineReducers({
   soundsReducer,
   isMuted,
   statsReducer,
+  categoriesReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers)

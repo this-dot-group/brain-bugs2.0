@@ -11,9 +11,11 @@ Josh:
     - [ ] Something when you press go to join a game or start a game
     - [ ] Something when the game starts
     - [ ] Ticking sound
-    - [ ] Chat alert 
+    - [ ] Chat alert
   - [ ] Add the sounds
-- [ ] Cache category list on server and on phone
+- [ ] Cache category
+  - [ ] On server
+  - [x] On phone
 - [ ] Look into issue of too many requests from server
 - [ ] Come up with tests to run for chat
 
