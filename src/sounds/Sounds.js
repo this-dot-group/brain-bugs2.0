@@ -6,6 +6,8 @@ import negativeTone from './negative-tone.wav';
 import positiveTone from './positive.wav';
 import win from './win.wav';
 import lose from './lose.wav';
+import select from './select.wav';
+import lock from './lock.wav';
 import { connect } from 'react-redux';
 import { newSound } from '../store/soundsReducer';
 
@@ -16,6 +18,8 @@ const allSounds = {
   positiveTone,
   win,
   lose,
+  select,
+  lock,
 }
 
 function Sounds({ newSound }) {

@@ -11,12 +11,16 @@ Josh:
     - [ ] Something when you press go to join a game or start a game
     - [ ] Something when the game starts
     - [ ] Ticking sound
+    - [x] When you select an answer
+    - [x] When you submit an answer
     - [ ] Chat alert
+    - [x] Default button sound
+    - [ ] Default dropdown select sound
   - [ ] Add the sounds
 - [x] Cache category
   - [x] On server
   - [x] On phone
-- [ ] Look into issue of too many requests from server
+- [x] Look into issue of too many requests from server
   - Caching plan
     - Make a db for the questions
       - Should it be mongo or sql? Would relational database be more efficient for getting by category?

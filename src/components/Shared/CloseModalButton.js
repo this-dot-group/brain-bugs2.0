@@ -1,6 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { Image } from 'react-native-elements';
 import PixelPressable from './PixelPressable';
+import { connect } from 'react-redux';
+import { playSound } from '../../store/soundsReducer';
 
 const styles = StyleSheet.create({
   closeModalButton: {
@@ -12,7 +14,11 @@ const styles = StyleSheet.create({
   }
 });
 
-function CloseModalButton({ cb, wrapperStyle = {} }) {
+function CloseModalButton({ cb, wrapperStyle = {}, playSound }) {
+  const handlePress = () => {
+    playSound('click');
+    cb()
+  }
   return (
     <PixelPressable
       wrapperStyle={wrapperStyle}
@@ -21,7 +27,7 @@ function CloseModalButton({ cb, wrapperStyle = {} }) {
         height: 40,
       }}
       pressableProps={{
-        onPress: cb,
+        onPress: handlePress,
         style: styles.closeModalButton
       }}
     >
@@ -33,4 +39,4 @@ function CloseModalButton({ cb, wrapperStyle = {} }) {
   )
 }
 
-export default CloseModalButton;
+export default connect(undefined, { playSound })(CloseModalButton);

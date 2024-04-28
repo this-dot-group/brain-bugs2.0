@@ -3,6 +3,7 @@ import { Hider, PixelPressable } from "../../Shared";
 import { Typography } from "../../../styles";
 import { connect } from "react-redux";
 import { darkBackground, blue } from "../../../styles/colors";
+import { playSound } from "../../../store/soundsReducer";
 
 const SubmitButton = ({
   showButton,
@@ -10,6 +11,7 @@ const SubmitButton = ({
   handleAnsPress,
   displayAnswer,
   screenDeviceWidth,
+  playSound,
 }) => {
   const styles = StyleSheet.create({
     container: {
@@ -29,13 +31,19 @@ const SubmitButton = ({
     },
   });
 
+  const handlePress = () => {
+    playSound('lock');
+    handleAnsPress();
+  }
+
   return (
     <View style={styles.container}>
       <Hider show={showButton}>
         <PixelPressable
           buttonStyle={{ height: 60, width: 80, position: "absolute", borderColor: blue.hex }}
+          sound="lock"
           pressableProps={{
-            onPress: handleAnsPress,
+            onPress: handlePress,
             onPressOut: () => {},
             style: styles.submitButton,
             disabled: displayAnswer,
@@ -55,4 +63,4 @@ const mapStateToProps = (state) => ({
   screenDeviceWidth: state.userReducer.deviceWidth,
 });
 
-export default connect(mapStateToProps)(SubmitButton);
+export default connect(mapStateToProps, { playSound })(SubmitButton);

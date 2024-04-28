@@ -34,6 +34,7 @@ const AnswerButton = ({
     >
       <PixelPressable
         buttonStyle={styles.buttonStyle}
+        sound="select"
         pressableProps={{
           onPress: cb,
           style: styles.nonSelectedAnswer,
