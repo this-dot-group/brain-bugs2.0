@@ -6,20 +6,20 @@
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 Josh:
+- [ ] Try to repro: The "Your opponent declined your rematch.." message was going off the modal on my phone
+- [ ] Pull fresh client, npm i, check if you see an error about custom font not working/bring loaded
+  - [ ] If so, this script fixes it: rm -rf ./node_modules/expo/node_modules/expo-font/
+  - [ ] info for context: (https://github.com/expo/expo/issues/5507)
+  - [ ] if you did run into this, we should add script to startup config
+
 - [ ] Add more sounds
   - [ ] List of Sounds Needed
     - [ ] Something when you press go to join a game or start a game
     - [ ] Something when the game starts
     - [ ] Ticking sound
-    - [x] When you select an answer
-    - [x] When you submit an answer
     - [ ] Chat alert
-    - [x] Default button sound
     - [ ] Default dropdown select sound
-  - [ ] Add the sounds
-- [x] Cache category
-  - [x] On server
-  - [x] On phone
+- [ ] Investigate/implement queue for server requests to trivia db
 - [x] Look into issue of too many requests from server
   - Caching plan
     - Make a db for the questions
@@ -61,14 +61,17 @@ New issues
 
 Tia: 
 - [ ] Testing
-- [x] Change rematch to an alert?? Styling is weird
-- [ ] Reorganize score on GameEnd to be more like name/score during GamePlay
-- [x] If your opponent leaves when you are on the chat screen, you don't get the alert (per react native, can't have multiple modals open at once. in a couple different cases i had to hid the chat modal first and then show other modal)
-- [ ] The "Your opponent declined your rematch.." message was going off the modal on my phone
-- [ ] Look into issue of too many requests from server
-- DotGothic custom font didn't work, this fixed it rm -rf ./node_modules/expo/node_modules/expo-font/ (https://github.com/expo/expo/issues/5507)
+- [ ] Look into issue of too many requests from server (RangeError: Property storage exceeds 196607 properties, js engine: hermes)
+  - this was introduced with RN upgrade to 72.1 ::face-palm:: 
+  - hermes team is working on this but they don't have an expected patch date
+  - sounds like its only an issue in development? interesting discussion: https://github.com/facebook/hermes/issues/851
+  - i think it has to do with our animations and useNativeDriver (https://github.com/mananbordia/Minimal-Repro-Code-Hermes-useNativeDriver/tree/main)
+- hear from josh about custom font issue?
 - screen orientation doesnt lock on android
+  - on android it will show portrait, but you can't interact with anything. once it goes landscape you can. 
 - looks like i don't have to press Go on android, it just starts?
+  - the issue is on android the keyboard takes up the full screen, and the only way to get out of it is to press Go/(enter) which i think automatically triggers our Go btn
+  - TODO: switch branches to see if it's the same behavior before this work
 - first chat message goes over the X button
 
 ## Deploying
