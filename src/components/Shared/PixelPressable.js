@@ -4,12 +4,15 @@ import { Text, Pressable, StyleSheet, Animated } from 'react-native';
 import PixelButton from './PixelButton';
 import { Typography } from '../../styles';
 import { darkBackground } from '../../styles/colors';
+import { playSound } from '../../store/soundsReducer';
 
 function PixelPressable ({
   children,
   pressableProps,
   screenDeviceWidth,
   wrapperStyle,
+  sound = 'click',
+  playSound,
   ...props
 }) {
   const styles = StyleSheet.create({
@@ -41,6 +44,11 @@ function PixelPressable ({
 
   const grow = scaleAnim(1);
 
+  const pressOut = () => {
+    playSound(sound);
+    grow();
+  }
+
   if (typeof children === 'string') {
     children = <Text style={props.variant?.toLowerCase() === 'go' ? styles.goText : styles.innerText}>{children}</Text>
   }
@@ -60,7 +68,7 @@ function PixelPressable ({
         <Pressable
           style={styles.pressable}
           onPressIn={shrink}
-          onPressOut={grow}
+          onPressOut={pressOut}
           hitSlop={12}
           {...pressableProps}
         >
@@ -75,4 +83,4 @@ const mapStateToProps = state => ({
   screenDeviceWidth: state.userReducer.deviceWidth
 });
 
-export default connect(mapStateToProps)(PixelPressable);
+export default connect(mapStateToProps, { playSound })(PixelPressable);

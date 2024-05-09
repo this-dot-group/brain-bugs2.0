@@ -7,7 +7,6 @@ import PrivateGameModal from './Modals/PrivateGame';
 import StartGameModal from './Modals/StartGame';
 import { newOpponent, newGameCode } from '../../../store/userReducer';
 import { newGame } from '../../../store/gameInfoReducer';
-import { playSound } from '../../../store/soundsReducer'
 import { PixelPressable } from '../../Shared'
 import { Buttons, Typography } from '../../../styles';
 import SettingsDrawer from '../../Shared/SettingsDrawer/SettingsDrawer';
@@ -28,7 +27,6 @@ function StartScreen(props) {
     newGame,
     newGameCode,
     newOpponent,
-    playSound
   } = props;
 
   const styles = StyleSheet.create({
@@ -115,7 +113,6 @@ function StartScreen(props) {
   }, []);
 
   const handleModalChange = (modalVisible) => {
-    playSound('click')
     setModalVisible(modalVisible)
   }
 
@@ -174,6 +171,6 @@ const mapStateToProps = (state) => {
     screenDeviceWidth: state.userReducer.deviceWidth
   }
 }
-const mapDispatchToProps = { newOpponent, newGame, newGameCode, playSound }
+const mapDispatchToProps = { newOpponent, newGame, newGameCode }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartScreen)
