@@ -48,8 +48,6 @@ Josh:
             - Limit to the num needed
 - [ ] Come up with tests to run for chat
 
-
-
 New issues 
 - [ ] Cache the rest of the trivia questions? Maybe continually add questions to the server
     - I think that in production, the server would be making multiple requests at a time, causing server errors. There needs to be 5 seconds between each api request
