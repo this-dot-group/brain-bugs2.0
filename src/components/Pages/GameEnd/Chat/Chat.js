@@ -19,10 +19,7 @@ function Chat({
   socket,
   gameCode,
   user,
-  rematchPending,
-  handleNo,
-  handleYes,
-  rematchText,
+  quickHide,
   deviceWidth,
   socketId,
 }) {
@@ -92,19 +89,6 @@ function Chat({
       ...Typography.chatInputText[deviceWidth],
       zIndex: 2
     },
-    innerRematchText: {
-      ...Typography.rematchText[deviceWidth],
-      color: 'red',
-      marginTop: 'auto',
-      marginBottom: 'auto',
-      textAlign: 'center'
-    },
-    rematchHeadingText: {
-      ...Typography.rematchText[deviceWidth],
-      marginTop: 'auto',
-      marginBottom: 'auto',
-      textAlign: 'center'
-    },
     chatModalStyles: {
       backgroundColor: black.hex,
     },
@@ -145,6 +129,12 @@ function Chat({
       socket.off('newMessage', messageHandler);
     }
   }, [])
+
+  useEffect(() => {
+    if(quickHide) {
+      setShowChat(false)
+    }
+  }, [quickHide])
 
   const latestTimeHandler = latestTimeObj => {
     if(socketId in latestTimeObj) {
@@ -206,31 +196,6 @@ function Chat({
                 cb={hideModal}
                 style={{ marginBottom: 0 }}
               >
-                <Hider
-                  show={rematchPending}
-                >
-                  <View style={styles.yesNoButtonCont}>
-                    <View style={styles.gap}>
-                      <Text style={styles.rematchHeadingText}>{rematchText}</Text>
-                    </View>
-                    <View style={styles.gap}>
-                      <PixelPressable
-                        buttonStyle={{ width: 60, marginBottom: 10 }}
-                        pressableProps={{ onPress: handleYes }}
-                      >
-                        <Text style={styles.innerRematchText}>Yes</Text>
-                      </PixelPressable>
-                    </View>
-                    <View style={styles.gap}>
-                      <PixelPressable
-                        buttonStyle={{ width: 60, marginBottom: 10 }}
-                        pressableProps={{ onPress: handleNo }}
-                      >
-                        <Text style={styles.innerRematchText}>No</Text>
-                      </PixelPressable>
-                    </View>
-                  </View>
-                </Hider>
               </TitleBar>
             </View>
 
