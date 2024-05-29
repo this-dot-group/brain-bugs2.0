@@ -30,19 +30,22 @@ New issues
 
 Tia: 
 - [ ] Testing
-- [x] Change rematch to an alert?? Styling is weird
-- [ ] ~~Reorganize score on GameEnd to be more like name/score during GamePlay~~
-- [x] If your opponent leaves when you are on the chat screen, you don't get the alert (per react native, can't have multiple modals open at once. in a couple different cases i had to hid the chat modal first and then show other modal)
-- [ ] The "Your opponent declined your rematch.." message was going off the modal on my phone (couldn't repro)
+
 - [ ] Look into issue of too many requests from server (RangeError: Property storage exceeds 196607 properties, js engine: hermes)
   - this was introduced with RN upgrade to 72.1 ::face-palm:: 
   - hermes team is working on this but they don't have an expected patch date
   - sounds like its only an issue in development? interesting discussion: https://github.com/facebook/hermes/issues/851
   - i think it has to do with our animations and useNativeDriver (https://github.com/mananbordia/Minimal-Repro-Code-Hermes-useNativeDriver/tree/main)
-- DotGothic custom font didn't work, this fixed it rm -rf ./node_modules/expo/node_modules/expo-font/ (https://github.com/expo/expo/issues/5507)
+- hear from josh about custom font issue?
 - screen orientation doesnt lock on android
+  - on android it will show portrait, but you can't interact with anything. once it goes landscape you can. 
 - looks like i don't have to press Go on android, it just starts?
+  - the issue is on android the keyboard takes up the full screen, and the only way to get out of it is to press Go/(enter) which i think automatically triggers our Go btn
+  - TODO: switch branches to see if it's the same behavior before this work
 - first chat message goes over the X button
+- expo go no longer supports multiple SDK versions, they'll only support one. current expo go version supports SDK, so i had to update
+  - had to update node
+  - 
 
 ## Deploying
 ### Front End

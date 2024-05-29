@@ -20,13 +20,14 @@
       "supportsTablet": true,
       "requireFullScreen": true
     },
-    "plugins" : [
+    "plugins": [
       [
         "expo-screen-orientation",
         {
           "initialOrientation": "LANDSCAPE"
         }
-      ]
+      ],
+      "expo-font"
     ],
     "android": {
       "softwareKeyboardLayoutMode": "pan",
