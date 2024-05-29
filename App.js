@@ -32,6 +32,11 @@ export default function App() {
 
   const setOrientation = async () => {
     await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+
+    // this is additionally needed for android
+    await ScreenOrientation.lockPlatformAsync({ 
+      "screenOrientationConstantAndroid": 14
+    })
   }
 
   useEffect(() => {
