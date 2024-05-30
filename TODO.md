@@ -37,9 +37,10 @@ Tia:
   - sounds like its only an issue in development? interesting discussion: https://github.com/facebook/hermes/issues/851
   - i think it has to do with our animations and useNativeDriver (https://github.com/mananbordia/Minimal-Repro-Code-Hermes-useNativeDriver/tree/main)
 - hear from josh about custom font issue?
-- [ ] screen orientation doesnt lock on android
-  - look into REACT NATIVE way to fix this!!
-  - looks like it doesnt work on eas build anyway
+- [x] screen orientation doesnt lock on android
+  - looks like expo screen orientation doesnt work on eas build anyway
+  - added a mod to app.json to affect the AndroidManifest when we do an android build, that should hopefully lock orientation in landscape. needs to be tested once we get to build stage!!
+  - https://stackoverflow.com/questions/60400336/how-can-i-generate-an-androidmanifest-xml-from-an-existing-react-native-project
 - [ ] looks like i don't have to press Go on android, it just starts?
   - the issue is on android the keyboard takes up the full screen, and the only way to get out of it is to press Go/(enter) which i think automatically triggers our Go btn
   - TODO: switch branches to see if it's the same behavior before this work
