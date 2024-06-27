@@ -62,18 +62,25 @@ Idea
 
 Tia: 
 - [ ] Testing
-- [ ] Look into issue of too many requests from server (RangeError: Property storage exceeds 196607 properties, js engine: hermes)
+- [x] Look into issue of too many requests from server (RangeError: Property storage exceeds 196607 properties, js engine: hermes)
+  - TODO: look into this... not seeing this anymore??
   - this was introduced with RN upgrade to 72.1 ::face-palm:: 
   - hermes team is working on this but they don't have an expected patch date
   - sounds like its only an issue in development? interesting discussion: https://github.com/facebook/hermes/issues/851
   - i think it has to do with our animations and useNativeDriver (https://github.com/mananbordia/Minimal-Repro-Code-Hermes-useNativeDriver/tree/main)
-- hear from josh about custom font issue?
-- screen orientation doesnt lock on android
-  - on android it will show portrait, but you can't interact with anything. once it goes landscape you can. 
-- looks like i don't have to press Go on android, it just starts?
+- TODO: hear from josh about custom font issue?
+- [x] screen orientation doesnt lock on android
+  - looks like expo screen orientation doesnt work on eas build anyway
+  - added a mod to app.json to affect the AndroidManifest when we do an android build, that should hopefully lock orientation in landscape. needs to be tested once we get to build stage!!
+  - https://stackoverflow.com/questions/60400336/how-can-i-generate-an-androidmanifest-xml-from-an-existing-react-native-project
+- [ ] looks like i don't have to press Go on android, it just starts?
   - the issue is on android the keyboard takes up the full screen, and the only way to get out of it is to press Go/(enter) which i think automatically triggers our Go btn
   - TODO: switch branches to see if it's the same behavior before this work
-- first chat message goes over the X button
+- TODO: defaultProps issue: https://github.com/recharts/recharts/issues/3615
+- [x] first chat message goes over the X button
+- [x] expo go no longer supports multiple SDK versions, they'll only support one. current expo go version supports SDK, so i had to update
+  - had to upgrade node
+  - had to upgrade SDK 49 -> 50 -> 51
 
 ## Deploying
 ### Front End

@@ -10,6 +10,13 @@
       "resizeMode": "cover",
       "backgroundColor": "#23252E"
     },
+    "mods": {
+      "android": {
+        "manifest": {
+          "screenOrientation": "landscape"
+        }
+      }
+    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -20,13 +27,14 @@
       "supportsTablet": true,
       "requireFullScreen": true
     },
-    "plugins" : [
+    "plugins": [
       [
         "expo-screen-orientation",
         {
           "initialOrientation": "LANDSCAPE"
         }
-      ]
+      ],
+      "expo-font"
     ],
     "android": {
       "softwareKeyboardLayoutMode": "pan",

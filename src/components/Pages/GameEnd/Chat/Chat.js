@@ -14,6 +14,7 @@ import Badge from './Badge';
 import { Buttons, Typography } from '../../../../styles';
 import { useKeyboard } from '../../../../hooks';
 import { darkBackground, blue, yellow, black } from '../../../../styles/colors';
+import CloseModalButton from '../../../Shared/CloseModalButton';
 
 function Chat({
   socket,
@@ -56,8 +57,8 @@ function Chat({
       borderRadius: 10,
       paddingHorizontal: 8,
       overflow: 'hidden',
-      marginBottom: 2,
-      maxWidth: '50%'
+      marginBottom: 8,
+      maxWidth: '60%'
     },
     opponentMessages : {
       ...Typography.normalText[deviceWidth],
@@ -191,12 +192,14 @@ function Chat({
 
             <View
               pointerEvents={!keyboardActive ? 'auto' : 'none'}
+              style={{display: "flex", marginBottom: 8}}
             >
-              <TitleBar
-                cb={hideModal}
-                style={{ marginBottom: 0 }}
-              >
-              </TitleBar>
+              <CloseModalButton 
+                cb={hideModal} 
+                wrapperStyle={{
+                  alignSelf: "flex-end" 
+                }}
+              />
             </View>
 
             <View style={styles.content}>
