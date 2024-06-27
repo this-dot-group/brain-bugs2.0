@@ -7,10 +7,11 @@
 
 Josh:
 - [ ] Try to repro: The "Your opponent declined your rematch.." message was going off the modal on my phone
-- [ ] Pull fresh client, npm i, check if you see an error about custom font not working/bring loaded
-  - [ ] If so, this script fixes it: rm -rf ./node_modules/expo/node_modules/expo-font/
-  - [ ] info for context: (https://github.com/expo/expo/issues/5507)
-  - [ ] if you did run into this, we should add script to startup config
+- [x] Pull fresh client, npm i, check if you see an error about custom font not working/bring loaded
+  - [x] If so, this script fixes it: rm -rf ./node_modules/expo/node_modules/expo-font/
+  - [x] info for context: (https://github.com/expo/expo/issues/5507)
+  - [x] if you did run into this, we should add script to startup config
+    - [x] Added to `npm start` script
 
 - [ ] Add more sounds
   - [ ] List of Sounds Needed
@@ -19,7 +20,7 @@ Josh:
     - [ ] Ticking sound
     - [ ] Chat alert
     - [ ] Default dropdown select sound
-- [ ] Investigate/implement queue for server requests to trivia db
+- [x] Investigate/implement queue for server requests to trivia db
 - [x] Look into issue of too many requests from server
   - Caching plan
     - Make a db for the questions
@@ -48,7 +49,7 @@ Josh:
             - Limit to the num needed
 - [ ] Come up with tests to run for chat
 
-New issues 
+Idea 
 - [ ] Cache the rest of the trivia questions? Maybe continually add questions to the server
     - I think that in production, the server would be making multiple requests at a time, causing server errors. There needs to be 5 seconds between each api request
       - Pro: we could figure out which questions are valid ahead of time
