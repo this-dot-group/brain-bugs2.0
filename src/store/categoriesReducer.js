@@ -24,7 +24,7 @@ export const getCategories = () => {
         payload: categoryListArray,
       });
     } catch (e) {
-      console.error(e.response.data);
+      console.error(e);
     }
   };
 };
