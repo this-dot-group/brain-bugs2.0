@@ -6,18 +6,50 @@
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 Josh:
+- [ ] Try to repro: The "Your opponent declined your rematch.." message was going off the modal on my phone
+- [x] Pull fresh client, npm i, check if you see an error about custom font not working/bring loaded
+  - [x] If so, this script fixes it: rm -rf ./node_modules/expo/node_modules/expo-font/
+  - [x] info for context: (https://github.com/expo/expo/issues/5507)
+  - [x] if you did run into this, we should add script to startup config
+    - [x] Added to `npm start` script
+
 - [ ] Add more sounds
-  - [ ] Make a list of where there should be a sound where there isn't already
+  - [ ] List of Sounds Needed
     - [ ] Something when you press go to join a game or start a game
     - [ ] Something when the game starts
     - [ ] Ticking sound
-    - [ ] Chat alert 
-  - [ ] Add the sounds
-- [ ] Cache category list on server and on phone
-- [ ] Look into issue of too many requests from server
+    - [ ] Chat alert
+    - [ ] Default dropdown select sound
+- [x] Investigate/implement queue for server requests to trivia db
+- [x] Look into issue of too many requests from server
+  - Caching plan
+    - Make a db for the questions
+      - Should it be mongo or sql? Would relational database be more efficient for getting by category?
+      - Need to know how many questions of each category
+        - Maybe for some categories beneath a certain amount, like any category with less than 100 verified questions, we don't display that category, and just use those category questions in general knowledge quizzes
+    - Make a service that mines open trivia db for questions
+      - Every few minutes we could ask for 50 more questions
+      - We should move the filtering and modifying of questions here, before we add them to the db. Maybe even make it so we have to do less on the from end.
+      - If the question is not already in the db, and it matches our pattern, we add it
+        - I think we could still add the question even if it doesn't match the pattern, and maybe have a db field like `valid: false`
+      - We can check the `total_num_of_verified_questions` at `/api_count_global.php`
+      - If the amount is greater than the number of questions we have, we continue requesting for more
+      - Otherwise, we will check every so often if there are new questions
+    - On the server
+      - When a new game is started, fetch questions from our db
+        - Is there an easy way to get a random set of questions?
+      - Use memory cache to keep track of each question a person has seen
+        - We could create a token to use as the `key`
+        - We could keep track of the category count, so we know how many are left in each category as well for each player
+        - When a question is sent to a player, it gets added to the cache as a question they have seen, and we can set the cache to refresh after a certain amount of time
+        - the request would be something like
+          - find questions where
+            - question does not equal any in the cache for the token of the requester
+            - question is valid
+            - Limit to the num needed
 - [ ] Come up with tests to run for chat
 
-New issues 
+Idea 
 - [ ] Cache the rest of the trivia questions? Maybe continually add questions to the server
     - I think that in production, the server would be making multiple requests at a time, causing server errors. There needs to be 5 seconds between each api request
       - Pro: we could figure out which questions are valid ahead of time

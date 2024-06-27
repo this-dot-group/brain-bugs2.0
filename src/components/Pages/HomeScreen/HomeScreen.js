@@ -18,7 +18,6 @@ import { useKeyboard } from '../../../hooks/index.js';
 
 import { newSocket } from '../../../store/socketReducer.js';
 import { newFakeOpponent } from '../../../store/fakeOpponentSocketReducer.js';
-import { playSound } from '../../../store/soundsReducer.js';
 import { newUsername, newGameCode, newSocketId, newToken, deviceWidth } from '../../../store/userReducer.js';
 
 import { EXPO_PUBLIC_API_URL } from '../../../../env.js';
@@ -36,7 +35,6 @@ function Homescreen(props) {
     newToken, 
     newUsername, 
     screenDeviceWidth, 
-    playSound,
     username,
   } = props;
 
@@ -104,7 +102,6 @@ function Homescreen(props) {
 
   const handleGo = async () => {
     newUsername(formUsername);
-    await playSound('flute');
     setToLobby(true)
   }
 
@@ -158,6 +155,7 @@ function Homescreen(props) {
                   height: 46,
                   marginLeft: 16,
                 }}
+                sound="flute"
                 pressableProps={{
                   onPress: handleGo,
                   disabled: !validUsername,
@@ -184,6 +182,6 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = { newUsername, newSocket, newGameCode, newFakeOpponent, playSound, newSocketId, newToken, deviceWidth }
+const mapDispatchToProps = { newUsername, newSocket, newGameCode, newFakeOpponent, newSocketId, newToken, deviceWidth }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homescreen);

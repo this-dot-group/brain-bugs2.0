@@ -4,17 +4,24 @@ import { View, StyleSheet, ScrollView } from 'react-native'
 import { Redirect } from 'react-router-native';
 import { newGame, numQuestions, numPlayers, newCategory, publicOrPrivate } from '../../../../store/gameInfoReducer';
 import { newOpponent } from '../../../../store/userReducer';
+import { getCategories } from '../../../../store/categoriesReducer';
 import { QUESTION_DROPDOWN_CHOICES } from '../../../../../config';
 import { PixelButton, GenericModal, DropdownMenu, Hider, TitleBar, PixelPressable } from '../../../Shared';
 
-import he from 'he';
 import { Buttons } from '../../../../styles'
-import { EXPO_PUBLIC_API_URL } from '../../../../../env'
 
-import axios from 'axios';
-
-function StartGame(props) {
-  const [categoryList, setCategoryList] = useState([]);
+function StartGame({
+  screenDeviceWidth,
+  gameInfo,
+  modalVisible,
+  setModalVisible,
+  newCategory,
+  numQuestions,
+  numPlayers: numPlayersStoreUpdate,
+  publicOrPrivate,
+  getCategories,
+  categories,
+}) {
   const [numPlayers, setNumPlayers] = useState(1);
   const [showGo, setShowGo] = useState(false);
   const [redirect, setRedirect] = useState(null);
@@ -32,10 +39,10 @@ function StartGame(props) {
       height: '100%',
     },
     optionBtns: {
-      ...Buttons.createGameListOptionBtns[props.screenDeviceWidth],
+      ...Buttons.createGameListOptionBtns[screenDeviceWidth],
     },
     dropDownView: {
-      ...Buttons.dropdownBtns[props.screenDeviceWidth],
+      ...Buttons.dropdownBtns[screenDeviceWidth],
     },
     goRow: {
       flexDirection: 'row',
@@ -49,44 +56,31 @@ function StartGame(props) {
 
 
   useEffect(() => {
-    (async () => {
-      try {
-        const categories = await axios.get(`${EXPO_PUBLIC_API_URL}/categories`);
-        let categoryListArray = categories.data.map(category => {
-          return {
-            label: he.decode(category.name),
-            value: category.id
-          }
-        })
-        setCategoryList(categoryListArray);
-      } catch (e) {
-        console.error('ERROR IN STARTGAME:', e);
-      }
-    })()
+    getCategories();
   }, []);
 
   useEffect(() => {
     const goButtonStatus = ['numPlayers', 'category', 'numQuestions', 'publicOrPrivate'].reduce((acc, prop) => {
-      if (prop === 'publicOrPrivate' && props.gameInfo.numPlayers === 1) {
+      if (prop === 'publicOrPrivate' && gameInfo.numPlayers === 1) {
         return acc;
       }
-      return props.gameInfo[prop] ? acc : false
+      return gameInfo[prop] ? acc : false
     }, true);
     setShowGo(goButtonStatus)
   }, [
-    props.gameInfo.numPlayers,
-    props.gameInfo.category,  
-    props.gameInfo.numQuestions,
-    props.gameInfo.publicOrPrivate,
+    gameInfo.numPlayers,
+    gameInfo.category,  
+    gameInfo.numQuestions,
+    gameInfo.publicOrPrivate,
   ]);
 
   if (redirect) return <Redirect to="/waitingroom" />
 
   return (
-    <GenericModal visible={props.modalVisible === 'start'} disableBackground>
+    <GenericModal visible={modalVisible === 'start'} disableBackground>
       <TitleBar
-        cb={() => props.setModalVisible(null)}
-        deviceSize={props.screenDeviceWidth}
+        cb={() => setModalVisible(null)}
+        deviceSize={screenDeviceWidth}
       >
         Create a Game
       </TitleBar>
@@ -99,14 +93,14 @@ function StartGame(props) {
           <PixelButton
             buttonStyle={styles.optionBtns}>
             <DropdownMenu
-              items={categoryList}
+              items={categories}
               title="Select a Category"
-              screenDeviceWidth={props.screenDeviceWidth}
+              screenDeviceWidth={screenDeviceWidth}
               cb={(item) => {
-                props.newCategory({ name: item.label, id: item.value });
+                newCategory({ name: item.label, id: item.value });
               }}
-              selected={props.gameInfo.category?.id || null}
-              loading={categoryList.length === 0}
+              selected={gameInfo.category?.id || null}
+              loading={categories.length === 0}
             />
           </PixelButton>
         </View>
@@ -117,11 +111,11 @@ function StartGame(props) {
             <DropdownMenu
               items={QUESTION_DROPDOWN_CHOICES}
               title="Number of Questions"
-              screenDeviceWidth={props.screenDeviceWidth}
+              screenDeviceWidth={screenDeviceWidth}
               cb={(item) => {
-                props.numQuestions(item.value);
+                numQuestions(item.value);
               }}
-              selected={props.gameInfo.numQuestions || null}
+              selected={gameInfo.numQuestions || null}
             />
           </PixelButton>
         </View>
@@ -135,12 +129,12 @@ function StartGame(props) {
                 { label: 'Two', value: 2 }
               ]}
               title='Number of Players'
-              screenDeviceWidth={props.screenDeviceWidth}
+              screenDeviceWidth={screenDeviceWidth}
               cb={item => {
-                props.numPlayers(item.value);
+                numPlayersStoreUpdate(item.value);
                 setNumPlayers(item.value);
               }}
-              selected={props.gameInfo.numPlayers || null}
+              selected={gameInfo.numPlayers || null}
             />
           </PixelButton>
         </View>
@@ -157,11 +151,11 @@ function StartGame(props) {
                   { label: 'Private', value: 'private' }
                 ]}
                 title='Public or Private?'
-                screenDeviceWidth={props.screenDeviceWidth}
+                screenDeviceWidth={screenDeviceWidth}
                 cb={item => {
-                  props.publicOrPrivate(item.value);
+                  publicOrPrivate(item.value);
                 }}
-                selected={props.gameInfo.publicOrPrivate || null}
+                selected={gameInfo.publicOrPrivate || null}
               />
             </PixelButton>
           </View>
@@ -190,7 +184,8 @@ const mapStateToProps = (state) => {
     socket: state.socketReducer,
     gameCode: state.userReducer.gameCode,
     gameInfo: state.gameInfoReducer,
-    screenDeviceWidth: state.userReducer.deviceWidth
+    screenDeviceWidth: state.userReducer.deviceWidth,
+    categories: state.categoriesReducer,
   }
 }
 const mapDispatchToProps = {
@@ -199,7 +194,8 @@ const mapDispatchToProps = {
   numPlayers,
   newCategory,
   publicOrPrivate,
-  newOpponent
+  newOpponent,
+  getCategories
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartGame)
