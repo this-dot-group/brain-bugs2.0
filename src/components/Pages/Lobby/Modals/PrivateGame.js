@@ -124,6 +124,7 @@ function PrivateGame({
         >
           <PixelPressable
             variant="go"
+            sound="flute"
             pressableProps={{
               onPress: () => socket.emit('joinTwoPlayer', [gameCode, username])
             }}

@@ -2,8 +2,10 @@ import React, { useEffect, useRef } from 'react';
 import { StyleSheet } from 'react-native';
 import { Text } from 'react-native';
 import { Typography } from '../../../styles'
+import { playSound } from '../../../store/soundsReducer';
+import { connect } from 'react-redux';
 
-function Countdown({seconds, setSeconds, go, setGo, style, deviceWidth}) {
+function Countdown({seconds, setSeconds, go, setGo, style, deviceWidth, playSound }) {
 
   const getStyles = (style = {}) => StyleSheet.create({
     countdownText: {
@@ -44,6 +46,9 @@ function Countdown({seconds, setSeconds, go, setGo, style, deviceWidth}) {
           timeLeft = false;
           return 0;
         }
+        if (Math.ceil(newTime/1000) !== Math.ceil(sec/1000)) {
+          playSound('tick');
+        }
         return newTime;
       });
     }
@@ -71,4 +76,4 @@ function Countdown({seconds, setSeconds, go, setGo, style, deviceWidth}) {
 
 }
 
-export default Countdown;
+export default connect(() => ({}), { playSound })(Countdown);

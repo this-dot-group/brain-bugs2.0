@@ -168,6 +168,7 @@ function StartGame({
         >
           <PixelPressable
             variant="go"
+            sound="flute"
             pressableProps={{
               onPress: () => setRedirect(true)
             }}

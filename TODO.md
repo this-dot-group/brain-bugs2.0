@@ -6,16 +6,18 @@
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 Josh:
-- [ ] Try to repro: The "Your opponent declined your rematch.." message was going off the modal on my phone
+- [x] Try to repro: The "Your opponent declined your rematch.." message was going off the modal on my phone
+  - [x] Reduced text - thought about changing styles, but it's a shared component, and did not want to unintentionally impact other areas of the app
 - [ ] Think about sounds only if there's a spot that needs it, ideas below:
   - [ ] List of Sounds Needed
-    - [ ] Something when you press go to join a game or start a game
-    - [ ] Something when the game starts
-    - [ ] Ticking sound
+    - [x] Something when you press go to join a game or start a game
+    - [x] Something when the game starts
+    - [x] Ticking sound
     - [ ] Chat alert
-    - [ ] Default dropdown select sound
+    - [x] Default dropdown select sound
 - [ ] Come up with tests to run for chat
-- [ ] Testing across the app for bugs 
+- [x] Testing across the app for bugs
+  - [ ] In chat, on sim, the text input does not clear when a message is sent
 
 Tia: 
 - [x] Testing different user scenarios across the app

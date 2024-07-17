@@ -42,12 +42,13 @@ function PixelPressable ({
 
   const shrink = scaleAnim(.9);
 
-  const grow = scaleAnim(1);
-
-  const pressOut = () => {
-    playSound(sound);
-    grow();
+  const onPressIn = () => {
+    if (sound) {
+      playSound(sound);
+    }
+    shrink();
   }
+  const grow = scaleAnim(1);
 
   if (typeof children === 'string') {
     children = <Text style={props.variant?.toLowerCase() === 'go' ? styles.goText : styles.innerText}>{children}</Text>
@@ -67,8 +68,8 @@ function PixelPressable ({
       <PixelButton {...props}>
         <Pressable
           style={styles.pressable}
-          onPressIn={shrink}
-          onPressOut={pressOut}
+          onPressIn={onPressIn}
+          onPressOut={grow}
           hitSlop={12}
           {...pressableProps}
         >
