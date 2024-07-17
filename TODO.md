@@ -20,7 +20,7 @@ Josh:
 Tia: 
 - [ ] Testing different user scenarios across the app
 - [ ] Still seeing error re defaultProps issue: https://github.com/recharts/recharts/issues/3615
-- [ ] Remove FE 5 second api timeout (now that josh did the work for that in the BE) 
+- [x] Remove FE 5 second api timeout (now that josh did the work for that in the BE) 
   
 
 ## Deploying
