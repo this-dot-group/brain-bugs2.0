@@ -18,9 +18,22 @@ Josh:
 - [ ] Testing across the app for bugs 
 
 Tia: 
-- [ ] Testing different user scenarios across the app
-- [ ] Still seeing error re defaultProps issue: https://github.com/recharts/recharts/issues/3615
-- [ ] Remove FE 5 second api timeout (now that josh did the work for that in the BE) 
+- [x] Testing different user scenarios across the app
+  - Go btn misaligned on create game screen (or maybe text not centered in btn)
+  - error around the time i copied pivate game code -  ERROR  [Error: expo.modules.av.AudioFocusNotAcquiredException: This experience is currently in the background, so audio focus could not be acquired.]
+  - "Join Existing Game" should be "Join Public Game" or something like that
+  - Go btn on Join Private game is misaligned
+  - Cursor is not vertically centered in chat compose text box (at least on iPhone)
+  - If user declines rematch, alert says something "Your opponent declined your rematch request, please find another challenger" and btn says "Ok", it's a little confusing to still be on end game. Should update the language in the alert. Maybe just take out "please find another challenger"? Makes it sound like you're gonna go straight back to lobby.
+  - If one of the players leaves end game, the other play can still access chat and still type out and try to send a message. but the message doesn't actually send. Should the text box input be disabled? Something to indicate you can no longer send a chat / opponent will not receive it
+  - Join private game - when you type the game code in and get to 5 digits, field is disabled and you can no longer edit. What if you typed wrong code? 
+  - Need to update seconds on game play questions
+  - We should take the "Quit" button off the countdown screen that you see right before going to a game. Doesn't work and it's too little time to really read it and interact.
+  - Stats screen need a spacer of some sort between title and stat (colon, dash, etc)
+  - No sounds when the app starts (like during create a game), UNTIL you interact with the settings drawer...?
+- [x] Still seeing error re defaultProps issue: "Warning: NativeRouter: Support for defaultProps will be removed from function components in a future major release. Use JavaScript default parameters instead"
+  - caused by react-router-native, uses defaultProps within node modules (React 19 is deprecating defaultProps, not sure we need to worry about this)
+- [x] Remove FE 5 second api timeout (now that josh did the work for that in the BE) 
   
 
 ## Deploying
@@ -72,7 +85,7 @@ For Future
 - Works with both Game Maker and Game Joiner 
 
   - Two Player, private code
-    - phone makes code, sim joins (OK)
+    - phone makes code, sim joins (OK) 
         - phone asks for rematch, sim says yes (OK)
         - phone asks for rematch, sim says no (OK)
         - sim asks for rematch, phone says yes (OK)
