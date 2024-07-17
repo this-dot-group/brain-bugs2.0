@@ -79,6 +79,7 @@ function JoinGame(props) {
         {props.gamesWaiting.map((gameObj, i) =>
           <PixelPressable
             key={i}
+            sound="flute"
             buttonStyle={{
               width: width - 140,
               marginLeft: 'auto',

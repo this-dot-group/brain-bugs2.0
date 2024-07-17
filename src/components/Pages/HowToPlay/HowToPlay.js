@@ -20,7 +20,7 @@ function HowToPlay(props) {
   const [backToLobby, setBackToLobby] = useState(false);
   const [openAlert_OpponentLeft, setOpenAlert_OpponentLeft] = useState(false);
 
-  const { username, opponent, socket, gameCode, screenDeviceWidth } = props;
+  const { username, opponent, socket, gameCode, screenDeviceWidth, playSound } = props;
 
   const styles = StyleSheet.create({
     root: {
@@ -73,6 +73,7 @@ function HowToPlay(props) {
     if(seconds === 0) {
       setGoCountdown(false);
       setGoToGame(true);
+      playSound('start');
     }
     socket.on('opponentLeftRoom', showOpponentLeftAlert);
     socket.on('opponentLeftDuringGame', showOpponentLeftAlert);

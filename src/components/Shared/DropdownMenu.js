@@ -6,9 +6,11 @@ import { darkBackgroundLighterShade, brightGreen } from '../../styles/colors';
 import Spinner from './Spinner';
 import CloseModalButton from './CloseModalButton';
 import { useSafeArea } from '../../hooks';
+import { playSound } from '../../store/soundsReducer';
+import { connect } from 'react-redux';
 
 function DropdownMenu(props) {
-  const { items, selected, cb, title, loading, screenDeviceWidth } = props;
+  const { items, selected, cb, title, loading, screenDeviceWidth, playSound } = props;
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(value || null);
   const { width, height, top, bottom } = useSafeArea(); 
@@ -53,6 +55,11 @@ function DropdownMenu(props) {
     if(i % 2) items[i].containerStyle = { backgroundColor: darkBackgroundLighterShade.hex }
   }
 
+  const handleOpen = (val) => {
+    playSound('click');
+    setOpen(val);
+  }
+
   return (
     <DropDownPicker
       style={styles.root}
@@ -64,7 +71,7 @@ function DropdownMenu(props) {
       multiple={false}
       listMode="MODAL"
       open={open}
-      setOpen={setOpen}
+      setOpen={handleOpen}
       value={value || selected}
       setValue={setValue}
       onSelectItem={cb}
@@ -90,4 +97,4 @@ function DropdownMenu(props) {
   );
 }
 
-export default DropdownMenu;
+export default connect(() => ({}), { playSound })(DropdownMenu);

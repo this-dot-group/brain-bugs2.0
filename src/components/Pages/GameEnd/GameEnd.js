@@ -352,7 +352,6 @@ function GameEnd({
         copy={
           <Text style={styles.alertText}>
             Your opponent declined your rematch request.
-            Please find another challenger.
           </Text>
         }
         buttons={
