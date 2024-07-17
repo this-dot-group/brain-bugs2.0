@@ -6,36 +6,26 @@
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 Josh:
-- [x] Try to repro: The "Your opponent declined your rematch.." message was going off the modal on my phone
-  - [x] Reduced text - thought about changing styles, but it's a shared component, and did not want to unintentionally impact other areas of the app
-- [ ] Think about sounds only if there's a spot that needs it, ideas below:
-  - [ ] List of Sounds Needed
-    - [x] Something when you press go to join a game or start a game
-    - [x] Something when the game starts
-    - [x] Ticking sound
-    - [ ] Chat alert
-    - [x] Default dropdown select sound
+- [ ] Chat alert sound
 - [ ] Come up with tests to run for chat
-- [x] Testing across the app for bugs
-  - [ ] In chat, on sim, the text input does not clear when a message is sent
+- [ ] "Join Existing Game" should be "Join Public Game" or something like that
+- [ ] Cursor is not vertically centered in chat compose text box (at least on iPhone)
+- [ ] If one of the players leaves end game, the other play can still access chat and still type out and try to send a message. but the message doesn't actually send. Should the text box input be disabled? Something to indicate you can no longer send a chat / opponent will not receive it
+- [ ] Need to update seconds on game play questions
+- [ ] We should take the "Quit" button off the countdown screen that you see right before going to a game. Doesn't work and it's too little time to really read it and interact.
+- [ ] Stats screen need a spacer of some sort between title and stat (colon, dash, etc
+
 
 Tia: 
-- [x] Testing different user scenarios across the app
-  - Go btn misaligned on create game screen (or maybe text not centered in btn)
-  - error around the time i copied pivate game code -  ERROR  [Error: expo.modules.av.AudioFocusNotAcquiredException: This experience is currently in the background, so audio focus could not be acquired.]
-  - "Join Existing Game" should be "Join Public Game" or something like that
-  - Go btn on Join Private game is misaligned
-  - Cursor is not vertically centered in chat compose text box (at least on iPhone)
-  - If user declines rematch, alert says something "Your opponent declined your rematch request, please find another challenger" and btn says "Ok", it's a little confusing to still be on end game. Should update the language in the alert. Maybe just take out "please find another challenger"? Makes it sound like you're gonna go straight back to lobby.
-  - If one of the players leaves end game, the other play can still access chat and still type out and try to send a message. but the message doesn't actually send. Should the text box input be disabled? Something to indicate you can no longer send a chat / opponent will not receive it
-  - Join private game - when you type the game code in and get to 5 digits, field is disabled and you can no longer edit. What if you typed wrong code? 
-  - Need to update seconds on game play questions
-  - We should take the "Quit" button off the countdown screen that you see right before going to a game. Doesn't work and it's too little time to really read it and interact.
-  - Stats screen need a spacer of some sort between title and stat (colon, dash, etc)
-  - No sounds when the app starts (like during create a game), UNTIL you interact with the settings drawer...?
-- [x] Still seeing error re defaultProps issue: "Warning: NativeRouter: Support for defaultProps will be removed from function components in a future major release. Use JavaScript default parameters instead"
-  - caused by react-router-native, uses defaultProps within node modules (React 19 is deprecating defaultProps, not sure we need to worry about this)
-- [x] Remove FE 5 second api timeout (now that josh did the work for that in the BE) 
+- [ ] No sounds when the app starts (like during create a game), UNTIL you interact with the settings drawer...?
+- [ ] Join private game - when you type the game code in and get to 5 digits, field is disabled and you can no longer edit. What if you typed wrong code?
+   - [ ] Test with invalid code as well
+- [ ] Go btn misaligned on create game screen (or maybe text not centered in btn)
+- [ ] Go btn on Join Private game is misaligned
+- [ ] error around the time i copied pivate game code -  ERROR  [Error: expo.modules.av.AudioFocusNotAcquiredException: This experience is currently in the background, so audio focus could not be acquired.]
+
+
+
   
 
 ## Deploying
