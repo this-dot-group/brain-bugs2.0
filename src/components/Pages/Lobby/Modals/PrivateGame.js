@@ -29,12 +29,14 @@ function PrivateGame({
   const styles = StyleSheet.create({
     alertText: {
       ...Typography.alertText[screenDeviceWidth],
+      fontFamily: 'VT323',
     },
     goRow: {
       flexDirection: 'row',
       alignSelf: 'flex-end',
       paddingHorizontal: 10,
-      position: 'relative',
+      position: 'absolute',
+      bottom: 60,
     },
     goRowInner: {
       position: 'absolute',
@@ -46,9 +48,14 @@ function PrivateGame({
       width: '50%',
       alignSelf: 'center',
       paddingHorizontal: 0,
+      height: '40%'
     },
     input: {
       borderBottomColor: brightGreen.hex,
+      position: 'absolute',
+      bottom: 0,
+      height: '40%',
+      width: '100%'
     },
     inputText: {
       ...Typography.inputText[screenDeviceWidth],
@@ -63,7 +70,7 @@ function PrivateGame({
     setTimeout(() => {
       setGameCodeState(gameCodeStates.INVALID_CODE);
       setGameCode('');
-    }, 1500);
+    }, 2 * 1000);
   }
 
   useEffect(() => {
@@ -104,7 +111,7 @@ function PrivateGame({
         onChangeText={setGameCode}
         maxLength={5}
         value={gameCode}
-        disabled={gameCodeState === gameCodeStates.SHOW_GO}
+        // disabled={gameCodeState === gameCodeStates.SHOW_GO}
         placeholderTextColor={yellow.hex}
         style={styles.inputText}
         containerStyle={styles.inputContainer}
