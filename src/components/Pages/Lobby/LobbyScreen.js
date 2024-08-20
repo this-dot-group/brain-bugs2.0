@@ -135,7 +135,7 @@ function StartScreen(props) {
       <PixelPressable
         buttonStyle={styles.optionBtns}
         pressableProps={{ onPress: () => handleModalChange('join') }}
-      >Join Existing Game</PixelPressable>
+      >Join Public Game</PixelPressable>
       <JoinGameModal
         setModalVisible={handleModalChange}
         modalVisible={modalVisible}

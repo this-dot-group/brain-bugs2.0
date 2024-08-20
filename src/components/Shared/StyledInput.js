@@ -8,8 +8,8 @@ const getStyles = style =>  StyleSheet.create({
     borderColor: black.hex,
     borderWidth: 2,
     borderRadius: 10,
+    height: '100%',
     padding: 10,
-    paddingTop: style.padding || style.paddingVertical || 10,
     ...style
   },
 })

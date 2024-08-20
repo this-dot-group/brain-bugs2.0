@@ -2,10 +2,8 @@ import { View, Text, StyleSheet, ScrollView, Modal } from 'react-native';
 import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import {
-  TitleBar,
   StyledInput,
   KeyboardAvoidingComponent,
-  Hider,
   PixelPressable,
   Overlay,
   SafeViewAllDevices,
@@ -82,12 +80,14 @@ function Chat({
     form: {
       flexDirection: 'row',
       width: '100%',
-      alignItems: 'flex-end',
+      alignItems: 'center',
       height: '100%',
       zIndex: 2
     },
     input: {
       ...Typography.chatInputText[deviceWidth],
+      paddingHorizontal: 10,
+      paddingVertical: 5,
       zIndex: 2
     },
     chatModalStyles: {

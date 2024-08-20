@@ -8,12 +8,22 @@
 Josh:
 - [ ] Chat alert sound
 - [ ] Come up with tests to run for chat
-- [ ] "Join Existing Game" should be "Join Public Game" or something like that
-- [ ] Cursor is not vertically centered in chat compose text box (at least on iPhone)
+ - [ ] Send 
+- [x] "Join Existing Game" should be "Join Public Game" or something like that
+- [x] Cursor is not vertically centered in chat compose text box (at least on iPhone)
 - [ ] If one of the players leaves end game, the other play can still access chat and still type out and try to send a message. but the message doesn't actually send. Should the text box input be disabled? Something to indicate you can no longer send a chat / opponent will not receive it
-- [ ] Need to update seconds on game play questions
-- [ ] We should take the "Quit" button off the countdown screen that you see right before going to a game. Doesn't work and it's too little time to really read it and interact.
-- [ ] Stats screen need a spacer of some sort between title and stat (colon, dash, etc
+  - [ ] Tried to reproduce - alert comes up when opponent closes or goes to lobby and chat button dissappears
+    - [ ] With chat open
+    - [ ] With text in chat
+    - [ ] If app crashes on one end - this happens
+- [x] Need to update seconds on game play questions
+- [x] We should take the "Quit" button off the countdown screen that you see right before going to a game. Doesn't work and it's too little time to really read it and interact.
+- [x] Stats screen need a spacer of some sort between title and stat (colon, dash, etc
+
+- [ ] Chat modal not covering whole back
+- [ ] Numeric input for private game
+- [ ] Invalid code flashed for private game
+- [ ] Property storage exceeds 196607 properties error
 
 
 Tia: 
