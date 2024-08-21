@@ -6,24 +6,24 @@
  - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
 
 Josh:
-- [ ] Chat alert sound
-- [ ] Come up with tests to run for chat
- - [ ] Send 
+- [x] Chat alert sound
+- [x] Come up with tests to run for chat
 - [x] "Join Existing Game" should be "Join Public Game" or something like that
 - [x] Cursor is not vertically centered in chat compose text box (at least on iPhone)
 - [ ] If one of the players leaves end game, the other play can still access chat and still type out and try to send a message. but the message doesn't actually send. Should the text box input be disabled? Something to indicate you can no longer send a chat / opponent will not receive it
   - [ ] Tried to reproduce - alert comes up when opponent closes or goes to lobby and chat button dissappears
-    - [ ] With chat open
-    - [ ] With text in chat
-    - [ ] If app crashes on one end - this happens
+    - [x] With chat open - Good
+    - [x] With text in chat - Good
+    - [ ] If app crashes on one end - This is where it fails. We aren't sending something to the server on a general crash
 - [x] Need to update seconds on game play questions
 - [x] We should take the "Quit" button off the countdown screen that you see right before going to a game. Doesn't work and it's too little time to really read it and interact.
 - [x] Stats screen need a spacer of some sort between title and stat (colon, dash, etc
 
-- [ ] Chat modal not covering whole back
+New:
+- [x] Chat modal not covering whole back
 - [ ] Numeric input for private game
 - [ ] Invalid code flashed for private game
-- [ ] Property storage exceeds 196607 properties error
+- [ ] Property storage exceeds 196607 properties error ?? No idea ?? Async Storage related?
 
 
 Tia: 
@@ -121,6 +121,16 @@ For Future
     - Back to lobby
       - shows Alert, removes chat and rematch buttons ()
 
+### Chat Tests
+  - If chat screen is open, and a rematch comes in, rematch alert shows 
+  - Red badge should show up
+    - If you haven't opened the chat yet
+    - If a message comes after you close the chat
+  - Red badge should not show up
+    - If you close the modal after receiving a message
+    - When the rematch alert closes the modal
+  - Chat bubbles are on their correct side. (This depends on the socket id, so may not work after code refresh)
+  - Input should clear on send - doesn't seem to work on sim
 
 Co-authored-by: Tia Low <lowtia@gmail.com>
 Co-authored-by: Josh Williams <joshuasrwilliams@gmail.com>
