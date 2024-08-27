@@ -263,17 +263,14 @@ export const chatInputText = {
   small: {
     ...chatInputTextBase,
     fontSize: 18,
-    height: 40
   },
   medium: {
     ...chatInputTextBase,
     fontSize: 22,
-    height: 46
   },
   large: {
     ...chatInputTextBase,
     fontSize: 24,
-    height: 46
   }
 }
 

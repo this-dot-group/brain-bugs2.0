@@ -15,7 +15,8 @@ function StatsModal({ visible, setVisible, deviceSize, stats }) {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      marginHorizontal: 'auto'
+      marginHorizontal: 'auto',
+      width: '100%',
     },
     listText: {
       ...Typography.normalText[deviceSize],

@@ -2,10 +2,8 @@ import { View, Text, StyleSheet, ScrollView, Modal } from 'react-native';
 import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import {
-  TitleBar,
   StyledInput,
   KeyboardAvoidingComponent,
-  Hider,
   PixelPressable,
   Overlay,
   SafeViewAllDevices,
@@ -15,6 +13,7 @@ import { Buttons, Typography } from '../../../../styles';
 import { useKeyboard } from '../../../../hooks';
 import { darkBackground, blue, yellow, black } from '../../../../styles/colors';
 import CloseModalButton from '../../../Shared/CloseModalButton';
+import { playSound } from '../../../../store/soundsReducer';
 
 function Chat({
   socket,
@@ -23,6 +22,7 @@ function Chat({
   quickHide,
   deviceWidth,
   socketId,
+  playSound
 }) {
   const [messages, setMessages] = useState([]);
   const [currMessage, setCurrMesssage] = useState('');
@@ -65,10 +65,6 @@ function Chat({
       alignSelf: 'flex-start',
       backgroundColor: blue.hex,
     },
-    overlay: {
-      left: -20,
-      top: -20
-    },
     content: {
       position: 'relative',
       flex: 1,
@@ -82,12 +78,14 @@ function Chat({
     form: {
       flexDirection: 'row',
       width: '100%',
-      alignItems: 'flex-end',
+      alignItems: 'center',
       height: '100%',
       zIndex: 2
     },
     input: {
       ...Typography.chatInputText[deviceWidth],
+      paddingHorizontal: 10,
+      paddingVertical: 5,
       zIndex: 2
     },
     chatModalStyles: {
@@ -134,6 +132,8 @@ function Chat({
   useEffect(() => {
     if(quickHide) {
       setShowChat(false)
+      setLatestTime(Date.now());
+      socket.emit('setUserLatestTime', socketId);
     }
   }, [quickHide])
 
@@ -144,6 +144,11 @@ function Chat({
   }
   
   const messageHandler = updatedChatObj => {
+    const lastMessage = updatedChatObj.messages.at(-1);
+    if (lastMessage.userId !== socketId) {
+      playSound('positiveTone');
+
+    }
     setLatestTime(updatedChatObj.latestTime[socketId]);
     setMessages(updatedChatObj.messages);
   }
@@ -187,7 +192,6 @@ function Chat({
             <Overlay
               active={keyboardActive}
               onPress={hideKeyboard}
-              style={styles.overlay}
             />
 
             <View
@@ -273,4 +277,4 @@ const mapStateToProps = state => ({
   socketId: state.userReducer.socketId,
 })
 
-export default connect(mapStateToProps)(Chat);
+export default connect(mapStateToProps, { playSound })(Chat);

@@ -58,11 +58,6 @@ function HowToPlay(props) {
     setOpenAlert_OpponentLeft(true);
   }
 
-  const handleQuit = () => {
-    socket.emit('leaveRoom');
-    setBackToLobby(true);
-  }
-
   const handleBackToLobby = () => {
     setOpenAlert_OpponentLeft(false);
     socket.emit('cancelGame');
@@ -125,13 +120,6 @@ function HowToPlay(props) {
         />
 
         <CrawlingBugs num={4} />
-
-        <View style={styles.topRow}>
-          <PixelPressable
-            buttonStyle={styles.howToPlayBtn}
-            pressableProps={{ onPress: handleQuit }}
-          >Quit</PixelPressable>
-        </View>
 
         <View style={styles.body}>
           <Text style={styles.names}>{username} {opponent && `vs ${opponent}`}</Text>
