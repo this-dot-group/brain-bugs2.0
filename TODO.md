@@ -17,11 +17,13 @@ Josh:
 
 
 Tia: 
-- [ ] No sounds when the app starts (like during create a game), UNTIL you interact with the settings drawer...?
-- [ ] Join private game - when you type the game code in and get to 5 digits, field is disabled and you can no longer edit. What if you typed wrong code?
-   - [ ] Test with invalid code as well
-- [ ] Go btn misaligned on create game screen (or maybe text not centered in btn)
-- [ ] Go btn on Join Private game is misaligned
+- [x] No sounds when the app starts (like during create a game), UNTIL you interact with the settings drawer...?
+  - not the issue i thought it was, seems like it just takes a sec for sounds to load so you might not hear them until you've interacted with a couple things. this might not be the case while deployed (my phone sucks). although it appears there's no sound on sim, did josh experience this too?
+- [x] Join private game - when you type the game code in and get to 5 digits, field is disabled and you can no longer edit. What if you typed wrong code?
+   - [x] Test with invalid code as well
+   - [x] Ended up just removing the disabled state for this field, think that's a bit more clear in combination with the invalid code message
+- [x] Go btn misaligned on create game screen (or maybe text not centered in btn)
+- [x] Go btn on Join Private game is misaligned
 - [ ] error around the time i copied pivate game code -  ERROR  [Error: expo.modules.av.AudioFocusNotAcquiredException: This experience is currently in the background, so audio focus could not be acquired.]
 
 

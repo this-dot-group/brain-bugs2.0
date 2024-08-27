@@ -50,7 +50,7 @@ function StartGame({
       paddingHorizontal: 30,
       position: 'absolute',
       bottom: 20,
-      zIndex: 1
+      zIndex: 1,
     },
   })
 
@@ -173,7 +173,7 @@ function StartGame({
               onPress: () => setRedirect(true)
             }}
           >
-            Go
+            Go!
           </PixelPressable>
         </Hider>
       </View>
