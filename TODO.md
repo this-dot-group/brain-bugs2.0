@@ -1,42 +1,15 @@
 ## TO DO List
 ***************************
 
- # BUG TRACKING
- - keep an eye for repetitive errors, add to bug list below
- - eventually add error catchers in server wherever we notice errors that will somehow just end the game and reset at the beginning
-
 Josh:
-- [x] Chat alert sound
-- [x] Come up with tests to run for chat
-- [x] "Join Existing Game" should be "Join Public Game" or something like that
-- [x] Cursor is not vertically centered in chat compose text box (at least on iPhone)
-- [ ] If one of the players leaves end game, the other play can still access chat and still type out and try to send a message. but the message doesn't actually send. Should the text box input be disabled? Something to indicate you can no longer send a chat / opponent will not receive it
-  - [ ] Tried to reproduce - alert comes up when opponent closes or goes to lobby and chat button dissappears
-    - [x] With chat open - Good
-    - [x] With text in chat - Good
-    - [ ] If app crashes on one end - This is where it fails. We aren't sending something to the server on a general crash
-- [x] Need to update seconds on game play questions
-- [x] We should take the "Quit" button off the countdown screen that you see right before going to a game. Doesn't work and it's too little time to really read it and interact.
-- [x] Stats screen need a spacer of some sort between title and stat (colon, dash, etc
-
-New:
-- [x] Chat modal not covering whole back
-- [ ] Numeric input for private game
-- [ ] Invalid code flashed for private game
 - [ ] Property storage exceeds 196607 properties error ?? No idea ?? Async Storage related?
-
+ - [ ] https://github.com/facebook/hermes/issues/851
+ - [ ] https://github.com/mananbordia/Minimal-Repro-Code-Hermes-useNativeDriver/tree/main
 
 Tia: 
-- [x] No sounds when the app starts (like during create a game), UNTIL you interact with the settings drawer...?
-  - not the issue i thought it was, seems like it just takes a sec for sounds to load so you might not hear them until you've interacted with a couple things. this might not be the case while deployed (my phone sucks). although it appears there's no sound on sim, did josh experience this too?
-- [x] Join private game - when you type the game code in and get to 5 digits, field is disabled and you can no longer edit. What if you typed wrong code?
-   - [x] Test with invalid code as well
-   - [x] Ended up just removing the disabled state for this field, think that's a bit more clear in combination with the invalid code message
-- [x] Go btn misaligned on create game screen (or maybe text not centered in btn)
-- [x] Go btn on Join Private game is misaligned
-- [ ] error around the time i copied pivate game code -  ERROR  [Error: expo.modules.av.AudioFocusNotAcquiredException: This experience is currently in the background, so audio focus could not be acquired.]
-
-
+- [ ] Check to try and repro: Invalid code flashed for private game (even when a valid code is entered, invalid message appears for an instant)
+- [ ] Numeric input for private game (type = number? or other setting on component)
+- [ ] Still seeing this? ERROR  [Error: expo.modules.av.AudioFocusNotAcquiredException: This experience is currently in the background, so audio focus could not be acquired.]
 
   
 
@@ -63,12 +36,6 @@ Resources:
 - https://www.instabug.com/blog/react-native-app-ios-android
 - https://docs.expo.dev/build/setup/
 - https://docs.expo.dev/submit/android/
-
-
-For Future
-- code improvements
-  - destructure props
-
 
 ## Possible bugs
 
