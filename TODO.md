@@ -5,11 +5,13 @@ Josh:
 - [ ] Property storage exceeds 196607 properties error ?? No idea ?? Async Storage related?
  - [ ] https://github.com/facebook/hermes/issues/851
  - [ ] https://github.com/mananbordia/Minimal-Repro-Code-Hermes-useNativeDriver/tree/main
+- [ ] Review deployment steps (our next mtg will most likely to be trying deployment)
 
 Tia: 
 - [ ] Check to try and repro: Invalid code flashed for private game (even when a valid code is entered, invalid message appears for an instant)
 - [ ] Numeric input for private game (type = number? or other setting on component)
 - [ ] Still seeing this? ERROR  [Error: expo.modules.av.AudioFocusNotAcquiredException: This experience is currently in the background, so audio focus could not be acquired.]
+- [ ] Review deployment steps (our next mtg will most likely to be trying deployment)
 
   
 
