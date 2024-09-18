@@ -110,6 +110,7 @@ function PrivateGame({
         placeholder='Enter code'
         onChangeText={setGameCode}
         maxLength={5}
+        inputMode='numeric'
         value={gameCode}
         // disabled={gameCodeState === gameCodeStates.SHOW_GO}
         placeholderTextColor={yellow.hex}
