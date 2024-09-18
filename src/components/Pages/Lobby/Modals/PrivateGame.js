@@ -118,12 +118,10 @@ function PrivateGame({
         containerStyle={styles.inputContainer}
         inputContainerStyle={styles.input}
       />
-  
-      <Hider
-        show={gameCodeState === gameCodeStates.ERROR_CODE}
-      >
-        <Text style={styles.alertText}>Invalid code, please try again!</Text>
-      </Hider>
+
+      {gameCodeState === gameCodeStates.ERROR_CODE && (
+        <Text style={styles.alertText}>HIHI Invalid code, please try again!</Text>
+      )}
 
       <View style={styles.goRow}>
         <Hider
