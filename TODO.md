@@ -8,12 +8,13 @@ Josh:
 - [ ] Review deployment steps (our next mtg will most likely to be trying deployment)
 
 Tia: 
-- [ ] Check to try and repro: Invalid code flashed for private game (even when a valid code is entered, invalid message appears for an instant)
-- [ ] Numeric input for private game (type = number? or other setting on component)
-- [ ] Still seeing this? ERROR  [Error: expo.modules.av.AudioFocusNotAcquiredException: This experience is currently in the background, so audio focus could not be acquired.]
+- [x] Fixed --- Check to try and repro: Invalid code flashed for private game (even when a valid code is entered, invalid message appears for an instant)
+- [x] Fixed, works on android, make sure josh tests on iphone since it wasn't working on sim --- Numeric input for private game (type = number? or other setting on component) 
+- [x] Not seeing this anymore --- Still seeing this? ERROR  [Error: expo.modules.av.AudioFocusNotAcquiredException: This experience is currently in the background, so audio focus could not be acquired.]
 - [ ] Review deployment steps (our next mtg will most likely to be trying deployment)
+- NEW: chat bubbles are showing up all on the same side
+- NEW: android doesn't show red new message icon on chat
 
-  
 
 ## Deploying
 ### Front End
