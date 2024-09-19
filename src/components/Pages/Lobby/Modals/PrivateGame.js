@@ -120,7 +120,7 @@ function PrivateGame({
       />
 
       {gameCodeState === gameCodeStates.ERROR_CODE && (
-        <Text style={styles.alertText}>HIHI Invalid code, please try again!</Text>
+        <Text style={styles.alertText}>Invalid code, please try again!</Text>
       )}
 
       <View style={styles.goRow}>
