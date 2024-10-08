@@ -147,15 +147,20 @@ function Chat({
     const lastMessage = updatedChatObj.messages.at(-1);
     if (lastMessage.userId !== socketId) {
       playSound('positiveTone');
-
     }
+
     setLatestTime(updatedChatObj.latestTime[socketId]);
     setMessages(updatedChatObj.messages);
   }
 
   const sendMessage = () => {
     if(!currMessage) return;
-    socket.emit('messageSend', { gameCode, message: currMessage, ...user });
+    socket.emit('messageSend', {
+      gameCode,
+      message: currMessage,
+      ...user,
+      socket: socketId,
+    });
     setCurrMesssage('');
     textInputRef.current.clear();
     hideKeyboard();
