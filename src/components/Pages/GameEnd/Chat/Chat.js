@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, ScrollView, Modal } from 'react-native';
 import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
+import uuid from 'react-native-uuid';
 import {
   StyledInput,
   KeyboardAvoidingComponent,
@@ -15,13 +16,14 @@ import { darkBackground, blue, yellow, black } from '../../../../styles/colors';
 import CloseModalButton from '../../../Shared/CloseModalButton';
 import { playSound } from '../../../../store/soundsReducer';
 
+const id = uuid.v4();
+
 function Chat({
   socket,
   gameCode,
   user,
   quickHide,
   deviceWidth,
-  socketId,
   playSound
 }) {
   const [messages, setMessages] = useState([]);
@@ -119,7 +121,7 @@ function Chat({
   const textInputRef = useRef();
 
   useEffect(() => {
-    socket.emit('getFirstLatestTime', socketId);
+    socket.emit('getFirstLatestTime', id);
     socket.on('setFirstLatestTime', latestTimeHandler);
     socket.on('newMessage', messageHandler);
 
@@ -133,23 +135,23 @@ function Chat({
     if(quickHide) {
       setShowChat(false)
       setLatestTime(Date.now());
-      socket.emit('setUserLatestTime', socketId);
+      socket.emit('setUserLatestTime', id);
     }
   }, [quickHide])
 
   const latestTimeHandler = latestTimeObj => {
-    if(socketId in latestTimeObj) {
-      setLatestTime(latestTimeObj[socketId]);
+    if(id in latestTimeObj) {
+      setLatestTime(latestTimeObj[id]);
     }
   }
   
   const messageHandler = updatedChatObj => {
     const lastMessage = updatedChatObj.messages.at(-1);
-    if (lastMessage.userId !== socketId) {
+    if (lastMessage.userId !== id) {
       playSound('positiveTone');
     }
 
-    setLatestTime(updatedChatObj.latestTime[socketId]);
+    setLatestTime(updatedChatObj.latestTime[id]);
     setMessages(updatedChatObj.messages);
   }
 
@@ -159,7 +161,7 @@ function Chat({
       gameCode,
       message: currMessage,
       ...user,
-      socket: socketId,
+      socket: id,
     });
     setCurrMesssage('');
     textInputRef.current.clear();
@@ -169,7 +171,7 @@ function Chat({
   const hideModal = () => {
     setShowChat(false);
     setLatestTime(Date.now());
-    socket.emit('setUserLatestTime', socketId);
+    socket.emit('setUserLatestTime', id);
   }
   
   const showModal = () => setShowChat(true);
@@ -230,7 +232,7 @@ function Chat({
                     <Text
                       key={timeStamp}
                       style={
-                        userId === socketId
+                        userId === id
                           ? {...styles.messages}
                           : {...styles.messages, ...styles.opponentMessages}
                       }
@@ -278,8 +280,7 @@ function Chat({
 }
 
 const mapStateToProps = state => ({
-  socket: state.socketReducer,
-  socketId: state.userReducer.socketId,
+  socket: state.socketReducer
 })
 
 export default connect(mapStateToProps, { playSound })(Chat);
