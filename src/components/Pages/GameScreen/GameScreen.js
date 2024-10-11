@@ -140,7 +140,9 @@ function GameScreen(props) {
     }
 
     setSubmitted(i);
-    setWaiting({ boolean: true, name: props.userName });
+    if (props.numPlayers === 2) {
+      setWaiting({ boolean: true, name: props.userName });
+    }
   }
 
   const fakeOpponentSubmit = () => {

@@ -5,6 +5,7 @@ Josh:
 - [ ] Property storage exceeds 196607 properties error ?? No idea ?? Async Storage related?
  - [ ] https://github.com/facebook/hermes/issues/851
  - [ ] https://github.com/mananbordia/Minimal-Repro-Code-Hermes-useNativeDriver/tree/main
+- [x] Waiting for Other player flashes on single game screen
 - [ ] Review deployment steps (our next mtg will most likely to be trying deployment)
 
 Tia: 
