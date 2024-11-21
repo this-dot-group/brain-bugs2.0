@@ -1,7 +1,6 @@
 ## Deploying
 ### Front End
 - Check that android screen orientation lock works via mod (info here: https://stackoverflow.com/questions/60400336/how-can-i-generate-an-androidmanifest-xml-from-an-existing-react-native-project)
-- [x] Need to update the `process.env.EXPO_PUBLIC_API_URL`
 - Create Android build to get AAB file (https://docs.expo.dev/deploy/build-project/#production-builds-using-eas) 
 - Create Google Play developer account ($25)
   - "Create App" in the new account
