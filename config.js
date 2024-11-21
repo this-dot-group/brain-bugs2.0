@@ -1,4 +1,4 @@
-const testMode = true;
+const testMode = false;
 
 import { Dimensions } from 'react-native';
 
