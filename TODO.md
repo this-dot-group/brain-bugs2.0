@@ -1,3 +1,13 @@
+### Attempt with manual prebuild / EAS
+ - ran npx expo prebuild to generate the iOS and android folders, then we used the EAS workflow (eas build:configure and eas build --platform android), got this error on the gradle step: Android resource linking failed     ERROR: /home/expo/workingdir/build/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml:3: AAPT: error: resource color/iconBackground (aka com.brainbugs:color/iconBackground) not found.
+ - issue with sdk version? https://github.com/expo/expo/issues/26739
+### Attempt via EAS deployment
+- eas build:configure
+- eas build --platform android
+- (we thought this would generate the prebuild android folder for us, since we had issues with the prebuild files the first time)
+- Prebuild error TypeError: [android.manifest]: withAndroidManifestBaseMod: nextMod is not a function (does this have to do with the android mods in the app.json?) check the stackoverflow article below
+
+
 ## Deploying
 ### Front End
 - Check that android screen orientation lock works via mod (info here: https://stackoverflow.com/questions/60400336/how-can-i-generate-an-androidmanifest-xml-from-an-existing-react-native-project)
